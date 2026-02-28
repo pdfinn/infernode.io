@@ -1,0 +1,261 @@
+---
+---
+
+<section id="distributed" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
+        Distributed by Design
+      </p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        Code moves. Apps stretch. Nothing restarts.
+      </h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">
+        In InferNode, software isn&rsquo;t installed&mdash;it&rsquo;s mounted. Applications
+        don&rsquo;t run &ldquo;on a machine&rdquo;&mdash;they run across your namespace. These
+        aren&rsquo;t abstractions. This is how the OS works.
+      </p>
+    </div>
+
+    <!-- Diagram 1: Hot-loading modules -->
+    <div class="mb-20">
+      <h3 class="mb-8 text-center text-xl font-semibold">
+        Hot-load code over the network
+      </h3>
+
+      <div class="mx-auto max-w-3xl">
+        <svg viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+          <!-- Dev machine -->
+          <g>
+            <rect x="20" y="80" rx="12" width="200" height="140" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
+            <text x="120" y="112" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">Dev Laptop</text>
+            <!-- Module file -->
+            <rect x="48" y="130" rx="6" width="144" height="36" class="fill-bg stroke-node-laptop/30" stroke-width="1" />
+            <text x="120" y="152" text-anchor="middle" class="fill-node-laptop text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
+            <text x="120" y="194" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">Write once</text>
+            <circle cx="28" cy="88" r="4" class="fill-node-laptop">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- Arrow 1: to edge device -->
+          <g>
+            <line x1="220" y1="148" x2="310" y2="108" class="stroke-accent/50" stroke-width="1.5">
+              <animate attributeName="stroke-dashoffset" values="20;0" dur="1.5s" repeatCount="indefinite" />
+            </line>
+            <line x1="220" y1="148" x2="310" y2="108" class="stroke-accent/30" stroke-width="1.5" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="8;0" dur="1.5s" repeatCount="indefinite" />
+            </line>
+            <!-- Module packet -->
+            <circle r="5" class="fill-accent">
+              <animateMotion dur="2s" repeatCount="indefinite" path="M220,148 L310,108" />
+            </circle>
+          </g>
+
+          <!-- Arrow 2: to second device -->
+          <g>
+            <line x1="220" y1="152" x2="310" y2="208" class="stroke-accent/50" stroke-width="1.5">
+              <animate attributeName="stroke-dashoffset" values="20;0" dur="1.8s" repeatCount="indefinite" />
+            </line>
+            <line x1="220" y1="152" x2="310" y2="208" class="stroke-accent/30" stroke-width="1.5" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="8;0" dur="1.8s" repeatCount="indefinite" />
+            </line>
+            <circle r="5" class="fill-accent">
+              <animateMotion dur="2.3s" repeatCount="indefinite" path="M220,152 L310,208" />
+            </circle>
+          </g>
+
+          <!-- Edge device 1: Jetson -->
+          <g>
+            <rect x="310" y="50" rx="12" width="200" height="110" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
+            <text x="410" y="80" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">Jetson (edge)</text>
+            <rect x="338" y="96" rx="6" width="144" height="36" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
+            <text x="410" y="112" text-anchor="middle" class="fill-node-jetson text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
+            <text x="410" y="126" text-anchor="middle" class="fill-accent text-[9px]" font-family="var(--font-family-mono)">loaded &amp; running</text>
+            <circle cx="318" cy="58" r="4" class="fill-node-jetson">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- Edge device 2: RPi -->
+          <g>
+            <rect x="310" y="175" rx="12" width="200" height="110" class="fill-bg-surface stroke-node-rpi/50" stroke-width="1.5" />
+            <text x="410" y="205" text-anchor="middle" class="fill-node-rpi text-xs font-medium" font-family="var(--font-family-mono)">Raspberry Pi</text>
+            <rect x="338" y="218" rx="6" width="144" height="36" class="fill-bg stroke-node-rpi/30" stroke-width="1" />
+            <text x="410" y="234" text-anchor="middle" class="fill-node-rpi text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
+            <text x="410" y="248" text-anchor="middle" class="fill-accent text-[9px]" font-family="var(--font-family-mono)">loaded &amp; running</text>
+            <circle cx="318" cy="183" r="4" class="fill-node-rpi">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- Result text -->
+          <g>
+            <rect x="560" y="80" rx="12" width="220" height="140" class="fill-bg-surface stroke-border" stroke-width="1" />
+            <text x="670" y="112" text-anchor="middle" class="fill-text text-[11px] font-medium" font-family="var(--font-family-sans)">What just happened:</text>
+            <text x="670" y="138" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">New code deployed to</text>
+            <text x="670" y="154" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">every device on the network.</text>
+            <text x="670" y="178" text-anchor="middle" class="fill-accent text-[10px] font-medium" font-family="var(--font-family-sans)">No restart. No container rebuild.</text>
+            <text x="670" y="198" text-anchor="middle" class="fill-accent text-[10px] font-medium" font-family="var(--font-family-sans)">No deployment pipeline.</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Terminal example -->
+      <div class="mx-auto mt-6 max-w-2xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+        <div class="flex items-center gap-2 border-b border-border px-4 py-2">
+          <div class="h-2.5 w-2.5 rounded-full bg-node-rpi/60"></div>
+          <div class="h-2.5 w-2.5 rounded-full bg-node-llm/60"></div>
+          <div class="h-2.5 w-2.5 rounded-full bg-node-jetson/60"></div>
+          <span class="ml-2 text-xs text-text-muted">hot-load a module from the network</span>
+        </div>
+        <div class="p-4 space-y-1">
+          <div><span class="text-accent">;</span><span class="text-text"> bind /n/devbox/dis/sensor-filter.dis /dis/sensor-filter.dis</span></div>
+          <div><span class="text-text-muted"># That's it. The module is now available locally.</span></div>
+          <div><span class="text-text-muted"># It was fetched over the network, on demand.</span></div>
+          <div><span class="text-text-muted"># Update the source? Every device gets the new version next load.</span></div>
+        </div>
+      </div>
+
+      <!-- Practical examples -->
+      <div class="mx-auto mt-6 grid max-w-2xl gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
+          <p class="mb-1 text-xs font-medium text-accent">For developers</p>
+          <p class="text-xs leading-relaxed text-text-muted">
+            Write a Limbo module on your laptop. Every device on your network can load and run
+            it immediately&mdash;no recompile, no redeploy, no container push. Update it once,
+            and every device picks up the change on next load.
+          </p>
+        </div>
+        <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
+          <p class="mb-1 text-xs font-medium text-accent">In practice</p>
+          <p class="text-xs leading-relaxed text-text-muted">
+            Push a new ML preprocessing filter to a fleet of edge sensors. Roll out a security
+            patch to every node in your mesh. Add a capability to an AI agent across all devices.
+            All without downtime.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="mx-auto mb-20 h-px w-32 bg-border"></div>
+
+    <!-- Diagram 2: Remote execution, local display -->
+    <div>
+      <h3 class="mb-8 text-center text-xl font-semibold">
+        Run there. See here.
+      </h3>
+
+      <div class="mx-auto max-w-3xl">
+        <svg viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+
+          <!-- GPU Server -->
+          <g>
+            <rect x="20" y="60" rx="12" width="240" height="160" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
+            <text x="140" y="90" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">GPU Server (remote)</text>
+
+            <!-- Running processes -->
+            <rect x="44" y="108" rx="4" width="90" height="24" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
+            <text x="89" y="124" text-anchor="middle" class="fill-node-jetson text-[9px]" font-family="var(--font-family-mono)">LLM inference</text>
+
+            <rect x="144" y="108" rx="4" width="90" height="24" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
+            <text x="189" y="124" text-anchor="middle" class="fill-node-jetson text-[9px]" font-family="var(--font-family-mono)">data analysis</text>
+
+            <rect x="44" y="142" rx="4" width="90" height="24" class="fill-bg stroke-node-llm/30" stroke-width="1" />
+            <text x="89" y="158" text-anchor="middle" class="fill-node-llm text-[9px]" font-family="var(--font-family-mono)">model training</text>
+
+            <text x="140" y="194" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">Heavy compute runs here</text>
+
+            <circle cx="28" cy="68" r="4" class="fill-node-jetson">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- Bidirectional arrows -->
+          <g>
+            <!-- Forward: commands/input -->
+            <line x1="260" y1="125" x2="380" y2="105" class="stroke-node-laptop/40" stroke-width="1.5" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="0;-8" dur="1s" repeatCount="indefinite" />
+            </line>
+            <text x="320" y="98" text-anchor="middle" class="fill-text-muted text-[8px]" font-family="var(--font-family-mono)">input / commands</text>
+
+            <!-- Back: display/results -->
+            <line x1="380" y1="145" x2="260" y2="165" class="stroke-accent/40" stroke-width="1.5" stroke-dasharray="4 4">
+              <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" />
+            </line>
+            <text x="320" y="180" text-anchor="middle" class="fill-text-muted text-[8px]" font-family="var(--font-family-mono)">display / results</text>
+
+            <!-- Data packets moving -->
+            <circle r="4" class="fill-node-laptop/70">
+              <animateMotion dur="1.5s" repeatCount="indefinite" path="M380,105 L260,125" />
+            </circle>
+            <circle r="4" class="fill-accent/70">
+              <animateMotion dur="1.5s" repeatCount="indefinite" path="M260,165 L380,145" />
+            </circle>
+          </g>
+
+          <!-- Your laptop -->
+          <g>
+            <rect x="380" y="60" rx="12" width="240" height="160" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
+            <text x="500" y="90" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">Your Laptop (local)</text>
+
+            <!-- Display mock -->
+            <rect x="410" y="108" rx="6" width="180" height="72" class="fill-bg stroke-node-laptop/30" stroke-width="1" />
+            <text x="500" y="134" text-anchor="middle" class="fill-text text-[10px]" font-family="var(--font-family-sans)">You see and interact with</text>
+            <text x="500" y="150" text-anchor="middle" class="fill-text text-[10px]" font-family="var(--font-family-sans)">the app as if it were local.</text>
+            <text x="500" y="170" text-anchor="middle" class="fill-accent text-[9px] font-medium" font-family="var(--font-family-mono)">It isn't.</text>
+
+            <text x="500" y="204" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">You interact here</text>
+
+            <circle cx="388" cy="68" r="4" class="fill-node-laptop">
+              <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          <!-- 9P label -->
+          <rect x="660" y="110" rx="8" width="120" height="60" class="fill-bg-surface stroke-border" stroke-width="1" />
+          <text x="720" y="135" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">Connected via</text>
+          <text x="720" y="155" text-anchor="middle" class="fill-accent text-xs font-medium" font-family="var(--font-family-mono)">9P protocol</text>
+        </svg>
+      </div>
+
+      <!-- Terminal example -->
+      <div class="mx-auto mt-6 max-w-2xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+        <div class="flex items-center gap-2 border-b border-border px-4 py-2">
+          <div class="h-2.5 w-2.5 rounded-full bg-node-rpi/60"></div>
+          <div class="h-2.5 w-2.5 rounded-full bg-node-llm/60"></div>
+          <div class="h-2.5 w-2.5 rounded-full bg-node-jetson/60"></div>
+          <span class="ml-2 text-xs text-text-muted">run an app on the GPU server, display on your laptop</span>
+        </div>
+        <div class="p-4 space-y-1">
+          <div><span class="text-accent">;</span><span class="text-text"> import tcp!gpuserver!9999 /n/remote</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> mount /n/remote /mnt/compute</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> /mnt/compute/bin/analyse -data /n/local/dataset.csv</span></div>
+          <div><span class="text-text-muted"># Runs on the GPU server. Results display on your screen.</span></div>
+          <div><span class="text-text-muted"># To you, it looks like a local app. The network is invisible.</span></div>
+        </div>
+      </div>
+
+      <!-- Practical examples -->
+      <div class="mx-auto mt-6 grid max-w-2xl gap-4 sm:grid-cols-2">
+        <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
+          <p class="mb-1 text-xs font-medium text-accent">For developers</p>
+          <p class="text-xs leading-relaxed text-text-muted">
+            Applications export their interfaces as files over 9P. Mount a remote app&rsquo;s
+            namespace locally and interact with it as if it were running on your machine.
+            The network boundary disappears at the OS level.
+          </p>
+        </div>
+        <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
+          <p class="mb-1 text-xs font-medium text-accent">In practice</p>
+          <p class="text-xs leading-relaxed text-text-muted">
+            Run LLM inference on a GPU server in the closet, interact from your laptop. Analyse
+            a dataset on a powerful remote machine, see results on a tablet in the field.
+            One namespace. The hardware is irrelevant.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
