@@ -1,0 +1,191 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="The InferNode Manifesto" description="We were never meant to work like this. The desktop paradigm has failed the human-AI team.">
+  <Nav />
+  <main class="px-6 pt-32 pb-24">
+    <article class="mx-auto max-w-3xl">
+      <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">Manifesto</p>
+
+      <h1 class="mb-12 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+        We Were Never Meant<br />to Work Like This
+      </h1>
+
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+
+        <p>
+          The desktop operating system was designed in 1984 for a single human sitting in front
+          of a single screen, opening one application at a time. Forty years later, we are still
+          trapped inside that box.
+        </p>
+
+        <p>
+          We tile windows. We alt-tab between silos. We copy and paste across boundaries that
+          should not exist. Every application is a walled garden. Every workflow is a forced march
+          through someone else's interface. The desktop was built for isolation, and isolation is
+          exactly what it delivers.
+        </p>
+
+        <p>
+          Now we are told that artificial intelligence will transform how we work. But look at
+          what we have actually built: chatbots bolted onto browsers. Copilots imprisoned in
+          sidebars. Agents that can see one application at a time, through a keyhole, while the
+          human does the real work of stitching context together.
+        </p>
+
+        <p class="text-text text-xl font-medium">
+          This is not transformation. This is theatre.
+        </p>
+
+        <p>
+          The productivity gains have not arrived&mdash;not because AI is inadequate, but because
+          we are forcing it to perform inside an architecture that was never designed for
+          collaboration. The desktop paradigm does not merely constrain AI. It constrains us.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">The Box Must Break</h2>
+
+        <p>
+          The fundamental unit of modern work is not the application. It is the
+          <strong class="text-text">human-AI team</strong>.
+        </p>
+
+        <p>
+          A team does not operate through menus and modal dialogs. A team shares context. A team
+          composes capabilities on the fly. A team moves fluidly between data sources, tools, and
+          decisions without asking permission from an app store or a platform vendor.
+        </p>
+
+        <p>
+          The desktop cannot give us this. It was not built for it. No amount of plugins,
+          extensions, or API wrappers will change what it is: a forty-year-old metaphor optimised
+          for filing cabinets and typewriters, dressed up in flat design.
+        </p>
+
+        <p>
+          We do not need another integration layer. We need liberation.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">Inferno: Computing Without Walls</h2>
+
+        <p>
+          Inferno was born from Bell Labs&mdash;the same lineage that gave us Unix, C, and the
+          foundations of modern computing. But where the industry chose the desktop, Inferno chose
+          a different path: everything is a file, and every file is accessible across the network.
+        </p>
+
+        <p>
+          In Inferno, there are no applications. There are capabilities&mdash;resources presented
+          as files in a namespace that any process, on any device, can compose and use. A sensor
+          feed, a language model, a database, a drone controller: all appear as files. All are
+          composable. All are distributed by design.
+        </p>
+
+        <p class="text-text">
+          This is not a new idea. It is an idea whose time has finally come.
+        </p>
+
+        <p>
+          The 9P protocol&mdash;Inferno's native language&mdash;lets resources flow across
+          networks with radical simplicity. No REST APIs. No OAuth handshakes. No middleware. No
+          cloud dependency. Just files, namespaces, and the freedom to compose them as the mission
+          demands.
+        </p>
+
+        <p>
+          Where the desktop forces you into sequential, modal interaction&mdash;one app, one task,
+          one context&mdash;Inferno dissolves those boundaries entirely. The human and the AI agent
+          inhabit the same namespace. They see the same resources. They act on the same data. There
+          is no sidebar. There is no plugin. There is only the shared space of work itself.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">Veltro: The Unchained Agent</h2>
+
+        <p>
+          This is why we built Veltro.
+        </p>
+
+        <p>
+          Veltro is an AI agent that does not live inside an application. It lives inside a
+          namespace&mdash;your namespace&mdash;alongside your data, your tools, your sensors, and
+          your decisions. It does not ask for API access. It does not require a platform
+          subscription. It composes capabilities from whatever resources are present, wherever they
+          are: on your device, on the edge, across your network.
+        </p>
+
+        <p>
+          Veltro does not puppet you through a workflow designed by a product manager in
+          California. It works with you, at the speed of thought, toward the outcome that matters.
+        </p>
+
+        <p class="text-text">
+          This is what human-AI teaming actually looks like when you remove the box.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">The Future Is Not Apps</h2>
+
+        <p>
+          The application era is ending. Not because applications are bad, but because they encode
+          the wrong abstraction. An app assumes a single user, a single device, a predetermined
+          workflow. The world we are building assumes none of these things.
+        </p>
+
+        <p>
+          The future belongs to capabilities and skills&mdash;composable, distributed,
+          trustworthy. Data sources that are accessible without gatekeepers. AI agents that are
+          peers, not plugins. Edge computing that is affordable and sovereign, not rented from a
+          hyperscaler on someone else's terms.
+        </p>
+
+        <p>
+          Inferno makes this possible. Not as a prototype. Not as a research curiosity. As a
+          production system with a thirty-year pedigree, proven at the scale of telecommunications
+          networks that serve billions.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">A Declaration</h2>
+
+        <div class="space-y-4 border-l-2 border-accent/40 pl-6 text-text">
+          <p>We declare that the desktop paradigm has failed the human-AI team.</p>
+          <p>We declare that modal, application-centric computing is a constraint, not a feature.</p>
+          <p>
+            We declare that true productivity gains require architectural freedom&mdash;not better
+            integrations, not smarter wrappers, not another layer of abstraction on top of a broken
+            foundation.
+          </p>
+          <p>
+            We declare that the human and the AI deserve to work in a shared space, with shared
+            context, toward shared outcomes.
+          </p>
+          <p>
+            We declare that computing should be distributed, composable, and sovereign by default.
+          </p>
+          <p>We declare that it is time to leave the box.</p>
+        </div>
+
+        <p class="pt-8 text-xl font-medium text-text">
+          Inferno lights the way. Veltro runs free.
+        </p>
+
+        <div class="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="/#quickstart"
+            class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+          >
+            Get Started
+          </a>
+          <a
+            href="/"
+            class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+          >
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Base>
