@@ -1,0 +1,64 @@
+---
+const useCases = [
+  {
+    persona: 'Agent Builders',
+    headline: 'Stop worrying about what your agent can access.',
+    description:
+      'Building autonomous agents is terrifying when they share your OS. InferNode gives each agent an isolated namespace with only the tools and data you grant. The agent literally cannot see anything else.',
+    tags: ['namespace isolation', 'capability-based security', 'sub-agent spawning'],
+  },
+  {
+    persona: 'Edge & Embedded',
+    headline: '15 MB. A $35 board. Real AI.',
+    description:
+      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device. With JIT compilation, it\'s fast too.',
+    tags: ['15 MB RAM', '2s startup', 'ARM64 native', 'JIT compiler'],
+  },
+  {
+    persona: 'Privacy & Compliance',
+    headline: 'Use AI without sending your data somewhere else.',
+    description:
+      'Your legal team banned ChatGPT. Your compliance officer is nervous about agents. InferNode runs on your hardware with local LLMs. Formally verified isolation means you can prove containment to auditors, not just promise it.',
+    tags: ['local LLMs', 'formal verification', 'air-gapped capable', 'HIPAA / ITAR ready'],
+  },
+  {
+    persona: 'Distributed Systems',
+    headline: 'Your devices, working as one.',
+    description:
+      'Mount a GPU from across the room or across the country. InferNode\'s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014no cloud middleware required.',
+    tags: ['9P protocol', 'peer-to-peer', 'cloud optional', 'zero middleware'],
+  },
+];
+---
+
+<section id="use-cases" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Use Cases</p>
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
+        Built for people hitting walls.
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        useCases.map((uc) => (
+          <div class="rounded-xl border border-border bg-bg-surface p-8 transition hover:border-accent/30">
+            <p class="mb-2 text-xs font-medium tracking-widest uppercase text-accent">
+              {uc.persona}
+            </p>
+            <h3 class="mb-3 text-xl font-semibold">{uc.headline}</h3>
+            <p class="mb-5 text-sm leading-relaxed text-text-muted">{uc.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {uc.tags.map((tag) => (
+                <span class="rounded-full border border-border px-3 py-1 text-xs text-text-muted">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

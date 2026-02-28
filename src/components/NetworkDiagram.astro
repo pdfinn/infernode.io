@@ -1,0 +1,136 @@
+---
+---
+
+<section id="how-it-works" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
+        The Computer Is the Network
+      </p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        Your devices. One namespace. No cloud required.
+      </h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">
+        Every resource&mdash;a GPU, a sensor, an LLM, a database&mdash;appears as a file. Mount
+        it from anywhere. Your AI agent sees a single, seamless workspace.
+      </p>
+    </div>
+
+    <!-- Diagram -->
+    <div class="mx-auto max-w-3xl">
+      <svg viewBox="0 0 800 520" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+        <!-- Connection lines (drawn first, behind nodes) -->
+        <!-- Laptop to Veltro -->
+        <line x1="200" y1="140" x2="400" y2="280" class="stroke-node-laptop/30" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" />
+        </line>
+        <!-- Jetson to Veltro -->
+        <line x1="600" y1="140" x2="400" y2="280" class="stroke-node-jetson/30" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3.5s" repeatCount="indefinite" />
+        </line>
+        <!-- RPi to Veltro -->
+        <line x1="660" y1="420" x2="400" y2="280" class="stroke-node-rpi/30" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="2.8s" repeatCount="indefinite" />
+        </line>
+        <!-- Cloud to Veltro -->
+        <line x1="400" y1="60" x2="400" y2="280" class="stroke-node-cloud/30" stroke-width="1.5" stroke-dasharray="6 4">
+          <animate attributeName="stroke-opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite" />
+        </line>
+        <!-- LLM to Veltro -->
+        <line x1="140" y1="420" x2="400" y2="280" class="stroke-node-llm/30" stroke-width="1.5">
+          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3.2s" repeatCount="indefinite" />
+        </line>
+
+        <!-- Cloud node (dashed border = optional) -->
+        <g>
+          <rect x="310" y="20" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-cloud/40" stroke-width="1.5" stroke-dasharray="5 3" />
+          <text x="400" y="44" text-anchor="middle" class="fill-node-cloud text-xs font-medium" font-family="var(--font-family-mono)">Cloud GPU</text>
+          <text x="400" y="62" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/compute</text>
+          <text x="498" y="44" text-anchor="start" class="fill-text-muted text-[10px] italic" font-family="var(--font-family-sans)">optional</text>
+        </g>
+
+        <!-- Laptop node -->
+        <g>
+          <rect x="110" y="110" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
+          <text x="200" y="134" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">Laptop</text>
+          <text x="200" y="152" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/docs  /n/code</text>
+          <!-- Pulse -->
+          <circle cx="118" cy="118" r="4" class="fill-node-laptop">
+            <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+          </circle>
+        </g>
+
+        <!-- Jetson node -->
+        <g>
+          <rect x="510" y="110" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
+          <text x="600" y="134" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">Jetson</text>
+          <text x="600" y="152" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/gpu  /n/inference</text>
+          <circle cx="518" cy="118" r="4" class="fill-node-jetson">
+            <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
+          </circle>
+        </g>
+
+        <!-- Veltro (center) -->
+        <g>
+          <rect x="300" y="248" rx="16" width="200" height="64" class="fill-bg-surface stroke-accent/60" stroke-width="2" />
+          <text x="400" y="274" text-anchor="middle" class="fill-accent text-sm font-semibold" font-family="var(--font-family-sans)">Veltro</text>
+          <text x="400" y="296" text-anchor="middle" class="fill-text-muted text-xs" font-family="var(--font-family-sans)">AI Agent</text>
+          <!-- Glow -->
+          <rect x="300" y="248" rx="16" width="200" height="64" fill="none" class="stroke-accent/20" stroke-width="6">
+            <animate attributeName="stroke-opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite" />
+          </rect>
+        </g>
+
+        <!-- Local LLM node -->
+        <g>
+          <rect x="50" y="390" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-llm/50" stroke-width="1.5" />
+          <text x="140" y="414" text-anchor="middle" class="fill-node-llm text-xs font-medium" font-family="var(--font-family-mono)">Local LLM</text>
+          <text x="140" y="432" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/llm</text>
+          <circle cx="58" cy="398" r="4" class="fill-node-llm">
+            <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite" />
+          </circle>
+        </g>
+
+        <!-- Raspberry Pi node -->
+        <g>
+          <rect x="570" y="390" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-rpi/50" stroke-width="1.5" />
+          <text x="660" y="414" text-anchor="middle" class="fill-node-rpi text-xs font-medium" font-family="var(--font-family-mono)">Raspberry Pi</text>
+          <text x="660" y="432" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/sensors</text>
+          <circle cx="578" cy="398" r="4" class="fill-node-rpi">
+            <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
+          </circle>
+        </g>
+
+        <!-- Caption -->
+        <text x="400" y="500" text-anchor="middle" class="fill-text-muted text-xs" font-family="var(--font-family-sans)">
+          All peers. No center. You choose what connects.
+        </text>
+      </svg>
+    </div>
+
+    <!-- Explanation row -->
+    <div class="mt-12 grid gap-8 sm:grid-cols-3">
+      <div class="rounded-xl border border-border bg-bg-surface p-6">
+        <h3 class="mb-2 font-semibold">Mount anything</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          A GPU cluster, a local LLM, a sensor feed, a cloud API&mdash;all appear as files.
+          One command: <code class="text-accent font-mono text-xs">mount&nbsp;tcp!host!port&nbsp;/n/resource</code>
+        </p>
+      </div>
+      <div class="rounded-xl border border-border bg-bg-surface p-6">
+        <h3 class="mb-2 font-semibold">Agents see files, not APIs</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          Your AI agent reads and writes files. It doesn't need SDKs, API keys, or OAuth
+          tokens. If a resource is mounted, the agent can use it.
+        </p>
+      </div>
+      <div class="rounded-xl border border-border bg-bg-surface p-6">
+        <h3 class="mb-2 font-semibold">Cloud is a peer, not a master</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          Connect to cloud services when you want. Disconnect when you don't. Your namespace
+          works either way. No dependency. No lock-in.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

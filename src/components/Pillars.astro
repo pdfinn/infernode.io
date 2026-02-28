@@ -1,0 +1,47 @@
+---
+const pillars = [
+  {
+    title: 'Sovereign',
+    description:
+      'You choose where your data lives and where your compute runs. Cloud, edge, local, or all three at once. No vendor decides for you.',
+    icon: '&#9670;', // diamond
+  },
+  {
+    title: 'Secure',
+    description:
+      'Each AI agent runs in its own isolated world. It can only see what you explicitly grant. This is not a policy layer\u2014it is how the operating system works, and it has been formally verified.',
+    icon: '&#9724;', // filled square
+  },
+  {
+    title: 'Composable',
+    description:
+      'Every resource\u2014a GPU, an LLM, a database, a sensor\u2014appears as a file. Plug anything into anything, across any device, with a single command.',
+    icon: '&#9674;', // lozenge
+  },
+  {
+    title: 'Open',
+    description:
+      'MIT licensed. Read the source, modify it, deploy it, sell it. No contributor license agreements. No license rug-pulls. No strings.',
+    icon: '&#9675;', // circle
+  },
+];
+---
+
+<section class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        pillars.map((pillar) => (
+          <div class="group rounded-xl border border-border bg-bg-surface p-6 transition hover:border-accent/40 hover:bg-bg-surface-hover">
+            <div
+              class="mb-4 text-2xl text-accent transition group-hover:text-accent-glow"
+              set:html={pillar.icon}
+            />
+            <h3 class="mb-2 text-lg font-semibold">{pillar.title}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{pillar.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
