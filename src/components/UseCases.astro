@@ -8,24 +8,38 @@ const useCases = [
     tags: ['namespace isolation', 'capability-based security', 'sub-agent spawning'],
   },
   {
+    persona: 'Industrial & Critical Infrastructure',
+    headline: 'Formally verified. Not just tested.',
+    description:
+      'Factory floors, energy grids, water systems\u2014environments where a misbehaving AI agent isn\u2019t an inconvenience, it\u2019s a safety incident. InferNode\u2019s isolation model is proven with TLA+, SPIN, and CBMC. Show your auditors the math, not a promise.',
+    tags: ['formal verification', 'OT-ready', 'safety-critical', 'IEC 62443 aligned'],
+  },
+  {
     persona: 'Edge & Embedded',
     headline: '15 MB. A $35 board. Real AI.',
     description:
-      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device. With JIT compilation, it\'s fast too.',
+      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device. With JIT compilation, it\u2019s fast too.',
     tags: ['15 MB RAM', '2s startup', 'ARM64 native', 'JIT compiler'],
   },
   {
     persona: 'Privacy & Compliance',
     headline: 'Use AI without sending your data somewhere else.',
     description:
-      'Your legal team banned ChatGPT. Your compliance officer is nervous about agents. InferNode runs on your hardware with local LLMs. Formally verified isolation means you can prove containment to auditors, not just promise it.',
-    tags: ['local LLMs', 'formal verification', 'air-gapped capable', 'HIPAA / ITAR ready'],
+      'Your legal team banned ChatGPT. Your compliance officer is nervous about agents. InferNode runs on your hardware with local LLMs. Formally verified isolation means you can prove containment to regulators, not just promise it.',
+    tags: ['local LLMs', 'formal verification', 'air-gapped capable', 'regulatory ready'],
+  },
+  {
+    persona: 'Mission-Critical Operations',
+    headline: 'Works where the cloud doesn\u2019t.',
+    description:
+      'Disconnected environments, austere conditions, contested networks\u2014places where cloud APIs are a liability, not a luxury. InferNode runs entirely on local hardware, meshes devices peer-to-peer, and keeps working when the uplink goes down.',
+    tags: ['air-gapped', 'peer-to-peer mesh', 'edge-native', 'zero cloud dependency'],
   },
   {
     persona: 'Distributed Systems',
     headline: 'Your devices, working as one.',
     description:
-      'Mount a GPU from across the room or across the country. InferNode\'s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014no cloud middleware required.',
+      'Mount a GPU from across the room or across the country. InferNode\u2019s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014no cloud middleware required.',
     tags: ['9P protocol', 'peer-to-peer', 'cloud optional', 'zero middleware'],
   },
 ];
@@ -40,7 +54,7 @@ const useCases = [
       </h2>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
         useCases.map((uc) => (
           <div class="rounded-xl border border-border bg-bg-surface p-8 transition hover:border-accent/30">
