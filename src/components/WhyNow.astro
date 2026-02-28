@@ -1,0 +1,63 @@
+---
+---
+
+<section class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Why Now</p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        Three trends are converging.
+      </h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">
+        InferNode exists at the intersection of shifts that are making
+        distributed, sovereign AI not just possible&mdash;but inevitable.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+
+      <!-- Trend 1: Agentic AI -->
+      <div class="rounded-xl border border-border bg-bg-surface p-8">
+        <h3 class="mb-3 text-lg font-semibold">Agents need a runtime.</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          Every major platform is racing to build multi-agent systems&mdash;LangGraph, CrewAI,
+          OpenAI Agents, AWS Strands. But they all assume cloud-only or single-node execution.
+          Nobody has solved distributed agent orchestration on heterogeneous hardware.
+          That&rsquo;s the gap InferNode fills.
+        </p>
+      </div>
+
+      <!-- Trend 2: Local inference -->
+      <div class="rounded-xl border border-border bg-bg-surface p-8">
+        <h3 class="mb-3 text-lg font-semibold">Local inference just got real.</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          Small language models can now handle the majority of real-world queries on local
+          hardware. Efficiency is improving at a staggering rate. The assumption that useful
+          AI requires a cloud API is no longer true&mdash;and the economics are flipping fast.
+        </p>
+      </div>
+
+      <!-- Trend 3: Provable security -->
+      <div class="rounded-xl border border-border bg-bg-surface p-8">
+        <h3 class="mb-3 text-lg font-semibold">Trust needs proof.</h3>
+        <p class="text-sm leading-relaxed text-text-muted">
+          As AI agents gain autonomy, &ldquo;we tested it&rdquo; is no longer enough. Regulated
+          industries&mdash;finance, healthcare, energy, critical infrastructure&mdash;increasingly
+          require formal verification. InferNode&rsquo;s isolation model is proven
+          with TLA+, SPIN, and CBMC. The math exists. Ask for it.
+        </p>
+      </div>
+    </div>
+
+    <!-- Honest footnote about resource usage -->
+    <div class="mt-8 rounded-lg border border-border/50 bg-bg-surface/50 px-6 py-4">
+      <p class="text-xs leading-relaxed text-text-muted">
+        <strong class="text-text">A note on footprint:</strong> InferNode&rsquo;s base
+        runtime starts at ~15 MB RAM with a 2-second cold start. Real-world workloads&mdash;multiple
+        agents, graphics, large models&mdash;will use more, as with any system. The point
+        isn&rsquo;t that it stays at 15 MB. It&rsquo;s that it <em>starts</em> there, so it
+        can run on hardware where heavier runtimes can&rsquo;t even boot.
+      </p>
+    </div>
+  </div>
+</section>
