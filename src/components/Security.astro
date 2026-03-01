@@ -1,13 +1,13 @@
 ---
 ---
 
-<section class="px-6 py-24 lg:py-32">
+<section id="security" class="px-6 py-24 lg:py-32">
   <div class="mx-auto max-w-5xl">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <!-- Left: explanation -->
       <div>
         <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
-          Security by Architecture
+          Capability-Based Security
         </p>
         <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
           If you didn't grant it,<br />it doesn't exist.
@@ -15,18 +15,26 @@
         <div class="space-y-4 text-text-muted">
           <p>
             Most systems bolt security on top: sandboxes, policies, permission dialogs. An
-            agent runs inside your OS and you <em>hope</em> the guardrails hold.
+            agent runs inside your OS and you <em>hope</em> the guardrails hold. A prompt
+            injection attack, a confused deputy, a privilege escalation&mdash;and the cage
+            opens.
           </p>
           <p>
             InferNode works differently. Each agent gets its own namespace&mdash;a view of the
             world constructed from only the resources you explicitly mount. Try to access
             something you weren't given? It doesn't error. It simply
-            <strong class="text-text">does not exist</strong>.
+            <strong class="text-text">does not exist</strong>. There is no attack surface
+            because there is no surface.
           </p>
           <p>
             This isn't a claim. The isolation model has been
             <strong class="text-text">formally verified</strong> using TLA+, SPIN, and CBMC.
-            Mathematical proof, not just testing.
+            Mathematical proof, not just testing. Show your auditors the math.
+          </p>
+          <p>
+            Because agents are provably contained, you can give them
+            <strong class="text-text">more freedom</strong>&mdash;more tools, more data, more
+            autonomy&mdash;without more risk. Safe agents are productive agents.
           </p>
         </div>
       </div>
@@ -75,6 +83,19 @@
           <div>
             <span class="text-text-muted italic">
               &nbsp;&nbsp;# nothing. they don't exist in this namespace.
+            </span>
+          </div>
+          <div class="mt-4">
+            <span class="text-accent">;</span>
+            <span class="text-text-muted"> # Prompt injection tried to read SSH keys?</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> cat /home/.ssh/id_rsa</span>
+          </div>
+          <div>
+            <span class="text-text-muted italic">
+              &nbsp;&nbsp;# nothing to cat. the path doesn't exist.
             </span>
           </div>
         </div>
