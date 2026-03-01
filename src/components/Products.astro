@@ -6,17 +6,50 @@
     <div class="mb-16 text-center">
       <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">The System</p>
       <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-        One OS. Three ways in.
+        One secure OS. Use it your way.
       </h2>
       <p class="mx-auto max-w-2xl text-lg text-text-muted">
-        InferNode is the foundation. On top of it, choose the interface that
-        fits how you work&mdash;from voice-first AI collaboration to a
-        developer power tool.
+        InferNode is the foundation&mdash;provably isolated namespaces for every agent,
+        on any hardware. On top of it, choose the interface that fits how you work. Or
+        use no interface at all.
       </p>
     </div>
 
     <!-- Product cards -->
     <div class="grid gap-8 lg:grid-cols-3">
+
+      <!-- Veltro -->
+      <div class="group relative overflow-hidden rounded-xl border border-border bg-bg-surface p-8 transition hover:border-accent/50">
+        <div class="absolute top-0 right-0 h-32 w-32 bg-[radial-gradient(circle_at_top_right,_rgba(224,96,48,0.1)_0%,_transparent_70%)]"></div>
+        <div class="relative">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+              <span class="text-lg text-accent">&#9654;</span>
+            </div>
+            <h3 class="text-xl font-semibold">Veltro</h3>
+          </div>
+          <p class="mb-2 text-sm font-medium text-accent">The autonomous agent</p>
+          <p class="mb-6 text-sm leading-relaxed text-text-muted">
+            Veltro is an AI agent that lives in a namespace, not inside an application.
+            It reads files, invokes tools, queries LLMs, and spawns sub-agents&mdash;all
+            within the boundaries you define. Headless or interactive. Your choice.
+          </p>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-start gap-2">
+              <span class="mt-0.5 text-accent">&#8227;</span>
+              <span class="text-text-muted"><strong class="text-text">Namespace-isolated</strong> &mdash; can only see what you grant</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="mt-0.5 text-accent">&#8227;</span>
+              <span class="text-text-muted"><strong class="text-text">Sub-agents</strong> &mdash; spawn child agents with even fewer capabilities</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="mt-0.5 text-accent">&#8227;</span>
+              <span class="text-text-muted"><strong class="text-text">LLM as a filesystem</strong> &mdash; mount any model at <code class="font-mono text-xs text-accent">/n/llm</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Stelle -->
       <div class="group relative overflow-hidden rounded-xl border border-border bg-bg-surface p-8 transition hover:border-node-cloud/50">
@@ -32,7 +65,8 @@
           <p class="mb-6 text-sm leading-relaxed text-text-muted">
             Stelle replaces the desktop with a conversational AI environment. Talk to your
             computer. The agent listens, acts, and presents results&mdash;documents,
-            data, visualisations&mdash;without you ever opening an application.
+            data, visualisations&mdash;without you ever opening an application. Security
+            you can trust means an experience you can rely on.
           </p>
           <div class="space-y-3 text-sm">
             <div class="flex items-start gap-2">
@@ -46,39 +80,6 @@
             <div class="flex items-start gap-2">
               <span class="mt-0.5 text-node-cloud">&#8227;</span>
               <span class="text-text-muted"><strong class="text-text">No apps to learn</strong> &mdash; the agent composes capabilities from your namespace</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Veltro -->
-      <div class="group relative overflow-hidden rounded-xl border border-border bg-bg-surface p-8 transition hover:border-accent/50">
-        <div class="absolute top-0 right-0 h-32 w-32 bg-[radial-gradient(circle_at_top_right,_rgba(224,96,48,0.1)_0%,_transparent_70%)]"></div>
-        <div class="relative">
-          <div class="mb-4 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
-              <span class="text-lg text-accent">&#9654;</span>
-            </div>
-            <h3 class="text-xl font-semibold">Veltro</h3>
-          </div>
-          <p class="mb-2 text-sm font-medium text-accent">The unchained agent</p>
-          <p class="mb-6 text-sm leading-relaxed text-text-muted">
-            Veltro is an AI agent that lives in your namespace, not inside an application.
-            It reads files, invokes tools, queries LLMs, and spawns sub-agents&mdash;all
-            within the boundaries you define.
-          </p>
-          <div class="space-y-3 text-sm">
-            <div class="flex items-start gap-2">
-              <span class="mt-0.5 text-accent">&#8227;</span>
-              <span class="text-text-muted"><strong class="text-text">Namespace-isolated</strong> &mdash; can only see what you grant</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="mt-0.5 text-accent">&#8227;</span>
-              <span class="text-text-muted"><strong class="text-text">Sub-agents</strong> &mdash; spawn child agents with even fewer capabilities</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="mt-0.5 text-accent">&#8227;</span>
-              <span class="text-text-muted"><strong class="text-text">LLM as a filesystem</strong> &mdash; mount any model at <code class="font-mono text-xs text-accent">/n/llm</code></span>
             </div>
           </div>
         </div>
@@ -98,7 +99,8 @@
           <p class="mb-6 text-sm leading-relaxed text-text-muted">
             A text environment built for developers and AI agents working side by side.
             Forked from Acme with async I/O, dark mode, and a 9P interface that lets
-            agents interact through file operations&mdash;no SDK required.
+            agents interact through file operations&mdash;no SDK required. Every agent
+            action is observable in real time.
           </p>
           <div class="space-y-3 text-sm">
             <div class="flex items-start gap-2">
@@ -124,7 +126,7 @@
         <span class="font-mono text-sm text-accent">;</span>
         <span class="text-sm text-text-muted">
           <strong class="text-text">InferNode</strong> &mdash; the 64-bit Inferno&reg; OS that runs beneath it all.
-          15 MB RAM. 2-second startup. 630+ utilities. Bell Labs lineage.
+          15 MB RAM. 2-second startup. 630+ utilities. Formally verified isolation. Bell Labs lineage.
         </span>
       </div>
     </div>

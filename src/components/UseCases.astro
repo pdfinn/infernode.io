@@ -4,8 +4,8 @@ const useCases = [
     persona: 'Agent Builders',
     headline: 'Stop worrying about what your agent can access.',
     description:
-      'Building autonomous agents is terrifying when they share your OS. InferNode gives each agent an isolated namespace with only the tools and data you grant. The agent literally cannot see anything else.',
-    tags: ['namespace isolation', 'capability-based security', 'sub-agent spawning'],
+      'Building autonomous agents is terrifying when they share your OS. InferNode gives each agent an isolated namespace with only the tools and data you grant. Prompt injection? The agent literally cannot see anything outside its namespace. There is no attack surface.',
+    tags: ['namespace isolation', 'capability-based security', 'prompt injection resistant'],
   },
   {
     persona: 'Industrial & Critical Infrastructure',
@@ -15,13 +15,6 @@ const useCases = [
     tags: ['formal verification', 'OT-ready', 'safety-critical', 'IEC 62443 aligned'],
   },
   {
-    persona: 'Edge & Embedded',
-    headline: '15 MB. A $35 board. Real AI.',
-    description:
-      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device. With JIT compilation, it\u2019s fast too.',
-    tags: ['15 MB RAM', '2s startup', 'ARM64 native', 'JIT compiler'],
-  },
-  {
     persona: 'Finance, Legal & Healthcare',
     headline: 'Use AI without sending your data somewhere else.',
     description:
@@ -29,17 +22,24 @@ const useCases = [
     tags: ['local LLMs', 'formal verification', 'SOX / PCI-DSS / HIPAA', 'air-gapped capable'],
   },
   {
+    persona: 'Edge & Embedded',
+    headline: '15 MB. A $35 board. Real AI.',
+    description:
+      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device\u2014each in its own isolated namespace. With JIT compilation, it\u2019s fast too.',
+    tags: ['15 MB RAM', '2s startup', 'ARM64 native', 'JIT compiler'],
+  },
+  {
     persona: 'Mission-Critical Operations',
     headline: 'Works where the cloud doesn\u2019t.',
     description:
-      'Disconnected environments, austere conditions, contested networks\u2014places where cloud APIs are a liability, not a luxury. InferNode runs entirely on local hardware, meshes devices peer-to-peer, and keeps working when the uplink goes down.',
+      'Disconnected environments, austere conditions, contested networks\u2014places where cloud APIs are a liability, not a luxury. InferNode runs entirely on local hardware, meshes devices peer-to-peer, and keeps working when the uplink goes down. Every agent stays contained.',
     tags: ['air-gapped', 'peer-to-peer mesh', 'edge-native', 'zero cloud dependency'],
   },
   {
     persona: 'Distributed Systems',
     headline: 'Your devices, working as one.',
     description:
-      'Mount a GPU from across the room or across the country. InferNode\u2019s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014no cloud middleware required.',
+      'Mount a GPU from across the room or across the country. InferNode\u2019s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014each node isolated, the whole system composable.',
     tags: ['9P protocol', 'peer-to-peer', 'cloud optional', 'zero middleware'],
   },
 ];
@@ -50,7 +50,7 @@ const useCases = [
     <div class="mb-16 text-center">
       <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Use Cases</p>
       <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-        Built for people hitting walls.
+        Built for people who can't afford to hope<br />the guardrails hold.
       </h2>
     </div>
 

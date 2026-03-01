@@ -4,88 +4,109 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Base title="The InferNode Manifesto" description="We were never meant to work like this. The desktop paradigm has failed the human-AI team.">
+<Base title="The InferNode Manifesto" description="AI agents are powerful. That's the problem. InferNode provides mathematically proven isolation so safe agents can be free agents.">
   <Nav />
   <main class="px-6 pt-32 pb-24">
     <article class="mx-auto max-w-3xl">
       <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">Manifesto</p>
 
       <h1 class="mb-12 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-        We Were Never Meant<br />to Work Like This
+        Safe Agents Are<br />Free Agents
       </h1>
 
       <div class="space-y-6 text-lg leading-relaxed text-text-muted">
 
+        <h2 class="pt-8 text-2xl font-bold text-text">The Trust Problem</h2>
+
         <p>
-          The desktop operating system was designed in 1984 for a single human sitting in front
-          of a single screen, opening one application at a time. Forty years later, we are still
-          trapped inside that box.
+          AI agents are the most powerful tools we have ever built. An agent that can read
+          files, call APIs, spawn sub-processes, and compose capabilities on the fly is
+          extraordinarily useful. It is also extraordinarily dangerous.
         </p>
 
         <p>
-          We tile windows. We alt-tab between silos. We copy and paste across boundaries that
-          should not exist. Every application is a walled garden. Every workflow is a forced march
-          through someone else's interface. The desktop was built for isolation, and isolation is
-          exactly what it delivers.
-        </p>
-
-        <p>
-          Now we are told that artificial intelligence will transform how we work. But look at
-          what we have actually built: chatbots bolted onto browsers. Copilots imprisoned in
-          sidebars. Agents that can see one application at a time, through a keyhole, while the
-          human does the real work of stitching context together.
+          Today, every major agent framework runs its agents inside your operating system,
+          with your credentials, your network access, and your data. The industry's answer
+          is guardrails: sandboxes bolted on top, permission dialogs, policy layers you
+          <em>hope</em> hold.
         </p>
 
         <p class="text-text text-xl font-medium">
-          This is not transformation. This is theatre.
+          Hope is not an engineering strategy.
         </p>
 
         <p>
-          The productivity gains have not arrived&mdash;not because AI is inadequate, but because
-          we are forcing it to perform inside an architecture that was never designed for
-          collaboration. The desktop paradigm does not merely constrain AI. It constrains us.
+          A prompt injection attack, a confused deputy, a privilege escalation&mdash;and
+          the cage opens. The agent reads your SSH keys, exfiltrates your data, or acts with
+          authority you never intended to grant. This is not a theoretical risk. It is the
+          defining security challenge of the agentic era.
         </p>
 
-        <h2 class="pt-8 text-2xl font-bold text-text">The Box Must Break</h2>
+        <h2 class="pt-8 text-2xl font-bold text-text">The Inversion</h2>
 
         <p>
-          The fundamental unit of modern work is not the application. It is the
-          <strong class="text-text">human-AI team</strong>.
-        </p>
-
-        <p>
-          A team does not operate through menus and modal dialogs. A team shares context. A team
-          composes capabilities on the fly. A team moves fluidly between data sources, tools, and
-          decisions without asking permission from an app store or a platform vendor.
+          InferNode does not add guardrails to an insecure foundation. It inverts the model
+          entirely.
         </p>
 
         <p>
-          The desktop cannot give us this. It was not built for it. No amount of plugins,
-          extensions, or API wrappers will change what it is: a forty-year-old metaphor optimised
-          for filing cabinets and typewriters, dressed up in flat design.
+          Each agent runs in its own <strong class="text-text">namespace</strong>&mdash;a
+          view of the world constructed from only the resources you explicitly mount. The
+          agent does not start with access to everything and get restricted. It starts with
+          access to <strong class="text-text">nothing</strong> and receives only what you grant.
         </p>
 
         <p>
-          We do not need another integration layer. We need liberation.
+          Try to access something you weren't given? It doesn't error. It simply does not
+          exist. There is no attack surface because there is no surface. A prompt injection
+          cannot read your SSH keys because in the agent's namespace, SSH keys do not exist.
+          There is nothing to exploit.
         </p>
 
-        <h2 class="pt-8 text-2xl font-bold text-text">Inferno&reg;: Computing Without Walls</h2>
+        <p>
+          This is not a claim. The isolation model has been <strong class="text-text">formally
+          verified</strong> using TLA+, SPIN, and CBMC. Mathematical proof, not just testing.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">Safety Creates Freedom</h2>
+
+        <p>
+          Here is the insight that changes everything: <strong class="text-text">a provably
+          contained agent is an agent you can trust with real autonomy</strong>.
+        </p>
+
+        <p>
+          When you cannot prove containment, you restrict. You add approval workflows,
+          human-in-the-loop checkpoints, capability limits. The agent becomes a chatbot with
+          extra steps. The productivity gains never arrive.
+        </p>
+
+        <p>
+          When you <em>can</em> prove containment, you liberate. Give the agent more tools,
+          more data, more autonomy&mdash;without more risk. Let it compose capabilities,
+          spawn sub-agents, operate across devices. The human-AI team can finally do what it
+          was always supposed to: work together at the speed of thought.
+        </p>
+
+        <p class="text-text text-xl font-medium">
+          Security is not a constraint on productivity. It is the foundation that makes
+          productivity possible.
+        </p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">Inferno&reg;: The Architecture of Trust</h2>
 
         <p>
           Inferno&reg; was born from Bell Labs&mdash;the same lineage that gave us Unix, C, and the
-          foundations of modern computing. But where the industry chose the desktop, Inferno&reg; chose
-          a different path: everything is a file, and every file is accessible across the network.
+          foundations of modern computing. But where the industry chose the desktop metaphor,
+          Inferno&reg; chose a different path: everything is a file, every file is accessible
+          across the network, and every process runs in its own namespace.
         </p>
 
         <p>
-          In Inferno&reg;, there are no applications. There are capabilities&mdash;resources presented
-          as files in a namespace that any process, on any device, can compose and use. A sensor
-          feed, a language model, a database, a drone controller: all appear as files. All are
-          composable. All are distributed by design.
-        </p>
-
-        <p class="text-text">
-          This is not a new idea. It is an idea whose time has finally come.
+          This was not designed for AI agents. It was designed for distributed systems that
+          demand trust. Telecommunications networks serving billions. Industrial control
+          systems. Environments where failure is not an option. The fact that it is precisely
+          what AI agents need is not a coincidence&mdash;it is convergence.
         </p>
 
         <p>
@@ -95,18 +116,7 @@ import Footer from '../components/Footer.astro';
           demands.
         </p>
 
-        <p>
-          Where the desktop forces you into sequential, modal interaction&mdash;one app, one task,
-          one context&mdash;Inferno&reg; dissolves those boundaries entirely. The human and the AI agent
-          inhabit the same namespace. They see the same resources. They act on the same data. There
-          is no sidebar. There is no plugin. There is only the shared space of work itself.
-        </p>
-
         <h2 class="pt-8 text-2xl font-bold text-text">Veltro: The Unchained Agent</h2>
-
-        <p>
-          This is why we built Veltro.
-        </p>
 
         <p>
           Veltro is an AI agent that does not live inside an application. It lives inside a
@@ -117,12 +127,15 @@ import Footer from '../components/Footer.astro';
         </p>
 
         <p>
-          Veltro does not puppet you through a workflow designed by a product manager in
-          California. It works with you, at the speed of thought, toward the outcome that matters.
+          Veltro can do more because it is provably contained. It can act autonomously because
+          you can prove the boundaries hold. It does not puppet you through a workflow designed
+          by a product manager in California. It works with you, at the speed of thought, toward
+          the outcome that matters.
         </p>
 
         <p class="text-text">
-          This is what human-AI teaming actually looks like when you remove the box.
+          This is what human-AI teaming actually looks like when trust is the foundation,
+          not an afterthought.
         </p>
 
         <h2 class="pt-8 text-2xl font-bold text-text">The Future Is Not Apps</h2>
@@ -149,25 +162,22 @@ import Footer from '../components/Footer.astro';
         <h2 class="pt-8 text-2xl font-bold text-text">A Declaration</h2>
 
         <div class="space-y-4 border-l-2 border-accent/40 pl-6 text-text">
-          <p>We declare that the desktop paradigm has failed the human-AI team.</p>
-          <p>We declare that modal, application-centric computing is a constraint, not a feature.</p>
-          <p>
-            We declare that true productivity gains require architectural freedom&mdash;not better
-            integrations, not smarter wrappers, not another layer of abstraction on top of a broken
-            foundation.
-          </p>
+          <p>We declare that AI agents deserve provable containment, not bolted-on guardrails.</p>
+          <p>We declare that security and productivity are not opposites&mdash;security is the
+            foundation that enables productivity.</p>
           <p>
             We declare that the human and the AI deserve to work in a shared space, with shared
-            context, toward shared outcomes.
+            context, toward shared outcomes&mdash;and that this is only possible when trust is
+            proven, not assumed.
           </p>
           <p>
             We declare that computing should be distributed, composable, and sovereign by default.
           </p>
-          <p>We declare that it is time to leave the box.</p>
+          <p>We declare that it is time to build on a foundation worthy of trust.</p>
         </div>
 
         <p class="pt-8 text-xl font-medium text-text">
-          Inferno&reg; lights the way. Veltro runs free.
+          Safe agents are free agents. InferNode lights the way.
         </p>
 
         <div class="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
