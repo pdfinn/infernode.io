@@ -28,3 +28,13 @@ jobs:
           test -f dist/index.html || (echo "dist/index.html missing" && exit 1)
           test -f dist/manifesto/index.html || (echo "dist/manifesto/index.html missing" && exit 1)
           echo "Build output OK"
+
+      - name: Deploy to Cloudflare Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: infernode-io
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
