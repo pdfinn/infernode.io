@@ -5,15 +5,16 @@
   <div class="mx-auto max-w-5xl">
     <div class="mb-16 text-center">
       <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
-        Build With InferNode
+        The Interface
       </p>
       <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-        The API is a filesystem.<br />Use any language.
+        Every resource is a file.<br />No SDK required.
       </h2>
       <p class="mx-auto max-w-2xl text-lg text-text-muted">
-        There is no SDK. There is no client library. If your language can read and write
-        files, it can talk to InferNode. The 9P protocol turns every resource into a
-        filesystem&mdash;and every language already knows how to use files.
+        InferNode exposes everything&mdash;LLMs, sensors, databases, agents&mdash;as
+        files through the 9P protocol. That single architectural choice eliminates
+        entire categories of integration complexity. No client libraries. No API
+        wrappers. Just standard file operations.
       </p>
     </div>
 
@@ -71,21 +72,22 @@
     <div class="mx-auto mt-10 max-w-3xl rounded-xl border border-border bg-bg-surface p-8">
       <div class="grid gap-8 md:grid-cols-2">
         <div>
-          <h3 class="mb-3 font-semibold">No SDK. No bindings. No lock-in.</h3>
+          <h3 class="mb-3 font-semibold">One protocol. Zero dependencies.</h3>
           <p class="text-sm leading-relaxed text-text-muted">
-            Every InferNode resource&mdash;LLMs, sensors, agents, tools, databases&mdash;is
-            exposed as files via the 9P protocol. You interact with them using standard file
-            operations in whatever language you already use. Write an integration in Python,
-            Go, Rust, C, JavaScript, Bash, or anything else. If it can <code class="text-accent font-mono text-xs">open()</code> a file, it works.
+            Because InferNode chose the filesystem as its universal interface, you interact
+            with every resource the same way: <code class="text-accent font-mono text-xs">open()</code>,
+            <code class="text-accent font-mono text-xs">read()</code>,
+            <code class="text-accent font-mono text-xs">write()</code>. Python, Go, Rust,
+            Bash&mdash;whatever you already use. No vendor SDK to install, no authentication
+            library to configure, no abstraction to learn.
           </p>
         </div>
         <div>
-          <h3 class="mb-3 font-semibold">Contribute without learning Limbo.</h3>
+          <h3 class="mb-3 font-semibold">Build a service. It becomes native.</h3>
           <p class="text-sm leading-relaxed text-text-muted">
-            InferNode is written in Limbo and C, but you don&rsquo;t need to know either to
-            build on it. Write your integration in your language. Mount it via 9P. It becomes
-            part of the namespace&mdash;indistinguishable from a native service. The filesystem
-            <em>is</em> the interface contract.
+            Write a service in any language. Expose it via 9P. It becomes a file in the
+            namespace&mdash;indistinguishable from a built-in resource. Other agents, tools,
+            and users can mount and use it immediately. The filesystem is the universal contract.
           </p>
         </div>
       </div>
