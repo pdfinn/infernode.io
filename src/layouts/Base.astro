@@ -11,6 +11,8 @@ const {
   title = 'InferNode — Provably Secure AI Agent OS',
   description = 'A lightweight operating system with mathematically proven isolation for AI agents. Safe agents are free agents. Distributed by design. MIT licensed.',
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -19,19 +21,66 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://infernode.io" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL('/og-image.png', Astro.site).href} />
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site).href} />
+    <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "NERV Systems",
+          "url": "https://infernode.io",
+          "logo": new URL('/nerv-logo.png', Astro.site).href,
+          "description": "Builders of InferNode, a provably secure operating system for AI agents.",
+        },
+        {
+          "@type": "WebSite",
+          "name": "InferNode",
+          "url": "https://infernode.io",
+          "description": description,
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://github.com/NERVsystems/infernode/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "InferNode",
+          "applicationCategory": "OperatingSystem",
+          "operatingSystem": "InferNode (Inferno OS)",
+          "description": "A lightweight operating system with mathematically proven namespace isolation for AI agents. Distributed, composable, sovereign.",
+          "license": "https://opensource.org/licenses/MIT",
+          "url": "https://infernode.io",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        }
+      ]
+    })} />
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-bg text-text">
