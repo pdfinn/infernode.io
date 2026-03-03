@@ -14,14 +14,15 @@
         </h2>
         <div class="space-y-4 text-text-muted">
           <p>
-            Most systems bolt security on top: sandboxes, policies, permission dialogs. An
-            agent runs inside your OS and you <em>hope</em> the guardrails hold. A prompt
-            injection attack, a confused deputy, a privilege escalation&mdash;and the cage
-            opens.
+            Today, most agent frameworks give you two choices. Run the agent on your own
+            machine&mdash;with your credentials, your network, and your data&mdash;and
+            <em>hope</em> the guardrails hold. Or hand everything to a cloud platform that
+            isolates the agent by moving your data onto someone else's computer. One trusts
+            the agent too much. The other trusts the cloud too much.
           </p>
           <p>
             InferNode works differently. Each agent gets its own namespace&mdash;a view of the
-            world constructed from only the resources you explicitly mount. Try to access
+            world constructed from only the resources you explicitly share. Try to access
             something you weren't given? It doesn't error. It simply
             <strong class="text-text">does not exist</strong>. There is no attack surface
             because there is no surface.

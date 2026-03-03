@@ -25,10 +25,11 @@ import Footer from '../components/Footer.astro';
         </p>
 
         <p>
-          Today, every major agent framework runs its agents inside your operating system,
-          with your credentials, your network access, and your data. The industry's answer
-          is guardrails: sandboxes bolted on top, permission dialogs, policy layers you
-          <em>hope</em> hold.
+          Today, most agent frameworks give you two choices. Run the agent on your own
+          machine&mdash;with your credentials, your network, and your data&mdash;and
+          <em>hope</em> the guardrails hold. Or hand everything to a cloud platform that
+          isolates the agent by moving your data onto someone else's computer. One trusts
+          the agent too much. The other trusts the cloud too much.
         </p>
 
         <p class="text-text text-xl font-medium">
@@ -51,7 +52,7 @@ import Footer from '../components/Footer.astro';
 
         <p>
           Each agent runs in its own <strong class="text-text">namespace</strong>&mdash;a
-          view of the world constructed from only the resources you explicitly mount. The
+          view of the world constructed from only the resources you explicitly share. The
           agent does not start with access to everything and get restricted. It starts with
           access to <strong class="text-text">nothing</strong> and receives only what you grant.
         </p>
@@ -93,13 +94,13 @@ import Footer from '../components/Footer.astro';
           productivity possible.
         </p>
 
-        <h2 class="pt-8 text-2xl font-bold text-text">Inferno&reg;: The Architecture of Trust</h2>
+        <h2 class="pt-8 text-2xl font-bold text-text">The Architecture of Trust</h2>
 
         <p>
-          Inferno&reg; was born from Bell Labs&mdash;the same lineage that gave us Unix, C, and the
-          foundations of modern computing. But where the industry chose the desktop metaphor,
-          Inferno&reg; chose a different path: everything is a file, every file is accessible
-          across the network, and every process runs in its own namespace.
+          InferNode is derived from Inferno&reg; OS, an operating system developed by Bell
+          Labs&mdash;the same lineage that gave us Unix, C, and the foundations of modern
+          computing. But where the industry chose the desktop, Inferno&reg; chose a different
+          path: everything is a file, and every file is accessible across the network.
         </p>
 
         <p>
