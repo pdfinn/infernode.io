@@ -1,0 +1,333 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const frameworks = [
+  {
+    name: 'InferNode',
+    where: 'Dedicated OS namespace',
+    security: 'Namespace isolation (structural)',
+    verification: 'TLA+, SPIN, CBMC',
+    hardware: 'RPi, Jetson, x86, ARM',
+    protocol: '9P (Plan 9)',
+    license: 'MIT',
+    offline: 'Full offline operation',
+    distributed: 'Native multi-device',
+  },
+  {
+    name: 'LangChain',
+    where: 'Host process (Python/JS)',
+    security: 'Guardrails / sandboxing',
+    verification: 'None',
+    hardware: 'Any (host-dependent)',
+    protocol: 'REST / SDK',
+    license: 'MIT',
+    offline: 'Requires LLM API',
+    distributed: 'Via external orchestration',
+  },
+  {
+    name: 'CrewAI',
+    where: 'Host process (Python)',
+    security: 'Role-based guardrails',
+    verification: 'None',
+    hardware: 'Any (host-dependent)',
+    protocol: 'REST / SDK',
+    license: 'MIT',
+    offline: 'Requires LLM API',
+    distributed: 'Via external orchestration',
+  },
+  {
+    name: 'AutoGPT',
+    where: 'Host process / Docker',
+    security: 'Docker isolation + guardrails',
+    verification: 'None',
+    hardware: 'Any (host-dependent)',
+    protocol: 'REST / SDK',
+    license: 'MIT',
+    offline: 'Requires LLM API',
+    distributed: 'Limited',
+  },
+  {
+    name: 'OpenClaw',
+    where: 'Host process (Python)',
+    security: 'Sandboxing / guardrails',
+    verification: 'None',
+    hardware: 'Any (host-dependent)',
+    protocol: 'REST / SDK',
+    license: 'Apache 2.0',
+    offline: 'Requires LLM API',
+    distributed: 'Via external orchestration',
+  },
+  {
+    name: 'Cloud Platforms',
+    where: 'Vendor cloud (AWS, Azure, GCP)',
+    security: 'Cloud IAM + guardrails',
+    verification: 'Vendor-dependent',
+    hardware: 'Vendor-managed',
+    protocol: 'Proprietary APIs',
+    license: 'Proprietary',
+    offline: 'No',
+    distributed: 'Vendor-managed',
+  },
+];
+
+const dimensions = [
+  { key: 'where', label: 'Where agents run' },
+  { key: 'security', label: 'Security model' },
+  { key: 'verification', label: 'Formal verification' },
+  { key: 'hardware', label: 'Hardware' },
+  { key: 'protocol', label: 'Protocol' },
+  { key: 'license', label: 'License' },
+  { key: 'offline', label: 'Offline capability' },
+  { key: 'distributed', label: 'Distributed support' },
+] as const;
+
+const competitorStrengths = [
+  {
+    name: 'LangChain',
+    strength: 'Massive ecosystem',
+    description: 'The largest collection of integrations, document loaders, and chain templates in the agent space. If you need to connect to a specific SaaS tool, LangChain probably has a connector.',
+  },
+  {
+    name: 'CrewAI',
+    strength: 'Multi-agent orchestration',
+    description: 'Elegant role-based agent design with clear task delegation. Excellent for modeling team-like workflows where agents have distinct specialities.',
+  },
+  {
+    name: 'AutoGPT',
+    strength: 'Autonomous task decomposition',
+    description: 'Pioneered the concept of fully autonomous agents that break down high-level goals into executable sub-tasks without human guidance.',
+  },
+  {
+    name: 'OpenClaw',
+    strength: 'Research-grade flexibility',
+    description: 'Designed for AI researchers who need fine-grained control over agent behavior, memory, and reasoning loops. Strong academic foundation.',
+  },
+  {
+    name: 'Cloud Platforms',
+    strength: 'Enterprise integration',
+    description: 'Deep integration with existing enterprise infrastructure, compliance certifications, managed scaling, and support contracts that large organisations require.',
+  },
+  {
+    name: 'Open-source community',
+    strength: 'Rapid iteration',
+    description: 'The collective open-source agent ecosystem moves fast. New patterns, benchmarks, and techniques emerge weekly. This rising tide lifts all boats, InferNode included.',
+  },
+];
+---
+
+<Base title="InferNode vs LangChain, CrewAI, AutoGPT — Agent Framework Comparison" description="An honest comparison of InferNode against LangChain, CrewAI, AutoGPT, OpenClaw, and cloud platforms. See where namespace isolation differs from guardrail-based security.">
+  <Nav />
+  <main class="px-6 pt-32 pb-24">
+
+    <!-- Hero -->
+    <section class="mx-auto max-w-3xl text-center">
+      <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">Comparison</p>
+      <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+        How InferNode compares.
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">
+        Every framework makes trade-offs. This page is an honest look at what InferNode
+        does differently, where the alternatives excel, and why architecture matters more
+        than feature lists.
+      </p>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="mx-auto mt-24 max-w-6xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Side by Side</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">
+        Framework comparison
+      </h2>
+
+      <div class="overflow-x-auto rounded-xl border border-border">
+        <table class="w-full min-w-[900px] text-sm">
+          <thead>
+            <tr class="border-b border-border bg-bg-surface">
+              <th class="px-4 py-3 text-left font-medium text-text-muted">Dimension</th>
+              {frameworks.map((f) => (
+                <th class={`px-4 py-3 text-left font-medium ${f.name === 'InferNode' ? 'text-accent' : 'text-text-muted'}`}>
+                  {f.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dimensions.map((dim, i) => (
+              <tr class={`border-b border-border/50 ${i % 2 === 0 ? 'bg-bg' : 'bg-bg-surface/50'}`}>
+                <td class="px-4 py-3 font-medium text-text">{dim.label}</td>
+                {frameworks.map((f) => (
+                  <td class={`px-4 py-3 ${f.name === 'InferNode' ? 'text-text' : 'text-text-muted'}`}>
+                    {f[dim.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Key Differentiator: Where Agents Run -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Key Differentiator</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+            Where agents run changes everything.
+          </h2>
+          <div class="space-y-4 text-text-muted">
+            <p>
+              Most agent frameworks run as libraries inside a host process&mdash;your Python
+              script, your Node.js server, your Docker container. The agent inherits
+              whatever permissions the host has. Your credentials, your filesystem, your
+              network access.
+            </p>
+            <p>
+              Cloud platforms solve this by moving the agent to someone else&rsquo;s computer.
+              The isolation is real, but so is the dependency. Your data transits their
+              network, runs on their hardware, under their terms.
+            </p>
+            <p>
+              InferNode takes a third path. The agent runs in a <strong class="text-text">dedicated
+              OS namespace</strong> on hardware you own. Isolation comes from the operating
+              system, not from a container or a cloud boundary. The agent sees only what you
+              mount into its namespace&mdash;nothing more.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">Host-based frameworks</h3>
+            <p class="text-sm text-text-muted">
+              Agent runs as a library in your process. Fast to start, but inherits all host
+              permissions. Security depends on guardrails holding under adversarial input.
+            </p>
+          </div>
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">Cloud platforms</h3>
+            <p class="text-sm text-text-muted">
+              Agent runs on vendor infrastructure. Strong isolation, but you give up data
+              sovereignty, offline capability, and hardware choice.
+            </p>
+          </div>
+          <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-accent">InferNode</h3>
+            <p class="text-sm text-text-muted">
+              Agent runs in an OS-level namespace on your hardware. Structural isolation
+              without cloud dependency. Formally verified. Offline-capable. Sovereign.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Differentiator: Security Model -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Key Differentiator</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">
+        Guardrails vs. architecture.
+      </h2>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p>
+          Most agent frameworks implement security as a layer of checks on top of an
+          otherwise permissive environment. The agent <em>can</em> access the filesystem,
+          the network, and your credentials&mdash;but guardrails intercept dangerous
+          requests before they execute.
+        </p>
+        <p>
+          This works until it doesn&rsquo;t. A novel prompt injection, a confused deputy
+          attack, an unexpected tool interaction&mdash;and the guardrail fails. The failure
+          mode is total: the agent has the same access as the host process.
+        </p>
+        <p>
+          InferNode does not add checks to a permissive environment. It constructs a
+          <strong class="text-text">restrictive environment from the ground up</strong>.
+          The agent starts with nothing and receives only what you grant. An attack cannot
+          bypass the guardrail because there is no guardrail to bypass&mdash;the resources
+          simply do not exist in the agent&rsquo;s world.
+        </p>
+        <p class="text-text text-xl font-medium">
+          Architecture beats policy. Every time.
+        </p>
+      </div>
+    </section>
+
+    <!-- What the Alternatives Do Well -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Honest Assessment</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+          What the alternatives do well.
+        </h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">
+          InferNode is not the right choice for every use case. These frameworks and
+          platforms have real strengths that matter.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {competitorStrengths.map((c) => (
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <p class="mb-1 text-sm font-medium text-accent">{c.name}</p>
+            <h3 class="mb-3 text-lg font-semibold">{c.strength}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{c.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why Architecture Matters -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">The Bigger Picture</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">
+        Why architecture matters.
+      </h2>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p>
+          Feature lists change quarterly. Integrations are added. APIs evolve. What does
+          not change easily is the fundamental architecture&mdash;where agents run, how
+          isolation works, what happens when an attack succeeds.
+        </p>
+        <p>
+          InferNode bets on a 30-year-old insight from Bell Labs: that namespace isolation
+          at the OS level is the correct abstraction for distributed, untrusted computation.
+          This is not a novel idea. It is a proven one, applied to a new domain.
+        </p>
+        <p>
+          If you need the largest ecosystem of integrations today, use LangChain. If you
+          need enterprise compliance checkboxes, use a cloud platform. If you need to
+          build agent systems that are <strong class="text-text">provably safe, sovereign,
+          and distributed by design</strong>&mdash;InferNode is the foundation.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mx-auto mt-32 max-w-3xl text-center">
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        See the difference for yourself.
+      </h2>
+      <p class="mx-auto mb-10 max-w-xl text-lg text-text-muted">
+        InferNode is open source, MIT licensed, and runs on hardware you already own.
+      </p>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/#quickstart"
+          class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+        >
+          Get Started
+        </a>
+        <a
+          href="/veltro"
+          class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+        >
+          Learn About Veltro
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,357 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Veltro — The Namespace-Resident AI Agent | InferNode" description="Veltro is an AI agent that lives in your namespace, not inside an application. Provably contained, autonomously capable, and composable across devices.">
+  <Nav />
+  <main class="px-6 pt-32 pb-24">
+
+    <!-- Hero -->
+    <section class="relative mx-auto max-w-4xl text-center">
+      <div class="absolute inset-0 -top-24 mx-auto h-96 w-96 rounded-full bg-accent/10 blur-3xl"></div>
+      <div class="relative">
+        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">Veltro</p>
+        <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          An agent that lives<br />in your namespace.
+        </h1>
+        <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted">
+          Not inside an application. Not on someone else&rsquo;s cloud. Veltro runs in a
+          namespace you control&mdash;with access to only what you grant and the freedom to
+          act autonomously within those boundaries.
+        </p>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="/#quickstart"
+            class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+          >
+            Get Started
+          </a>
+          <a
+            href="/manifesto"
+            class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+          >
+            Read the Manifesto
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Veltro Is -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">What Veltro Is</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">
+        The namespace-resident agent.
+      </h2>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p>
+          Most AI agents live inside applications. They inherit the application&rsquo;s
+          permissions, depend on its APIs, and are limited to whatever capabilities the
+          developers chose to expose. The agent is a feature, not an entity.
+        </p>
+        <p>
+          Veltro is different. It lives in a <strong class="text-text">namespace</strong>&mdash;an
+          isolated view of the world constructed from only the resources you explicitly share.
+          Files, devices, LLMs, network services&mdash;if it can be represented as a file,
+          Veltro can compose it into a capability. No SDK. No API wrapper. No platform
+          dependency.
+        </p>
+        <p>
+          Because the namespace defines what exists for the agent, Veltro does not need
+          guardrails to prevent it from accessing things it shouldn&rsquo;t. Those things
+          simply <strong class="text-text">do not exist</strong> in its world. This is not a
+          restriction&mdash;it is liberation. A provably contained agent is one you can trust
+          with real autonomy.
+        </p>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">How It Works</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+          Mount. Task. Result.
+        </h2>
+      </div>
+
+      <!-- Terminal visualization -->
+      <div class="mx-auto max-w-3xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+        <div class="flex items-center gap-2 border-b border-border px-4 py-3">
+          <div class="h-3 w-3 rounded-full bg-node-rpi/60"></div>
+          <div class="h-3 w-3 rounded-full bg-node-llm/60"></div>
+          <div class="h-3 w-3 rounded-full bg-node-jetson/60"></div>
+          <span class="ml-2 text-xs text-text-muted">veltro session</span>
+        </div>
+        <div class="p-5 space-y-3">
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text-muted"> # 1. Mount resources into the agent's namespace</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> mount /n/docs /agent/data</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> mount /n/llm/claude /agent/llm</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> mount /n/tools/search /agent/tools/search</span>
+          </div>
+          <div class="mt-4">
+            <span class="text-accent">;</span>
+            <span class="text-text-muted"> # 2. Give Veltro a task</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> echo 'Summarise Q4 results and find gaps' > /agent/task</span>
+          </div>
+          <div class="mt-4">
+            <span class="text-accent">;</span>
+            <span class="text-text-muted"> # 3. Read the result</span>
+          </div>
+          <div>
+            <span class="text-accent">;</span>
+            <span class="text-text"> cat /agent/result</span>
+          </div>
+          <div class="mt-1">
+            <span class="text-node-jetson">  Q4 revenue grew 18% YoY. Three gaps identified:</span>
+          </div>
+          <div>
+            <span class="text-node-jetson">  1. APAC pipeline down 12% ...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three step cards -->
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">1</div>
+          <h3 class="mb-2 text-lg font-semibold">Mount</h3>
+          <p class="text-sm text-text-muted">
+            Share resources into the agent&rsquo;s namespace. Files, LLMs, tools,
+            devices&mdash;anything represented as a file in the 9P filesystem.
+          </p>
+        </div>
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">2</div>
+          <h3 class="mb-2 text-lg font-semibold">Task</h3>
+          <p class="text-sm text-text-muted">
+            Write a task to the agent&rsquo;s control file. Veltro reads it, plans
+            sub-steps, invokes tools, queries LLMs, and spawns sub-agents as needed.
+          </p>
+        </div>
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">3</div>
+          <h3 class="mb-2 text-lg font-semibold">Result</h3>
+          <p class="text-sm text-text-muted">
+            Read the result from the agent&rsquo;s output file. Stream it, pipe it to another
+            tool, or let a parent agent consume it. Everything is a file.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Capabilities</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+          Built for autonomous work.
+        </h2>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9632;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Namespace-Isolated</h3>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Each Veltro instance sees only the resources you mount into its namespace.
+            No ambient authority, no inherited credentials, no attack surface. Isolation
+            is not enforced by policy&mdash;it is structural.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9654;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Sub-Agents</h3>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Veltro can spawn child agents with a subset of its own capabilities. Each
+            sub-agent gets a further-restricted namespace. Delegation without escalation&mdash;the
+            principle of least privilege, applied recursively.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#8902;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">LLM as Filesystem</h3>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Mount any language model at <code class="font-mono text-xs text-accent">/n/llm</code>.
+            Write a prompt, read a completion. Claude, GPT, Llama, Mistral&mdash;the agent
+            doesn&rsquo;t care which model backs the file. Swap providers without changing code.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9673;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Multi-Device</h3>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Veltro runs on a Raspberry Pi, a Jetson, a laptop, or a server. Mount resources
+            from any device on the network into the agent&rsquo;s namespace using 9P. The
+            agent doesn&rsquo;t know or care where the data lives&mdash;it just works.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Security</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+            Provably contained.<br />Mathematically verified.
+          </h2>
+          <div class="space-y-4 text-text-muted">
+            <p>
+              Veltro&rsquo;s security is not based on guardrails, content filtering, or
+              allow-lists. It is based on the structural impossibility of accessing resources
+              that do not exist in the agent&rsquo;s namespace.
+            </p>
+            <p>
+              A prompt injection attack cannot read your SSH keys because in the agent&rsquo;s
+              namespace, SSH keys do not exist. There is nothing to exploit. This is not a
+              claim&mdash;it is a provable property of the isolation model.
+            </p>
+            <p>
+              The result: you can give Veltro <strong class="text-text">more autonomy</strong>,
+              not less. More tools, more data, more freedom to act&mdash;because the boundaries
+              are proven, not hoped.
+            </p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <h3 class="mb-6 text-lg font-semibold">Formal Verification</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="mt-1 text-accent">&#8227;</span>
+              <div>
+                <p class="font-medium text-text">TLA+</p>
+                <p class="text-sm text-text-muted">Temporal logic specification of namespace isolation invariants. Proves that no sequence of operations can violate containment.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 text-accent">&#8227;</span>
+              <div>
+                <p class="font-medium text-text">SPIN</p>
+                <p class="text-sm text-text-muted">Model checking of the 9P protocol interactions. Exhaustive state-space exploration confirms no reachable state violates isolation.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-1 text-accent">&#8227;</span>
+              <div>
+                <p class="font-medium text-text">CBMC</p>
+                <p class="text-sm text-text-muted">Bounded model checking of the C implementation. Verifies that the code matches the formal specification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Headless or Interactive -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Deployment</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+          Headless or interactive. Your choice.
+        </h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">
+          Veltro is the agent. How you interact with it&mdash;or whether you interact
+          with it at all&mdash;is up to you.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        <!-- Headless -->
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9654;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Headless</h3>
+          <p class="mb-1 text-sm font-medium text-accent">No UI required</p>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Run Veltro as a background service. Feed tasks through the filesystem,
+            read results when ready. Ideal for automation, pipelines, and
+            server-side workloads.
+          </p>
+        </div>
+
+        <!-- Xenith -->
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-node-jetson/10">
+            <span class="text-lg text-node-jetson">&#9638;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Xenith</h3>
+          <p class="mb-1 text-sm font-medium text-node-jetson">Developer power tool</p>
+          <p class="text-sm leading-relaxed text-text-muted">
+            A text environment where you and Veltro work side by side. Every agent
+            action is observable in real time through the 9P filesystem interface.
+            Built for developers who want full visibility.
+          </p>
+        </div>
+
+        <!-- Stelle -->
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-node-cloud/10">
+            <span class="text-lg text-node-cloud">&#9733;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">Stelle</h3>
+          <p class="mb-1 text-sm font-medium text-node-cloud">Voice-first workspace</p>
+          <p class="text-sm leading-relaxed text-text-muted">
+            Talk to your computer. Stelle replaces the desktop with a conversational
+            AI environment powered by Veltro. Speak naturally, the agent acts. No
+            applications to learn.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mx-auto mt-32 max-w-3xl text-center">
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        Ready to meet your agent?
+      </h2>
+      <p class="mx-auto mb-10 max-w-xl text-lg text-text-muted">
+        Veltro is open source, MIT licensed, and runs on hardware you already own.
+      </p>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/#quickstart"
+          class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+        >
+          Get Started
+        </a>
+        <a
+          href="/manifesto"
+          class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+        >
+          Read the Manifesto
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Base>
