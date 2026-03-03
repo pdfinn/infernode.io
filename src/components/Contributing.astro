@@ -72,14 +72,17 @@
     <div class="mx-auto mt-10 max-w-3xl rounded-xl border border-border bg-bg-surface p-8">
       <div class="grid gap-8 md:grid-cols-2">
         <div>
-          <h3 class="mb-3 font-semibold">One protocol. Zero dependencies.</h3>
+          <h3 class="mb-3 font-semibold">One protocol. Any language.</h3>
           <p class="text-sm leading-relaxed text-text-muted">
-            Because InferNode chose the filesystem as its universal interface, you interact
-            with every resource the same way: <code class="text-accent font-mono text-xs">open()</code>,
+            Inside InferNode, every resource is a file&mdash;you interact with LLMs, sensors,
+            and agents using <code class="text-accent font-mono text-xs">open()</code>,
             <code class="text-accent font-mono text-xs">read()</code>,
-            <code class="text-accent font-mono text-xs">write()</code>. Python, Go, Rust,
-            Bash&mdash;whatever you already use. No vendor SDK to install, no authentication
-            library to configure, no abstraction to learn.
+            <code class="text-accent font-mono text-xs">write()</code>. From the outside,
+            any language that speaks
+            <a href="https://9p.io/sys/man/5/INDEX.html" class="text-accent hover:text-accent-glow transition" target="_blank" rel="noopener">9P</a>&mdash;a
+            simple, open protocol&mdash;can connect to InferNode and work with its resources
+            directly. No vendor SDK. No API wrapper. Just a well-documented protocol and
+            the language you already know.
           </p>
         </div>
         <div>
