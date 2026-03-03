@@ -4,25 +4,25 @@ const pillars = [
     title: 'Secure',
     description:
       'Each AI agent runs in its own isolated namespace. It can only see what you explicitly grant. This is not a policy layer\u2014it is how the operating system works, proven with formal verification.',
-    icon: '&#9750;', // shogi piece
+    icon: 'ph ph-shield-check',
   },
   {
     title: 'Sovereign',
     description:
       'You choose where your data lives and where your compute runs. Cloud, edge, local, or all three at once. No vendor decides for you.',
-    icon: '&#9872;', // flag
+    icon: 'ph ph-flag-banner',
   },
   {
     title: 'Composable',
     description:
       'Every resource\u2014a GPU, an LLM, a database, a sensor\u2014appears as a file. Plug anything into anything, across any device, with a single command.',
-    icon: '&#10697;', // window grid
+    icon: 'ph ph-squares-four',
   },
   {
     title: 'Open',
     description:
       'MIT licensed. Read the source, modify it, deploy it, sell it. No contributor license agreements. No license rug-pulls. No strings.',
-    icon: '&#8860;', // circled equals
+    icon: 'ph ph-git-fork',
   },
 ];
 ---
@@ -33,9 +33,8 @@ const pillars = [
       {
         pillars.map((pillar) => (
           <div class="group rounded-xl border border-border bg-bg-surface p-6 transition hover:border-accent/40 hover:bg-bg-surface-hover">
-            <div
-              class="mb-4 text-2xl text-accent transition group-hover:text-accent-glow"
-              set:html={pillar.icon}
+            <i
+              class={`${pillar.icon} mb-4 text-2xl text-accent transition group-hover:text-accent-glow`}
             />
             <h3 class="mb-2 text-lg font-semibold">{pillar.title}</h3>
             <p class="text-sm leading-relaxed text-text-muted">{pillar.description}</p>
