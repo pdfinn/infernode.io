@@ -49,6 +49,17 @@ const frameworks = [
     distributed: 'Limited',
   },
   {
+    name: 'AutoGen',
+    where: 'Host process (Python); optional gRPC distributed',
+    security: 'Optional Docker sandbox; no default isolation',
+    verification: 'None',
+    hardware: 'Any (host-dependent)',
+    protocol: 'gRPC + protobuf; REST for LLMs',
+    license: 'MIT',
+    offline: 'Supported (Ollama, user-managed)',
+    distributed: 'Yes (gRPC runtime, Python + .NET)',
+  },
+  {
     name: 'OpenClaw',
     where: 'Local gateway (WebSocket control plane)',
     security: 'Optional Docker sandbox (bypasses documented)',
@@ -100,6 +111,11 @@ const competitorStrengths = [
     description: 'Pioneered the concept of fully autonomous agents that break down high-level goals into executable sub-tasks without human guidance.',
   },
   {
+    name: 'AutoGen',
+    strength: 'Code-gen agent prototyping',
+    description: 'Fastest way to stand up multi-agent workflows that generate, execute, and debug code through conversation loops. Strong community, extensive examples, and broad LLM compatibility.',
+  },
+  {
     name: 'OpenClaw',
     strength: 'Self-extending personal agent',
     description: 'The fastest-growing agent project on GitHub (247k+ stars). Agents can write and modify their own skills through conversation. Massive integration ecosystem across messaging platforms, smart home, and productivity tools.',
@@ -117,7 +133,7 @@ const competitorStrengths = [
 ];
 ---
 
-<Base title="InferNode vs LangChain, CrewAI, AutoGPT — Agent Framework Comparison" description="An honest comparison of InferNode against LangChain, CrewAI, AutoGPT, OpenClaw, and cloud platforms. See where namespace isolation differs from guardrail-based security.">
+<Base title="InferNode vs LangChain, CrewAI, AutoGPT, AutoGen — Agent Framework Comparison" description="An honest comparison of InferNode against LangChain, CrewAI, AutoGPT, AutoGen, OpenClaw, and cloud platforms. See where namespace isolation differs from guardrail-based security.">
   <Nav />
   <main class="px-6 pt-32 pb-24">
 
@@ -142,7 +158,7 @@ const competitorStrengths = [
       </h2>
 
       <div class="overflow-x-auto rounded-xl border border-border">
-        <table class="w-full min-w-[900px] text-sm">
+        <table class="w-full min-w-[1100px] text-sm">
           <thead>
             <tr class="border-b border-border bg-bg-surface">
               <th class="px-4 py-3 text-left font-medium text-text-muted">Dimension</th>
