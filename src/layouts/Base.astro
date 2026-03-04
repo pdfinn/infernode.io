@@ -81,6 +81,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
         }
       ]
     })} />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKDT1LMPGR"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QKDT1LMPGR');
+    </script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-bg text-text">
