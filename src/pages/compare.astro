@@ -276,51 +276,63 @@ const competitorStrengths = [
           </h2>
           <div class="space-y-4 text-text-muted">
             <p>
-              Most agent frameworks expose tools through REST APIs, SDKs, or the emerging
-              <strong class="text-text">Model Context Protocol (MCP)</strong>. MCP is a step
-              forward&mdash;it standardises how agents discover and call tools. But it is still
-              a bespoke protocol layered on top of the OS, with its own serialisation, its own
-              discovery mechanism, and its own security model.
+              The <strong class="text-text">Model Context Protocol (MCP)</strong> standardises
+              how agents discover and call tools via JSON-RPC. It is a step forward. But every
+              tool schema is included in every request context&mdash;exposing the full capability
+              surface to any content the model processes, including injected payloads.
             </p>
             <p>
               InferNode uses <strong class="text-text">9P</strong>&mdash;the Plan 9 file
-              protocol. Every resource is a file. Tools, LLMs, devices, network services&mdash;all
-              mounted into the agent&rsquo;s namespace as files and accessed with
-              <code class="font-mono text-xs text-accent">read</code> and
-              <code class="font-mono text-xs text-accent">write</code>. No client libraries. No
-              serialisation layer. No new protocol to audit.
+              protocol. Tools are files. Write arguments, read results. The agent&rsquo;s
+              &ldquo;tool list&rdquo; is <code class="font-mono text-xs text-accent">ls /tool</code>.
+              No JSON schemas, no client libraries, no serialisation layer. LLMs already
+              understand filesystem semantics from training data&mdash;they correctly infer
+              tool usage from directory listings alone, without explicit schemas.
             </p>
             <p>
-              Because 9P resources are files, the <strong class="text-text">operating system itself</strong>
-              enforces access control. Namespace restriction controls what the agent can see.
-              No separate capability system. No token management. The security model
-              you already verified is the security model that governs tool access.
+              The security difference is structural. MCP tool schema poisoning is a
+              <strong class="text-text">semantic</strong> attack&mdash;the model must
+              <em>recognise</em> it as malicious and <em>choose</em> to refuse. 9P reduces the
+              attack surface to <strong class="text-text">syntactic</strong> issues (shell
+              quoting)&mdash;standard, verifiable programming. And because 9P resources are
+              namespace paths, access control is the same namespace restriction that isolates
+              everything else. No separate permission model. No tokens to manage.
+            </p>
+            <p class="text-sm">
+              The formal basis for this analysis:
+              <a href="https://www.researchgate.net/publication/400372860" class="text-accent underline hover:text-text" target="_blank" rel="noopener"><em>Namespace-Bounded Agents</em></a> (Finn, 2025).
             </p>
           </div>
         </div>
         <div class="space-y-4">
           <div class="rounded-xl border border-border bg-bg-surface p-6">
-            <h3 class="mb-2 font-semibold text-text">MCP / REST / SDK</h3>
+            <h3 class="mb-2 font-semibold text-text">MCP / JSON-RPC</h3>
             <p class="text-sm text-text-muted">
-              Tool discovery and invocation via a dedicated protocol. Requires client libraries,
-              serialisation, and a separate permission model. Security is enforced at the
-              application layer.
+              Full JSON schemas (200&ndash;500 tokens per tool) included in every request. All
+              registered tools visible to any content the model processes. Security depends on
+              the model refusing malicious instructions&mdash;a behavioural defence.
             </p>
           </div>
           <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
             <h3 class="mb-2 font-semibold text-accent">9P (InferNode)</h3>
             <p class="text-sm text-text-muted">
-              Tools are files. Write arguments, read results. Mount any 9P server into the
-              agent&rsquo;s namespace&mdash;LLMs, search, git, speech. Access control is namespace
-              restriction: if the file isn&rsquo;t mounted, it doesn&rsquo;t exist.
+              Namespace listing once (248 tokens for 14 tools vs. 1,430 for MCP).
+              Unmounted tools don&rsquo;t exist&mdash;not denied, nonexistent. A prompt
+              injection saying &ldquo;call /shell/exec&rdquo; fails with ENOENT at the OS
+              level, regardless of whether the model complies.
             </p>
           </div>
           <div class="rounded-xl border border-border/50 bg-bg-surface/50 p-6">
-            <p class="text-sm text-text-muted">
-              <strong class="text-text">Example:</strong> To give an agent search capability,
-              mount the search 9P server. To revoke it, don&rsquo;t mount it. No tokens to
-              rotate, no permissions to configure, no API keys to manage.
-            </p>
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <p class="text-2xl font-bold text-accent">83.5%</p>
+                <p class="text-xs text-text-muted">fewer tokens<br />(14-tool benchmark)</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-accent">0%</p>
+                <p class="text-xs text-text-muted">cross-tool attack success<br />(n=372, three models)</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -368,11 +380,21 @@ const competitorStrengths = [
           This is not a novel idea. It is a proven one, applied to a new domain.
         </p>
         <p>
-          The formal basis for this approach is described in
-          <a href="https://www.researchgate.net/publication/400372860" class="text-accent underline hover:text-text" target="_blank" rel="noopener"><em>Namespace-Bounded Agents: Capability-Based Security for LLM Systems via 9P Filesystem Semantics</em></a>.
-          The security model has been verified with TLA+, SPIN, and CBMC&mdash;2,035
-          states for namespace isolation, 4,830 states for locking protocol, 113 checks
-          for the C implementation. Zero errors across all three phases.
+          The results back it up. Evaluated against the
+          <strong class="text-text">AgentDojo benchmark</strong> (629 injection attacks,
+          4 domains), namespace-bounded agents achieve <strong class="text-text">0.6%
+          overall attack success rate</strong>&mdash;compared to 53.1% for behavioural
+          defences alone. 75.2% of attacks require cross-tool access and are
+          <strong class="text-text">structurally prevented</strong>&mdash;the tool does
+          not exist in the agent&rsquo;s namespace, period. Multi-model validation
+          (Claude, GPT-5, GPT-4o; n=372) confirms 0% attack success rate with
+          defence-in-depth: behavioural blocking when models refuse, structural blocking
+          at the OS level when they don&rsquo;t.
+        </p>
+        <p>
+          The formal basis:
+          <a href="https://www.researchgate.net/publication/400372860" class="text-accent underline hover:text-text" target="_blank" rel="noopener"><em>Namespace-Bounded Agents: Capability-Based Security for LLM Systems via 9P Filesystem Semantics</em></a>
+          (Finn, 2025). Verification: TLA+, SPIN, CBMC&mdash;zero errors across all phases.
         </p>
         <p>
           If you need the largest ecosystem of integrations today, use LangChain. If you
