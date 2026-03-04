@@ -6,14 +6,14 @@ import Footer from '../components/Footer.astro';
 const frameworks = [
   {
     name: 'InferNode',
-    where: 'Dedicated OS namespace',
+    where: 'Dedicated OS namespace (local, remote, or distributed)',
     security: 'Namespace isolation (structural)',
     verification: 'TLA+, SPIN, CBMC',
     hardware: 'Bare metal, hosted VM, Linux, macOS, Windows',
     protocol: '9P (Plan 9)',
     license: 'MIT',
-    offline: 'Full offline operation',
-    distributed: 'Native multi-device',
+    offline: 'Yes (with local LLM)',
+    distributed: 'Native — the network is the computer',
   },
   {
     name: 'LangChain',
@@ -45,19 +45,19 @@ const frameworks = [
     hardware: 'Any (host-dependent)',
     protocol: 'REST / SDK',
     license: 'MIT + Polyform Shield (platform)',
-    offline: 'Requires LLM API',
+    offline: 'Partial (Ollama, self-hosted only)',
     distributed: 'Limited',
   },
   {
     name: 'OpenClaw',
-    where: 'Host process (local gateway)',
-    security: 'Broad permissions, no sandboxing',
+    where: 'Local gateway (WebSocket control plane)',
+    security: 'Optional Docker sandbox (bypasses documented)',
     verification: 'None',
     hardware: 'Any (host-dependent)',
-    protocol: 'REST / SDK',
+    protocol: 'WebSocket / REST',
     license: 'MIT',
-    offline: 'Requires LLM API',
-    distributed: 'Via external orchestration',
+    offline: 'Yes (Ollama, first-class)',
+    distributed: 'Gateway hub-and-spoke',
   },
   {
     name: 'Cloud Platforms',
@@ -101,8 +101,8 @@ const competitorStrengths = [
   },
   {
     name: 'OpenClaw',
-    strength: 'Research-grade flexibility',
-    description: 'Designed for AI researchers who need fine-grained control over agent behavior, memory, and reasoning loops. Strong academic foundation.',
+    strength: 'Self-extending personal agent',
+    description: 'The fastest-growing agent project on GitHub (247k+ stars). Agents can write and modify their own skills through conversation. Massive integration ecosystem across messaging platforms, smart home, and productivity tools.',
   },
   {
     name: 'Cloud Platforms',
@@ -191,9 +191,10 @@ const competitorStrengths = [
             </p>
             <p>
               InferNode takes a third path. The agent runs in a <strong class="text-text">dedicated
-              OS namespace</strong> on hardware you own. Isolation comes from the operating
-              system, not from a container or a cloud boundary. The agent sees only what you
-              mount into its namespace&mdash;nothing more.
+              OS namespace</strong> on any system you control&mdash;your laptop, a remote
+              server, or distributed across both. Isolation comes from the operating system,
+              not from a container or a cloud boundary. The agent sees only what you mount
+              into its namespace&mdash;nothing more.
             </p>
           </div>
         </div>
@@ -215,8 +216,9 @@ const competitorStrengths = [
           <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
             <h3 class="mb-2 font-semibold text-accent">InferNode</h3>
             <p class="text-sm text-text-muted">
-              Agent runs in an OS-level namespace on your hardware. Structural isolation
-              without cloud dependency. Formally verified. Offline-capable. Sovereign.
+              Agent runs in an OS-level namespace on any system you control&mdash;local,
+              remote, or distributed. Structural isolation. Formally verified. Offline-capable.
+              Sovereign.
             </p>
           </div>
         </div>
