@@ -323,6 +323,7 @@ const competitorStrengths = [
             </p>
           </div>
           <div class="rounded-xl border border-border/50 bg-bg-surface/50 p-6">
+            <p class="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">From the paper</p>
             <div class="grid grid-cols-2 gap-4 text-center">
               <div>
                 <p class="text-2xl font-bold text-accent">83.5%</p>
@@ -380,16 +381,19 @@ const competitorStrengths = [
           This is not a novel idea. It is a proven one, applied to a new domain.
         </p>
         <p>
-          The results back it up. Evaluated against the
-          <strong class="text-text">AgentDojo benchmark</strong> (629 injection attacks,
-          4 domains), namespace-bounded agents achieve <strong class="text-text">0.6%
-          overall attack success rate</strong>&mdash;compared to 53.1% for behavioural
-          defences alone. 75.2% of attacks require cross-tool access and are
+          The research backs it up. The namespace-bounded agent architecture has been
+          evaluated against the <strong class="text-text">AgentDojo benchmark</strong>
+          (629 injection attacks, 4 domains): <strong class="text-text">0.6% overall
+          attack success rate</strong>, compared to 53.1% for behavioural defences alone.
+          75.2% of attacks require cross-tool access and are
           <strong class="text-text">structurally prevented</strong>&mdash;the tool does
           not exist in the agent&rsquo;s namespace, period. Multi-model validation
           (Claude, GPT-5, GPT-4o; n=372) confirms 0% attack success rate with
           defence-in-depth: behavioural blocking when models refuse, structural blocking
-          at the OS level when they don&rsquo;t.
+          at the OS level when they don&rsquo;t. InferNode implements this architecture
+          with <code class="font-mono text-xs text-accent">restrictdir()</code>,
+          an 8-step namespace restriction policy, and post-restriction auditing via
+          <code class="font-mono text-xs text-accent">verifyns()</code>.
         </p>
         <p>
           The formal basis:
