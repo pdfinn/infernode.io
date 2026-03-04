@@ -266,6 +266,66 @@ const competitorStrengths = [
       </div>
     </section>
 
+    <!-- Key Differentiator: 9P vs MCP -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Key Differentiator</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+            9P vs MCP: protocol matters.
+          </h2>
+          <div class="space-y-4 text-text-muted">
+            <p>
+              Most agent frameworks expose tools through REST APIs, SDKs, or the emerging
+              <strong class="text-text">Model Context Protocol (MCP)</strong>. MCP is a step
+              forward&mdash;it standardises how agents discover and call tools. But it is still
+              a bespoke protocol layered on top of the OS, with its own serialisation, its own
+              discovery mechanism, and its own security model.
+            </p>
+            <p>
+              InferNode uses <strong class="text-text">9P</strong>&mdash;the Plan 9 file
+              protocol. Every resource is a file. Tools, LLMs, devices, network services&mdash;all
+              mounted into the agent&rsquo;s namespace as files and accessed with
+              <code class="font-mono text-xs text-accent">read</code> and
+              <code class="font-mono text-xs text-accent">write</code>. No client libraries. No
+              serialisation layer. No new protocol to audit.
+            </p>
+            <p>
+              Because 9P resources are files, the <strong class="text-text">operating system itself</strong>
+              enforces access control. Namespace restriction controls what the agent can see.
+              No separate capability system. No token management. The security model
+              you already verified is the security model that governs tool access.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">MCP / REST / SDK</h3>
+            <p class="text-sm text-text-muted">
+              Tool discovery and invocation via a dedicated protocol. Requires client libraries,
+              serialisation, and a separate permission model. Security is enforced at the
+              application layer.
+            </p>
+          </div>
+          <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-accent">9P (InferNode)</h3>
+            <p class="text-sm text-text-muted">
+              Tools are files. Write arguments, read results. Mount any 9P server into the
+              agent&rsquo;s namespace&mdash;LLMs, search, git, speech. Access control is namespace
+              restriction: if the file isn&rsquo;t mounted, it doesn&rsquo;t exist.
+            </p>
+          </div>
+          <div class="rounded-xl border border-border/50 bg-bg-surface/50 p-6">
+            <p class="text-sm text-text-muted">
+              <strong class="text-text">Example:</strong> To give an agent search capability,
+              mount the search 9P server. To revoke it, don&rsquo;t mount it. No tokens to
+              rotate, no permissions to configure, no API keys to manage.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- What the Alternatives Do Well -->
     <section class="mx-auto mt-32 max-w-5xl">
       <div class="mb-12 text-center">
@@ -308,6 +368,13 @@ const competitorStrengths = [
           This is not a novel idea. It is a proven one, applied to a new domain.
         </p>
         <p>
+          The formal basis for this approach is described in
+          <a href="https://www.researchgate.net/publication/400372860" class="text-accent underline hover:text-text" target="_blank" rel="noopener"><em>Namespace-Bounded Agents: Capability-Based Security for LLM Systems via 9P Filesystem Semantics</em></a>.
+          The security model has been verified with TLA+, SPIN, and CBMC&mdash;2,035
+          states for namespace isolation, 4,830 states for locking protocol, 113 checks
+          for the C implementation. Zero errors across all three phases.
+        </p>
+        <p>
           If you need the largest ecosystem of integrations today, use LangChain. If you
           need enterprise compliance checkboxes, use a cloud platform. If you need to
           build agent systems that are <strong class="text-text">provably safe, sovereign,
@@ -322,7 +389,7 @@ const competitorStrengths = [
         See the difference for yourself.
       </h2>
       <p class="mx-auto mb-10 max-w-xl text-lg text-text-muted">
-        InferNode is open source, MIT licensed, and runs on hardware you already own.
+        InferNode is open source, MIT licensed, and runs on any system you control.
       </p>
       <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
         <a

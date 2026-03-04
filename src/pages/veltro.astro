@@ -231,45 +231,78 @@ import Footer from '../components/Footer.astro';
           </h2>
           <div class="space-y-4 text-text-muted">
             <p>
-              Veltro&rsquo;s security is not based on guardrails, content filtering, or
-              allow-lists. It is based on the structural impossibility of accessing resources
-              that do not exist in the agent&rsquo;s namespace.
+              Veltro&rsquo;s security starts with a single primitive:
+              <code class="font-mono text-xs text-accent">restrictdir(target, allowed, writable)</code>.
+              Create a shadow directory containing only allowed items, then bind-replace the
+              target. Everything not on the allowlist becomes invisible&mdash;not denied, but
+              nonexistent. The agent&rsquo;s namespace is a <strong class="text-text">truthful
+              world</strong>: every path it can see is a path it&rsquo;s allowed to use.
             </p>
             <p>
-              A prompt injection attack cannot read your SSH keys because in the agent&rsquo;s
-              namespace, SSH keys do not exist. There is nothing to exploit. This is not a
-              claim&mdash;it is a provable property of the isolation model.
+              An 8-step restriction policy (<code class="font-mono text-xs text-accent">restrictns</code>)
+              locks down <code class="font-mono text-xs text-accent">/dis</code>,
+              <code class="font-mono text-xs text-accent">/dev</code>,
+              <code class="font-mono text-xs text-accent">/n</code>,
+              <code class="font-mono text-xs text-accent">/lib</code>,
+              <code class="font-mono text-xs text-accent">/tmp</code>, and finally
+              <code class="font-mono text-xs text-accent">/</code> itself&mdash;hiding
+              <code class="font-mono text-xs text-accent">.env</code>,
+              <code class="font-mono text-xs text-accent">.git</code>, credentials, and
+              the entire source tree. After restriction,
+              <code class="font-mono text-xs text-accent">verifyns()</code> audits the
+              result: negative assertions confirm dangerous paths are gone, positive
+              assertions confirm required paths remain.
             </p>
             <p>
-              The result: you can give Veltro <strong class="text-text">more autonomy</strong>,
-              not less. More tools, more data, more freedom to act&mdash;because the boundaries
-              are proven, not hoped.
+              Sub-agents inherit an already-restricted namespace and can only narrow it
+              further&mdash;<strong class="text-text">capability attenuation</strong> by
+              construction, not policy. A prompt injection cannot escalate privileges because
+              there are no privileges to escalate.
+            </p>
+            <p class="text-sm">
+              The security model is described in the paper
+              <a href="https://www.researchgate.net/publication/400372860" class="text-accent underline hover:text-text" target="_blank" rel="noopener"><em>Namespace-Bounded Agents: Capability-Based Security for LLM Systems via 9P Filesystem Semantics</em></a>.
             </p>
           </div>
         </div>
-        <div class="rounded-xl border border-border bg-bg-surface p-8">
-          <h3 class="mb-6 text-lg font-semibold">Formal Verification</h3>
-          <div class="space-y-4">
-            <div class="flex items-start gap-3">
-              <span class="mt-1 text-accent">&#8227;</span>
-              <div>
-                <p class="font-medium text-text">TLA+</p>
-                <p class="text-sm text-text-muted">Temporal logic specification of namespace isolation invariants. Proves that no sequence of operations can violate containment.</p>
+        <div class="space-y-6">
+          <div class="rounded-xl border border-border bg-bg-surface p-8">
+            <h3 class="mb-6 text-lg font-semibold">Formal Verification</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text">TLA+ &mdash; Namespace Isolation</p>
+                  <p class="text-sm text-text-muted">Temporal logic specification proves that after <code class="font-mono text-xs">pgrpcpy()</code>, modifications to a child namespace never affect the parent. <strong class="text-text">2,035 states, 0 errors.</strong></p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text">SPIN &mdash; Locking Protocol</p>
+                  <p class="text-sm text-text-muted">Exhaustive state-space exploration of the locking protocol confirms deadlock freedom and lock ordering. <strong class="text-text">4,830 states, 0 errors.</strong></p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text">CBMC &mdash; C Implementation</p>
+                  <p class="text-sm text-text-muted">Bounded model checking verifies array bounds, integer overflow, and reference counting in the kernel C code. <strong class="text-text">113 checks, 0 failures.</strong></p>
+                </div>
               </div>
             </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-1 text-accent">&#8227;</span>
-              <div>
-                <p class="font-medium text-text">SPIN</p>
-                <p class="text-sm text-text-muted">Model checking of the 9P protocol interactions. Exhaustive state-space exploration confirms no reachable state violates isolation.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-1 text-accent">&#8227;</span>
-              <div>
-                <p class="font-medium text-text">CBMC</p>
-                <p class="text-sm text-text-muted">Bounded model checking of the C implementation. Verifies that the code matches the formal specification.</p>
-              </div>
+          </div>
+          <div class="rounded-xl border border-border/50 bg-bg-surface/50 p-6">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-widest text-text-muted">Security Properties</h3>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-text-muted">
+              <span>No host filesystem access</span>
+              <span>No env secrets (NEWENV)</span>
+              <span>No FD leaks (NEWFD)</span>
+              <span>No device access (NODEVS)</span>
+              <span>Truthful namespace</span>
+              <span>Capability attenuation</span>
+              <span>Post-restriction audit</span>
+              <span>No cleanup needed</span>
             </div>
           </div>
         </div>
