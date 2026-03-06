@@ -22,19 +22,16 @@
     <div class="grid gap-4 md:grid-cols-3">
 
       <!-- Go 9P server -->
-      <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
+      <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-node-jetson">Go</span>
           <span class="text-xs text-text-muted italic">9P server — runs on host</span>
         </div>
-        <div class="p-4 font-mono text-xs leading-relaxed">
+        <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
           <div class="text-text-muted">// Expose an LLM as a filesystem</div>
-          <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(</div>
-          <div class="pl-4">fid *p9p.Fid) {</div>
-          <div class="pl-4"><span class="text-node-cloud">switch</span> fid.Path {</div>
-          <div class="pl-8"><span class="text-node-cloud">case</span> <span class="text-node-jetson">"response"</span>:</div>
-          <div class="pl-12">fid.Write(</div>
-          <div class="pl-16">s.llm.Complete(s.prompt))</div>
+          <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(fid *p9p.Fid) {</div>
+          <div class="pl-4"><span class="text-node-cloud">if</span> fid.Path == <span class="text-node-jetson">"response"</span> {</div>
+          <div class="pl-8">fid.Write(s.llm.Complete(s.prompt))</div>
           <div class="pl-4">}</div>
           <div>}</div>
           <div class="mt-2 text-text-muted">// mount tcp!host!564 /n/llm</div>
@@ -42,12 +39,12 @@
       </div>
 
       <!-- Python 9P server -->
-      <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
+      <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-node-llm">Python</span>
           <span class="text-xs text-text-muted italic">9P server — runs on host</span>
         </div>
-        <div class="p-4 font-mono text-xs leading-relaxed">
+        <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
           <div class="text-text-muted"># Expose a sensor feed as a file</div>
           <div><span class="text-node-cloud">class</span> <span class="text-text">SensorServer</span>(p9p.Server):</div>
           <div class="pl-4"><span class="text-node-cloud">def</span> <span class="text-text">read</span>(self, path, n, off):</div>
@@ -58,17 +55,17 @@
       </div>
 
       <!-- rc shell inside InferNode -->
-      <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
+      <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-accent">rc</span>
           <span class="text-xs text-text-muted italic">inside InferNode</span>
         </div>
-        <div class="p-4 font-mono text-xs leading-relaxed">
+        <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
           <div class="text-text-muted"># Mount external services</div>
           <div><span class="text-node-laptop">mount</span> tcp!llm-host!564 /n/llm</div>
           <div><span class="text-node-laptop">mount</span> tcp!pi!564 /n/sensors</div>
           <div class="mt-2 text-text-muted"># Use them — just files</div>
-          <div><span class="text-node-laptop">echo</span> <span class="text-node-jetson">'summarise reading'</span> &gt;/n/llm/0/ask</div>
+          <div><span class="text-node-laptop">echo</span> <span class="text-node-jetson">'summarise'</span> &gt;/n/llm/0/ask</div>
           <div><span class="text-node-laptop">cat</span> /n/llm/0/response</div>
           <div><span class="text-node-laptop">cat</span> /n/sensors/temperature</div>
         </div>
