@@ -21,49 +21,56 @@
     <!-- Language examples -->
     <div class="grid gap-4 md:grid-cols-3">
 
-      <!-- Python -->
+      <!-- Go 9P server -->
       <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
-        <div class="border-b border-border px-4 py-2">
-          <span class="text-xs font-medium text-node-llm">Python</span>
-        </div>
-        <div class="p-4 font-mono text-xs leading-relaxed">
-          <div class="text-text-muted"># Query an LLM via InferNode</div>
-          <div><span class="text-node-cloud">with</span> <span class="text-text">open</span>(<span class="text-node-jetson">"/n/llm/prompt"</span>, <span class="text-node-jetson">"w"</span>) <span class="text-node-cloud">as</span> f:</div>
-          <div class="pl-4">f.write(<span class="text-node-jetson">"Summarise this report"</span>)</div>
-          <div class="mt-2"><span class="text-node-cloud">with</span> <span class="text-text">open</span>(<span class="text-node-jetson">"/n/llm/response"</span>) <span class="text-node-cloud">as</span> f:</div>
-          <div class="pl-4">answer = f.read()</div>
-        </div>
-      </div>
-
-      <!-- Go -->
-      <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
-        <div class="border-b border-border px-4 py-2">
+        <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-node-jetson">Go</span>
+          <span class="text-xs text-text-muted italic">9P server — runs on host</span>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed">
-          <div class="text-text-muted">// Read a sensor feed</div>
-          <div>data, err := os.ReadFile(</div>
-          <div class="pl-4"><span class="text-node-jetson">"/n/sensors/temperature"</span>)</div>
-          <div class="mt-2"><span class="text-text-muted">// Write a command</span></div>
-          <div>os.WriteFile(</div>
-          <div class="pl-4"><span class="text-node-jetson">"/n/actuator/valve"</span>,</div>
-          <div class="pl-4">[]byte(<span class="text-node-jetson">"open"</span>), 0644)</div>
+          <div class="text-text-muted">// Expose an LLM as a filesystem</div>
+          <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(</div>
+          <div class="pl-4">fid *p9p.Fid) {</div>
+          <div class="pl-4"><span class="text-node-cloud">switch</span> fid.Path {</div>
+          <div class="pl-8"><span class="text-node-cloud">case</span> <span class="text-node-jetson">"response"</span>:</div>
+          <div class="pl-12">fid.Write(</div>
+          <div class="pl-16">s.llm.Complete(s.prompt))</div>
+          <div class="pl-4">}</div>
+          <div>}</div>
+          <div class="mt-2 text-text-muted">// mount tcp!host!564 /n/llm</div>
         </div>
       </div>
 
-      <!-- Bash -->
+      <!-- Python 9P server -->
       <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
-        <div class="border-b border-border px-4 py-2">
-          <span class="text-xs font-medium text-node-rpi">Bash</span>
+        <div class="border-b border-border px-4 py-2 flex items-center justify-between">
+          <span class="text-xs font-medium text-node-llm">Python</span>
+          <span class="text-xs text-text-muted italic">9P server — runs on host</span>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed">
-          <div class="text-text-muted"># List available tools</div>
-          <div><span class="text-node-laptop">ls</span> /n/agent/tools/</div>
-          <div class="mt-2"><span class="text-text-muted"># Send a task to an agent</span></div>
-          <div><span class="text-node-laptop">echo</span> <span class="text-node-jetson">"find anomalies"</span> \</div>
-          <div class="pl-4">> /n/agent/task</div>
-          <div class="mt-2"><span class="text-text-muted"># Read the result</span></div>
-          <div><span class="text-node-laptop">cat</span> /n/agent/result</div>
+          <div class="text-text-muted"># Expose a sensor feed as a file</div>
+          <div><span class="text-node-cloud">class</span> <span class="text-text">SensorServer</span>(p9p.Server):</div>
+          <div class="pl-4"><span class="text-node-cloud">def</span> <span class="text-text">read</span>(self, path, n, off):</div>
+          <div class="pl-8"><span class="text-node-cloud">return</span> sensor.read().encode()</div>
+          <div class="mt-2 text-text-muted"># mount tcp!pi!564 /n/sensors</div>
+          <div class="mt-2 text-text-muted"># Any language. Zero InferNode SDK.</div>
+        </div>
+      </div>
+
+      <!-- rc shell inside InferNode -->
+      <div class="rounded-xl border border-border bg-bg-surface overflow-hidden">
+        <div class="border-b border-border px-4 py-2 flex items-center justify-between">
+          <span class="text-xs font-medium text-accent">rc</span>
+          <span class="text-xs text-text-muted italic">inside InferNode</span>
+        </div>
+        <div class="p-4 font-mono text-xs leading-relaxed">
+          <div class="text-text-muted"># Mount external services</div>
+          <div><span class="text-node-laptop">mount</span> tcp!llm-host!564 /n/llm</div>
+          <div><span class="text-node-laptop">mount</span> tcp!pi!564 /n/sensors</div>
+          <div class="mt-2 text-text-muted"># Use them — just files</div>
+          <div><span class="text-node-laptop">echo</span> <span class="text-node-jetson">'summarise reading'</span> &gt;/n/llm/0/ask</div>
+          <div><span class="text-node-laptop">cat</span> /n/llm/0/response</div>
+          <div><span class="text-node-laptop">cat</span> /n/sensors/temperature</div>
         </div>
       </div>
     </div>

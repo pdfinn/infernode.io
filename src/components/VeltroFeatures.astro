@@ -1,0 +1,56 @@
+---
+const features = [
+  {
+    icon: '&#9635;',   // ▣ square within square — bounded namespace
+    color: 'accent',
+    title: 'Namespace-Isolated',
+    body: 'Each Veltro instance sees only the resources you mount into its namespace. No ambient authority, no inherited credentials, no attack surface. Isolation is not enforced by policy&mdash;it is structural.',
+  },
+  {
+    icon: '&#9663;',   // ▿ downward triangle — delegation / hierarchy
+    color: 'node-rpi',
+    title: 'Sub-Agents',
+    body: 'Veltro can spawn child agents with a subset of its own capabilities. Each sub-agent gets a further-restricted namespace. Delegation without escalation&mdash;the principle of least privilege, applied recursively.',
+  },
+  {
+    icon: '&#9670;',   // ◆ diamond — data facet / model
+    color: 'node-cloud',
+    title: 'LLM as Filesystem',
+    body: 'Mount any language model at <code class="font-mono text-xs text-node-cloud">/n/llm</code> via llm9p. Write a prompt to <code class="font-mono text-xs text-node-cloud">/n/llm/0/ask</code>, read the completion back. Claude, Ollama, any backend&mdash;the agent sees files, not APIs. Swap providers without changing a line of code.',
+  },
+  {
+    icon: '&#9673;',   // ◉ fisheye — network node / multi-device
+    color: 'node-jetson',
+    title: 'Multi-Device',
+    body: 'Veltro runs on a Raspberry Pi, a Jetson, a laptop, or a server. Mount resources from any device on the network into the agent&rsquo;s namespace using 9P. The agent doesn&rsquo;t know or care where the data lives&mdash;it just works.',
+  },
+];
+---
+
+<section class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-12 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Veltro</p>
+      <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+        Built for autonomous work.
+      </h2>
+      <p class="mx-auto max-w-2xl text-text-muted">
+        An AI agent that lives in a namespace, not inside an application. Every capability is a file. Every boundary is structural.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {features.map((f) => (
+        <div class={`group rounded-xl border border-border bg-bg-surface p-8 transition hover:border-${f.color}/40`}>
+          <div class="mb-4 flex items-center gap-3">
+            <div class={`flex h-10 w-10 items-center justify-center rounded-lg bg-${f.color}/10`}>
+              <span class={`text-lg text-${f.color}`} set:html={f.icon} />
+            </div>
+            <h3 class="text-lg font-semibold">{f.title}</h3>
+          </div>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={f.body} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
