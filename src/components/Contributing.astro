@@ -29,11 +29,11 @@
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
           <div class="text-text-muted">// Expose an LLM as a filesystem</div>
-          <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(fid *p9p.Fid) {</div>
-          <div class="pl-4"><span class="text-node-cloud">if</span> fid.Path == <span class="text-node-jetson">"response"</span> {</div>
+          <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(fid *p9p.Fid) &#123;</div>
+          <div class="pl-4"><span class="text-node-cloud">if</span> fid.Path == <span class="text-node-jetson">"response"</span> &#123;</div>
           <div class="pl-8">fid.Write(s.llm.Complete(s.prompt))</div>
-          <div class="pl-4">}</div>
-          <div>}</div>
+          <div class="pl-4">&#125;</div>
+          <div>&#125;</div>
           <div class="mt-2 text-text-muted">// mount tcp!host!564 /n/llm</div>
         </div>
       </div>
