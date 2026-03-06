@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 <Base
   title="InferNode Security — Formally Verified Namespace Isolation & Post-Quantum Crypto"
-  description="InferNode's namespace isolation is formally verified: 11 TLA+ invariants over 19.3M states (exhaustive), 3.17B states on Jetson Orin, 131K SPIN states, 113 CBMC checks — all zero violations. Three real kernel race conditions discovered by formal methods."
+  description="InferNode's namespace isolation is formally verified: 11 TLA+ invariants over 19.3M states (exhaustive), 3.17B states in extended run, 131K SPIN states, 113 CBMC checks — all zero violations. Three real kernel race conditions discovered by formal methods."
 >
   <Nav />
   <main>
@@ -23,7 +23,7 @@ import Footer from '../components/Footer.astro';
           InferNode's namespace isolation is verified at three abstraction levels — abstract
           specification, concurrent protocol, and real C code. The TLA+ proof is exhaustive
           across 19.3 million distinct states. The medium configuration reached 3.17 billion
-          states on a Jetson Orin AGX with zero violations. This is near-publication-grade work.
+          states in an extended configuration run with zero violations. This is near-publication-grade work.
         </p>
 
         <!-- Stat row -->
@@ -35,7 +35,7 @@ import Footer from '../components/Footer.astro';
           <div class="hidden h-8 w-px bg-border sm:block self-center"></div>
           <div class="flex flex-col items-center">
             <span class="text-2xl font-semibold text-text">3.17B</span>
-            <span class="text-text-muted">states on Jetson Orin</span>
+            <span class="text-text-muted">states, extended run</span>
           </div>
           <div class="hidden h-8 w-px bg-border sm:block self-center"></div>
           <div class="flex flex-col items-center">
@@ -143,7 +143,7 @@ import Footer from '../components/Footer.astro';
                     <div class="text-xs text-text-muted">369M generated &bull; depth 27 &bull; 7m 57s &bull; 0 left on queue</div>
                   </div>
                   <div class="rounded-lg border border-border p-4">
-                    <div class="mb-1 text-xs font-medium text-text-muted uppercase tracking-wide">Medium (Jetson Orin AGX)</div>
+                    <div class="mb-1 text-xs font-medium text-text-muted uppercase tracking-wide">Medium (extended)</div>
                     <div class="text-lg font-semibold text-text">3.17B distinct states</div>
                     <div class="text-xs text-text-muted">341GB state files &bull; 10h 50m &bull; 0 violations &bull; partial</div>
                   </div>
