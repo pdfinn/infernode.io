@@ -1,25 +1,25 @@
 ---
 const features = [
   {
-    icon: '&#9672;',   // ◈ diamond within diamond — bounded / contained namespace
+    icon: 'ph ph-prohibit',
     color: 'accent',
     title: 'Namespace-Isolated',
     body: 'Each Veltro instance sees only the resources you mount into its namespace. No ambient authority, no inherited credentials, no attack surface. Isolation is not enforced by policy&mdash;it is structural.',
   },
   {
-    icon: '&#10022;', // ✦ four-pointed star — spawning new agent
+    icon: 'ph ph-git-branch',
     color: 'node-rpi',
     title: 'Sub-Agents',
     body: 'Veltro can spawn child agents with a subset of its own capabilities. Each sub-agent gets a further-restricted namespace. Delegation without escalation&mdash;the principle of least privilege, applied recursively.',
   },
   {
-    icon: '&#9678;',   // ◎ bullseye — filesystem mount point
+    icon: 'ph ph-plug',
     color: 'node-cloud',
     title: 'LLM as Filesystem',
     body: 'Mount any language model at <code class="font-mono text-xs text-node-cloud">/n/llm</code> via llm9p. Write a prompt to <code class="font-mono text-xs text-node-cloud">/n/llm/0/ask</code>, read the completion back. Claude, Ollama, any backend&mdash;the agent sees files, not APIs. Swap providers without changing a line of code.',
   },
   {
-    icon: '&#10038;', // ✶ six-pointed star — distributed nodes
+    icon: 'ph ph-graph',
     color: 'node-jetson',
     title: 'Multi-Device',
     body: 'Veltro runs on a Raspberry Pi, a Jetson, a laptop, or a server. Mount resources from any device on the network into the agent&rsquo;s namespace using 9P. The agent doesn&rsquo;t know or care where the data lives&mdash;it just works.',
@@ -44,7 +44,7 @@ const features = [
         <div class={`group rounded-xl border border-border bg-bg-surface p-8 transition hover:border-${f.color}/40`}>
           <div class="mb-4 flex items-center gap-3">
             <div class={`flex h-10 w-10 items-center justify-center rounded-lg bg-${f.color}/10`}>
-              <span class={`text-lg text-${f.color}`} set:html={f.icon} />
+              <i class={`${f.icon} text-lg text-${f.color}`} />
             </div>
             <h3 class="text-lg font-semibold">{f.title}</h3>
           </div>
