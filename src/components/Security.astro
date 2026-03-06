@@ -102,5 +102,33 @@
         </div>
       </div>
     </div>
+
+    <!-- Post-Quantum Cryptography -->
+    <div class="mt-12 rounded-xl border border-border bg-bg-surface p-8">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-accent/10">
+          <span class="text-xl text-accent">&#9671;</span>
+        </div>
+        <div>
+          <div class="mb-3 flex flex-wrap items-center gap-3">
+            <h3 class="text-lg font-semibold">Quantum-Safe Cryptography</h3>
+            <span class="rounded-full border border-accent/40 px-2.5 py-0.5 text-xs font-medium text-accent">experimental</span>
+          </div>
+          <p class="mb-4 text-sm leading-relaxed text-text-muted">
+            InferNode ships preliminary implementations of <strong class="text-text">ML-KEM</strong> (FIPS&nbsp;203)
+            and <strong class="text-text">ML-DSA</strong> (FIPS&nbsp;204)&mdash;the NIST-standardised,
+            lattice-based algorithms the industry is migrating to now. Both NIST Level&nbsp;3
+            (ML-KEM-768 / ML-DSA-65) and Level&nbsp;5 (ML-KEM-1024 / ML-DSA-87) parameter sets
+            are supported, with constant-time arithmetic throughout.
+          </p>
+          <p class="text-sm leading-relaxed text-text-muted">
+            This work is <em>not yet recommended for production</em>, but cryptographic agility
+            is a first-class design goal. When classical public-key cryptography is
+            broken, InferNode will already have a path&mdash;running natively on the same
+            lightweight OS that protects your agents today.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
