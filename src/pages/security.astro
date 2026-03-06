@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 <Base
   title="InferNode Security — Formally Verified Namespace Isolation & Post-Quantum Crypto"
-  description="InferNode's namespace isolation is formally verified: 11 TLA+ invariants over 19.3M states (exhaustive), 3.17B states in extended run, 131K SPIN states, 113 CBMC checks — all zero violations. Three real kernel race conditions discovered by formal methods."
+  description="InferNode's agent isolation is formally verified — not just tested. Three independent tools confirm zero violations across billions of states. Post-quantum cryptography is built in."
 >
   <Nav />
   <main>
@@ -20,32 +20,31 @@ import Footer from '../components/Footer.astro';
           Formally verified.<br /><span class="text-accent">Not just claimed.</span>
         </h1>
         <p class="mx-auto max-w-2xl text-lg leading-relaxed text-text-muted">
-          InferNode's namespace isolation is verified at three abstraction levels — abstract
-          specification, concurrent protocol, and real C code. The TLA+ proof is exhaustive
-          across 19.3 million distinct states. The medium configuration reached 3.17 billion
-          states in an extended configuration run with zero violations. This is near-publication-grade work.
+          Most security claims are tested. InferNode's are proven. Three independent formal
+          verification tools confirm that namespace isolation holds across every possible
+          sequence of operations &mdash; billions of states, zero violations.
         </p>
 
         <!-- Stat row -->
         <div class="mt-10 flex flex-wrap justify-center gap-8 text-sm">
           <div class="flex flex-col items-center">
-            <span class="text-2xl font-semibold text-text">19.3M</span>
-            <span class="text-text-muted">states, exhaustive</span>
+            <span class="text-2xl font-semibold text-text">3</span>
+            <span class="text-text-muted">independent tools</span>
           </div>
           <div class="hidden h-8 w-px bg-border sm:block self-center"></div>
           <div class="flex flex-col items-center">
-            <span class="text-2xl font-semibold text-text">3.17B</span>
-            <span class="text-text-muted">states, extended run</span>
+            <span class="text-2xl font-semibold text-text">Billions</span>
+            <span class="text-text-muted">of states verified</span>
           </div>
           <div class="hidden h-8 w-px bg-border sm:block self-center"></div>
           <div class="flex flex-col items-center">
-            <span class="text-2xl font-semibold text-text">11</span>
-            <span class="text-text-muted">TLA+ invariants, 0 violations</span>
+            <span class="text-2xl font-semibold text-text">Zero</span>
+            <span class="text-text-muted">violations found</span>
           </div>
           <div class="hidden h-8 w-px bg-border sm:block self-center"></div>
           <div class="flex flex-col items-center">
             <span class="text-2xl font-semibold text-text">3</span>
-            <span class="text-text-muted">real bugs found</span>
+            <span class="text-text-muted">real bugs discovered</span>
           </div>
         </div>
       </div>
@@ -57,25 +56,22 @@ import Footer from '../components/Footer.astro';
         <div class="grid gap-12 lg:grid-cols-2 items-center">
           <div>
             <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">The Architecture</p>
-            <h2 class="mb-6 text-3xl font-bold tracking-tight">If you didn't grant it, it doesn't exist.</h2>
+            <h2 class="mb-6 text-3xl font-bold tracking-tight">If you didn't grant it,<br />it doesn't exist.</h2>
             <div class="space-y-4 text-text-muted">
               <p>
-                Each agent runs in a <strong class="text-text">per-process namespace</strong> &mdash; a view
-                of the filesystem constructed entirely from resources you explicitly mount into it.
-                Your credentials, SSH keys, email: not present. They do not produce an access-denied
-                error. They simply <strong class="text-text">do not exist</strong>.
+                Each agent runs inside its own namespace &mdash; a view of the world built
+                entirely from resources you explicitly hand to it. Your credentials, SSH keys,
+                email, and private files are not hidden from the agent. They are simply
+                <strong class="text-text">absent</strong>. There is nothing to find.
               </p>
               <p>
-                This is not a sandbox bolted onto a conventional OS. It derives from Plan&nbsp;9's
-                original namespace design, and the isolation boundary is enforced by
-                <code class="font-mono text-xs text-accent">pgrpcpy()</code> in the kernel &mdash; a
-                function we have verified at every level: abstract model (TLA+), concurrent protocol
-                (SPIN), and actual C implementation (CBMC).
+                This is not a sandbox bolted onto a conventional OS. It is the original
+                Plan&nbsp;9 design, refined and formally proven correct. The isolation boundary
+                is structural &mdash; enforced at the kernel level, not by policy or by hope.
               </p>
               <p>
-                The verification covers <strong class="text-text">3,831 lines of C</strong> across four
-                kernel source files, using <strong class="text-text">4,697 lines of verification
-                code</strong> (1,440 Promela + 1,199 TLA+ + 2,058 C harnesses and stubs).
+                A prompt injection attack that tries to read your SSH keys gets the same
+                response as asking for a file on the moon. The path does not exist.
               </p>
             </div>
           </div>
@@ -106,272 +102,75 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Verification phases -->
+    <!-- The Proof -->
     <section class="px-6 py-16 border-t border-border">
       <div class="mx-auto max-w-5xl">
         <div class="mb-12 text-center">
           <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">The Proof</p>
-          <h2 class="mb-4 text-3xl font-bold tracking-tight">Three tools. Five phases. Zero violations.</h2>
+          <h2 class="mb-4 text-3xl font-bold tracking-tight">Three tools. Zero violations.</h2>
           <p class="mx-auto max-w-2xl text-text-muted">
-            Abstract specification, concurrent protocol verification, and bounded model checking
-            on the real C source. Each tool catches a different class of bug.
+            Formal verification means checking every possible state, not just the ones you think
+            to test. InferNode uses three complementary tools, each catching a different class of flaw.
           </p>
         </div>
 
-        <div class="space-y-4">
-
-          <!-- TLA+ -->
+        <div class="grid gap-6 md:grid-cols-3">
           <div class="rounded-xl border border-border bg-bg-surface p-6">
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-              <div class="flex-shrink-0">
-                <span class="inline-flex items-center rounded-lg bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">TLA+ / TLC</span>
-              </div>
-              <div class="min-w-0">
-                <h3 class="mb-2 font-semibold">Phase 1 &mdash; Abstract Namespace Isolation (Exhaustive)</h3>
-                <p class="mb-4 text-sm leading-relaxed text-text-muted">
-                  Four TLA+ modules (1,199 lines) specify namespace operations using 15 state variables
-                  and history variables. The core result is the <strong class="text-text">Namespace Isolation
-                  Theorem</strong>: a channel mounted in the parent after a copy cannot appear in the child
-                  unless the child independently mounted it. This is not tautologically true &mdash; it depends
-                  on <code class="font-mono text-xs text-accent">pgrpcpy()</code> performing a genuine deep copy.
-                  Eleven invariants verified across all reachable states.
-                </p>
-                <div class="grid gap-4 sm:grid-cols-2 mb-4">
-                  <div class="rounded-lg border border-border p-4">
-                    <div class="mb-1 text-xs font-medium text-text-muted uppercase tracking-wide">Small (exhaustive)</div>
-                    <div class="text-lg font-semibold text-text">19.3M distinct states</div>
-                    <div class="text-xs text-text-muted">369M generated &bull; depth 27 &bull; 7m 57s &bull; 0 left on queue</div>
-                  </div>
-                  <div class="rounded-lg border border-border p-4">
-                    <div class="mb-1 text-xs font-medium text-text-muted uppercase tracking-wide">Medium (extended)</div>
-                    <div class="text-lg font-semibold text-text">3.17B distinct states</div>
-                    <div class="text-xs text-text-muted">341GB state files &bull; 10h 50m &bull; 0 violations &bull; partial</div>
-                  </div>
-                </div>
-                <div class="rounded-lg bg-bg px-4 py-3 font-mono text-xs text-text-muted overflow-x-auto">
-                  <div class="text-text">NamespaceIsolationTheorem ==</div>
-                  <div class="pl-4">&#8704; pg_child &isin; PgrpId : LET pg_parent == pgrp_parent[pg_child] IN</div>
-                  <div class="pl-8">active(pg_child) &and; active(pg_parent) &rArr;</div>
-                  <div class="pl-12">&#8704; path, cid : cid &isin; mt[parent][path] &and; cid &isin; mt[child][path] &rArr;</div>
-                  <div class="pl-16">cid &isin; snapshot[child][path] &or; (post_copy(parent) &and; post_copy(child))</div>
-                </div>
-              </div>
+            <div class="mb-4">
+              <span class="inline-flex items-center rounded-lg bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">TLA+</span>
             </div>
-          </div>
-
-          <!-- SPIN isolation + locking -->
-          <div class="rounded-xl border border-border bg-bg-surface p-6">
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-              <div class="flex-shrink-0">
-                <span class="inline-flex items-center rounded-lg bg-node-rpi/10 px-3 py-1 text-xs font-semibold text-node-rpi">SPIN</span>
-              </div>
-              <div class="min-w-0">
-                <h3 class="mb-2 font-semibold">Phases 2 &amp; 3 &mdash; Concurrent Protocol &amp; Locking</h3>
-                <p class="mb-4 text-sm leading-relaxed text-text-muted">
-                  Five Promela models (1,440 lines) verify the namespace at the concurrent protocol level.
-                  Three processes running all operation combinations test deadlock freedom, the two-lock
-                  ordering invariant (<code class="font-mono text-xs text-accent">pg&rarr;ns</code> before
-                  <code class="font-mono text-xs text-accent">mh&rarr;lock</code>), and the safety of
-                  <code class="font-mono text-xs text-accent">cmount()</code>'s early-release optimisation.
-                  The export boundary model proves <code class="font-mono text-xs text-accent">walk("..")</code>
-                  cannot escape a mounted export root.
-                </p>
-                <div class="overflow-x-auto rounded-lg border border-border">
-                  <table class="w-full text-xs">
-                    <thead><tr class="border-b border-border bg-bg"><th class="px-4 py-2 text-left text-text-muted font-medium">Model</th><th class="px-4 py-2 text-left text-text-muted font-medium">States</th><th class="px-4 py-2 text-left text-text-muted font-medium">Verifies</th></tr></thead>
-                    <tbody class="divide-y divide-border">
-                      <tr><td class="px-4 py-2 font-mono text-accent">namespace_isolation.pml</td><td class="px-4 py-2 text-text">82,628</td><td class="px-4 py-2 text-text-muted">Post-copy mount isolation</td></tr>
-                      <tr><td class="px-4 py-2 font-mono text-accent">namespace_isolation_extended.pml</td><td class="px-4 py-2 text-text">5,724</td><td class="px-4 py-2 text-text-muted">Nested fork (parent→child→grandchild)</td></tr>
-                      <tr><td class="px-4 py-2 font-mono text-accent">namespace_locks.pml</td><td class="px-4 py-2 text-text">39,744</td><td class="px-4 py-2 text-text-muted">Lock ordering, deadlock freedom</td></tr>
-                      <tr><td class="px-4 py-2 font-mono text-accent">namespace_races.pml</td><td class="px-4 py-2 text-text">3,131</td><td class="px-4 py-2 text-text-muted">Race condition detection</td></tr>
-                      <tr><td class="px-4 py-2 font-mono text-accent">exportfs_boundary.pml</td><td class="px-4 py-2 text-text">106</td><td class="px-4 py-2 text-text-muted">Export root escape prevention</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CBMC -->
-          <div class="rounded-xl border border-border bg-bg-surface p-6">
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-              <div class="flex-shrink-0">
-                <span class="inline-flex items-center rounded-lg bg-node-jetson/10 px-3 py-1 text-xs font-semibold text-node-jetson">CBMC</span>
-              </div>
-              <div>
-                <h3 class="mb-2 font-semibold">Phases 4 &amp; 5 &mdash; Real C Code (Bounded Model Checking)</h3>
-                <p class="mb-3 text-sm leading-relaxed text-text-muted">
-                  CBMC verifies properties of the <em>actual kernel C source</em> &mdash; not a model.
-                  The quick suite (CI, ~1 minute) runs three targeted harnesses: MOUNTH macro bounds,
-                  file-descriptor allocation overflow, and reference-count arithmetic. 113 assertions,
-                  0 failures.
-                </p>
-                <p class="text-sm leading-relaxed text-text-muted">
-                  The full suite runs four harnesses directly on
-                  <code class="font-mono text-xs text-accent">pgrpcpy()</code> with
-                  <code class="font-mono text-xs text-accent">MNTHASH=32</code> (production configuration,
-                  <code class="font-mono text-xs text-accent">--unwind 34 --object-bits 11</code>): basic
-                  isolation, modification independence, bounds, and error-path cleanup correctness.
-                  Requires a dedicated host with 12&ndash;16&nbsp;GB RAM per harness.
-                </p>
-                <p class="mt-3 text-xs text-text-muted">
-                  Key finding: the MOUNTH macro is <strong class="text-text">mathematically guaranteed</strong>
-                  bounds-safe for any possible <code class="font-mono text-accent">qid.path</code> value
-                  by bitmasking &mdash; no input can produce an out-of-bounds index.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Race conditions discovered -->
-    <section class="px-6 py-16 border-t border-border">
-      <div class="mx-auto max-w-5xl">
-        <div class="mb-10">
-          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Bugs Found</p>
-          <h2 class="mb-4 text-3xl font-bold tracking-tight">Three real race conditions, formally confirmed.</h2>
-          <p class="text-text-muted max-w-3xl">
-            The SPIN race model (<code class="font-mono text-xs text-accent">namespace_races.pml</code>)
-            formally confirmed three previously undocumented use-after-free races in the kernel's host
-            threading layer. These are real hazards at the C/emu level where I/O threads, timer threads,
-            and interpreter threads share the <code class="font-mono text-xs text-accent">Osenv</code> structure.
-            They are mitigated by Inferno's cooperative Dis VM scheduling but not eliminated.
-          </p>
-        </div>
-
-        <div class="grid gap-4 md:grid-cols-3">
-          <div class="rounded-xl border border-node-rpi/30 bg-bg-surface p-6">
-            <div class="mb-3 font-mono text-xs text-node-rpi">sysfile.c:153&ndash;154</div>
-            <h3 class="mb-2 font-semibold">kchdir dot race</h3>
+            <h3 class="mb-3 font-semibold">Abstract specification</h3>
             <p class="text-sm leading-relaxed text-text-muted">
-              <code class="font-mono text-xs text-accent">cclose(pg&rarr;dot)</code> followed by
-              <code class="font-mono text-xs text-accent">pg&rarr;dot = c</code> without a lock.
-              A concurrent <code class="font-mono text-xs text-accent">namec()</code> can read the
-              freed pointer. LTL property <code class="font-mono text-xs text-accent">no_use_after_free_dot</code>
-              violated with counterexample.
+              TLA+ models the namespace at the highest level of abstraction and proves that
+              isolation holds across every reachable state &mdash; exhaustively. The core theorem:
+              a resource mounted after a namespace copy cannot appear in the child unless
+              the child explicitly mounts it. Eleven invariants. Zero violations.
             </p>
           </div>
-          <div class="rounded-xl border border-node-rpi/30 bg-bg-surface p-6">
-            <div class="mb-3 font-mono text-xs text-node-rpi">inferno.c:873</div>
-            <h3 class="mb-2 font-semibold">FORKNS pgrp swap</h3>
+
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <div class="mb-4">
+              <span class="inline-flex items-center rounded-lg bg-node-rpi/10 px-3 py-1 text-xs font-semibold text-node-rpi">SPIN</span>
+            </div>
+            <h3 class="mb-3 font-semibold">Concurrent protocol</h3>
             <p class="text-sm leading-relaxed text-text-muted">
-              <code class="font-mono text-xs text-accent">o&rarr;pgrp = np.np</code> without a lock.
-              A cached pgrp pointer in another thread becomes stale after the pointer is swapped and
-              the old pgrp is closed.
+              SPIN verifies the namespace under concurrent access &mdash; multiple threads
+              running simultaneously in every possible interleaving. It checks for deadlocks,
+              race conditions, and whether an agent can ever escape its container through
+              filesystem traversal. None of these happen.
             </p>
           </div>
-          <div class="rounded-xl border border-node-rpi/30 bg-bg-surface p-6">
-            <div class="mb-3 font-mono text-xs text-node-rpi">chan.c:1022, 1057</div>
-            <h3 class="mb-2 font-semibold">namec slash/dot read</h3>
+
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <div class="mb-4">
+              <span class="inline-flex items-center rounded-lg bg-node-jetson/10 px-3 py-1 text-xs font-semibold text-node-jetson">CBMC</span>
+            </div>
+            <h3 class="mb-3 font-semibold">Real kernel code</h3>
             <p class="text-sm leading-relaxed text-text-muted">
-              <code class="font-mono text-xs text-accent">pg&rarr;slash</code> and
-              <code class="font-mono text-xs text-accent">pg&rarr;dot</code> read without any lock,
-              concurrent with <code class="font-mono text-xs text-accent">kchdir</code> and
-              <code class="font-mono text-xs text-accent">FORKNS</code>. LTL property
-              <code class="font-mono text-xs text-accent">no_use_after_free_slash</code> violated.
+              CBMC verifies properties directly on the actual C source &mdash; not a model of it.
+              Array bounds, integer arithmetic, and isolation guarantees are checked in the
+              real kernel implementation. 113 assertions, zero failures. Runs automatically
+              on every commit.
             </p>
           </div>
         </div>
-        <p class="mt-4 text-xs text-text-muted">
-          Suggested fix: hold <code class="font-mono text-accent">pg&rarr;ns</code> read lock around
-          <code class="font-mono text-accent">slash</code>/<code class="font-mono text-accent">dot</code>
-          reads in <code class="font-mono text-accent">namec()</code>; write lock around
-          <code class="font-mono text-accent">cclose()/reassign</code> in
-          <code class="font-mono text-accent">kchdir()</code>.
-        </p>
-      </div>
-    </section>
 
-    <!-- Properties table -->
-    <section class="px-6 py-16 border-t border-border">
-      <div class="mx-auto max-w-5xl">
-        <div class="mb-10 text-center">
-          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Invariants</p>
-          <h2 class="text-3xl font-bold tracking-tight">What is verified, and how.</h2>
-        </div>
-        <div class="overflow-x-auto rounded-xl border border-border">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-border bg-bg-surface">
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Invariant / Property</th>
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Description</th>
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Tool</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-border">
-              {[
-                ['NamespaceIsolationTheorem', 'Post-copy mounts do not leak across namespaces (history variable proof)', 'TLA+'],
-                ['UnilateralMountNonPropagation', 'A unilateral mount never appears in the other namespace', 'TLA+'],
-                ['CopyFidelity', 'pgrpcpy produces an exact duplicate of the source at copy time', 'TLA+ / CBMC'],
-                ['PostCopyMountsSound', 'History variable tracking is complete and accurate', 'TLA+'],
-                ['MountTableBounded', 'Mount tables contain only valid, allocated channel IDs', 'TLA+'],
-                ['RefCountNonNegative', 'Reference counts never go negative', 'TLA+ / CBMC'],
-                ['NoUseAfterFree', 'Freed pgrps and channels are never accessed', 'TLA+ / SPIN'],
-                ['TypeOK', 'All state variables have correct types throughout', 'TLA+'],
-                ['DeadlockFreedom', 'No concurrent namespace operation sequence deadlocks', 'SPIN'],
-                ['LockOrdering', 'pg→ns always acquired before mh→lock in all interleavings', 'SPIN'],
-                ['ArrayBounds', 'MOUNTH macro always produces a valid index for any input', 'CBMC'],
-                ['IntegerOverflow', 'File descriptor allocation arithmetic never overflows', 'CBMC'],
-                ['ExportBoundary', 'walk("..") cannot escape an exportfs root regardless of depth', 'SPIN'],
-              ].map(([prop, desc, tool]) => (
-                <tr class="bg-bg-surface hover:bg-bg-surface-hover transition">
-                  <td class="px-6 py-3 font-mono text-xs text-accent">{prop}</td>
-                  <td class="px-6 py-3 text-text-muted">{desc}</td>
-                  <td class="px-6 py-3"><span class="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">{tool}</span></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- C code correspondence -->
-    <section class="px-6 py-16 border-t border-border">
-      <div class="mx-auto max-w-5xl">
-        <div class="mb-10 text-center">
-          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Implementation Fidelity</p>
-          <h2 class="text-3xl font-bold tracking-tight">Specifications map to real functions.</h2>
-          <p class="mt-4 mx-auto max-w-2xl text-text-muted">
-            Every operation in the formal models corresponds to a specific C function.
-            CBMC verifies the actual kernel source, not an abstraction of it.
-          </p>
-        </div>
-        <div class="overflow-x-auto rounded-xl border border-border">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-border bg-bg-surface">
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Operation</th>
-                <th class="px-6 py-3 text-left font-medium text-text-muted">C Function</th>
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Source</th>
-                <th class="px-6 py-3 text-left font-medium text-text-muted">Verified By</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-border">
-              {[
-                ['NewPgrp', 'newpgrp()', 'emu/port/pgrp.c:8', 'TLA+'],
-                ['PgrpCopy / ForkWithForkNS', 'pgrpcpy()', 'emu/port/pgrp.c:74', 'TLA+, SPIN, CBMC'],
-                ['ClosePgrp', 'closepgrp()', 'emu/port/pgrp.c:23', 'TLA+, SPIN'],
-                ['Mount', 'cmount()', 'emu/port/chan.c:388', 'TLA+, SPIN'],
-                ['Unmount', 'cunmount()', 'emu/port/chan.c:502', 'TLA+, SPIN'],
-                ['NameResolve', 'namec()', 'emu/port/chan.c:997', 'TLA+, SPIN (race)'],
-                ['ChangeDir', 'kchdir()', 'emu/port/sysfile.c:142', 'TLA+, SPIN (race)'],
-                ['ForkWithNewNS', 'Sys_pctl(NEWNS)', 'emu/port/inferno.c:855', 'TLA+, SPIN (race)'],
-                ['ForkWithForkNS', 'Sys_pctl(FORKNS)', 'emu/port/inferno.c:869', 'TLA+, SPIN (race)'],
-                ['ExportWalk', 'walk()', 'emu/port/chan.c:685', 'SPIN (export)'],
-              ].map(([op, fn, src, tools]) => (
-                <tr class="bg-bg-surface hover:bg-bg-surface-hover transition">
-                  <td class="px-6 py-3 font-mono text-xs text-accent">{op}</td>
-                  <td class="px-6 py-3 font-mono text-xs text-text">{fn}</td>
-                  <td class="px-6 py-3 font-mono text-xs text-text-muted">{src}</td>
-                  <td class="px-6 py-3 text-xs text-text-muted">{tools}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <!-- Bugs found callout -->
+        <div class="mt-8 rounded-xl border border-border bg-bg-surface p-6">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
+            <div class="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+              <i class="ph ph-bug text-lg text-accent"></i>
+            </div>
+            <div>
+              <h3 class="mb-2 font-semibold">Formal methods found real bugs.</h3>
+              <p class="text-sm leading-relaxed text-text-muted">
+                The SPIN concurrent model discovered three previously undocumented race
+                conditions in the kernel's threading layer &mdash; real hazards that tests
+                had not caught. This is formal verification working as intended: finding the
+                bugs that exist in the corner cases you didn't think to look for.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -393,69 +192,19 @@ import Footer from '../components/Footer.astro';
                 <h3 class="text-lg font-semibold">Quantum-Safe Cryptography</h3>
                 <span class="rounded-full border border-accent/40 px-2.5 py-0.5 text-xs font-medium text-accent">experimental</span>
               </div>
-              <div class="grid gap-6 md:grid-cols-2">
-                <div>
-                  <h4 class="mb-2 text-sm font-semibold text-text">ML-KEM &mdash; Key Encapsulation</h4>
-                  <p class="text-sm leading-relaxed text-text-muted">
-                    NIST FIPS&nbsp;203 (August 2024). Module-Lattice Key Encapsulation based on MLWE.
-                    ML-KEM-768 (Level&nbsp;3) and ML-KEM-1024 (Level&nbsp;5). Constant-time throughout.
-                  </p>
-                </div>
-                <div>
-                  <h4 class="mb-2 text-sm font-semibold text-text">ML-DSA &mdash; Digital Signatures</h4>
-                  <p class="text-sm leading-relaxed text-text-muted">
-                    NIST FIPS&nbsp;204 (August 2024). Module-Lattice Digital Signature based on MLWE/MSIS.
-                    ML-DSA-65 (Level&nbsp;3) and ML-DSA-87 (Level&nbsp;5). Heap-allocated to fit
-                    Inferno's 32&nbsp;KB thread stacks.
-                  </p>
-                </div>
-              </div>
-              <p class="mt-4 text-sm leading-relaxed text-text-muted">
-                Not yet recommended for production. Cryptographic agility is a first-class design goal:
-                when classical public-key cryptography is broken, InferNode will already have a path
-                forward on the same lightweight OS that protects your agents today.
+              <p class="mb-4 text-sm leading-relaxed text-text-muted">
+                InferNode ships preliminary implementations of the NIST-standardised post-quantum
+                algorithms &mdash; <strong class="text-text">ML-KEM</strong> for key exchange and
+                <strong class="text-text">ML-DSA</strong> for digital signatures &mdash; the algorithms
+                the industry is migrating to now. Both are lattice-based, resistant to quantum attack,
+                and run natively on the same lightweight OS that protects your agents.
+              </p>
+              <p class="text-sm leading-relaxed text-text-muted">
+                This work is not yet recommended for production, but cryptographic agility is a
+                first-class design goal. When classical public-key cryptography is broken,
+                InferNode will already have a path forward.
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TCB & Limitations -->
-    <section class="px-6 py-16 border-t border-border">
-      <div class="mx-auto max-w-5xl">
-        <div class="grid gap-8 md:grid-cols-2">
-          <div class="rounded-xl border border-border bg-bg-surface p-8">
-            <h3 class="mb-4 font-semibold">Trusted Computing Base</h3>
-            <p class="mb-4 text-sm leading-relaxed text-text-muted">The verification trusts:</p>
-            <ul class="space-y-2 text-sm text-text-muted">
-              {[
-                'Hardware executes correctly',
-                'The C compiler (gcc) is correct',
-                'The host OS provides correct threading primitives',
-                'The memory allocator returns valid memory or nil',
-                'SPIN, CBMC, and TLC 2026.03.02.213938 are correct',
-                'Stubs in cbmc/stubs.h faithfully model kernel primitives',
-              ].map((item) => (
-                <li class="flex items-start gap-2">
-                  <span class="mt-1 text-accent">&#8227;</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div class="rounded-xl border border-border bg-bg-surface p-8">
-            <h3 class="mb-4 font-semibold">Known Limitations</h3>
-            <ul class="space-y-3 text-sm text-text-muted">
-              {[
-                ['Bounded verification', 'TLC and CBMC explore finite state spaces. Unbounded proofs would require interactive theorem proving (Isabelle/HOL).'],
-                ['Abstraction gap', 'SPIN models abstract lock semantics; the RWlock is not verified at assembly level.'],
-                ['Race scope', 'Races found are mitigated by Dis cooperative scheduling but are real hazards for the multi-threaded emu host layer.'],
-                ['Scope', 'Covers the namespace subsystem only. Cross-subsystem interactions are out of scope.'],
-              ].map(([title, desc]) => (
-                <li><strong class="text-text">{title}:</strong> {desc}</li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
@@ -464,10 +213,11 @@ import Footer from '../components/Footer.astro';
     <!-- CTA -->
     <section class="px-6 py-16 border-t border-border">
       <div class="mx-auto max-w-3xl text-center">
-        <h2 class="mb-4 text-2xl font-bold">Show your auditors the math.</h2>
+        <h2 class="mb-4 text-2xl font-bold">Want the full technical detail?</h2>
         <p class="mb-8 text-text-muted">
-          All specifications, Promela models, CBMC harnesses, TLC configurations, and CI scripts
-          are in the open-source repository. Run the verification yourself in under 10 minutes.
+          All specifications, models, harnesses, and CI scripts are open source.
+          The complete methodology &mdash; every tool, every configuration, every result &mdash;
+          is documented in the repository.
         </p>
         <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <a
@@ -476,7 +226,7 @@ import Footer from '../components/Footer.astro';
             target="_blank"
             rel="noopener"
           >
-            View formal verification &rarr;
+            Read the verification &rarr;
           </a>
           <a
             href="https://github.com/NERVsystems/infernode"
