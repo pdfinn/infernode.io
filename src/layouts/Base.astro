@@ -49,10 +49,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
       "@graph": [
         {
           "@type": "Organization",
-          "name": "NERV Systems",
+          "name": "InferNode",
           "url": "https://infernode.io",
-          "logo": new URL('/nerv-logo.png', Astro.site).href,
-          "description": "Builders of InferNode, a provably secure operating system for AI agents with post-quantum cryptography.",
+          "logo": new URL('/infernode-icon.png', Astro.site).href,
+          "description": "A provably secure operating system for AI agents with post-quantum cryptography.",
         },
         {
           "@type": "WebSite",
@@ -61,7 +61,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
           "description": description,
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://github.com/NERVsystems/infernode/search?q={search_term_string}",
+            "target": "https://github.com/infernode-os/infernode/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
         },

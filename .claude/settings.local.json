@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(scp:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git:*)",
+      "Read(//Users/pdfinn/**)",
+      "Read(//Users/pdfinn/github.com/**)",
+      "Bash(grep:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\(''''scripts'''',{}\\), indent=2\\)\\)\")"
+    ]
+  }
+}
