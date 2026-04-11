@@ -14,9 +14,9 @@ import type { Ui } from './en';
 export const ui: Ui = {
   meta: {
     home: {
-      title: 'InferNode — 安全的 AI 智能体操作系统 | 经证明的隔离与后量子加密',
+      title: 'InferNode — 安全、分布式的 AI 智能体操作系统 | 经证明的隔离',
       description:
-        '让强大的 AI 智能体放手工作,而无需把一切都托付给它。InferNode 提供经形式化验证的命名空间隔离(TLA+、SPIN、CBMC)与后量子加密(ML-KEM、ML-DSA — NIST FIPS 203/204),让智能体可以自主、安全地行动。MIT 许可的开源项目。',
+        '让强大的 AI 智能体放手工作,而无需把一切都托付给它。InferNode 是一款轻量、分布式的操作系统,提供经形式化验证的命名空间隔离(TLA+、SPIN、CBMC),让智能体可以自主、安全地行动。MIT 许可的开源项目。',
     },
     compare: {
       title: 'InferNode 与 LangChain、CrewAI、AutoGPT、AutoGen 对比 — 9P 与 MCP 智能体框架比较',
@@ -29,9 +29,9 @@ export const ui: Ui = {
         '为什么所有 AI 智能体框架都把安全做错了,以及 InferNode 的命名空间隔离如何让自主智能体既强大又可证明地安全。',
     },
     security: {
-      title: 'InferNode 安全性 — 形式化验证的命名空间隔离与后量子加密',
+      title: 'InferNode 安全性 — 形式化验证的命名空间隔离',
       description:
-        'InferNode 的智能体隔离不只是经过测试,而是经过证明。三种独立工具在数十亿状态中确认零违规。后量子加密内置其中。',
+        'InferNode 的智能体隔离不只是经过测试,而是经过证明。三种独立工具在数十亿状态中确认零违规。一款为信任而生的分布式操作系统。',
     },
     veltro: {
       title: 'Veltro — 驻留在命名空间中的 AI 智能体 | InferNode',

@@ -4,9 +4,9 @@
 export const ui = {
   meta: {
     home: {
-      title: 'InferNode — Secure AI Agent OS | Proven Isolation & Post-Quantum Crypto',
+      title: 'InferNode — Secure, Distributed AI Agent OS | Proven Isolation',
       description:
-        'Run powerful AI agents without trusting them with everything. InferNode provides formally verified namespace isolation (TLA+, SPIN, CBMC) and post-quantum cryptography (ML-KEM, ML-DSA — NIST FIPS 203/204) so agents can act autonomously and safely. Open source, MIT licensed.',
+        'Run powerful AI agents without trusting them with everything. InferNode is a lightweight, distributed operating system with formally verified namespace isolation (TLA+, SPIN, CBMC), so agents can act autonomously and safely. Open source, MIT licensed.',
     },
     compare: {
       title: 'InferNode vs LangChain, CrewAI, AutoGPT, AutoGen — 9P vs MCP Agent Comparison',
@@ -19,9 +19,9 @@ export const ui = {
         "Why every AI agent framework gets security wrong, and how InferNode's namespace isolation makes autonomous agents both powerful and provably safe.",
     },
     security: {
-      title: 'InferNode Security — Formally Verified Namespace Isolation & Post-Quantum Crypto',
+      title: 'InferNode Security — Formally Verified Namespace Isolation',
       description:
-        "InferNode's agent isolation is formally verified — not just tested. Three independent tools confirm zero violations across billions of states. Post-quantum cryptography is built in.",
+        "InferNode's agent isolation is formally verified — not just tested. Three independent tools confirm zero violations across billions of states. A distributed operating system built for trust.",
     },
     veltro: {
       title: 'Veltro — The Namespace-Resident AI Agent | InferNode',
