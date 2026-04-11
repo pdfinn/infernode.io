@@ -1,32 +1,45 @@
 ---
 import '../styles/global.css';
 import '@phosphor-icons/web/regular';
+import type { Lang } from '../i18n/utils';
+import { localizedPath } from '../i18n/utils';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
   title = 'InferNode — Provably Secure AI Agent OS | Post-Quantum Crypto',
   description = 'A lightweight operating system with mathematically proven namespace isolation and post-quantum cryptography (ML-KEM, ML-DSA) for AI agents. Safe agents are free agents. Distributed by design. MIT licensed.',
+  lang = 'en',
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const htmlLang = lang === 'zh' ? 'zh-Hans' : 'en';
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const altPath = localizedPath(Astro.url.pathname, altLang);
+const altHref = new URL(altPath, Astro.site).href;
+const altHrefLang = altLang === 'zh' ? 'zh-Hans' : 'en';
 ---
 
 <!doctype html>
-<html lang="en" class="bg-bg">
+<html lang={htmlLang} class="bg-bg">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={htmlLang} href={canonicalUrl} />
+    <link rel="alternate" hreflang={altHrefLang} href={altHref} />
+    <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonicalUrl : altHref} />
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:image" content={new URL('/og-image.png', Astro.site).href} />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -59,6 +72,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
           "name": "InferNode",
           "url": "https://infernode.io",
           "description": description,
+          "inLanguage": htmlLang,
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://github.com/infernode-os/infernode/search?q={search_term_string}",

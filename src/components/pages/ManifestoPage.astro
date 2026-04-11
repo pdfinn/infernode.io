@@ -1,0 +1,86 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Footer from '../Footer.astro';
+import { useTranslations, p, type Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const meta = useTranslations(lang).meta.manifesto;
+const t = useTranslations(lang).manifesto;
+---
+
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Nav lang={lang} />
+  <main class="px-6 pt-32 pb-24">
+    <article class="mx-auto max-w-3xl">
+      <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+
+      <h1 class="mb-12 text-4xl font-bold leading-tight tracking-tight sm:text-5xl" set:html={t.title} />
+
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h1}</h2>
+        <p>{t.p1a}</p>
+        <p set:html={t.p1b} />
+        <p class="text-text text-xl font-medium">{t.pull1}</p>
+        <p set:html={t.p1c} />
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h2}</h2>
+        <p>{t.p2a}</p>
+        <p set:html={t.p2b} />
+        <p>{t.p2c}</p>
+        <p set:html={t.p2d} />
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h3}</h2>
+        <p set:html={t.p3a} />
+        <p>{t.p3b}</p>
+        <p set:html={t.p3c} />
+        <p class="text-text text-xl font-medium">{t.pull2}</p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h4}</h2>
+        <p set:html={t.p4a} />
+        <p>{t.p4b}</p>
+        <p set:html={t.p4c} />
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h5}</h2>
+        <p>{t.p5a}</p>
+        <p>{t.p5b}</p>
+        <p class="text-text">{t.p5c}</p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h6}</h2>
+        <p>{t.p6a}</p>
+        <p>{t.p6b}</p>
+        <p>{t.p6c}</p>
+
+        <h2 class="pt-8 text-2xl font-bold text-text">{t.h7}</h2>
+
+        <div class="space-y-4 border-l-2 border-accent/40 pl-6 text-text">
+          <p set:html={t.decl1} />
+          <p set:html={t.decl2} />
+          <p set:html={t.decl3} />
+          <p set:html={t.decl4} />
+          <p set:html={t.decl5} />
+        </div>
+
+        <p class="pt-8 text-xl font-medium text-text">{t.closing}</p>
+
+        <div class="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href={p('/#quickstart', lang)}
+            class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+          >
+            {t.ctaPrimary}
+          </a>
+          <a
+            href={p('/', lang)}
+            class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+          >
+            {t.ctaSecondary}
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer lang={lang} />
+</Base>

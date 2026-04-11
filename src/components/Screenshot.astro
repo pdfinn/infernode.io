@@ -1,32 +1,31 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).screenshot;
 ---
 
 <section class="relative px-6 py-16 sm:py-24">
-  <!-- Subtle glow behind the image -->
   <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
     <div class="h-[60%] w-[70%] rounded-full bg-accent/6 blur-3xl"></div>
   </div>
 
   <div class="relative z-10 mx-auto max-w-6xl">
     <p class="mb-4 text-center text-sm font-medium tracking-widest uppercase text-accent">
-      See it in action
+      {t.eyebrow}
     </p>
     <h2 class="mb-4 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-      You and your agent, side by side.
+      {t.title}
     </h2>
-    <p class="mx-auto mb-10 max-w-2xl text-center text-lg text-text-muted">
-      Veltro runs applications, composes tools, and acts on your behalf&mdash;all
-      within a namespace you control. You see everything it sees. It touches
-      nothing you haven&rsquo;t granted.
-    </p>
+    <p class="mx-auto mb-10 max-w-2xl text-center text-lg text-text-muted" set:html={t.body} />
 
-    <!-- Screenshot with frame -->
     <div class="group relative mx-auto max-w-5xl">
-      <!-- Outer glow on hover -->
       <div class="absolute -inset-1 rounded-2xl bg-accent/10 opacity-0 blur-xl transition duration-500 group-hover:opacity-100"></div>
 
       <div class="relative overflow-hidden rounded-xl border border-border/60 shadow-2xl shadow-black/40">
-        <!-- Window chrome -->
         <div class="flex items-center gap-2 border-b border-border/40 bg-bg-surface px-4 py-2.5">
           <div class="h-2.5 w-2.5 rounded-full bg-node-rpi/60"></div>
           <div class="h-2.5 w-2.5 rounded-full bg-node-llm/60"></div>
@@ -38,7 +37,7 @@
           <source srcset="/veltro-screenshot.webp" type="image/webp" />
           <img
             src="/veltro-screenshot.png"
-            alt="Veltro AI agent running on InferNode OS. Left panel shows the agent conversation exploring a fractal application through 9P filesystem commands. Center panel renders a Mandelbrot set fractal. Right panel displays the namespace browser with mounted services, active tools, and loadable capabilities."
+            alt={t.alt}
             class="block w-full"
             loading="lazy"
             width="1920"
@@ -48,19 +47,18 @@
       </div>
     </div>
 
-    <!-- Caption labels -->
     <div class="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-text-muted">
       <div class="flex items-center gap-2">
         <span class="inline-block h-2 w-2 rounded-full bg-accent"></span>
-        Agent conversation
+        {t.cap1}
       </div>
       <div class="flex items-center gap-2">
         <span class="inline-block h-2 w-2 rounded-full bg-node-jetson"></span>
-        Application output
+        {t.cap2}
       </div>
       <div class="flex items-center gap-2">
         <span class="inline-block h-2 w-2 rounded-full bg-node-cloud"></span>
-        Namespace browser
+        {t.cap3}
       </div>
     </div>
   </div>

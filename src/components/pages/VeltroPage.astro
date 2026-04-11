@@ -1,0 +1,266 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Screenshot from '../Screenshot.astro';
+import MermaidScreenshot from '../MermaidScreenshot.astro';
+import Footer from '../Footer.astro';
+import { useTranslations, p, type Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const meta = useTranslations(lang).meta.veltro;
+const t = useTranslations(lang).veltroPage;
+---
+
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Nav lang={lang} />
+  <main class="px-6 pt-32 pb-24">
+
+    <!-- Hero -->
+    <section class="relative mx-auto max-w-4xl text-center">
+      <div class="absolute inset-0 -top-24 mx-auto h-96 w-96 rounded-full bg-accent/10 blur-3xl"></div>
+      <div class="relative">
+        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+        <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl" set:html={t.title} />
+        <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted" set:html={t.intro} />
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href={p('/#quickstart', lang)}
+            class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+          >
+            {t.ctaPrimary}
+          </a>
+          <a
+            href={p('/manifesto', lang)}
+            class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+          >
+            {t.ctaSecondary}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Veltro Is -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.whatEyebrow}</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.whatTitle}</h2>
+      <p class="mb-10 text-xl font-medium text-text">{t.whatPull}</p>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p>{t.whatP1}</p>
+        <p set:html={t.whatP2} />
+        <p set:html={t.whatP3} />
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.howEyebrow}</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.howTitle}</h2>
+      </div>
+
+      <div class="mx-auto max-w-3xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+        <div class="flex items-center gap-2 border-b border-border px-4 py-3">
+          <div class="h-3 w-3 rounded-full bg-node-rpi/60"></div>
+          <div class="h-3 w-3 rounded-full bg-node-llm/60"></div>
+          <div class="h-3 w-3 rounded-full bg-node-jetson/60"></div>
+          <span class="ml-2 text-xs text-text-muted">{t.sessionLabel}</span>
+        </div>
+        <div class="p-5 space-y-3">
+          <div><span class="text-accent">;</span><span class="text-text-muted"> {t.howC1}</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> mount -A tcp!127.0.0.1!5640 /n/llm</span></div>
+          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC2}</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> tools9p read list find search</span></div>
+          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC3}</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> veltro -p /n/local/docs 'Summarise Q4 results and find gaps'</span></div>
+          <div class="mt-4"><span class="text-node-jetson">{t.howOut1}</span></div>
+          <div><span class="text-node-jetson">{t.howOut2}</span></div>
+          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC4}</span></div>
+          <div><span class="text-accent">;</span><span class="text-text"> repl</span></div>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">1</div>
+          <h3 class="mb-2 text-lg font-semibold">{t.step1Title}</h3>
+          <p class="text-sm text-text-muted" set:html={t.step1Body} />
+        </div>
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">2</div>
+          <h3 class="mb-2 text-lg font-semibold">{t.step2Title}</h3>
+          <p class="text-sm text-text-muted" set:html={t.step2Body} />
+        </div>
+        <div class="rounded-xl border border-border bg-bg-surface p-6">
+          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">3</div>
+          <h3 class="mb-2 text-lg font-semibold">{t.step3Title}</h3>
+          <p class="text-sm text-text-muted" set:html={t.step3Body} />
+        </div>
+      </div>
+    </section>
+
+    <Screenshot lang={lang} />
+
+    <!-- Capabilities -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.capEyebrow}</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.capTitle}</h2>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9632;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{useTranslations(lang).veltroFeatures.f1Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={useTranslations(lang).veltroFeatures.f1Body} />
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9654;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{useTranslations(lang).veltroFeatures.f2Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={useTranslations(lang).veltroFeatures.f2Body} />
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#8902;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{useTranslations(lang).veltroFeatures.f3Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={useTranslations(lang).veltroFeatures.f3Body} />
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9673;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{useTranslations(lang).veltroFeatures.f4Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={useTranslations(lang).veltroFeatures.f4Body} />
+        </div>
+      </div>
+    </section>
+
+    <MermaidScreenshot lang={lang} />
+
+    <!-- Security -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.secEyebrow}</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl" set:html={t.secTitle} />
+          <div class="space-y-4 text-text-muted">
+            <p set:html={t.secP1} />
+            <p set:html={t.secP2} />
+            <p set:html={t.secP3} />
+            <p set:html={t.secP4} />
+            <p class="text-sm" set:html={t.secCite} />
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="rounded-xl border border-border bg-bg-surface p-8">
+            <h3 class="mb-6 text-lg font-semibold">{t.fvTitle}</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text" set:html={t.fv1Title} />
+                  <p class="text-sm text-text-muted" set:html={t.fv1Body} />
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text" set:html={t.fv2Title} />
+                  <p class="text-sm text-text-muted" set:html={t.fv2Body} />
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 text-accent">&#8227;</span>
+                <div>
+                  <p class="font-medium text-text" set:html={t.fv3Title} />
+                  <p class="text-sm text-text-muted" set:html={t.fv3Body} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-xl border border-border/50 bg-bg-surface/50 p-6">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-widest text-text-muted">{t.propsTitle}</h3>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-text-muted">
+              <span>{t.prop1}</span>
+              <span>{t.prop2}</span>
+              <span>{t.prop3}</span>
+              <span>{t.prop4}</span>
+              <span>{t.prop5}</span>
+              <span>{t.prop6}</span>
+              <span>{t.prop7}</span>
+              <span>{t.prop8}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Headless or Interactive -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.deployEyebrow}</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.deployTitle}</h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">{t.deployIntro}</p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
+            <span class="text-lg text-accent">&#9654;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{t.headlessTitle}</h3>
+          <p class="mb-1 text-sm font-medium text-accent">{t.headlessTagline}</p>
+          <p class="text-sm leading-relaxed text-text-muted">{t.headlessBody}</p>
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-node-jetson/10">
+            <span class="text-lg text-node-jetson">&#9638;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{t.xenithTitle}</h3>
+          <p class="mb-1 text-sm font-medium text-node-jetson">{t.xenithTagline}</p>
+          <p class="text-sm leading-relaxed text-text-muted">{t.xenithBody}</p>
+        </div>
+
+        <div class="rounded-xl border border-border bg-bg-surface p-8">
+          <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-node-cloud/10">
+            <span class="text-lg text-node-cloud">&#9733;</span>
+          </div>
+          <h3 class="mb-2 text-lg font-semibold">{t.luciaTitle}</h3>
+          <p class="mb-1 text-sm font-medium text-node-cloud">{t.luciaTagline}</p>
+          <p class="text-sm leading-relaxed text-text-muted">{t.luciaBody}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mx-auto mt-32 max-w-3xl text-center">
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.finalCtaTitle}</h2>
+      <p class="mx-auto mb-10 max-w-xl text-lg text-text-muted">{t.finalCtaIntro}</p>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href={p('/#quickstart', lang)}
+          class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+        >
+          {t.ctaPrimary}
+        </a>
+        <a
+          href={p('/manifesto', lang)}
+          class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+        >
+          {t.ctaSecondary}
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <Footer lang={lang} />
+</Base>

@@ -1,4 +1,11 @@
 ---
+import { useTranslations, p, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).hero;
 ---
 
 <section class="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-20">
@@ -6,59 +13,54 @@
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(224,96,48,0.08)_0%,_transparent_70%)]"></div>
 
   <div class="relative z-10 mx-auto max-w-4xl text-center">
-    <!-- Bell Labs lineage — earned credibility -->
     <p class="mb-6 text-sm font-medium tracking-widest uppercase text-text-muted">
-      From the lineage of Unix and Plan 9 comes the future
+      {t.eyebrow}
     </p>
 
     <h1 class="mb-8 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-      Safe agents are<br />
-      <span class="text-accent">free agents.</span>
+      {t.title1}<br />
+      <span class="text-accent">{t.title2}</span>
     </h1>
 
-    <p class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-text-muted sm:text-xl">
-      InferNode is a lightweight operating system with mathematically proven isolation of AI agents.
-      When an agent can only see what you grant, you can trust it
-      to do more&mdash;and the human-AI team finally works.
-    </p>
+    <p class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-text-muted sm:text-xl" set:html={t.body} />
 
     <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a
-        href="#quickstart"
+        href={p('/#quickstart', lang)}
         class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
       >
-        Get Started
+        {t.ctaPrimary}
       </a>
       <a
-        href="#security"
+        href={p('/#security', lang)}
         class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
       >
-        See the Security Model
+        {t.ctaSecondary}
       </a>
     </div>
 
     <!-- Quick stats -->
     <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-text-muted sm:gap-12">
       <div class="flex flex-col items-center">
-        <span class="text-2xl font-semibold text-text">Proven</span>
-        <span>TLA+ / SPIN / CBMC</span>
+        <span class="text-2xl font-semibold text-text">{t.stat1Value}</span>
+        <span>{t.stat1Label}</span>
       </div>
       <div class="hidden h-8 w-px bg-border sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="text-2xl font-semibold text-text">15 MB</span>
-        <span>RAM footprint</span>
-        <span class="text-xs text-text-muted">headless configuration</span>
+        <span class="text-2xl font-semibold text-text">{t.stat2Value}</span>
+        <span>{t.stat2Label}</span>
+        <span class="text-xs text-text-muted">{t.stat2Note}</span>
       </div>
       <div class="hidden h-8 w-px bg-border sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="text-2xl font-semibold text-text">&lt;1s</span>
-        <span>cold start</span>
-        <span class="text-xs text-text-muted">headless configuration</span>
+        <span class="text-2xl font-semibold text-text">{t.stat3Value}</span>
+        <span>{t.stat3Label}</span>
+        <span class="text-xs text-text-muted">{t.stat3Note}</span>
       </div>
       <div class="hidden h-8 w-px bg-border sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="text-2xl font-semibold text-text">Open Source</span>
-        <span>MIT Licensed</span>
+        <span class="text-2xl font-semibold text-text">{t.stat4Value}</span>
+        <span>{t.stat4Label}</span>
       </div>
     </div>
   </div>

@@ -1,4 +1,11 @@
 ---
+import { useTranslations, p, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).security;
 ---
 
 <section id="security" class="px-6 py-24 lg:py-32">
@@ -7,44 +14,19 @@
       <!-- Left: explanation -->
       <div>
         <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
-          Capability-Based Security
+          {t.eyebrow}
         </p>
-        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-          If you didn't grant it,<br />it doesn't exist.
-        </h2>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl" set:html={t.title} />
         <div class="space-y-4 text-text-muted">
-          <p>
-            Today, most agent frameworks give you two choices. Run the agent on your own
-            machine&mdash;with your credentials, your network, and your data&mdash;and
-            <em>hope</em> the guardrails hold. Or hand everything to a cloud platform that
-            isolates the agent by moving your data onto someone else's computer. One trusts
-            the agent too much. The other trusts the cloud too much.
-          </p>
-          <p>
-            InferNode works differently. Each agent gets its own namespace&mdash;a view of the
-            world constructed from only the resources you explicitly share. Try to access
-            something you weren't given? It doesn't error. It simply
-            <strong class="text-text">does not exist</strong>. There is no attack surface
-            because there is no surface.
-          </p>
-          <p>
-            This isn't a claim. The isolation model has been
-            <strong class="text-text">formally verified</strong> across three independent
-            tools&mdash;TLA+, SPIN, and CBMC: 11 invariants proven across 19.3&thinsp;million
-            states (exhaustive), 3.17&thinsp;billion states in an extended run, and 113 CBMC
-            assertions&mdash;zero violations. Verification runs automatically in CI on every push.
-          </p>
-          <p>
-            Because agents are provably contained, you can give them
-            <strong class="text-text">more freedom</strong>&mdash;more tools, more data, more
-            autonomy&mdash;without more risk. Safe agents are productive agents.
-          </p>
+          <p set:html={t.p1} />
+          <p set:html={t.p2} />
+          <p set:html={t.p3} />
+          <p set:html={t.p4} />
           <a
-            href="/security"
+            href={p('/security', lang)}
             class="inline-flex items-center gap-2 text-sm font-medium text-accent transition hover:text-accent/80"
-          >
-            Full verification report &rarr;
-          </a>
+            set:html={t.link}
+          />
         </div>
       </div>
 
@@ -54,12 +36,12 @@
           <div class="h-3 w-3 rounded-full bg-node-rpi/60"></div>
           <div class="h-3 w-3 rounded-full bg-node-llm/60"></div>
           <div class="h-3 w-3 rounded-full bg-node-jetson/60"></div>
-          <span class="ml-2 text-xs text-text-muted">agent namespace</span>
+          <span class="ml-2 text-xs text-text-muted">{t.terminalLabel}</span>
         </div>
         <div class="p-5 space-y-3">
           <div>
             <span class="text-accent">;</span>
-            <span class="text-text-muted"> # Grant the agent access to docs and LLM</span>
+            <span class="text-text-muted"> {t.term1}</span>
           </div>
           <div>
             <span class="text-accent">;</span>
@@ -71,7 +53,7 @@
           </div>
           <div class="mt-4">
             <span class="text-accent">;</span>
-            <span class="text-text-muted"> # Agent can see docs and LLM</span>
+            <span class="text-text-muted"> {t.term2}</span>
           </div>
           <div>
             <span class="text-accent">;</span>
@@ -83,7 +65,7 @@
           </div>
           <div class="mt-4">
             <span class="text-accent">;</span>
-            <span class="text-text-muted"> # Your credentials, email, SSH keys?</span>
+            <span class="text-text-muted"> {t.term3}</span>
           </div>
           <div>
             <span class="text-accent">;</span>
@@ -91,12 +73,12 @@
           </div>
           <div>
             <span class="text-text-muted italic">
-              &nbsp;&nbsp;# nothing. they don't exist in this namespace.
+              &nbsp;&nbsp;{t.term4}
             </span>
           </div>
           <div class="mt-4">
             <span class="text-accent">;</span>
-            <span class="text-text-muted"> # Prompt injection tried to read SSH keys?</span>
+            <span class="text-text-muted"> {t.term5}</span>
           </div>
           <div>
             <span class="text-accent">;</span>
@@ -104,7 +86,7 @@
           </div>
           <div>
             <span class="text-text-muted italic">
-              &nbsp;&nbsp;# nothing to cat. the path doesn't exist.
+              &nbsp;&nbsp;{t.term6}
             </span>
           </div>
         </div>
@@ -119,22 +101,11 @@
         </div>
         <div>
           <div class="mb-3 flex flex-wrap items-center gap-3">
-            <h3 class="text-lg font-semibold">Quantum-Safe Cryptography</h3>
-            <span class="rounded-full border border-accent/40 px-2.5 py-0.5 text-xs font-medium text-accent">experimental</span>
+            <h3 class="text-lg font-semibold">{t.pqTitle}</h3>
+            <span class="rounded-full border border-accent/40 px-2.5 py-0.5 text-xs font-medium text-accent">{t.pqBadge}</span>
           </div>
-          <p class="mb-4 text-sm leading-relaxed text-text-muted">
-            InferNode ships preliminary implementations of <strong class="text-text">ML-KEM</strong> (FIPS&nbsp;203)
-            and <strong class="text-text">ML-DSA</strong> (FIPS&nbsp;204)&mdash;the NIST-standardised,
-            lattice-based algorithms the industry is migrating to now. Both NIST Level&nbsp;3
-            (ML-KEM-768 / ML-DSA-65) and Level&nbsp;5 (ML-KEM-1024 / ML-DSA-87) parameter sets
-            are supported, with constant-time arithmetic throughout.
-          </p>
-          <p class="text-sm leading-relaxed text-text-muted">
-            This work is <em>not yet recommended for production</em>, but cryptographic agility
-            is a first-class design goal. When classical public-key cryptography is
-            broken, InferNode will already have a path&mdash;running natively on the same
-            lightweight OS that protects your agents today.
-          </p>
+          <p class="mb-4 text-sm leading-relaxed text-text-muted" set:html={t.pqP1} />
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.pqP2} />
         </div>
       </div>
     </div>

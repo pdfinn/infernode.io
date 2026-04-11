@@ -1,23 +1,23 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).contributing;
 ---
 
 <section id="contributing" class="px-6 py-24 lg:py-32">
   <div class="mx-auto max-w-5xl">
     <div class="mb-16">
       <p class="mb-8 text-center text-sm font-medium tracking-widest uppercase text-accent">
-        The Interface
+        {t.eyebrow}
       </p>
       <div class="grid items-center gap-10 lg:grid-cols-2">
         <div>
-          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-            Every resource is a file.<br />No SDK required.
-          </h2>
-          <p class="text-lg text-text-muted">
-            InferNode exposes everything&mdash;LLMs, sensors, databases, agents&mdash;as
-            files through the 9P protocol. That single architectural choice eliminates
-            entire categories of integration complexity. No client libraries. No API
-            wrappers. Just standard file operations.
-          </p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl" set:html={t.title} />
+          <p class="text-lg text-text-muted" set:html={t.body} />
         </div>
         <div class="flex items-center justify-center">
           <a href="https://9p.io/sys/man/5/INDEX.html" target="_blank" rel="noopener" title="9P Protocol Specification">
@@ -38,16 +38,16 @@
       <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-node-jetson">Go</span>
-          <span class="text-xs text-text-muted italic">9P server — runs on host</span>
+          <span class="text-xs text-text-muted italic">{t.goLabel}</span>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
-          <div class="text-text-muted">// Expose an LLM as a filesystem</div>
+          <div class="text-text-muted">{t.goComment1}</div>
           <div><span class="text-node-cloud">func</span> (s *LLMSrv) <span class="text-text">Read</span>(fid *p9p.Fid) &#123;</div>
           <div class="pl-4"><span class="text-node-cloud">if</span> fid.Path == <span class="text-node-jetson">"response"</span> &#123;</div>
           <div class="pl-8">fid.Write(s.llm.Complete(s.prompt))</div>
           <div class="pl-4">&#125;</div>
           <div>&#125;</div>
-          <div class="mt-2 text-text-muted">// mount tcp!host!564 /n/llm</div>
+          <div class="mt-2 text-text-muted">{t.goComment2}</div>
         </div>
       </div>
 
@@ -55,15 +55,15 @@
       <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-node-llm">Python</span>
-          <span class="text-xs text-text-muted italic">9P server — runs on host</span>
+          <span class="text-xs text-text-muted italic">{t.pyLabel}</span>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
-          <div class="text-text-muted"># Expose a sensor feed as a file</div>
+          <div class="text-text-muted">{t.pyComment1}</div>
           <div><span class="text-node-cloud">class</span> <span class="text-text">SensorServer</span>(p9p.Server):</div>
           <div class="pl-4"><span class="text-node-cloud">def</span> <span class="text-text">read</span>(self, path, n, off):</div>
           <div class="pl-8"><span class="text-node-cloud">return</span> sensor.read().encode()</div>
-          <div class="mt-2 text-text-muted"># mount tcp!pi!564 /n/sensors</div>
-          <div class="mt-2 text-text-muted"># Any language. Zero InferNode SDK.</div>
+          <div class="mt-2 text-text-muted">{t.pyComment2}</div>
+          <div class="mt-2 text-text-muted">{t.pyComment3}</div>
         </div>
       </div>
 
@@ -71,13 +71,13 @@
       <div class="min-w-0 rounded-xl border border-border bg-bg-surface overflow-hidden">
         <div class="border-b border-border px-4 py-2 flex items-center justify-between">
           <span class="text-xs font-medium text-accent">rc</span>
-          <span class="text-xs text-text-muted italic">inside InferNode</span>
+          <span class="text-xs text-text-muted italic">{t.rcLabel}</span>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
-          <div class="text-text-muted"># Mount external services</div>
+          <div class="text-text-muted">{t.rcComment1}</div>
           <div><span class="text-node-laptop">mount</span> tcp!llm-host!564 /n/llm</div>
           <div><span class="text-node-laptop">mount</span> tcp!pi!564 /n/sensors</div>
-          <div class="mt-2 text-text-muted"># Use them — just files</div>
+          <div class="mt-2 text-text-muted">{t.rcComment2}</div>
           <div><span class="text-node-laptop">echo</span> <span class="text-node-jetson">'summarise'</span> &gt;/n/llm/0/ask</div>
           <div><span class="text-node-laptop">cat</span> /n/llm/0/response</div>
           <div><span class="text-node-laptop">cat</span> /n/sensors/temperature</div>
@@ -89,40 +89,24 @@
     <div class="mx-auto mt-10 max-w-3xl rounded-xl border border-border bg-bg-surface p-8">
       <div class="grid gap-8 md:grid-cols-2">
         <div>
-          <h3 class="mb-3 font-semibold">One protocol. Any language.</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            Inside InferNode, every resource is a file&mdash;you interact with LLMs, sensors,
-            and agents using <code class="text-accent font-mono text-xs">open()</code>,
-            <code class="text-accent font-mono text-xs">read()</code>,
-            <code class="text-accent font-mono text-xs">write()</code>. From the outside,
-            any language that speaks
-            <a href="https://9p.io/sys/man/5/INDEX.html" class="text-accent hover:text-accent-glow transition" target="_blank" rel="noopener">9P</a>&mdash;a
-            simple, open protocol&mdash;can connect to InferNode and work with its resources
-            directly. No vendor SDK. No API wrapper. Just a well-documented protocol and
-            the language you already know.
-          </p>
+          <h3 class="mb-3 font-semibold">{t.point1Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.point1Body} />
         </div>
         <div>
-          <h3 class="mb-3 font-semibold">Build a service. It becomes native.</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            Write a service in any language. Expose it via 9P. It becomes a file in the
-            namespace&mdash;indistinguishable from a built-in resource. Other agents, tools,
-            and users can mount and use it immediately. The filesystem is the universal contract.
-          </p>
+          <h3 class="mb-3 font-semibold">{t.point2Title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.point2Body} />
         </div>
       </div>
     </div>
 
-    <!-- CTA -->
     <div class="mt-10 text-center">
       <a
         href="https://github.com/infernode-os/infernode"
         class="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium text-text-muted transition hover:border-accent hover:text-text"
         target="_blank"
         rel="noopener"
-      >
-        Explore the source on GitHub &rarr;
-      </a>
+        set:html={t.cta}
+      />
     </div>
   </div>
 </section>

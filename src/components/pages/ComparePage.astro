@@ -1,0 +1,217 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Footer from '../Footer.astro';
+import { useTranslations, p, type Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const meta = useTranslations(lang).meta.compare;
+const t = useTranslations(lang).comparePage;
+
+const frameworks = [
+  { name: 'InferNode', ...t.rows.infernode },
+  { name: 'LangChain', ...t.rows.langchain },
+  { name: 'CrewAI', ...t.rows.crewai },
+  { name: 'AutoGPT', ...t.rows.autogpt },
+  { name: 'AutoGen', ...t.rows.autogen },
+  { name: 'OpenClaw', ...t.rows.openclaw },
+  { name: lang === 'zh' ? '云平台' : 'Cloud Platforms', ...t.rows.cloud },
+];
+
+const dimensions = [
+  { key: 'where', label: t.dims.where },
+  { key: 'security', label: t.dims.security },
+  { key: 'verification', label: t.dims.verification },
+  { key: 'hardware', label: t.dims.hardware },
+  { key: 'protocol', label: t.dims.protocol },
+  { key: 'license', label: t.dims.license },
+  { key: 'offline', label: t.dims.offline },
+  { key: 'distributed', label: t.dims.distributed },
+] as const;
+
+const competitorStrengths = [
+  { name: 'LangChain', ...t.strengths.langchain },
+  { name: 'CrewAI', ...t.strengths.crewai },
+  { name: 'AutoGPT', ...t.strengths.autogpt },
+  { name: 'AutoGen', ...t.strengths.autogen },
+  { name: 'OpenClaw', ...t.strengths.openclaw },
+  { name: lang === 'zh' ? '云平台' : 'Cloud Platforms', ...t.strengths.cloud },
+];
+---
+
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Nav lang={lang} />
+  <main class="px-6 pt-32 pb-24">
+
+    <!-- Hero -->
+    <section class="mx-auto max-w-3xl text-center">
+      <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+      <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl" set:html={t.title} />
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">{t.intro}</p>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="mx-auto mt-24 max-w-6xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.sideBySideEyebrow}</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.sideBySideTitle}</h2>
+
+      <div class="overflow-x-auto rounded-xl border border-border">
+        <table class="w-full min-w-[1100px] text-sm">
+          <thead>
+            <tr class="border-b border-border bg-bg-surface">
+              <th class="px-4 py-3 text-left font-medium text-text-muted">{t.dimColumn}</th>
+              {frameworks.map((f) => (
+                <th class={`px-4 py-3 text-left font-medium ${f.name === 'InferNode' ? 'text-accent' : 'text-text-muted'}`}>
+                  {f.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dimensions.map((dim, i) => (
+              <tr class={`border-b border-border/50 ${i % 2 === 0 ? 'bg-bg' : 'bg-bg-surface/50'}`}>
+                <td class="px-4 py-3 font-medium text-text">{dim.label}</td>
+                {frameworks.map((f) => (
+                  <td class={`px-4 py-3 ${f.name === 'InferNode' ? 'text-text' : 'text-text-muted'}`}>
+                    {(f as any)[dim.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Key Differentiator: Where Agents Run -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.diffEyebrow}</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.diffWhereTitle}</h2>
+          <div class="space-y-4 text-text-muted">
+            <p set:html={t.diffWhereP1} />
+            <p set:html={t.diffWhereP2} />
+            <p set:html={t.diffWhereP3} />
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">{t.cardHostTitle}</h3>
+            <p class="text-sm text-text-muted">{t.cardHostBody}</p>
+          </div>
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">{t.cardCloudTitle}</h3>
+            <p class="text-sm text-text-muted">{t.cardCloudBody}</p>
+          </div>
+          <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-accent">{t.cardInferTitle}</h3>
+            <p class="text-sm text-text-muted" set:html={t.cardInferBody} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Differentiator: Security Model -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.diffEyebrow}</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.diffSecTitle}</h2>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p set:html={t.diffSecP1} />
+        <p set:html={t.diffSecP2} />
+        <p set:html={t.diffSecP3} />
+        <p class="text-text text-xl font-medium">{t.diffSecPull}</p>
+      </div>
+    </section>
+
+    <!-- Key Differentiator: 9P vs MCP -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.diffEyebrow}</p>
+          <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.diffProtoTitle}</h2>
+          <div class="space-y-4 text-text-muted">
+            <p set:html={t.diffProtoP1} />
+            <p set:html={t.diffProtoP2} />
+            <p set:html={t.diffProtoP3} />
+            <p class="text-sm" set:html={t.diffProtoCite} />
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-text">{t.cardMcpTitle}</h3>
+            <p class="text-sm text-text-muted" set:html={t.cardMcpBody} />
+          </div>
+          <div class="rounded-xl border border-accent/50 bg-bg-surface p-6">
+            <h3 class="mb-2 font-semibold text-accent">{t.card9pTitle}</h3>
+            <p class="text-sm text-text-muted" set:html={t.card9pBody} />
+          </div>
+          <div class="rounded-xl border border-accent/50 bg-bg-surface/50 p-6">
+            <div class="text-center">
+              <p class="text-3xl font-bold text-accent">{t.cardStat}</p>
+              <p class="text-sm text-text-muted">
+                {t.cardStatLabel}<br />
+                <span class="text-xs">{t.cardStatNote}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What the Alternatives Do Well -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.honestEyebrow}</p>
+        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.honestTitle}</h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">{t.honestIntro}</p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {competitorStrengths.map((c) => (
+          <div class="rounded-xl border border-border bg-bg-surface p-6">
+            <p class="mb-1 text-sm font-medium text-accent">{c.name}</p>
+            <h3 class="mb-3 text-lg font-semibold">{c.strength}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{c.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why Architecture Matters -->
+    <section class="mx-auto mt-32 max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.bigEyebrow}</p>
+      <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.bigTitle}</h2>
+      <div class="space-y-6 text-lg leading-relaxed text-text-muted">
+        <p>{t.bigP1}</p>
+        <p>{t.bigP2}</p>
+        <p set:html={t.bigP3} />
+        <p set:html={t.bigP4} />
+        <p set:html={t.bigP5} />
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mx-auto mt-32 max-w-3xl text-center">
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.ctaTitle}</h2>
+      <p class="mx-auto mb-10 max-w-xl text-lg text-text-muted">{t.ctaIntro}</p>
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href={p('/#quickstart', lang)}
+          class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+        >
+          {t.ctaPrimary}
+        </a>
+        <a
+          href={p('/veltro', lang)}
+          class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+        >
+          {t.ctaSecondary}
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <Footer lang={lang} />
+</Base>

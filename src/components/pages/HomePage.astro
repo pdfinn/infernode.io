@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Hero from '../Hero.astro';
+import Screenshot from '../Screenshot.astro';
+import Vision from '../Vision.astro';
+import Pillars from '../Pillars.astro';
+import Security from '../Security.astro';
+import WhyNow from '../WhyNow.astro';
+import NetworkDiagram from '../NetworkDiagram.astro';
+import DistributedArch from '../DistributedArch.astro';
+import Products from '../Products.astro';
+import VeltroFeatures from '../VeltroFeatures.astro';
+import UseCases from '../UseCases.astro';
+import Contributing from '../Contributing.astro';
+import QuickStart from '../QuickStart.astro';
+import Footer from '../Footer.astro';
+import { useTranslations, type Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const meta = useTranslations(lang).meta.home;
+---
+
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Screenshot lang={lang} />
+    <Vision lang={lang} />
+    <Pillars lang={lang} />
+    <Security lang={lang} />
+    <WhyNow lang={lang} />
+    <NetworkDiagram lang={lang} />
+    <DistributedArch lang={lang} />
+    <Contributing lang={lang} />
+    <Products lang={lang} />
+    <VeltroFeatures lang={lang} />
+    <UseCases lang={lang} />
+    <QuickStart lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

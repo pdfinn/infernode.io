@@ -1,57 +1,27 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).useCases;
+
 const useCases = [
-  {
-    persona: 'Agent Builders',
-    headline: 'Stop worrying about what your agent can access.',
-    description:
-      'Building autonomous agents is terrifying when they share your OS. InferNode gives each agent an isolated namespace with only the tools and data you grant. Prompt injection? The agent literally cannot see anything outside its namespace. There is no attack surface.',
-    tags: ['namespace isolation', 'capability-based security', 'prompt injection resistant'],
-  },
-  {
-    persona: 'Industrial & Critical Infrastructure',
-    headline: 'Formally verified. Not just tested.',
-    description:
-      'Factory floors, energy grids, water systems\u2014environments where a misbehaving AI agent isn\u2019t an inconvenience, it\u2019s a safety incident. InferNode\u2019s isolation model is formally verified. Show your auditors the math, not a promise.',
-    tags: ['formal verification', 'OT-ready', 'safety-critical', 'IEC 62443 aligned'],
-  },
-  {
-    persona: 'Finance, Legal & Healthcare',
-    headline: 'Use AI without sending your data somewhere else.',
-    description:
-      'Trading strategies, client records, patient data, legal discovery\u2014too sensitive for someone else\u2019s cloud. InferNode runs on your hardware with local LLMs. Formally verified isolation means you can prove containment to regulators and auditors, not just promise it.',
-    tags: ['local LLMs', 'formal verification', 'SOX / PCI-DSS / HIPAA', 'air-gapped capable'],
-  },
-  {
-    persona: 'Edge & Embedded',
-    headline: '15 MB. A $35 board. Real AI.',
-    description:
-      'Kubernetes on a Raspberry Pi is a bad joke. InferNode runs in 15 MB of RAM with a 2-second cold start. Deploy AI agents on Jetsons, Raspberry Pis, or any ARM64/AMD64 device\u2014each in its own isolated namespace. With JIT compilation, it\u2019s fast too.',
-    tags: ['15 MB RAM', '2s startup', 'ARM64 native', 'JIT compiler'],
-  },
-  {
-    persona: 'Mission-Critical Operations',
-    headline: 'Works where the cloud doesn\u2019t.',
-    description:
-      'Disconnected environments, austere conditions, contested networks\u2014places where cloud APIs are a liability, not a luxury. InferNode runs entirely on local hardware, meshes devices peer-to-peer, and keeps working when the uplink goes down. Every agent stays contained.',
-    tags: ['air-gapped', 'peer-to-peer mesh', 'edge-native', 'zero cloud dependency'],
-  },
-  {
-    persona: 'Distributed Systems',
-    headline: 'Your devices, working as one.',
-    description:
-      'Mount a GPU from across the room or across the country. InferNode\u2019s 9P protocol makes remote resources appear as local files. Build a mesh of devices that share compute, storage, and sensors\u2014each node isolated, the whole system composable.',
-    tags: ['9P protocol', 'peer-to-peer', 'cloud optional', 'zero middleware'],
-  },
+  { persona: t.u1Persona, headline: t.u1Headline, description: t.u1Body, tags: t.u1Tags },
+  { persona: t.u2Persona, headline: t.u2Headline, description: t.u2Body, tags: t.u2Tags },
+  { persona: t.u3Persona, headline: t.u3Headline, description: t.u3Body, tags: t.u3Tags },
+  { persona: t.u4Persona, headline: t.u4Headline, description: t.u4Body, tags: t.u4Tags },
+  { persona: t.u5Persona, headline: t.u5Headline, description: t.u5Body, tags: t.u5Tags },
+  { persona: t.u6Persona, headline: t.u6Headline, description: t.u6Body, tags: t.u6Tags },
 ];
 ---
 
 <section id="use-cases" class="px-6 py-24 lg:py-32">
   <div class="mx-auto max-w-5xl">
     <div class="mb-16 text-center">
-      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Use Cases</p>
-      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-        Built for people who can't afford to hope<br />the guardrails hold.
-      </h2>
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl" set:html={t.title} />
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

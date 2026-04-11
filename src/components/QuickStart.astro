@@ -1,14 +1,21 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).quickStart;
 ---
 
 <section id="quickstart" class="px-6 py-24 lg:py-32">
   <div class="mx-auto max-w-3xl">
     <div class="mb-12 text-center">
-      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Quick Start</p>
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
       <h2 class="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-        Launch the app or build from source.
+        {t.title}
       </h2>
-      <p class="text-text-muted">On macOS, download and run. On Linux, download or build from source. Either way&mdash;under a minute.</p>
+      <p class="text-text-muted" set:html={t.intro} />
     </div>
 
     <!-- macOS — app card -->
@@ -16,30 +23,28 @@
       <div class="flex flex-col items-center gap-6 sm:flex-row">
         <img src="/infernode-icon.png" alt="InferNode app icon" class="h-24 w-24 rounded-2xl" />
         <div>
-          <h3 class="mb-1 text-lg font-semibold">InferNode.app</h3>
-          <p class="mb-3 text-sm text-text-muted">
-            macOS (Apple Silicon) &mdash; open the DMG, drag to Applications, launch.
-          </p>
+          <h3 class="mb-1 text-lg font-semibold">{t.appName}</h3>
+          <p class="mb-3 text-sm text-text-muted" set:html={t.appBody} />
           <a
             href="https://github.com/infernode-os/infernode/releases/latest"
             class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"
             target="_blank"
             rel="noopener"
           >
-            Download latest
+            {t.appButton}
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Linux — prebuilt or build from source -->
+    <!-- Linux -->
     <div class="mt-6 rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
       <div class="flex items-center justify-between border-b border-border px-4 py-3">
         <div class="flex items-center gap-2">
           <div class="h-3 w-3 rounded-full bg-node-rpi/60"></div>
           <div class="h-3 w-3 rounded-full bg-node-llm/60"></div>
           <div class="h-3 w-3 rounded-full bg-node-jetson/60"></div>
-          <span class="ml-2 text-xs text-text-muted">Linux &mdash; download or build from source</span>
+          <span class="ml-2 text-xs text-text-muted" set:html={t.termLabel} />
         </div>
         <a
           href="https://github.com/infernode-os/infernode/releases/latest"
@@ -47,11 +52,11 @@
           target="_blank"
           rel="noopener"
         >
-          Download latest tarball (amd64)
+          {t.termDownload}
         </a>
       </div>
       <div class="p-5 space-y-1">
-        <div class="text-text-muted"># Clone the repository</div>
+        <div class="text-text-muted">{t.c1}</div>
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> git clone https://github.com/infernode-os/infernode.git</span>
@@ -62,22 +67,22 @@
         </div>
         <div class="mt-3"></div>
 
-        <div class="text-text-muted"># Build for your platform</div>
+        <div class="text-text-muted">{t.c2}</div>
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> ./build-linux-amd64.sh</span>
-          <span class="text-text-muted">  # or build-linux-arm64.sh</span>
+          <span class="text-text-muted">{t.c2note}</span>
         </div>
         <div class="mt-3"></div>
 
-        <div class="text-text-muted"># Run</div>
+        <div class="text-text-muted">{t.c3}</div>
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> ./emu/Linux/o.emu -r.</span>
         </div>
         <div class="mt-3"></div>
 
-        <div class="text-text-muted"># You're in Inferno&reg;</div>
+        <div class="text-text-muted" set:html={t.c4} />
         <div>
           <span class="text-accent">;</span>
           <span class="text-text"> ls /dis</span>
@@ -94,16 +99,16 @@
     <!-- Platform badges -->
     <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
       <div class="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-text-muted">
-        <span class="font-mono text-node-laptop">x86_64</span> Linux
+        <span class="font-mono text-node-laptop">x86_64</span> {t.badge1}
       </div>
       <div class="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-text-muted">
-        <span class="font-mono text-node-jetson">ARM64</span> Linux (Jetson, RPi)
+        <span class="font-mono text-node-jetson">ARM64</span> {t.badge2}
       </div>
       <div class="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-text-muted">
-        <span class="font-mono text-node-rpi">ARM64</span> macOS (Apple Silicon)
+        <span class="font-mono text-node-rpi">ARM64</span> {t.badge3}
       </div>
       <div class="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-text-muted opacity-50">
-        <span class="font-mono text-node-cloud">x86_64</span> Windows (coming soon)
+        <span class="font-mono text-node-cloud">x86_64</span> {t.badge4}
       </div>
     </div>
   </div>

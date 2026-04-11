@@ -1,29 +1,49 @@
 ---
+import { useTranslations, p, localizedPath, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).nav;
+const sw = useTranslations(lang).switcher;
+
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const altPath = localizedPath(Astro.url.pathname, altLang);
+const altLabel = altLang === 'zh' ? '中文' : 'EN';
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+    <a href={p('/', lang)} class="flex items-center gap-2 text-lg font-semibold tracking-tight">
       <img src="/infernode-icon.png" alt="InferNode logo" class="h-7 w-7 object-contain" />
       <span>InferNode</span>
     </a>
 
     <!-- Desktop nav -->
     <div class="hidden items-center gap-8 text-sm text-text-muted md:flex">
-      <a href="/veltro" class="transition hover:text-text">Veltro</a>
-      <a href="/compare" class="transition hover:text-text">Compare</a>
-      <a href="/security" class="transition hover:text-text">Security</a>
-      <a href="/#how-it-works" class="transition hover:text-text">How It Works</a>
-      <a href="/#products" class="transition hover:text-text">The System</a>
-      <a href="/#use-cases" class="transition hover:text-text">Use Cases</a>
-      <a href="/#quickstart" class="transition hover:text-text">Quick Start</a>
+      <a href={p('/veltro', lang)} class="transition hover:text-text">{t.veltro}</a>
+      <a href={p('/compare', lang)} class="transition hover:text-text">{t.compare}</a>
+      <a href={p('/security', lang)} class="transition hover:text-text">{t.security}</a>
+      <a href={p('/#how-it-works', lang)} class="transition hover:text-text">{t.howItWorks}</a>
+      <a href={p('/#products', lang)} class="transition hover:text-text">{t.theSystem}</a>
+      <a href={p('/#use-cases', lang)} class="transition hover:text-text">{t.useCases}</a>
+      <a href={p('/#quickstart', lang)} class="transition hover:text-text">{t.quickStart}</a>
+      <a
+        href={altPath}
+        class="rounded-md border border-border px-3 py-1.5 transition hover:border-accent hover:text-text"
+        aria-label={sw.label}
+        hreflang={altLang === 'zh' ? 'zh-Hans' : 'en'}
+      >
+        {altLabel}
+      </a>
       <a
         href="https://github.com/infernode-os/infernode"
         class="rounded-md border border-border px-4 py-1.5 transition hover:border-accent hover:text-text"
         target="_blank"
         rel="noopener"
       >
-        GitHub
+        {t.github}
       </a>
     </div>
 
@@ -31,7 +51,7 @@
     <button
       id="nav-toggle"
       class="flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition hover:text-text md:hidden"
-      aria-label="Toggle navigation menu"
+      aria-label={t.menuLabel}
       aria-expanded="false"
     >
       <svg id="nav-open-icon" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -46,20 +66,27 @@
   <!-- Mobile menu -->
   <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl md:hidden">
     <div class="flex flex-col gap-1 px-6 py-4 text-sm">
-      <a href="/veltro" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">Veltro</a>
-      <a href="/compare" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">Compare</a>
-      <a href="/security" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">Security</a>
-      <a href="/#how-it-works" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">How It Works</a>
-      <a href="/#products" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">The System</a>
-      <a href="/#use-cases" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">Use Cases</a>
-      <a href="/#quickstart" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">Quick Start</a>
+      <a href={p('/veltro', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.veltro}</a>
+      <a href={p('/compare', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.compare}</a>
+      <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
+      <a href={p('/#how-it-works', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.howItWorks}</a>
+      <a href={p('/#products', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.theSystem}</a>
+      <a href={p('/#use-cases', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.useCases}</a>
+      <a href={p('/#quickstart', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.quickStart}</a>
+      <a
+        href={altPath}
+        class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text"
+        hreflang={altLang === 'zh' ? 'zh-Hans' : 'en'}
+      >
+        {altLabel}
+      </a>
       <a
         href="https://github.com/infernode-os/infernode"
         class="mt-2 rounded-lg border border-border px-3 py-2 text-center text-text-muted transition hover:border-accent hover:text-text"
         target="_blank"
         rel="noopener"
       >
-        GitHub
+        {t.github}
       </a>
     </div>
   </div>

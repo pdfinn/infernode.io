@@ -1,4 +1,11 @@
 ---
+import { useTranslations, p, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).footer;
 ---
 
 <footer class="border-t border-border px-6 py-12">
@@ -7,7 +14,7 @@
       <img src="/infernode-icon.png" alt="InferNode logo" class="h-5 w-5 object-contain" />
       <span>InferNode</span>
       <span class="mx-2 text-border">|</span>
-      <span>MIT License</span>
+      <span>{t.license}</span>
     </div>
     <div class="flex items-center gap-6 text-sm text-text-muted">
       <img
@@ -22,16 +29,16 @@
         target="_blank"
         rel="noopener"
       >
-        GitHub
+        {t.github}
       </a>
-      <a href="/veltro" class="transition hover:text-text">
-        Veltro
+      <a href={p('/veltro', lang)} class="transition hover:text-text">
+        {t.veltro}
       </a>
-      <a href="/compare" class="transition hover:text-text">
-        Compare
+      <a href={p('/compare', lang)} class="transition hover:text-text">
+        {t.compare}
       </a>
-      <a href="/manifesto" class="transition hover:text-text">
-        Manifesto
+      <a href={p('/manifesto', lang)} class="transition hover:text-text">
+        {t.manifesto}
       </a>
     </div>
   </div>
