@@ -59,15 +59,27 @@ const t = useTranslations(lang).quickStart;
         <div class="text-text-muted">{t.c1}</div>
         <div>
           <span class="text-node-jetson">$</span>
-          <span class="text-text"> git clone https://github.com/infernode-os/infernode.git</span>
+          <span class="text-text"> tar xzf infernode-*-linux-amd64-gui.tar.gz</span>
         </div>
         <div>
           <span class="text-node-jetson">$</span>
-          <span class="text-text"> cd infernode</span>
+          <span class="text-text"> cd infernode-*-linux-amd64-gui</span>
+        </div>
+        <div>
+          <span class="text-node-jetson">$</span>
+          <span class="text-text"> ./infernode</span>
         </div>
         <div class="mt-3"></div>
 
         <div class="text-text-muted">{t.c2}</div>
+        <div>
+          <span class="text-node-jetson">$</span>
+          <span class="text-text"> git clone https://github.com/infernode-os/infernode.git && cd infernode</span>
+        </div>
+        <div>
+          <span class="text-node-jetson">$</span>
+          <span class="text-text"> ./install-sdl3.sh</span>
+        </div>
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> ./build-linux-amd64.sh</span>
@@ -78,21 +90,8 @@ const t = useTranslations(lang).quickStart;
         <div class="text-text-muted">{t.c3}</div>
         <div>
           <span class="text-node-jetson">$</span>
-          <span class="text-text"> ./emu/Linux/o.emu -r.</span>
+          <span class="text-text"> ./Linux/infernode</span>
         </div>
-        <div class="mt-3"></div>
-
-        <div class="text-text-muted" set:html={t.c4} />
-        <div>
-          <span class="text-accent">;</span>
-          <span class="text-text"> ls /dis</span>
-        </div>
-        <div class="text-text-muted pl-2">0intro.dis  acme.dis  asm.dis  ...</div>
-        <div>
-          <span class="text-accent">;</span>
-          <span class="text-text"> cat /dev/sysctl</span>
-        </div>
-        <div class="text-text-muted pl-2">Fourth Edition (20120928)</div>
       </div>
     </div>
 
