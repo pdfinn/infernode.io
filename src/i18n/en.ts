@@ -304,10 +304,14 @@ export const ui = {
     c2note: '  # or build-linux-arm64.sh',
     c3: '# Launch Lucia GUI',
     c4: "# You're in Inferno&reg;",
+    dockerLabel: 'Docker &mdash; any platform',
+    dockerComment: '# Pull and run (amd64 or arm64, auto-detected)',
+    dockerCmd: 'docker run -it ghcr.io/infernode-os/infernode:latest',
     badge1: 'Linux',
     badge2: 'Linux (Jetson, RPi)',
     badge3: 'macOS (Apple Silicon)',
     badge4: 'Windows (coming soon)',
+    badge5: 'Docker (amd64 + arm64)',
   },
 
   screenshot: {

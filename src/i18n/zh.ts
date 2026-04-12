@@ -314,10 +314,14 @@ export const ui: Ui = {
     c2note: '  # 或 build-linux-arm64.sh',
     c3: '# 运行',
     c4: '# 你已进入 Inferno&reg;',
+    dockerLabel: 'Docker &mdash; 任意平台',
+    dockerComment: '# 拉取并运行(amd64 或 arm64,自动检测)',
+    dockerCmd: 'docker run -it ghcr.io/infernode-os/infernode:latest',
     badge1: 'Linux',
     badge2: 'Linux(Jetson, RPi)',
     badge3: 'macOS(Apple Silicon)',
     badge4: 'Windows(即将推出)',
+    badge5: 'Docker(amd64 + arm64)',
   },
 
   screenshot: {
