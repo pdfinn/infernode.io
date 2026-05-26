@@ -320,8 +320,10 @@ export const ui: Ui = {
     badge1: 'Linux',
     badge2: 'Linux(Jetson, RPi)',
     badge3: 'macOS(Apple Silicon)',
-    badge4: 'Windows(即将推出)',
+    badge4: 'Windows',
     badge5: 'Docker(amd64 + arm64)',
+    badge6: 'Android',
+    badge7: 'iOS',
   },
 
   screenshot: {
