@@ -300,6 +300,8 @@ export const ui = {
     termLabel: 'Linux x86_64 &mdash; download and run (SDL3 bundled)',
     termDownload: 'Download latest tarball',
     c1: '# GUI (Lucia) &mdash; self-contained, no dependencies',
+    archNote: '# Match your CPU: -amd64- (Intel/AMD) or -arm64- (Jetson/RPi)',
+    setupDesktop: '# Optional: app-menu/dock icon, or infernode on $PATH',
     c2: '# Build from source (GUI)',
     c2note: '  # or build-linux-arm64.sh',
     c3: '# Launch Lucia GUI',
