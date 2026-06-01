@@ -74,6 +74,7 @@ const t = useTranslations(lang).quickStart;
       </div>
       <div class="p-5 space-y-1">
         <div class="text-text-muted">{t.c1}</div>
+        <div class="text-text-muted">{t.archNote}</div>
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> tar xzf infernode-*-linux-amd64-gui.tar.gz</span>
@@ -85,6 +86,11 @@ const t = useTranslations(lang).quickStart;
         <div>
           <span class="text-node-jetson">$</span>
           <span class="text-text"> ./infernode</span>
+        </div>
+        <div class="text-text-muted">{t.setupDesktop}</div>
+        <div>
+          <span class="text-node-jetson">$</span>
+          <span class="text-text"> ./setup-desktop.sh</span>
         </div>
         <div class="mt-3"></div>
 

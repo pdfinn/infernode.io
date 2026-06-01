@@ -310,6 +310,8 @@ export const ui: Ui = {
     termLabel: 'Linux &mdash; 下载或从源码构建',
     termDownload: '下载最新 tarball(amd64)',
     c1: '# 克隆仓库',
+    archNote: '# 按 CPU 选择:-amd64-(Intel/AMD)或 -arm64-(Jetson/树莓派)',
+    setupDesktop: '# 可选:添加应用菜单/程序坞图标,或将 infernode 加入 $PATH',
     c2: '# 为你的平台构建',
     c2note: '  # 或 build-linux-arm64.sh',
     c3: '# 运行',
