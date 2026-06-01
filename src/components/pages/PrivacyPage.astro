@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Footer from '../Footer.astro';
+import type { Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+---
+
+<Base
+  title="InferNode — Privacy Policy"
+  description="How the InferNode app handles your information. Processed on-device; no developer-operated data collection; no advertising or third-party analytics."
+  lang={lang}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="relative px-6 pt-40 pb-16">
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(224,96,48,0.06)_0%,_transparent_70%)]"></div>
+      <div class="relative mx-auto max-w-3xl">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Legal</p>
+        <h1 class="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Privacy Policy</h1>
+        <p class="text-sm text-text-muted">Last updated: 1 June 2026</p>
+      </div>
+    </section>
+
+    <section class="px-6 pb-24">
+      <div class="mx-auto max-w-3xl space-y-6 text-text-muted leading-relaxed">
+        <p>
+          InferNode ("the app") is published by <strong class="text-text">NERV Systems, LLC</strong>
+          ("we", "us"). This policy explains what the app does with your information.
+          The short version: InferNode is a self-contained operating-system environment
+          that runs on your device. We do not operate servers that collect your data, we
+          do not sell or share your data, and the app contains no advertising or
+          third-party analytics SDKs.
+        </p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">What the app processes, and where</h2>
+        <p>
+          InferNode processes data <strong class="text-text">on your device</strong>. Some
+          features send data to network endpoints <strong class="text-text">that you
+          configure</strong> — we do not control or receive that data.
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-border bg-bg-surface">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-border text-left text-text">
+                <th class="p-3 font-semibold">Data</th>
+                <th class="p-3 font-semibold">Why</th>
+                <th class="p-3 font-semibold">Where it goes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-border align-top">
+                <td class="p-3 text-text">Prompts / text you enter for the AI agent</td>
+                <td class="p-3">To answer your requests</td>
+                <td class="p-3">To the language-model endpoint <strong class="text-text">you configure</strong> (a server on your own network, or a third-party API such as Anthropic or OpenAI if you supply its address and key). Governed by that provider's privacy terms.</td>
+              </tr>
+              <tr class="border-b border-border align-top">
+                <td class="p-3 text-text">Microphone audio</td>
+                <td class="p-3">Voice input and dialing features, when you invoke them</td>
+                <td class="p-3">Processed on-device; transmitted to a model/voice endpoint only if you have configured one and invoke a voice feature. Not recorded or retained by us.</td>
+              </tr>
+              <tr class="border-b border-border align-top">
+                <td class="p-3 text-text">SMS messages (send/receive/read)</td>
+                <td class="p-3">So the agent can send and read text messages at your explicit direction</td>
+                <td class="p-3">Handled on-device by Android's telephony system. Message content is only passed to a configured model endpoint if you direct the agent to act on it.</td>
+              </tr>
+              <tr class="border-b border-border align-top">
+                <td class="p-3 text-text">Phone dialing</td>
+                <td class="p-3">To place a call when you ask the agent to dial</td>
+                <td class="p-3">Handed to Android's telephony system on-device. We do not log call activity.</td>
+              </tr>
+              <tr class="border-b border-border align-top">
+                <td class="p-3 text-text">Credentials / keys (LLM API keys, mount keys)</td>
+                <td class="p-3">To authenticate to services you configure</td>
+                <td class="p-3">Stored locally in the app's encrypted keyring/secstore, optionally gated behind device biometrics. Never transmitted to us.</td>
+              </tr>
+              <tr class="align-top">
+                <td class="p-3 text-text">Local network connections</td>
+                <td class="p-3">To reach an InferNode/LLM/9P service on your LAN</td>
+                <td class="p-3">Direct device-to-service on your network. Does not pass through us.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">What we do <em>not</em> do</h2>
+        <ul class="list-disc space-y-2 pl-6">
+          <li>We do not collect, store, or transmit your data to servers operated by us.</li>
+          <li>We do not sell or share your personal data with third parties.</li>
+          <li>The app contains no advertising SDKs and no third-party analytics SDKs.</li>
+          <li>We do not track you across apps or websites.</li>
+        </ul>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Permissions</h2>
+        <p>The app requests these Android permissions only for the features above, each granted by you at runtime:</p>
+        <ul class="list-disc space-y-2 pl-6">
+          <li><strong class="text-text">Microphone</strong> (<code>RECORD_AUDIO</code>) — voice and dial audio.</li>
+          <li><strong class="text-text">Internet</strong> (<code>INTERNET</code>) — to reach model/9P endpoints you configure.</li>
+          <li><strong class="text-text">Phone</strong> (<code>CALL_PHONE</code>) — to place a call when you ask the agent to dial.</li>
+          <li><strong class="text-text">SMS</strong> (<code>SEND_SMS</code>, <code>RECEIVE_SMS</code>, <code>READ_SMS</code>) — to send and read text messages at your direction. (Included only in directly-distributed builds, not the Google Play release.)</li>
+          <li><strong class="text-text">Notifications</strong> (<code>POST_NOTIFICATIONS</code>) and <strong class="text-text">foreground service</strong> — to keep the background service alive with a visible notification.</li>
+        </ul>
+        <p>
+          You can revoke any permission in Android Settings; the dependent feature stops
+          working but the rest of the app continues.
+        </p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Children</h2>
+        <p>InferNode is a developer/operator tool and is not directed to children.</p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Data deletion</h2>
+        <p>
+          All app data lives on your device. Uninstalling the app, or clearing its storage
+          in Android Settings, removes it. Data you sent to a third-party model provider is
+          subject to that provider's deletion process.
+        </p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Changes</h2>
+        <p>We may update this policy; the "Last updated" date above will change.</p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Contact</h2>
+        <p>
+          Questions:
+          <a class="text-accent hover:underline" href="mailto:contact@nervsystems.com">contact@nervsystems.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Base>

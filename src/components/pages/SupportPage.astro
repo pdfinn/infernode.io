@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Footer from '../Footer.astro';
+import type { Lang } from '../../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+---
+
+<Base
+  title="InferNode — Support"
+  description="Support and contact for the InferNode app: how to get help, common questions, and reporting security issues."
+  lang={lang}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="relative px-6 pt-40 pb-16">
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(224,96,48,0.06)_0%,_transparent_70%)]"></div>
+      <div class="relative mx-auto max-w-3xl">
+        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">Help</p>
+        <h1 class="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Support</h1>
+      </div>
+    </section>
+
+    <section class="px-6 pb-24">
+      <div class="mx-auto max-w-3xl space-y-6 text-text-muted leading-relaxed">
+        <h2 class="text-2xl font-bold tracking-tight text-text">Getting help</h2>
+        <ul class="list-disc space-y-2 pl-6">
+          <li><strong class="text-text">Email:</strong> <a class="text-accent hover:underline" href="mailto:contact@nervsystems.com">contact@nervsystems.com</a></li>
+          <li><strong class="text-text">Issues / bug reports:</strong> <a class="text-accent hover:underline" href="https://github.com/infernode-os/infernode/issues" target="_blank" rel="noopener">github.com/infernode-os/infernode/issues</a></li>
+          <li><strong class="text-text">Documentation:</strong> <a class="text-accent hover:underline" href="https://github.com/infernode-os/infernode" target="_blank" rel="noopener">github.com/infernode-os/infernode</a> (see <code>README.md</code>, <code>QUICKSTART.md</code>, and <code>docs/</code>)</li>
+        </ul>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">What InferNode is</h2>
+        <p>
+          InferNode is a 64-bit build of the Inferno® distributed operating system,
+          packaged to run on your device. It hosts a namespace-based agent environment,
+          a graphical shell (Lucifer), and tools for connecting to language-model and 9P
+          services that you configure.
+        </p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Common questions</h2>
+        <p>
+          <strong class="text-text">The agent can't reach my model.</strong> Check that the
+          endpoint address and key are set correctly in Settings and that the device can
+          reach the host (same network / VPN). Local-network features require granting the
+          local-network permission.
+        </p>
+        <p>
+          <strong class="text-text">Voice / dial / SMS does nothing.</strong> These features
+          need their respective runtime permissions (microphone, phone, SMS). Grant them
+          when prompted, or in Android Settings → Apps → InferNode → Permissions.
+        </p>
+        <p>
+          <strong class="text-text">How do I remove my data?</strong> Everything is
+          on-device. Uninstall the app or clear its storage in Android Settings.
+        </p>
+
+        <h2 class="pt-6 text-2xl font-bold tracking-tight text-text">Reporting a security issue</h2>
+        <p>
+          Please do not file public issues for security vulnerabilities. Email
+          <a class="text-accent hover:underline" href="mailto:security@nervsystems.com">security@nervsystems.com</a>
+          with details and we will respond.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Base>
