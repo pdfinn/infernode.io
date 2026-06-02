@@ -37,6 +37,26 @@ const t = useTranslations(lang).quickStart;
       </div>
     </div>
 
+    <!-- Windows — app card -->
+    <div class="mt-6 rounded-xl border border-border bg-bg-surface p-8">
+      <div class="flex flex-col items-center gap-6 sm:flex-row">
+        <img src="/infernode-icon.png" alt="InferNode app icon" class="h-24 w-24 rounded-2xl" />
+        <div>
+          <h3 class="mb-1 text-lg font-semibold">{t.winName}</h3>
+          <p class="mb-3 text-sm text-text-muted" set:html={t.winBody} />
+          <a
+            href="https://github.com/infernode-os/infernode/releases/latest"
+            class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"
+            target="_blank"
+            rel="noopener"
+          >
+            {t.winButton}
+          </a>
+          <p class="mt-4 text-xs text-text-muted" set:html={t.winSigning} />
+        </div>
+      </div>
+    </div>
+
     <!-- Docker — run anywhere -->
     <div class="mt-6 rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
       <div class="flex items-center gap-2 border-b border-border px-4 py-3">
