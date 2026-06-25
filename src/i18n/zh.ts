@@ -131,9 +131,8 @@ export const ui: Ui = {
     term5: '# 提示注入想读取 SSH 密钥?',
     term6: "  # 没东西可读,该路径根本不存在。",
     pqTitle: '抗量子加密',
-    pqBadge: '实验性',
-    pqP1: 'InferNode 已经初步实现了 <strong class="text-text">ML-KEM</strong>(FIPS&nbsp;203)与 <strong class="text-text">ML-DSA</strong>(FIPS&nbsp;204)&mdash;这是 NIST 标准化的、基于格的算法,也是业界正在迁移的对象。NIST Level&nbsp;3(ML-KEM-768 / ML-DSA-65)与 Level&nbsp;5(ML-KEM-1024 / ML-DSA-87)两套参数皆已支持,全程采用恒定时间运算。',
-    pqP2: '该实现<em>尚不建议用于生产</em>,但密码敏捷性是一项首要设计目标。当传统公钥密码学被攻破之时,InferNode 已经准备好了一条出路&mdash;并且原生运行在保护你智能体的同一套轻量级操作系统之上。',
+    pqP1: 'InferNode 已经实现了可用于生产的 <strong class="text-text">ML-KEM</strong>(FIPS&nbsp;203)与 <strong class="text-text">ML-DSA</strong>(FIPS&nbsp;204)&mdash;这是 NIST 标准化的、基于格的算法,也是业界正在迁移的对象。NIST Level&nbsp;3(ML-KEM-768 / ML-DSA-65)与 Level&nbsp;5(ML-KEM-1024 / ML-DSA-87)两套参数皆已支持,全程采用恒定时间运算。',
+    pqP2: '密码敏捷性是一项首要设计目标,这些算法如今已可用于生产。当传统公钥密码学被攻破之时,InferNode 已经准备好了一条出路&mdash;并且原生运行在保护你智能体的同一套轻量级操作系统之上。',
   },
 
   whyNow: {
@@ -602,9 +601,8 @@ export const ui: Ui = {
     pqEyebrow: '密码学',
     pqTitle: '为后量子时代而设计。',
     pqInner: '抗量子加密',
-    pqBadge: '实验性',
-    pqP1: 'InferNode 已经初步实现了 NIST 标准化的后量子算法&mdash;<strong class="text-text">ML-KEM</strong> 用于密钥交换,<strong class="text-text">ML-DSA</strong> 用于数字签名&mdash;这正是业界正在迁移的算法。两者都基于格、抗量子攻击,并原生运行在保护你智能体的同一套轻量级操作系统之上。',
-    pqP2: '该实现尚不建议用于生产,但密码敏捷性是一项首要设计目标。当传统公钥密码学被攻破之时,InferNode 已经准备好了一条出路。',
+    pqP1: 'InferNode 已经实现了可用于生产的 NIST 标准化后量子算法&mdash;<strong class="text-text">ML-KEM</strong> 用于密钥交换,<strong class="text-text">ML-DSA</strong> 用于数字签名&mdash;这正是业界正在迁移的算法。两者都基于格、抗量子攻击,并原生运行在保护你智能体的同一套轻量级操作系统之上。',
+    pqP2: '密码敏捷性是一项首要设计目标,这些算法如今已可用于生产。当传统公钥密码学被攻破之时,InferNode 已经准备好了一条出路。',
 
     ctaTitle: '想看完整的技术细节?',
     ctaBody: '所有规约、模型、测试支架与 CI 脚本均为开源。完整的方法论&mdash;每一种工具、每一项配置、每一项结果&mdash;都记录在仓库中。',

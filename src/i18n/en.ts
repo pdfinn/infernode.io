@@ -121,9 +121,8 @@ export const ui = {
     term5: '# Prompt injection tried to read SSH keys?',
     term6: "  # nothing to cat. the path doesn't exist.",
     pqTitle: 'Quantum-Safe Cryptography',
-    pqBadge: 'experimental',
-    pqP1: 'InferNode ships preliminary implementations of <strong class="text-text">ML-KEM</strong> (FIPS&nbsp;203) and <strong class="text-text">ML-DSA</strong> (FIPS&nbsp;204)&mdash;the NIST-standardised, lattice-based algorithms the industry is migrating to now. Both NIST Level&nbsp;3 (ML-KEM-768 / ML-DSA-65) and Level&nbsp;5 (ML-KEM-1024 / ML-DSA-87) parameter sets are supported, with constant-time arithmetic throughout.',
-    pqP2: 'This work is <em>not yet recommended for production</em>, but cryptographic agility is a first-class design goal. When classical public-key cryptography is broken, InferNode will already have a path&mdash;running natively on the same lightweight OS that protects your agents today.',
+    pqP1: 'InferNode ships production implementations of <strong class="text-text">ML-KEM</strong> (FIPS&nbsp;203) and <strong class="text-text">ML-DSA</strong> (FIPS&nbsp;204)&mdash;the NIST-standardised, lattice-based algorithms the industry is migrating to now. Both NIST Level&nbsp;3 (ML-KEM-768 / ML-DSA-65) and Level&nbsp;5 (ML-KEM-1024 / ML-DSA-87) parameter sets are supported, with constant-time arithmetic throughout.',
+    pqP2: 'Cryptographic agility is a first-class design goal, and these algorithms are ready for production use today. When classical public-key cryptography is broken, InferNode will already have a path&mdash;running natively on the same lightweight OS that protects your agents today.',
   },
 
   whyNow: {
@@ -592,9 +591,8 @@ export const ui = {
     pqEyebrow: 'Cryptography',
     pqTitle: 'Built for the post-quantum era.',
     pqInner: 'Quantum-Safe Cryptography',
-    pqBadge: 'experimental',
-    pqP1: 'InferNode ships preliminary implementations of the NIST-standardised post-quantum algorithms &mdash; <strong class="text-text">ML-KEM</strong> for key exchange and <strong class="text-text">ML-DSA</strong> for digital signatures &mdash; the algorithms the industry is migrating to now. Both are lattice-based, resistant to quantum attack, and run natively on the same lightweight OS that protects your agents.',
-    pqP2: 'This work is not yet recommended for production, but cryptographic agility is a first-class design goal. When classical public-key cryptography is broken, InferNode will already have a path forward.',
+    pqP1: 'InferNode ships production implementations of the NIST-standardised post-quantum algorithms &mdash; <strong class="text-text">ML-KEM</strong> for key exchange and <strong class="text-text">ML-DSA</strong> for digital signatures &mdash; the algorithms the industry is migrating to now. Both are lattice-based, resistant to quantum attack, and run natively on the same lightweight OS that protects your agents.',
+    pqP2: 'Cryptographic agility is a first-class design goal, and these algorithms are ready for production use today. When classical public-key cryptography is broken, InferNode will already have a path forward.',
 
     ctaTitle: 'Want the full technical detail?',
     ctaBody: 'All specifications, models, harnesses, and CI scripts are open source. The complete methodology &mdash; every tool, every configuration, every result &mdash; is documented in the repository.',
