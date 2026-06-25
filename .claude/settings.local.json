@@ -8,7 +8,18 @@
       "Read(//Users/pdfinn/**)",
       "Read(//Users/pdfinn/github.com/**)",
       "Bash(grep:*)",
-      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\(''''scripts'''',{}\\), indent=2\\)\\)\")"
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\(''''scripts'''',{}\\), indent=2\\)\\)\")",
+      "Bash(sips --getProperty pixelWidth --getProperty pixelHeight ~/Desktop/infernode-fractal-screenshot.png)",
+      "Bash(cwebp:*)",
+      "Bash(cp ~/Desktop/infernode-fractal-screenshot.png /Users/pdfinn/github.com/pdfinn/infernode.io/public/veltro-screenshot.png)",
+      "Bash(sips --resampleWidth 1920 /Users/pdfinn/github.com/pdfinn/infernode.io/public/veltro-screenshot.png --out /Users/pdfinn/github.com/pdfinn/infernode.io/public/veltro-screenshot.png)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(git commit:*)",
+      "Bash(side by side\" and generalize the description to focus on the collaboration:*)",
+      "Bash(ls:*)",
+      "Bash(sips:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
