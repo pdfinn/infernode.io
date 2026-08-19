@@ -40,6 +40,7 @@ export const ui = {
     theSystem: 'The System',
     useCases: 'Use Cases',
     quickStart: 'Quick Start',
+    docs: 'Docs',
     github: 'GitHub',
     menuLabel: 'Toggle navigation menu',
   },
@@ -291,6 +292,9 @@ export const ui = {
 
   quickStart: {
     eyebrow: 'Quick Start',
+    guideTitle: 'New here? Follow the guided quick start.',
+    guideBody: 'Five steps: install, run the tour, learn the one idea InferNode is built on, give an agent a task, then test containment yourself. About twenty minutes, entirely on your own machine.',
+    guideButton: 'Open the quick start',
     title: 'Launch the app or build from source.',
     intro: 'On macOS or Windows, download and run. On Linux, download the GUI or headless tarball, or build from source. Either way&mdash;under a minute.',
     appName: 'InferNode.app',

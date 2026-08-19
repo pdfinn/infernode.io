@@ -50,6 +50,7 @@ export const ui: Ui = {
     theSystem: '产品体系',
     useCases: '应用场景',
     quickStart: '快速开始',
+    docs: '文档',
     github: 'GitHub',
     menuLabel: '切换导航菜单',
   },
@@ -301,6 +302,9 @@ export const ui: Ui = {
 
   quickStart: {
     eyebrow: '快速开始',
+    guideTitle: '初次使用？请按引导式快速开始操作。',
+    guideBody: '五个步骤：安装、运行导览、理解 InferNode 的核心理念、给智能体下达任务，然后亲自验证隔离边界。约二十分钟，全部在你自己的机器上完成。（文档目前仅有英文版。）',
+    guideButton: '打开快速开始',
     title: '运行应用,或从源码构建。',
     intro: '在 macOS 或 Windows 上,下载即可运行。在 Linux 上,下载或从源码构建。无论哪种方式&mdash;一分钟以内即可完成。',
     appName: 'InferNode.app',

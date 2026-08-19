@@ -1,0 +1,48 @@
+---
+title: Documentation
+description: Install InferNode, run the tour, and give a contained agent its first task.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+InferNode is a 64-bit Inferno® distribution: a complete operating system in
+15–30 MB of RAM, where every resource is a file, every process has its own
+private view of the filesystem, and AI agents are contained by that view rather
+than by a policy engine.
+
+If you have never run it, start with the quick start. It takes about twenty
+minutes and ends with an agent doing work it cannot escape from.
+
+<LinkCard
+  title="Quick start"
+  description="Five steps: install, run the tour, learn the one idea, give an agent a task, then watch containment hold."
+  href="/docs/quick-start/"
+/>
+
+## Where to go next
+
+<CardGrid>
+  <Card title="The system">
+    Veltro is the agent runtime, Lucia the three-zone GUI, and Xenith the
+    AI-native text environment. Each is a separate program talking to the
+    others through files.
+  </Card>
+  <Card title="Security">
+    Namespace isolation is proven in TLA+, SPIN, and CBMC. Agent writes are
+    staged copy-on-write. The audit log is hash-chained and signed.
+  </Card>
+  <Card title="Reference">
+    464 man pages across ten sections, plus the original Inferno papers on
+    Dis, Styx, Limbo, and the shell.
+  </Card>
+  <Card title="Compliance">
+    Mappings for NIST SP 800-53, SP 800-171, SP 800-207, CNSA 2.0, FIPS 140-3
+    readiness, and SLSA.
+  </Card>
+</CardGrid>
+
+:::note[Not everything is here yet]
+The reference material — man pages, the user manual, the compliance set — still
+lives in the [source repository](https://github.com/infernode-os/infernode/tree/main/docs)
+while it is brought across. The quick start is complete.
+:::

@@ -1,0 +1,88 @@
+/*
+ * Starlight theme overrides — match the marketing site's palette exactly.
+ * Tokens mirror src/styles/global.css. The marketing site is dark-only, so the
+ * docs commit to the same look in both colour schemes rather than shipping a
+ * light theme that nothing else on infernode.io has.
+ */
+
+:root,
+:root[data-theme='dark'],
+:root[data-theme='light'] {
+  /* Brand */
+  --sl-color-accent-low: #4a2010;
+  --sl-color-accent: #e06030;
+  --sl-color-accent-high: #ff9a70;
+
+  /* Surfaces */
+  --sl-color-black: #0a0a0f;
+  --sl-color-bg: #0a0a0f;
+  --sl-color-bg-nav: rgba(10, 10, 15, 0.85);
+  --sl-color-bg-sidebar: #0a0a0f;
+  --sl-color-bg-inline-code: #1a1a26;
+  --sl-color-bg-accent: #e06030;
+
+  /* Greys, dark → light */
+  --sl-color-gray-7: #12121a;
+  --sl-color-gray-6: #16161f;
+  --sl-color-gray-5: #2a2a3a;
+  --sl-color-gray-4: #3a3a4d;
+  --sl-color-gray-3: #6b6b85;
+  --sl-color-gray-2: #8888a0;
+  --sl-color-gray-1: #c8c8da;
+  --sl-color-white: #e4e4ef;
+
+  /* Text */
+  --sl-color-text: #e4e4ef;
+  --sl-color-text-accent: #ff7040;
+  --sl-color-text-invert: #0a0a0f;
+
+  /* Chrome */
+  --sl-color-hairline: #2a2a3a;
+  --sl-color-hairline-light: #2a2a3a;
+  --sl-color-hairline-shade: #1a1a26;
+  --sl-color-backdrop-overlay: rgba(10, 10, 15, 0.85);
+
+  /* Type — matches the marketing site */
+  --sl-font: 'Inter', system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --sl-nav-height: 3.75rem;
+}
+
+/* The site header is translucent like the marketing nav. */
+header.header {
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+/* Cards and asides pick up the surface colour rather than a flat tint. */
+.card,
+starlight-tabs {
+  background-color: #12121a;
+}
+
+/* Numbered step headings in the quick start read as chapter markers. */
+.sl-markdown-content h2 {
+  border-top: 1px solid var(--sl-color-hairline);
+  padding-top: 2rem;
+  margin-top: 2.5rem;
+}
+
+.sl-markdown-content h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* "Verify" blocks: a terminal-ish frame for expected output. */
+.sl-markdown-content .expected {
+  border-left: 2px solid var(--sl-color-accent);
+  padding-left: 1rem;
+  color: var(--sl-color-gray-2);
+}
+
+/* Keep the logo from dominating the header. */
+.site-title img {
+  height: 1.75rem;
+  width: 1.75rem;
+  object-fit: contain;
+}

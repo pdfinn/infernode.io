@@ -18,6 +18,24 @@ const t = useTranslations(lang).quickStart;
       <p class="text-text-muted" set:html={t.intro} />
     </div>
 
+    <!-- Guided quick start — the path that keeps people on the site -->
+    <a
+      href="/docs/quick-start/"
+      class="group mb-8 block rounded-xl border border-accent/40 bg-bg-surface p-8 transition hover:border-accent hover:bg-bg-surface-hover"
+    >
+      <div class="flex items-start gap-5">
+        <i class="ph ph-list-numbers mt-1 text-3xl text-accent" />
+        <div class="min-w-0">
+          <h3 class="mb-2 text-lg font-semibold">{t.guideTitle}</h3>
+          <p class="mb-4 text-sm text-text-muted">{t.guideBody}</p>
+          <span class="inline-flex items-center gap-2 text-sm font-medium text-accent transition group-hover:text-accent-glow">
+            {t.guideButton}
+            <i class="ph ph-arrow-right" />
+          </span>
+        </div>
+      </div>
+    </a>
+
     <!-- macOS — app card -->
     <div class="rounded-xl border border-border bg-bg-surface p-8">
       <div class="flex flex-col items-center gap-6 sm:flex-row">

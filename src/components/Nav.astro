@@ -22,6 +22,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
 
     <!-- Desktop nav -->
     <div class="hidden items-center gap-8 text-sm text-text-muted md:flex">
+      <a href="/docs/" class="transition hover:text-text">{t.docs}</a>
       <a href={p('/veltro', lang)} class="transition hover:text-text">{t.veltro}</a>
       <a href={p('/compare', lang)} class="transition hover:text-text">{t.compare}</a>
       <a href={p('/security', lang)} class="transition hover:text-text">{t.security}</a>
@@ -66,6 +67,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
   <!-- Mobile menu -->
   <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl md:hidden">
     <div class="flex flex-col gap-1 px-6 py-4 text-sm">
+      <a href="/docs/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.docs}</a>
       <a href={p('/veltro', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.veltro}</a>
       <a href={p('/compare', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.compare}</a>
       <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
