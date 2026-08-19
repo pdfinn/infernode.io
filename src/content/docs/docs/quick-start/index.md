@@ -1,9 +1,9 @@
 ---
 title: Quick start
-description: Five steps from download to a contained agent doing work. About twenty minutes.
+description: Six steps from download to a contained agent doing work. About half an hour.
 ---
 
-Work through the five steps in order. The first three get you a running system
+Work through the six steps in order. The first four get you a working system
 and the one idea everything else rests on. The last two are where InferNode
 stops resembling anything else you have run.
 
@@ -14,15 +14,23 @@ and nothing to sign up for.
 
 | | Step | You end with |
 |---|---|---|
-| 1 | [Install and launch](/docs/quick-start/install/) | InferNode running, welcome document on screen |
-| 2 | [Run the tour](/docs/quick-start/run-the-tour/) | An agent demonstrating the system, using the system |
-| 3 | [Everything is a file](/docs/quick-start/everything-is-a-file/) | The idea that makes the rest obvious |
-| 4 | [Give Veltro a task](/docs/quick-start/give-veltro-a-task/) | Your own instruction, carried out |
-| 5 | [Namespaces contain](/docs/quick-start/namespaces-contain/) | An agent failing to escape, and you knowing why |
+| 1 | [Install and launch](/docs/quick-start/install/) | InferNode running on your machine |
+| 2 | [Connect a model](/docs/quick-start/connect-a-model/) | Veltro able to answer you |
+| 3 | [Run the tour](/docs/quick-start/run-the-tour/) | An agent demonstrating the system, using the system |
+| 4 | [Everything is a file](/docs/quick-start/everything-is-a-file/) | The idea that makes the rest obvious |
+| 5 | [Give Veltro a task](/docs/quick-start/give-veltro-a-task/) | Your own instruction, carried out |
+| 6 | [Namespaces contain](/docs/quick-start/namespaces-contain/) | An agent failing to escape, and you knowing why |
 
-Steps 1–3 are the short path. If you only have ten minutes, stop after step 3 —
-you will have seen what InferNode is. Steps 4 and 5 are where you find out
+Steps 1–4 are the short path. If you only have twenty minutes, stop after step 4 —
+you will have seen what InferNode is. Steps 5 and 6 are where you find out
 whether you want it.
+
+:::caution[Step 2 is not optional]
+Veltro is an agent, so it needs a language model before it can do anything at
+all. A fresh install has none configured and prompts you on first launch — and
+every route through that prompt ends by asking you to relaunch InferNode.
+Skipping it is the single most common reason the tour appears to do nothing.
+:::
 
 ## What you need
 

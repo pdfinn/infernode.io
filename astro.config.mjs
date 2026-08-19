@@ -51,9 +51,10 @@ export default defineConfig({
           items: [
             { label: 'Quick start', link: '/docs/quick-start/' },
             { label: '1. Install and launch', link: '/docs/quick-start/install/' },
-            { label: '2. Run the tour', link: '/docs/quick-start/run-the-tour/' },
+            { label: '2. Connect a model', link: '/docs/quick-start/connect-a-model/' },
+            { label: '3. Run the tour', link: '/docs/quick-start/run-the-tour/' },
             {
-              label: '3. Everything is a file',
+              label: '4. Everything is a file',
               link: '/docs/quick-start/everything-is-a-file/',
             },
           ],
@@ -62,11 +63,11 @@ export default defineConfig({
           label: 'Go further',
           items: [
             {
-              label: '4. Give Veltro a task',
+              label: '5. Give Veltro a task',
               link: '/docs/quick-start/give-veltro-a-task/',
             },
             {
-              label: '5. Namespaces contain',
+              label: '6. Namespaces contain',
               link: '/docs/quick-start/namespaces-contain/',
             },
           ],

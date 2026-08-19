@@ -1,8 +1,8 @@
 ---
-title: 3. Everything is a file
+title: 4. Everything is a file
 description: The single idea InferNode is built on, in six commands.
 sidebar:
-  order: 3
+  order: 4
 ---
 
 This is the step that makes everything else predictable. It takes about five
@@ -90,7 +90,7 @@ output, and agent tools alike, because they are all text in files.
 
 **Everything is containable.** This is the important one. If every capability is
 a file, then removing a capability is not a permission check that some code has
-to remember to perform — it is a file that is simply not there. That is step 5.
+to remember to perform — it is a file that is simply not there. That is step 6.
 
 ## Verify
 

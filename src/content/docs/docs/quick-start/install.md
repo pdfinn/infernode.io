@@ -93,6 +93,10 @@ document already loaded:
 The welcome document is `/lib/veltro/welcome.md`, displayed in the presentation
 zone on first launch.
 
+If instead Veltro greets you with a dialogue titled **LLM Setup**, that is
+expected on a fresh install — it means no model is configured yet, which is
+exactly what the next step is for.
+
 **Headless**, you should get a prompt and a version:
 
 ```sh
@@ -101,7 +105,7 @@ Fourth Edition (20120928)
 ```
 
 That is InferNode reporting its own kernel version by way of a file, which is
-the entire idea of the system and the subject of step 3.
+the entire idea of the system and the subject of step 4.
 
 :::note[Lucia]
 The three-zone window is **Lucia**, InferNode's GUI. It is not a terminal
@@ -131,5 +135,5 @@ instead of a file manager so you can read the error it prints.
 
 ---
 
-Next: [Run the tour](/docs/quick-start/run-the-tour/) — an agent shows you the
-system it is running on.
+Next: [Connect a model](/docs/quick-start/connect-a-model/) — Veltro needs
+something to think with before it can do anything.

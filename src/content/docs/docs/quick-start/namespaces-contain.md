@@ -1,8 +1,8 @@
 ---
-title: 5. Namespaces contain
+title: 6. Namespaces contain
 description: Try to make an agent reach something it should not. Watch it fail for the right reason.
 sidebar:
-  order: 5
+  order: 6
 ---
 
 Every system that runs AI agents claims to contain them. Almost all of them mean

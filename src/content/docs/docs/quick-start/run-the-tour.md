@@ -1,8 +1,8 @@
 ---
-title: 2. Run the tour
+title: 3. Run the tour
 description: Veltro demonstrates InferNode using InferNode's own tools — live, not a video.
 sidebar:
-  order: 2
+  order: 3
 ---
 
 Most systems introduce themselves with a screenshot. InferNode introduces itself
@@ -16,7 +16,7 @@ real documents into the presentation zone.
 :::note[Veltro]
 **Veltro** is InferNode's agent runtime. It reads its available tools out of the
 filesystem at `/tool`, and everything it can reach is determined by what was
-mounted into its namespace before it started. Step 5 is about that boundary.
+mounted into its namespace before it started. Step 6 is about that boundary.
 :::
 
 ## Start it
@@ -91,13 +91,13 @@ welcome document in the presentation zone is not an input field.
 namespace. Make sure you are at the `;` prompt inside InferNode, not at your
 host shell.
 
-**The agent responds but cannot launch anything** — the tour needs an LLM
-backend. On Windows, `setup-windows.bat` configures one; elsewhere see
-[the LLM setup notes](https://github.com/infernode-os/infernode/blob/main/docs/HEADLESS-LLM-DAEMON.md).
+**Veltro does not respond at all** — no model is connected, or you configured
+one and did not relaunch. Go back to
+[Connect a model](/docs/quick-start/connect-a-model/).
 
 :::tip[Skip ahead freely]
 The tour is long by design. You do not have to finish it — say `skip` or just
-close it and move to step 3. You can always come back with `run the tour`.
+close it and move to step 4. You can always come back with `run the tour`.
 :::
 
 ---

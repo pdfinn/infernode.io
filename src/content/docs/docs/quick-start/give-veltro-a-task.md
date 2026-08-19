@@ -1,8 +1,8 @@
 ---
-title: 4. Give Veltro a task
+title: 5. Give Veltro a task
 description: Your own instruction, carried out by tools you can read and revoke.
 sidebar:
-  order: 4
+  order: 5
 ---
 
 The tour was somebody else's script. This step is yours.
@@ -23,7 +23,7 @@ find every file under /appl that mentions cowfs and tell me how they relate
 ```
 
 Veltro will pick tools, run them, and show its working. What it picked is not a
-mystery — it came from `/tool/tools`, which you read in step 3.
+mystery — it came from `/tool/tools`, which you read in step 4.
 
 ## Watch what it actually did
 
