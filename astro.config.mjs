@@ -70,6 +70,10 @@ export default defineConfig({
               label: '6. Namespaces contain',
               link: '/docs/quick-start/namespaces-contain/',
             },
+            {
+              label: '7. Your work survives',
+              link: '/docs/quick-start/your-work-survives/',
+            },
           ],
         },
       ],

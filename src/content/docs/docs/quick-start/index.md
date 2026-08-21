@@ -1,9 +1,9 @@
 ---
 title: Quick start
-description: Six steps from download to a contained agent doing work. About half an hour.
+description: Seven steps from download to a contained agent doing work. About half an hour.
 ---
 
-Work through the six steps in order. The first four get you a working system
+Work through the seven steps in order. The first four get you a working system
 and the one idea everything else rests on. The last two are where InferNode
 stops resembling anything else you have run.
 
@@ -20,9 +20,10 @@ and nothing to sign up for.
 | 4 | [Everything is a file](/docs/quick-start/everything-is-a-file/) | The idea that makes the rest obvious |
 | 5 | [Give Veltro a task](/docs/quick-start/give-veltro-a-task/) | Your own instruction, carried out |
 | 6 | [Namespaces contain](/docs/quick-start/namespaces-contain/) | An agent failing to escape, and you knowing why |
+| 7 | [Your work survives](/docs/quick-start/your-work-survives/) | Knowing what is durable and how to get yesterday back |
 
 Steps 1–4 are the short path. If you only have twenty minutes, stop after step 4 —
-you will have seen what InferNode is. Steps 5 and 6 are where you find out
+you will have seen what InferNode is. Steps 5 to 7 are where you find out
 whether you want it.
 
 :::caution[Step 2 is not optional]

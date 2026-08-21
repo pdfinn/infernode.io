@@ -129,11 +129,5 @@ Be as skeptical of anyone claiming otherwise as you should be of us.
 
 ---
 
-That is the quick start. You have a running system, an agent that works, and a
-containment boundary you have tested yourself rather than taken on trust.
-
-Where to go next: the [man pages](https://github.com/infernode-os/infernode/tree/main/man)
-for reference, the [user manual](https://github.com/infernode-os/infernode/blob/main/docs/USER-MANUAL.md)
-for namespaces and host integration, or
-[CONTRIBUTING.md](https://github.com/infernode-os/infernode/blob/main/CONTRIBUTING.md)
-if you want to build something on it.
+Next: [Your work survives](/docs/quick-start/your-work-survives/) — what is
+durable, what an update replaces, and how to get yesterday back.

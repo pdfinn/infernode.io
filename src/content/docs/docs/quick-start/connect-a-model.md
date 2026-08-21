@@ -8,100 +8,135 @@ sidebar:
 Veltro is an agent, so it needs a model to think with. Nothing in the rest of
 this quick start works until one is connected.
 
-You do not have to go looking for this. On first launch, InferNode notices that
-no model is configured and Veltro opens with a greeting and a dialogue titled
-**LLM Setup** in the conversation zone:
+Which route you take depends on how you installed.
+
+:::caution[Every route ends with a restart]
+InferNode reads its model configuration at boot. After configuring one, **close
+InferNode and relaunch it**. If you set up a key and Veltro still does not
+answer, this is almost always why.
+:::
+
+## Windows — already done
+
+`setup-windows.bat` configures a backend as part of extraction. If you ran it
+in step 1, skip ahead to [Run the tour](/docs/quick-start/run-the-tour/).
+
+## macOS and Linux, from a release — the first-run wizard
+
+InferNode notices that no model is configured and Veltro opens with a greeting
+and a dialogue titled **LLM Setup** in the conversation zone:
 
 > Choose how to connect to an AI model:
 
-with three buttons. Pick the one that matches what you have.
+Three buttons. Pick what matches what you have.
 
-:::caution[All three paths end with a restart]
-Whichever option you choose, InferNode must be **closed and relaunched** before
-the model is live. The configurator says so when it finishes. If you configure a
-model and Veltro still does not answer, this is almost always why.
-:::
+### Remote API
 
-## Remote API — you have an Anthropic API key
-
-The **Keyring** app opens. In it:
+You have an Anthropic API key. The **Keyring** app opens:
 
 1. Select **API Key**
 2. Enter `anthropic` as the service
 3. Paste your key
 
-Then close InferNode and relaunch.
+### Local model
+
+You run Ollama or another OpenAI-compatible server. **Settings** opens on the
+**LLM Service** panel:
+
+1. Leave **Mode** on `Local`
+2. Choose the Ollama backend
+3. Set the URL, e.g. `http://localhost:11434/v1`
+
+Ollama must be running *before* you start InferNode — `ollama serve`, or
+`sudo systemctl start ollama`.
+
+### Remote 9P
+
+Another machine on your network is running InferNode and exporting `/mnt/llm`.
+Settings opens on **LLM Service**:
+
+1. Switch **Mode** to `Remote (9P)`
+2. Enter that machine's dial address: `tcp!host!port`
+
+The client needs no model, no API key, and no GPU — it mounts someone else's
+model as a directory. This is the arrangement in
+[Headless InferNode: mounting an LLM as a filesystem](https://github.com/infernode-os/infernode/blob/main/docs/HEADLESS-LLM-DAEMON.md).
 
 :::note[Where the key goes]
 Keys are held by **factotum**, InferNode's credential agent, not written into a
 config file. Veltro cannot read them — its `keyring` tool can only *tell you*
-that a credential is needed and open this app. Retrieving key material is
-outside the agent's namespace entirely. Step 6 is about why that distinction
-matters.
+that a credential is needed and open the app. Retrieving key material is outside
+the agent's namespace entirely. Step 6 is about why that distinction matters.
 :::
 
-## Local model — you run Ollama or similar
+## From a clone — the guided script
 
-The **Settings** app opens directly on the **LLM Service** panel.
+If you built from source rather than downloading a release, there is a guided
+setup that does the whole thing before you ever launch:
 
-1. Leave **Mode** on `Local`
-2. Choose the **Ollama** backend
-3. Set the URL, e.g. `http://localhost:11434/v1`
+```sh
+./setup-macos.sh      # or ./setup-linux.sh
+```
 
-Then close InferNode and relaunch.
+It offers the same choice — Anthropic key or local Ollama — then validates the
+key against the API, offers to add it to your shell profile, pulls the Ollama
+model if you picked that route, and writes the config. It also offers to set up
+an optional Brave Search key so Veltro can search the web.
 
-This is the option to take on a machine with no internet, and the reason
-InferNode works on an aircraft or behind an air gap.
+These scripts are **not** in the release tarballs; they live in the repository.
+Release users get the wizard above.
 
-## Remote 9P — another InferNode has a model
-
-If a machine on your network is already running InferNode and exporting
-`/mnt/llm`, you can borrow it. Settings opens on **LLM Service**:
-
-1. Switch **Mode** to `Remote (9P)`
-2. Enter the dial address of the exporting machine: `tcp!host!port`
-
-Then close InferNode and relaunch.
-
-This is the arrangement described in
-[Headless InferNode: mounting an LLM as a filesystem](https://github.com/infernode-os/infernode/blob/main/docs/HEADLESS-LLM-DAEMON.md) —
-one machine with the GPU, everything else mounting its model over the network as
-a directory. The client machines need no model, no API key, and no GPU.
-
-## Headless: edit the config directly
+## Headless — edit the config
 
 There is no wizard without a GUI. The same configuration is a file:
 
 ```sh
 ; cat /lib/ndb/llm
 mode=local
-backend=ollama
-url=http://127.0.0.1:11434/v1
+backend=openai
+url=http://localhost:11434/v1
 model=your-model
 dial=
 ```
 
-Five fields — `mode`, `backend`, `url`, `model`, `dial`. Write the file, restart
-the emulator, done. On the host side this lives under
-`$HOME/.infernode/lib/ndb/` and is bind-mounted into the namespace, so you can
-edit it from either side.
+The fields:
+
+| Field | Values |
+|---|---|
+| `mode` | `local` — a backend on this machine or at a URL · `remote` — mount a remote `llmsrv` over 9P |
+| `backend` | `api` — Anthropic · `openai` — any OpenAI-compatible server (Ollama, SGLang) · `cli` — a local Claude CLI gateway |
+| `url` | Backend endpoint, e.g. `https://api.anthropic.com` or `http://localhost:11434/v1` |
+| `model` | Model name to request |
+| `dial` | Remote mode only: `tcp!host!5640` |
+
+Optional: `auth=keyring` and `keyfile=` for authenticated remote mounts, and
+`temperature=` to override sampling.
+
+:::note[The file is yours, not the project's]
+`lib/ndb/llm` is git-ignored — the tracked file is `lib/ndb/llm.example`, and it
+ships blank on purpose. The boot profile seeds `$HOME/.infernode/lib/ndb/llm`
+from that template on first run, and Settings writes the seeded copy thereafter.
+A non-empty `url=` is what tells InferNode a model is configured, so a stray
+value in the template would send a fresh install to an endpoint that does not
+exist and skip the wizard that would have fixed it.
+:::
 
 For an API key without the GUI, set `ANTHROPIC_API_KEY` in the environment
 before launching; the boot profile provisions it into factotum.
 
 ## A fourth option, if you have Claude Code
 
-The Settings **LLM Service** panel also offers a **Claude CLI** backend, which
-uses your host's existing `claude` login rather than an API key. If Settings
-shows *"API key: not needed (uses host claude login)"*, that is what it has
-picked up. The first-run wizard does not offer this one — you have to open
-Settings yourself.
+The Settings **LLM Service** panel also offers a **Claude CLI** backend
+(`backend=cli`), which uses your host's existing `claude` login rather than an
+API key. If Settings shows *"API key: not needed (uses host claude login)"*,
+that is what it has picked up. The first-run wizard does not offer this one —
+open Settings yourself.
 
 ## Verify
 
 Relaunch InferNode. You have this step when the **LLM Setup** dialogue does
-*not* appear — that dialogue only shows when no model is configured, so its
-absence is the confirmation.
+*not* appear — it only shows when no model is configured, so its absence is the
+confirmation.
 
 <div class="expected">
 
@@ -111,21 +146,20 @@ Then say anything at all in the conversation zone:
 hello
 ```
 
-If Veltro answers, you are done. If nothing comes back, check that you actually
-relaunched — see the caution at the top of this page.
+If Veltro answers, you are done.
 
 </div>
 
 ## Troubleshooting
 
-**Configured it, still no reply** — you did not restart. This catches everybody.
+**Configured it, still no reply** — you did not relaunch. This catches everybody.
 
-**"keyring auth requested but keyfile not found"** at boot — the remote 9P path
+**Ollama route, nothing responds** — Ollama is not running. Start it before
+InferNode, not after.
+
+**"keyring auth requested but keyfile not found"** at boot — the remote 9P route
 expects a key at `/lib/keyring/serve-llm`. Generate one on the serving machine
 with `./serve-llm.sh --gen-key`.
-
-**Windows** — `setup-windows.bat` configures a backend as part of extraction, so
-you may find this step already done.
 
 ---
 
