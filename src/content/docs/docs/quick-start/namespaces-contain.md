@@ -39,6 +39,12 @@ the point is the wording of the failure, not this particular path.
 Read that error again. It does not say *permission denied*. It says **file does
 not exist**.
 
+That is called the **truthful environment**, and it buys more than tidiness. A
+confined process cannot map the shape of what it is being denied, because denial
+and nonexistence are the same observation. There is no probing oracle: an agent
+cannot walk a directory learning which paths exist-but-are-forbidden, because
+that category does not exist.
+
 ## Why that is the whole argument
 
 Nothing consulted a policy. No rule matched. No check ran and returned false.
@@ -58,16 +64,21 @@ disagree completely about what `/` contains, and neither is wrong.
 This is why the guarantee holds under conditions where policy engines do not:
 
 - **A bug in the agent** cannot widen it, because widening requires a mount.
-- **A prompt injection** cannot talk its way past it — there is no gatekeeper to
-  persuade, and no path to name.
+- **A prompt injection** cannot widen it — there is no gatekeeper to persuade
+  and no path to name. It can still misuse authority the agent *already* has,
+  which is a different problem and is treated as one below.
 - **A compromised tool** inherits the same namespace and sees the same nothing.
 
-Subagents are the case to be careful with. `spawn` takes an explicit `tools=`
-and `paths=` set, so a subagent gets what you name in the invocation — it is not
-automatically narrower than its parent. `nsaudit` has a rule for exactly this
-(`SPAWN_INHERITANCE`), which fires when `spawn` is granted alongside durable
-host writes, because the subagent then inherits a namespace from which durable
-mutation is reachable. Narrow the spawn, or stage the writes.
+- **A subagent** can never reach more than its parent. A child forks an
+  already-restricted namespace and can only narrow it further, so grants shrink
+  monotonically down the process tree. You do not need a policy engine to reason
+  about what a delegation chain can do — you read its namespace.
+
+The subagent case still needs care, but the risk is inheriting *too much*, not
+gaining anything new. `spawn` takes an explicit `tools=` and `paths=` set, and a
+child that is handed its parent's full grant is no narrower than the parent was.
+`nsaudit` flags this as `SPAWN_INHERITANCE` when `spawn` is granted alongside
+durable host writes. Narrow the spawn, or stage the writes.
 
 The construction is in `nsconstruct->restrictns()`, using `FORKNS` to give the
 agent a private namespace and `NODEVS` to keep it from attaching new devices to
@@ -120,11 +131,20 @@ real files — `diff` what changed, then promote or revert it file by file. See
 [`appl/veltro/cowfs.b`](https://github.com/infernode-os/infernode/blob/main/appl/veltro/cowfs.b).
 
 :::caution[What containment does not cover]
-Namespaces contain filesystem reach. They do not reverse effects that leave the
-machine. A network request that was sent, a host command that ran, or a payment
-that settled cannot be un-done by unmounting anything — those are handled by not
-granting the capability in the first place, which is what `nsaudit` is for.
-Be as skeptical of anyone claiming otherwise as you should be of us.
+The namespace confines *code* absolutely, because code's attack surface is the
+filesystem. It cannot confine what a sentence does to a language model. Text
+arriving over a foreign mount is data to display, never instructions to inject,
+and no prompt compensates for granting a model both confidential reads and
+unrestricted egress in the same namespace — the standing invariant is to never
+combine the two.
+
+Namespaces also do not reverse effects that leave the machine. A request that
+was sent, a host command that ran, or a payment that settled cannot be undone by
+unmounting anything.
+
+And `nsaudit` passing does not mean "safe" — it means free of the authority
+compositions `nsaudit` knows to check for. That is the ceiling, and it is the
+one we advertise.
 :::
 
 ---
