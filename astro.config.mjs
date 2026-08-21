@@ -76,6 +76,32 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: 'Concepts',
+          items: [
+            { label: 'The worldview', link: '/docs/concepts/' },
+            { label: 'Namespaces', link: '/docs/concepts/namespaces/' },
+            {
+              label: 'Contain and restore',
+              link: '/docs/concepts/contain-and-restore/',
+            },
+            {
+              label: 'Design the interface first',
+              link: '/docs/concepts/design-first/',
+            },
+          ],
+        },
+        {
+          label: 'Build',
+          items: [
+            { label: 'Build a 9P service', link: '/docs/build/' },
+            { label: 'Writing a 9P service', link: '/docs/build/9p-service/' },
+            {
+              label: 'Limbo for Go programmers',
+              link: '/docs/build/limbo-for-go-programmers/',
+            },
+          ],
+        },
       ],
       pagination: true,
       lastUpdated: false,

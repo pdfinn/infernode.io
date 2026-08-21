@@ -142,6 +142,15 @@ staged through a copy-on-write overlay so they are reviewed before they touch
 real files — `diff` what changed, then promote or revert it file by file. See
 [`appl/veltro/cowfs.b`](https://github.com/infernode-os/infernode/blob/main/appl/veltro/cowfs.b).
 
+**Agent provenance.** Veltro seals every trajectory — prompts, tool calls,
+completions, and the capability grants themselves — into the audit chain, with
+bulky payloads stored write-once in venti and pinned by SHA-256. The grant is
+part of the evidence: the namespace is the record. The interface is
+[`auditprov(2)`](https://github.com/infernode-os/infernode/blob/main/man/2/auditprov).
+
+**The whole strategy.** [Contain and restore](/docs/concepts/contain-and-restore/)
+covers all four layers in one place.
+
 ## Contain, then restore
 
 Containment bounds what can go wrong. It does not, by itself, tell you what
@@ -151,7 +160,7 @@ Containment bounds what can go wrong. It does not, by itself, tell you what
 |---|---|---|
 | **Contain** | Namespace — `restrictns()`, `FORKNS`, `NODEVS` | A structural bound on reachable damage, verified in TLA+, SPIN and CBMC |
 | **Constrain effects** | Drafting separated from effects | Sending, mutation, payment and delegation need a fresh capability issued outside the model's namespace. The model cannot mint one. |
-| **Detect** | Hash-chained audit log (`auditfs`) | A record the audited subject cannot alter, signed by factotum and verifiable offline with a public key |
+| **Detect** | Hash-chained audit log with agent provenance | Every trajectory — prompts, tool calls, capability grants — sealed into a record the audited subject cannot alter, signed by factotum, verifiable offline with a public key |
 | **Restore** | Copy-on-write staging, venti snapshots | Agent writes reviewed before they touch real files; any past state remounted read-only |
 
 That is the strategy in one line: **assume the model fails, bound what the

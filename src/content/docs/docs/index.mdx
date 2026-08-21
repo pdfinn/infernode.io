@@ -10,13 +10,25 @@ InferNode is a 64-bit Inferno® distribution: a complete operating system in
 private view of the filesystem, and AI agents are contained by that view rather
 than by a policy engine.
 
-If you have never run it, start with the quick start. It takes about twenty
-minutes and ends with an agent doing work it cannot escape from.
+If you have never run it, start with the quick start. It takes about half an
+hour and ends with an agent doing work it cannot escape from.
 
 <LinkCard
   title="Quick start"
-  description="Five steps: install, run the tour, learn the one idea, give an agent a task, then watch containment hold."
+  description="Seven steps: install, connect a model, run the tour, learn the one idea, give an agent a task, then watch containment hold and learn what survives."
   href="/docs/quick-start/"
+/>
+
+<LinkCard
+  title="Concepts"
+  description="The worldview, namespaces, and the contain-and-restore security strategy. Start here if you are evaluating InferNode rather than installing it."
+  href="/docs/concepts/"
+/>
+
+<LinkCard
+  title="Build a 9P service"
+  description="Write a real service end to end — design, code, test, man page — using one that ships in the tree."
+  href="/docs/build/"
 />
 
 ## Where to go next
@@ -28,8 +40,8 @@ minutes and ends with an agent doing work it cannot escape from.
     others through files.
   </Card>
   <Card title="Security">
-    Namespace isolation is proven in TLA+, SPIN, and CBMC. Agent writes are
-    staged copy-on-write. The audit log is hash-chained and signed.
+    Namespace isolation is proven in TLA+, SPIN, and CBMC. Agent trajectories
+    are sealed into a hash-chained audit log; writes stage copy-on-write.
   </Card>
   <Card title="Reference">
     464 man pages across ten sections, plus the original Inferno papers on
