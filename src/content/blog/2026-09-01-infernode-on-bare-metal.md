@@ -1,14 +1,16 @@
 ---
 title: "Nine days to a window manager on a bare Raspberry Pi"
-description: "InferNode now runs as the firmware on a Raspberry Pi 3B+, with no host OS: its own kernel, IP stack, USB, JIT, and acme on the panel. What emulation could not tell us, and what is still slow."
+description: "Inferno® was always meant to run natively on small devices. InferNode now runs as the operating system on a Raspberry Pi 3B+: its own kernel, IP stack, USB, JIT, and acme on the panel. What emulation could not tell us, and what is still slow."
 pubDate: 2026-09-01
 author: "P. D. Finn"
 tags: ["baremetal", "arm64", "kernel", "raspberry-pi"]
 ---
 
-Inferno® was designed to run two ways: *hosted*, as a program on another operating system, or *native*, as the operating system itself. Everything InferNode has shipped so far is hosted. `emu` runs on macOS, Linux or Windows, and the host provides memory, threads, files and the network. Upstream's native ports were 32-bit and had not kept pace with the hardware. Reviving the native side on a 64-bit board is one of the clearest tests of the bet behind this fork: that a small team working closely with AI coding assistants can close a gap of more than ten years without losing the design.
+Inferno® was built to be an embedded operating system. It runs two ways: *hosted*, as a program on another operating system, or *native*, as the operating system itself on small devices. The upstream tree carried kernels for the Compaq iPAQ, Gumstix and Cerf boards, a JavaStation, and a family of ARM and PowerPC evaluation boards, each booting straight into Dis with no other system underneath. Those ports were 32-bit, and the boards they targeted are long gone.
 
-We started on 2026-08-23, with InferNode as the firmware on a Raspberry Pi 3B+ and nothing underneath it. On 2026-08-31 we tagged [`baremetal-gui-working`](https://github.com/infernode-os/infernode/tree/baremetal-gui-working/os/bcm2837): acme and the clock launch, draw and exit cleanly on the board, the mouse works in wm and inside acme, and the cursor renders. The tag message says these were "verified on the board by the user, not inferred". That distinction mattered all week. The full record, including every wrong turn, is in [os/bcm2837/README.md](https://github.com/infernode-os/infernode/blob/baremetal-gui-working/os/bcm2837/README.md).
+Everything InferNode has shipped so far is hosted. `emu` runs on macOS, Linux or Windows, and the host provides memory, threads, files and the network. That was the right place to start: 64-bit Dis, the JITs and the modern cryptography all had to exist before anything else could. But it left Inferno® as an application, not an operating system. Running natively on a modern 64-bit Raspberry Pi brings the design full circle. It is the kind of small embedded-class board Inferno® was always meant for, and on it Inferno® is a full operating system again, with its own kernel, drivers, network stack and window system. It is also one of the clearest tests of the bet behind this fork: that a small team working closely with AI coding assistants can close a gap of more than ten years without losing the design.
+
+We started on 2026-08-23, with InferNode as the firmware on a Raspberry Pi 3B+ and nothing underneath it. On 2026-08-31 we tagged [`baremetal-gui-working`](https://github.com/infernode-os/infernode/tree/baremetal-gui-working/os/bcm2837): acme and the clock launch, draw and exit cleanly on the board, the mouse works in wm and inside acme, and the cursor renders. The tag message says these were "verified on the board by the user, not inferred". That distinction mattered all week. The full engineering record is in [os/bcm2837/README.md](https://github.com/infernode-os/infernode/blob/baremetal-gui-working/os/bcm2837/README.md).
 
 ## Why `os/`, and why this board
 
@@ -22,7 +24,7 @@ On day two we brought the portable kernel up layer by layer, from `xalloc` to `/
 
 Four bugs stood between the first `print` and a stable VM, and none showed up where it happened. One was the pool quantum: upstream's value of `31` is right for ILP32, but under LP64 the splitter could carve out a block too small to hold its own header, and `pooladd()` wrote 24 bytes past it. Another was FP/SIMD state, which was not saved across context switches. The kernel is built `-mgeneral-regs-only`, but `libinterp` is not, and clang puts ordinary pointers in `d8`-`d15`.
 
-A separate instability was worse: about half of all boots failed. `hzclock()` calls `sched()` from the clock interrupt, `sched()` re-enables interrupts while still inside the handler, and the next tick nested again. The kernel stack grew until it ran through the heap into libkern's format-handler table, and the next `print()` branched through a slot holding a formatted character. Four theories were proposed and all four were wrong. A guard word at the base of each kernel stack found it on the first try. Raising `KSTACK` to 64K did not help, which is what showed the cause was recursion rather than depth. After the fix the kernel booted 28 of 28 times.
+A separate instability was worse: about half of all boots failed. `hzclock()` calls `sched()` from the clock interrupt, `sched()` re-enables interrupts while still inside the handler, and the next tick nested again. The kernel stack grew until it ran through the heap into libkern's format-handler table, and the next `print()` branched through a slot holding a formatted character. A guard word at the base of each kernel stack caught it. Raising `KSTACK` to 64K did not help, which is what showed the cause was recursion rather than depth. After the fix the kernel booted 28 of 28 times.
 
 ## The JIT, measured properly
 
@@ -57,3 +59,5 @@ The pace came from the way we work. Most of the kernel already existed, in Plan 
 ## Still open
 
 From the tag message: `wm/colors` leaves a black ghost on exit, a right-click on the wm desktop launches windows from the menu in rapid succession, and the network is slow. The kernel is built and tested only through `tests/host/baremetal_test.sh`, which boots it under QEMU and asserts on the result, down to pixel values read back over QMP. Next is network throughput, and then the parts of the board we have not touched.
+
+None of that changes what the tag means. For the first time in this fork, Inferno® is not a guest. It owns the board from the first instruction: it takes the interrupts, schedules the processes, drives the USB bus, speaks TCP/IP and draws the window manager, with the same Dis, the same JIT and the same namespaces that run hosted on a laptop. That is what Inferno® was designed to be. It is an operating system again, for small boards rather than desktops, but an operating system nonetheless.

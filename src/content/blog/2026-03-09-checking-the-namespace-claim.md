@@ -1,14 +1,14 @@
 ---
 title: "Checking the claim the whole project rests on"
-description: "InferNode bets that per-process namespaces can contain an agent. This week we stopped asserting that and model-checked it: 3.17 billion distinct states, three real races, one tautology removed. We also merged Lucifer, the first desktop built on that bet."
+description: "InferNode bets that per-process namespaces can contain an agent. This week we stopped asserting that and model-checked it: 3.17 billion distinct states, three real races, one tautology removed."
 pubDate: 2026-03-09
 author: "P. D. Finn"
-tags: ["formal-verification", "namespaces", "security", "lucifer"]
+tags: ["formal-verification", "namespaces", "security"]
 ---
 
 InferNode rests on one claim. In Inferno®, a process can reach only what is bound into its namespace, so if you give an agent a smaller namespace you give it less authority. We came to Inferno because we expected software agents to become capable enough that containing them would matter. We wanted a system where containment is the basic structure, not a filter added on top.
 
-A claim that carries that much weight should be checked, not just repeated. Two things happened this week. On 6 March we merged Lucifer, the first interface where an agent works inside that model day to day. Around it, the formal-verification suite was rebuilt so that it actually tests the claim. The rebuild started from an embarrassing discovery.
+A claim that carries that much weight should be checked, not just repeated. It matters more now that [Lucia](/blog/lucia/) puts an agent inside that model for people who will never read the namespace code. This week the formal-verification suite was rebuilt so that it actually tests the claim. The rebuild started from an embarrassing discovery.
 
 ## The invariant that was always true
 
@@ -34,17 +34,8 @@ The SPIN models were rewritten to remove the large `atomic{}` blocks that had hi
 
 Dis's scheduler runs one Dis thread at a time, which masks all three. They are real for the emulator's other host threads. They are written up in `TODO-RACE-CONDITIONS.md` with suggested fixes and are not yet fixed. We would rather publish an open race with a counterexample than a clean report that hides it.
 
-## Lucifer: the model in use
-
-[Lucifer](https://github.com/infernode-os/infernode/pull/41) is a full-screen desktop with three zones: a conversation with the agent, a presentation area for what it produces, and a context zone showing what it can reach. True to Inferno, the interface is a file server. `luciuisrv` serves the whole UI state as a 9P tree at `/n/ui`, and the renderer is only a view of it. Several design decisions here exist only because of the namespace model:
-
-- **The agent cannot grow its own namespace.** When a user clicks [+] on an available resource, Lucifer itself dials and mounts it. [The agent's namespace hides `/n/ui/ctl`](https://github.com/infernode-os/infernode/commit/8a6e46706703c3719b2c84fe4674ddf5b0860251), so it cannot issue mounts, and the agent's `mount` tool just returns an error saying this is a user-only operation.
-- **No wholesale grants.** When the agent's presentation tool could not reach the UI under `/mnt`, adding `/mnt` to its namespace would have fixed it. We [refused](https://github.com/infernode-os/infernode/commit/08f9fe20056fea6967197fbf69fc3a6fa5675f7f): `/mnt` is user-controlled and arbitrary services can be mounted there. The UI moved to `/n/ui`, following the existing pattern for speech and LLM services.
-- **Restriction at the moment of use.** Tool namespaces used to be restricted once, at mount time, before the user had bound anything. [Now they are built fresh for each tool invocation](https://github.com/infernode-os/infernode/commit/278661b7ed39afa7d9eaaeaa0a6679e359fdc608), from the paths granted at that moment.
-- **Writes that can be undone.** [`cowfs`](https://github.com/infernode-os/infernode/commit/ca620630701751d0c8d869be60a76ddc22c0b222) is a copy-on-write overlay. Reads fall through to the base, writes go to an overlay, and deletes leave whiteouts.
-
 ## How we are working
 
-Over the two days after Lucifer merged, seventeen review pull requests went through: production-readiness passes over the kernel, crypto, browser, GUI and agent code, much of it done with AI reviewers. One fix [set `SECURE=1` in `devprog.c`](https://github.com/infernode-os/infernode/commit/ac64df83262116712afd436aea1471f904ffb9be), where the heap-debug device had been exposed. Generation is cheap now, so we spend the savings on checking: test vectors, stress runs, review passes, and model checkers aimed at the property everything depends on.
+On 7 and 8 March, seventeen review pull requests went through: production-readiness passes over the kernel, crypto, browser, GUI and agent code, much of it done with AI reviewers. One fix [set `SECURE=1` in `devprog.c`](https://github.com/infernode-os/infernode/commit/ac64df83262116712afd436aea1471f904ffb9be), where the heap-debug device had been exposed. Generation is cheap now, so we spend the savings on checking: test vectors, stress runs, review passes, and model checkers aimed at the property everything depends on.
 
 The [methodology](https://github.com/infernode-os/infernode/blob/master/formal-verification/METHODOLOGY.md) was written with publication in mind. Closing the three races is next, and so is taking the bounds as far as the hardware allows.

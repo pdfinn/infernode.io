@@ -6,7 +6,7 @@ author: "P. D. Finn"
 tags: ["crypto", "post-quantum", "release", "security"]
 ---
 
-We started InferNode with a bet. If AI agents were going to run on real machines, the thing that had to be right was containment. The Plan 9 and Inferno® answer to containment already existed: per-process namespaces, every resource a file, and nothing reachable that is not in your namespace. So we forked Inferno. We knew what we were taking on. The last upstream release was around 2015, the code was dated even then, and it had picked up years of bit rot since. A second experiment ran alongside the first: whether a small team working closely with AI coding assistants could close a gap of more than ten years in a codebase like this one.
+We started InferNode with a bet. If AI agents were going to run on real machines, the thing that had to be right was containment. The Plan 9 and Inferno® answer to containment already existed: per-process namespaces, every resource a file, and nothing reachable that is not in your namespace. So we forked Inferno. We knew what we were taking on. The last upstream release was around 2015, the code was dated even then, and it had picked up years of bit rot since. The project has also been a series of experiments in AI-assisted development. The first was whether a small team working with AI coding assistants could port Inferno to 64-bit. The second, running since February's TLS work, is whether that same way of working can implement robust cryptography. This release is the most demanding test of it so far.
 
 A namespace is only as strong as the channel that carries it between machines. That made June's work necessary, and [v0.3.0](https://github.com/infernode-os/infernode/releases/tag/v0.3.0), tagged yesterday, is the result.
 
@@ -56,4 +56,8 @@ The day after the tag we removed DES, RC4, IDEA, MD4, MD5 and SHA-1 from the `ss
 
 ## Where this is heading
 
-The wire between nodes now meets the standard we want for the namespaces it carries. The harder question is inside a single node: whether the namespace an agent is given contains exactly what we intended and nothing more. That is where the next few weeks of work are going.
+The wire between nodes now meets the standard we want for the namespaces it carries.
+
+It also settles the second experiment, as far as an experiment like this can be settled. AI-assisted development can implement robust cryptography, and the robustness does not come from the generation. It comes from what the code is held to: live handshakes with every signer type, interoperability with OpenSSL, man-in-the-middle tests that must fail, sanitizer runs of 50,000 rounds, and the rule that an intermittent failure is a defect. That is how the truncated keyfiles and the decompose bug were found. We treat that discipline as part of the design, not as a check bolted on afterwards.
+
+The harder question is inside a single node: whether the namespace an agent is given contains exactly what we intended and nothing more. That is where the next few weeks of work are going.
