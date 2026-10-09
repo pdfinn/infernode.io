@@ -6,7 +6,7 @@ author: "P. D. Finn"
 tags: ["inferno", "xenith", "arm64", "security"]
 ---
 
-InferNode is a 64-bit distribution of Inferno®, the operating system Bell Labs built after Plan 9. As of this week it builds and runs on Apple Silicon, on ARM64 Linux and on AMD64 Linux, as a hosted emulator with either no GUI or an optional SDL3 one. This first post explains how we got here: we set out to build an editor, found we needed an operating system, and realised the operating system was the more important part.
+InferNode is a 64-bit distribution of Inferno®, the operating system Bell Labs built after Plan 9. As of this week it builds and runs on Apple Silicon, on ARM64 Linux and on AMD64 Linux, as a hosted emulator with either no GUI or an optional SDL3 one. This post explains how we got here: we set out to build an editor, found we needed an operating system, and realised the operating system was the more important part.
 
 ## It started with Acme
 

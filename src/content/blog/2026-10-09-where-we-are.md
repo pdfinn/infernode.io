@@ -6,7 +6,7 @@ author: "P. D. Finn"
 tags: ["project", "security", "community"]
 ---
 
-This project started with a text editor. We wanted to turn Acme into an AI text editor. Caerwyn Jones's Acme SAC, which packages Acme as a standalone editor, showed us it could be done, and we got our own version working. That fork of Acme became Xenith. We also had a conviction behind it. Software agents were going to reach past what they were given, and Plan 9 and Inferno® had worked out the right way to contain them decades ago: a per-process namespace, where everything is a file and anything not bound into your tree does not exist for you.
+The roots of this project go back [more than twenty-six years](/blog/prologue/), to an Inferno® emulator that built and ran on a very early Darwin when almost nothing else would. The project itself started with a text editor. We wanted to turn Acme into an AI text editor. Caerwyn Jones's Acme SAC, which packages Acme as a standalone editor, showed us it could be done, and we got our own version working. That fork of Acme became Xenith. We also had a conviction behind it. Software agents were going to reach past what they were given, and Plan 9 and Inferno® had worked out the right way to contain them decades ago: a per-process namespace, where everything is a file and anything not bound into your tree does not exist for you.
 
 To do what we wanted, Inferno® had to become a modern system first. That turned the project into an experiment. Inferno® had gone more than ten years without serious maintenance. It was 32-bit, it had no JIT for any current processor, and much of it had rotted. Could a small group of people, working closely with AI coding assistants, close a gap that size?
 
