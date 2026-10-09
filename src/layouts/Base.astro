@@ -104,6 +104,8 @@ const altHrefLang = altLang === 'zh' ? 'zh-Hans' : 'en';
       gtag('config', 'G-QKDT1LMPGR');
     </script>
     <title>{title}</title>
+    <link rel="alternate" type="application/rss+xml" title="InferNode Blog" href="/blog/rss.xml" />
+    <slot name="head" />
   </head>
   <body class="min-h-screen bg-bg text-text">
     <slot />

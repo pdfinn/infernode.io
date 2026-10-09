@@ -1,0 +1,85 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getPosts, formatDate, isoDate, type Post } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  // posts are newest first: the "newer" neighbour is i-1, "older" is i+1.
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+interface Props {
+  post: Post;
+  newer?: Post;
+  older?: Post;
+}
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, author, tags } = post.data;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<Base title={`${title} — InferNode`} description={description}>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: title,
+      description,
+      datePublished: isoDate(pubDate),
+      author: { '@type': 'Person', name: author },
+      publisher: { '@type': 'Organization', name: 'InferNode', url: 'https://infernode.io' },
+      mainEntityOfPage: url,
+      keywords: tags.join(', '),
+    })}
+  />
+  <Nav />
+  <main class="px-6 pt-32 pb-24">
+    <article class="mx-auto max-w-3xl">
+      <a href="/blog/" class="text-sm text-text-muted transition hover:text-text">&larr; All posts</a>
+      <header class="mt-8 mb-12">
+        <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{title}</h1>
+        <p class="text-sm text-text-muted">
+          <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          <span class="mx-2 text-border">·</span>
+          {author}
+        </p>
+        {tags.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="rounded-md border border-border px-2 py-0.5 font-mono text-xs text-text-muted">{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="post-body">
+        <Content />
+      </div>
+
+      <nav class="mt-20 grid gap-4 border-t border-border pt-8 sm:grid-cols-2" aria-label="More posts">
+        {older ? (
+          <a href={`/blog/${older.id}/`} class="group rounded-lg border border-border p-4 transition hover:border-accent">
+            <span class="text-xs tracking-widest uppercase text-text-muted">Previous</span>
+            <span class="mt-1 block font-medium transition group-hover:text-accent">{older.data.title}</span>
+          </a>
+        ) : <span />}
+        {newer && (
+          <a href={`/blog/${newer.id}/`} class="group rounded-lg border border-border p-4 text-right transition hover:border-accent">
+            <span class="text-xs tracking-widest uppercase text-text-muted">Next</span>
+            <span class="mt-1 block font-medium transition group-hover:text-accent">{newer.data.title}</span>
+          </a>
+        )}
+      </nav>
+    </article>
+  </main>
+  <Footer />
+</Base>

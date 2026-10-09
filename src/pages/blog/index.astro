@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getPosts, formatDate, isoDate } from '../../lib/blog';
+
+const posts = await getPosts();
+
+// Group by month, newest first, so the log reads as a timeline.
+const groups: { label: string; posts: typeof posts }[] = [];
+for (const post of posts) {
+  const label = post.data.pubDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  });
+  const last = groups[groups.length - 1];
+  if (last?.label === label) last.posts.push(post);
+  else groups.push({ label, posts: [post] });
+}
+---
+
+<Base
+  title="Blog — InferNode"
+  description="The InferNode engineering log: what we built, why, and what we learned along the way."
+>
+  <Nav />
+  <main class="px-6 pt-32 pb-24">
+    <div class="mx-auto max-w-3xl">
+      <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">Engineering log</p>
+      <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Blog</h1>
+      <p class="mb-16 text-lg leading-relaxed text-text-muted">
+        What we built, why we built it that way, and what we learned.
+        <a href="/blog/rss.xml" class="text-accent transition hover:text-accent-glow">RSS</a>
+      </p>
+
+      {groups.map((g) => (
+        <section class="mb-14">
+          <h2 class="mb-6 border-b border-border pb-2 text-sm font-medium tracking-widest uppercase text-text-muted">
+            {g.label}
+          </h2>
+          <ul class="space-y-10">
+            {g.posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`} class="group block">
+                  <time datetime={isoDate(post.data.pubDate)} class="text-sm text-text-muted">
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                  <h3 class="mt-1 text-2xl font-semibold tracking-tight transition group-hover:text-accent">
+                    {post.data.title}
+                  </h3>
+                  <p class="mt-2 leading-relaxed text-text-muted">{post.data.description}</p>
+                </a>
+                {post.data.tags.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {post.data.tags.map((tag) => (
+                      <span class="rounded-md border border-border px-2 py-0.5 font-mono text-xs text-text-muted">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</Base>

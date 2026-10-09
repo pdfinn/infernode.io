@@ -33,6 +33,7 @@ export const ui = {
   switcher: { en: 'EN', zh: '中文', label: 'Language' },
 
   nav: {
+    blog: 'Blog',
     veltro: 'Veltro',
     compare: 'Compare',
     security: 'Security',
@@ -46,6 +47,7 @@ export const ui = {
   },
 
   footer: {
+    blog: 'Blog',
     license: 'MIT License',
     veltro: 'Veltro',
     compare: 'Compare',
