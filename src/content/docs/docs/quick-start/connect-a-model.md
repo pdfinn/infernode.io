@@ -60,7 +60,7 @@ Settings opens on **LLM Service**:
 
 The client needs no model, no API key, and no GPU — it mounts someone else's
 model as a directory. This is the arrangement in
-[Headless InferNode: mounting an LLM as a filesystem](https://github.com/infernode-os/infernode/blob/main/docs/HEADLESS-LLM-DAEMON.md).
+[Headless InferNode: mounting an LLM as a filesystem](https://github.com/infernode-os/infernode/blob/master/docs/HEADLESS-LLM-DAEMON.md).
 
 :::note[Where the key goes]
 Keys are held by **factotum**, InferNode's credential agent, not written into a

@@ -118,7 +118,7 @@ the post-merge git hook does this after pulls.
 
 Inferno's `sh` is rc-style. `&&`, `||`, and POSIX loops are not available and
 are flagged in review. The full notes are in
-[LIMBO-FOR-GO-PROGRAMMERS.md](https://github.com/infernode-os/infernode/blob/main/docs/LIMBO-FOR-GO-PROGRAMMERS.md#the-shell).
+[LIMBO-FOR-GO-PROGRAMMERS.md](https://github.com/infernode-os/infernode/blob/master/docs/LIMBO-FOR-GO-PROGRAMMERS.md#the-shell).
 
 ---
 

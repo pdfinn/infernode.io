@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
+import { GA_SRC, GA_INIT } from './src/analytics.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,6 +32,10 @@ export default defineConfig({
       },
       favicon: '/infernode-icon.png',
       customCss: ['./src/styles/docs.css'],
+      head: [
+        { tag: 'script', attrs: { async: true, src: GA_SRC } },
+        { tag: 'script', content: GA_INIT },
+      ],
       // Starlight inherits the site's en/zh locales and cannot be given its own
       // (it errors if both are set). Docs are English-only for now, so Starlight
       // falls back to English under /zh/docs/. That is fine for readers but must

@@ -95,7 +95,7 @@ at medium scale, with supporting SPIN models for the concurrent code and CBMC
 proofs over the C implementation.
 
 The specifications are in
-[`formal-verification/`](https://github.com/infernode-os/infernode/tree/main/formal-verification).
+[`formal-verification/`](https://github.com/infernode-os/infernode/tree/master/formal-verification).
 
 :::caution[What that does and does not mean]
 The results are exhaustive *within stated bounds*, with an abstraction gap

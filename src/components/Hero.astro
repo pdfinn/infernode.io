@@ -26,18 +26,25 @@ const t = useTranslations(lang).hero;
 
     <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a
-        href={p('/#quickstart', lang)}
-        class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
+        href="https://github.com/infernode-os/infernode/releases/latest"
+        class="inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow"
       >
+        <i class="ph ph-download-simple text-lg" />
         {t.ctaPrimary}
       </a>
       <a
-        href={p('/#security', lang)}
-        class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
+        href="https://github.com/infernode-os/infernode"
+        class="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text"
       >
+        <i class="ph ph-github-logo text-lg" />
         {t.ctaSecondary}
       </a>
     </div>
+    <a
+      href="/docs/quick-start/"
+      class="mt-6 inline-block text-sm text-text-muted transition hover:text-accent"
+      set:html={t.ctaTertiary}
+    />
 
     <!-- Quick stats -->
     <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-text-muted sm:gap-12">

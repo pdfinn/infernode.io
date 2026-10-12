@@ -27,7 +27,7 @@ Everything it produces compiles and passes in CI.
 
 You need a source checkout rather than a release — you are building bytecode, so
 you need the toolchain. See
-[QUICKSTART.md](https://github.com/infernode-os/infernode/blob/main/QUICKSTART.md)
+[QUICKSTART.md](https://github.com/infernode-os/infernode/blob/master/QUICKSTART.md)
 for the per-platform build.
 
 You should also have read

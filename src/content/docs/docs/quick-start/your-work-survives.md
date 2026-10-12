@@ -103,8 +103,8 @@ Two panels landed alongside snapshots and are worth knowing about:
 default because most installs do not need it, but if you care about the
 compliance story, this is the switch. Records are hash-chained and checkpoints
 are signed by factotum, so the log can be verified offline by someone holding
-only a public key. See [`auditfs(4)`](https://github.com/infernode-os/infernode/blob/main/man/4/auditfs)
-and the [SP 800-92 evidence document](https://github.com/infernode-os/infernode/blob/main/docs/compliance/SP800-92-audit-log.md).
+only a public key. See [`auditfs(4)`](https://github.com/infernode-os/infernode/blob/master/man/4/auditfs)
+and the [SP 800-92 evidence document](https://github.com/infernode-os/infernode/blob/master/docs/compliance/SP800-92-audit-log.md).
 
 ## More users
 
@@ -135,8 +135,8 @@ what survives.
 
 The full persistence design — why it is shaped this way, and how it maps onto
 what Plan 9 and Inferno originally did — is in
-[PERSISTENCE.md](https://github.com/infernode-os/infernode/blob/main/docs/PERSISTENCE.md).
-For everything else: the [man pages](https://github.com/infernode-os/infernode/tree/main/man),
-the [user manual](https://github.com/infernode-os/infernode/blob/main/docs/USER-MANUAL.md),
-or [CONTRIBUTING.md](https://github.com/infernode-os/infernode/blob/main/CONTRIBUTING.md)
+[PERSISTENCE.md](https://github.com/infernode-os/infernode/blob/master/docs/PERSISTENCE.md).
+For everything else: the [man pages](https://github.com/infernode-os/infernode/tree/master/man),
+the [user manual](https://github.com/infernode-os/infernode/blob/master/docs/USER-MANUAL.md),
+or [CONTRIBUTING.md](https://github.com/infernode-os/infernode/blob/master/CONTRIBUTING.md)
 if you want to build on it.

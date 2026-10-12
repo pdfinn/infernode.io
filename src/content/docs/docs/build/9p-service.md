@@ -204,4 +204,4 @@ Location transparency is the model working, not a feature you add.
 
 When your design is sketched, open the proposal issue. The full internal version
 of this walkthrough is
-[TUTORIAL-9P-SERVICE.md](https://github.com/infernode-os/infernode/blob/main/docs/TUTORIAL-9P-SERVICE.md).
+[TUTORIAL-9P-SERVICE.md](https://github.com/infernode-os/infernode/blob/master/docs/TUTORIAL-9P-SERVICE.md).

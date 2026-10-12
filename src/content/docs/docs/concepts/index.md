@@ -81,4 +81,4 @@ adapter will one day be removed, because it will.
   something that fits, including the paradigms to catch in review
 
 The full internal document behind this section is
-[DESIGN-PRINCIPLES.md](https://github.com/infernode-os/infernode/blob/main/docs/DESIGN-PRINCIPLES.md).
+[DESIGN-PRINCIPLES.md](https://github.com/infernode-os/infernode/blob/master/docs/DESIGN-PRINCIPLES.md).

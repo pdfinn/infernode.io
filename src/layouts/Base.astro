@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '@phosphor-icons/web/regular';
 import type { Lang } from '../i18n/utils';
 import { localizedPath } from '../i18n/utils';
+import { GA_SRC, GA_INIT } from '../analytics.mjs';
 
 interface Props {
   title?: string;
@@ -96,13 +97,8 @@ const altHrefLang = altLang === 'zh' ? 'zh-Hans' : 'en';
       ]
     })} />
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKDT1LMPGR"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-QKDT1LMPGR');
-    </script>
+    <script is:inline async src={GA_SRC}></script>
+    <script is:inline set:html={GA_INIT} />
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-bg text-text">

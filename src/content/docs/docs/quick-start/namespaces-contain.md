@@ -131,22 +131,22 @@ The test that matters is not that access failed. It is *how* it failed:
 
 **The proofs.** Namespace isolation is formally verified — in TLA+ across 3.17
 billion states, plus SPIN and CBMC models. The specifications are in
-[`formal-verification/`](https://github.com/infernode-os/infernode/tree/main/formal-verification).
+[`formal-verification/`](https://github.com/infernode-os/infernode/tree/master/formal-verification).
 
 **The security model.** The full threat model, including what containment does
 *not* cover, is in
-[Veltro's SECURITY.md](https://github.com/infernode-os/infernode/blob/main/appl/veltro/SECURITY.md).
+[Veltro's SECURITY.md](https://github.com/infernode-os/infernode/blob/master/appl/veltro/SECURITY.md).
 
 **Staged writes.** Where an agent is granted write access, those writes can be
 staged through a copy-on-write overlay so they are reviewed before they touch
 real files — `diff` what changed, then promote or revert it file by file. See
-[`appl/veltro/cowfs.b`](https://github.com/infernode-os/infernode/blob/main/appl/veltro/cowfs.b).
+[`appl/veltro/cowfs.b`](https://github.com/infernode-os/infernode/blob/master/appl/veltro/cowfs.b).
 
 **Agent provenance.** Veltro seals every trajectory — prompts, tool calls,
 completions, and the capability grants themselves — into the audit chain, with
 bulky payloads stored write-once in venti and pinned by SHA-256. The grant is
 part of the evidence: the namespace is the record. The interface is
-[`auditprov(2)`](https://github.com/infernode-os/infernode/blob/main/man/2/auditprov).
+[`auditprov(2)`](https://github.com/infernode-os/infernode/blob/master/man/2/auditprov).
 
 **The whole strategy.** [Contain and restore](/docs/concepts/contain-and-restore/)
 covers all four layers in one place.
