@@ -379,6 +379,8 @@ export const ui: Ui = {
     badge5: 'Docker(amd64 + arm64)',
     badge6: 'Android',
     badge7: 'iOS',
+    badge8: 'macOS(Intel)',
+    badge9: '裸机(Raspberry Pi)',
   },
 
   screenshot: {
