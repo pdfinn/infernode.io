@@ -1,0 +1,63 @@
+---
+import { useTranslations, p, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).alternatives;
+const last = t.rows.length - 1;
+---
+
+<section id="alternatives" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-12 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.title}</h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted">{t.intro}</p>
+    </div>
+
+    <!-- Table on wider screens -->
+    <div class="hidden overflow-hidden rounded-xl border border-border md:block">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-bg-surface text-text">
+          <tr>
+            <th class="px-5 py-4 font-semibold">{t.colApproach}</th>
+            <th class="px-5 py-4 font-semibold">{t.colBoundary}</th>
+            <th class="px-5 py-4 font-semibold">{t.colScope}</th>
+            <th class="px-5 py-4 font-semibold">{t.colReach}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {t.rows.map((r, i) => (
+            <tr class={`border-t border-border ${i === last ? 'bg-accent/5 text-text' : 'text-text-muted'}`}>
+              <td class={`px-5 py-4 font-medium ${i === last ? 'text-accent' : 'text-text'}`}>{r.name}</td>
+              <td class="px-5 py-4" set:html={r.boundary} />
+              <td class="px-5 py-4">{r.scope}</td>
+              <td class="px-5 py-4">{r.reach}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cards on phones -->
+    <div class="space-y-4 md:hidden">
+      {t.rows.map((r, i) => (
+        <div class={`rounded-xl border p-5 text-sm ${i === last ? 'border-accent/50 bg-accent/5' : 'border-border bg-bg-surface'}`}>
+          <h3 class={`mb-3 text-base font-semibold ${i === last ? 'text-accent' : 'text-text'}`}>{r.name}</h3>
+          <dl class="space-y-2 text-text-muted">
+            <div><dt class="inline text-text">{t.colBoundary}: </dt><dd class="inline" set:html={r.boundary} /></div>
+            <div><dt class="inline text-text">{t.colScope}: </dt><dd class="inline">{r.scope}</dd></div>
+            <div><dt class="inline text-text">{t.colReach}: </dt><dd class="inline">{r.reach}</dd></div>
+          </dl>
+        </div>
+      ))}
+    </div>
+
+    <p class="mx-auto mt-8 max-w-3xl text-center text-text-muted">{t.stack}</p>
+    <p class="mt-4 text-center">
+      <a href={p('/compare', lang)} class="text-sm font-medium text-accent transition hover:text-accent-glow" set:html={t.link} />
+    </p>
+  </div>
+</section>

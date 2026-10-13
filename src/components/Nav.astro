@@ -26,10 +26,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
       <a href={p('/veltro', lang)} class="transition hover:text-text">{t.veltro}</a>
       <a href={p('/compare', lang)} class="transition hover:text-text">{t.compare}</a>
       <a href={p('/security', lang)} class="transition hover:text-text">{t.security}</a>
-      <a href={p('/#how-it-works', lang)} class="transition hover:text-text">{t.howItWorks}</a>
-      <a href={p('/#products', lang)} class="transition hover:text-text">{t.theSystem}</a>
-      <a href={p('/#use-cases', lang)} class="transition hover:text-text">{t.useCases}</a>
-      <a href={p('/#quickstart', lang)} class="transition hover:text-text">{t.quickStart}</a>
+      <a href={p('/platform', lang)} class="transition hover:text-text">{t.platform}</a>
       <a
         href={altPath}
         class="rounded-md border border-border px-3 py-1.5 transition hover:border-accent hover:text-text"
@@ -37,6 +34,12 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
         hreflang={altLang === 'zh' ? 'zh-Hans' : 'en'}
       >
         {altLabel}
+      </a>
+      <a
+        href="https://github.com/infernode-os/infernode/releases/latest"
+        class="rounded-md bg-accent px-4 py-1.5 font-medium text-white transition hover:bg-accent-glow"
+      >
+        {t.download}
       </a>
       <a
         href="https://github.com/infernode-os/infernode"
@@ -71,10 +74,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
       <a href={p('/veltro', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.veltro}</a>
       <a href={p('/compare', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.compare}</a>
       <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
-      <a href={p('/#how-it-works', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.howItWorks}</a>
-      <a href={p('/#products', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.theSystem}</a>
-      <a href={p('/#use-cases', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.useCases}</a>
-      <a href={p('/#quickstart', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.quickStart}</a>
+      <a href={p('/platform', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.platform}</a>
       <a
         href={altPath}
         class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text"
@@ -83,8 +83,14 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
         {altLabel}
       </a>
       <a
+        href="https://github.com/infernode-os/infernode/releases/latest"
+        class="mt-2 rounded-lg bg-accent px-3 py-2 text-center font-medium text-white transition hover:bg-accent-glow"
+      >
+        {t.download}
+      </a>
+      <a
         href="https://github.com/infernode-os/infernode"
-        class="mt-2 rounded-lg border border-border px-3 py-2 text-center text-text-muted transition hover:border-accent hover:text-text"
+        class="rounded-lg border border-border px-3 py-2 text-center text-text-muted transition hover:border-accent hover:text-text"
         target="_blank"
         rel="noopener"
       >

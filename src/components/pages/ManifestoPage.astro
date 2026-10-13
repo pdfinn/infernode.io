@@ -37,21 +37,25 @@ const t = useTranslations(lang).manifesto;
         <p>{t.p3b}</p>
         <p set:html={t.p3c} />
         <p class="text-text text-xl font-medium">{t.pull2}</p>
+        <blockquote class="border-l-2 border-accent pl-6">
+          <p class="text-text text-xl font-medium" set:html={t.andretti} />
+          <footer class="mt-2 text-base text-text-muted">&mdash; {t.andrettiCite}</footer>
+        </blockquote>
 
         <h2 class="pt-8 text-2xl font-bold text-text">{t.h4}</h2>
         <p set:html={t.p4a} />
-        <p>{t.p4b}</p>
+        <p set:html={t.p4b} />
         <p set:html={t.p4c} />
 
         <h2 class="pt-8 text-2xl font-bold text-text">{t.h5}</h2>
-        <p>{t.p5a}</p>
+        <p set:html={t.p5a} />
         <p>{t.p5b}</p>
         <p class="text-text">{t.p5c}</p>
 
         <h2 class="pt-8 text-2xl font-bold text-text">{t.h6}</h2>
         <p>{t.p6a}</p>
-        <p>{t.p6b}</p>
-        <p>{t.p6c}</p>
+        <p set:html={t.p6b} />
+        <p set:html={t.p6c} />
 
         <h2 class="pt-8 text-2xl font-bold text-text">{t.h7}</h2>
 

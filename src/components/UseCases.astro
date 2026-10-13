@@ -32,7 +32,7 @@ const useCases = [
               {uc.persona}
             </p>
             <h3 class="mb-3 text-xl font-semibold">{uc.headline}</h3>
-            <p class="mb-5 text-sm leading-relaxed text-text-muted">{uc.description}</p>
+            <p class="mb-5 text-sm leading-relaxed text-text-muted" set:html={uc.description} />
             <div class="flex flex-wrap gap-2">
               {uc.tags.map((tag) => (
                 <span class="rounded-full border border-border px-3 py-1 text-xs text-text-muted">

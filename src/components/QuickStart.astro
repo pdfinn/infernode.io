@@ -111,7 +111,7 @@ const t = useTranslations(lang).quickStart;
         </a>
       </div>
       <div class="p-5 space-y-1">
-        <div class="text-text-muted">{t.c1}</div>
+        <div class="text-text-muted" set:html={t.c1} />
         <div class="text-text-muted">{t.archNote}</div>
         <div>
           <span class="text-node-jetson">$</span>

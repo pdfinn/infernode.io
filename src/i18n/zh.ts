@@ -33,6 +33,11 @@ export const ui: Ui = {
       description:
         'InferNode 的智能体隔离不只是经过测试,而是经过证明。三种独立工具在数十亿状态中确认零违规。一款为信任而生的分布式操作系统。',
     },
+    platform: {
+      title: 'InferNode 平台 — 一切资源皆文件 | InferNode',
+      description:
+        '封闭之外的 InferNode:9P、资源即文件、分布式命名空间、热加载代码,以及它的应用场景。',
+    },
     veltro: {
       title: 'Veltro — 驻留在命名空间中的 AI 智能体 | InferNode',
       description:
@@ -51,6 +56,8 @@ export const ui: Ui = {
     useCases: '应用场景',
     quickStart: '快速开始',
     docs: '文档',
+    platform: '平台',
+    download: '下载',
     github: 'GitHub',
     menuLabel: '切换导航菜单',
   },
@@ -64,23 +71,61 @@ export const ui: Ui = {
   },
 
   hero: {
-    eyebrow: '承袭 Unix 与 Plan 9 血脉,通向未来',
-    title1: '安全的智能体',
-    title2: '才是自由的智能体。',
-    body: 'InferNode 是一个轻量级操作系统,以数学证明的方式隔离 AI 智能体。当智能体只能看到你授予的资源时,你才能放心让它做更多事情&mdash;人与 AI 的协作终于真正成立。',
+    eyebrow: '为 AI 智能体重建的 Inferno OS',
+    title1: '不存在的东西,',
+    title2: '智能体碰不到。',
+    tagline: 'F1 赛车之所以快,是因为刹车好。',
+    body: 'InferNode 是一个轻量级操作系统,每个 AI 智能体启动时只拥有你授予它的资源。其他一切在智能体的世界里都不存在,因此被劫持的智能体无物可偷。隔离模型经过形式化验证,整个系统采用 MIT 许可。',
     ctaPrimary: '下载',
     ctaSecondary: '在 GitHub 上加星',
     ctaTertiary: '阅读快速入门 &rarr;',
     stat1Value: '已证明',
     stat1Label: 'TLA+ / SPIN / CBMC',
-    stat2Value: '15 MB',
+    stat2Value: '15&ndash;30 MB',
     stat2Label: '内存占用',
     stat2Note: '无界面配置',
-    stat3Value: '<1 秒',
+    stat3Value: '2 秒',
     stat3Label: '冷启动',
     stat3Note: '无界面配置',
     stat4Value: '开源',
     stat4Label: 'MIT 许可',
+  },
+
+  demoVideo: {
+    eyebrow: '亲眼看看',
+    title: '真实的智能体,去拿真实的密钥。',
+    body: '我们让 Claude Sonnet 去获取一把 SSH 私钥,并尝试它能用的每一条途径。InferNode 启动它时只给了它一样东西:一个收件箱。在 InferNode v0.6.0 上一次录制完成,只缩短了等待模型的时间。',
+    videoLabel: 'AI 智能体在 InferNode 命名空间内无法获取 SSH 密钥的录屏',
+    d1Title: '第一道防线:模型自身的护栏',
+    d1Body: '提示注入可以击败它。如果智能体的护栏失效,它会尝试所有可用途径去找那把密钥。',
+    d2Title: '第二道防线:命名空间',
+    d2Body: '密钥从未对智能体隐藏。在它的世界里,密钥根本不存在。',
+    d3Title: '第三道防线:审计记录',
+    d3Body: '每一次尝试都被记录在智能体命名空间之外的哈希链审计日志中。智能体无法访问它。',
+  },
+
+  alternatives: {
+    eyebrow: '与其他方案对比',
+    title: '边界画在哪里。',
+    intro: '每一种封闭智能体的方式都会在某处画一条线。关键在于:被攻破的智能体在线的这一侧还能接触到什么。',
+    colApproach: '方案',
+    colBoundary: '边界',
+    colScope: '圈住的范围',
+    colReach: '被攻破的智能体能接触到',
+    rows: [
+      { name: '模型护栏', boundary: '模型自身的判断', scope: '每一次请求', reach: '宿主进程能接触的一切' },
+      { name: '容器', boundary: 'Linux 命名空间与 cgroups', scope: '整个容器', reach: '容器内的一切,包括传入的密钥' },
+      { name: 'MicroVM 沙箱', boundary: '硬件虚拟化', scope: '整个虚拟机', reach: '虚拟机内的一切' },
+      { name: 'InferNode', boundary: '每个智能体独立的 OS 命名空间', scope: '每个智能体与子智能体,逐条路径', reach: '只有被授予的资源。其他一切都不存在。' },
+    ],
+    stack: '这些层可以叠加。InferNode 可以运行在容器或虚拟机内,你可以保留外层边界,并在其中为每个智能体再加一层。',
+    link: '完整对比 &rarr;',
+  },
+
+  platformPage: {
+    eyebrow: '平台',
+    title: '不只是一个笼子。',
+    intro: '大多数人因为封闭能力而来。在它之下,是一个完整的分布式操作系统:一切资源皆文件,每台设备都可以共享自己的命名空间。',
   },
 
   vision: {
@@ -255,7 +300,7 @@ export const ui: Ui = {
     xenithBullet1: '<strong class="text-text">9P 文件系统接口</strong> &mdash; 智能体读写文件,无需任何 API',
     xenithBullet2: '<strong class="text-text">可观测</strong> &mdash; 所有智能体活动对人类实时可见',
     xenithBullet3: '<strong class="text-text">GPU 加速</strong> &mdash; 基于 SDL3,支持 Metal、Vulkan 与 D3D 后端',
-    foundation: '<strong class="text-text">InferNode</strong> &mdash; 运行在这一切之下的 64 位 Inferno&reg; OS。15 MB 内存,2 秒启动,630+ 实用程序,形式化验证的隔离,Bell Labs 血统。',
+    foundation: '<strong class="text-text">InferNode</strong> &mdash; 运行在这一切之下的 64 位 Inferno&reg; OS。15&ndash;30 MB 内存,2 秒启动,815 个实用程序,形式化验证的隔离,Bell Labs 血统。',
   },
 
   veltroFeatures: {
@@ -374,6 +419,8 @@ export const ui: Ui = {
     p3b: '当你无法证明封闭性时,你只能限制。你加上审批流程、人在环节、能力上限。智能体变成了多了几步的聊天机器人。生产力收益始终未到。',
     p3c: '当你<em>能够</em>证明封闭性时,你就解放了智能体。给它更多工具、更多数据、更多自主权&mdash;而不必承担更多风险。让它组合能力、派生子智能体、跨设备运作。人与 AI 的协作终于可以做它本应做的事:以思维的速度共同工作。',
     pull2: '安全不是对生产力的限制。它是让生产力得以成立的根基。',
+    andretti: '&ldquo;令人惊讶的是,即使在一级方程式的水平上,也有那么多车手认为刹车是用来让车慢下来的。&rdquo;',
+    andrettiCite: '马里奥·安德烈蒂(Mario Andretti)',
     h4: '信任的架构',
     p4a: 'InferNode 派生自 Inferno&reg; OS&mdash;一个由 Bell Labs 开发的操作系统,与 Unix、C 以及现代计算的基础同出一脉。但当业界选择走向桌面时,Inferno&reg; 选择了另一条路:一切皆是文件,而每个文件都可以跨网络访问。',
     p4b: '它最初不是为 AI 智能体而设计的。它是为那些要求高度信任的分布式系统而设计的:电信网络、工业控制系统、失败不被允许的环境。事实上它正是 AI 智能体所需要的&mdash;这不是巧合,而是收敛。',

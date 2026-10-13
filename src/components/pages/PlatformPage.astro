@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../Nav.astro';
+import Vision from '../Vision.astro';
+import Pillars from '../Pillars.astro';
+import Screenshot from '../Screenshot.astro';
+import NetworkDiagram from '../NetworkDiagram.astro';
+import DistributedArch from '../DistributedArch.astro';
+import Contributing from '../Contributing.astro';
+import WhyNow from '../WhyNow.astro';
+import UseCases from '../UseCases.astro';
+import Footer from '../Footer.astro';
+import { useTranslations, type Lang } from '../../i18n/utils';
+
+// The sections that used to make the homepage 14 screens long.
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const meta = useTranslations(lang).meta.platform;
+const t = useTranslations(lang).platformPage;
+---
+
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Nav lang={lang} />
+  <main class="overflow-x-clip pt-32">
+    <section class="px-6 text-center">
+      <div class="mx-auto max-w-3xl">
+        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+        <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{t.title}</h1>
+        <p class="text-lg text-text-muted">{t.intro}</p>
+      </div>
+    </section>
+    <Vision lang={lang} />
+    <Pillars lang={lang} />
+    <Screenshot lang={lang} />
+    <NetworkDiagram lang={lang} />
+    <DistributedArch lang={lang} />
+    <Contributing lang={lang} />
+    <WhyNow lang={lang} />
+    <UseCases lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

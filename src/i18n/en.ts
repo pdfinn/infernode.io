@@ -23,6 +23,11 @@ export const ui = {
       description:
         "InferNode's agent isolation is formally verified — not just tested. Three independent tools confirm zero violations across billions of states. A distributed operating system built for trust.",
     },
+    platform: {
+      title: 'The InferNode Platform — Every Resource Is a File | InferNode',
+      description:
+        'How InferNode works beyond containment: 9P, resources as files, distributed namespaces, hot-loaded code, and where people use it.',
+    },
     veltro: {
       title: 'Veltro — The Namespace-Resident AI Agent | InferNode',
       description:
@@ -41,6 +46,8 @@ export const ui = {
     useCases: 'Use Cases',
     quickStart: 'Quick Start',
     docs: 'Docs',
+    platform: 'Platform',
+    download: 'Download',
     github: 'GitHub',
     menuLabel: 'Toggle navigation menu',
   },
@@ -54,23 +61,61 @@ export const ui = {
   },
 
   hero: {
-    eyebrow: 'From the lineage of Unix and Plan 9 comes the future',
-    title1: 'Safe agents are',
-    title2: 'free agents.',
-    body: 'InferNode is a lightweight operating system with mathematically proven isolation of AI agents. When an agent can only see what you grant, you can trust it to do more&mdash;and the human-AI team finally works.',
+    eyebrow: 'Inferno OS, rebuilt for AI agents',
+    title1: "Your agent can't touch",
+    title2: "what isn't there.",
+    tagline: 'F1 cars are fast because their brakes are good.',
+    body: 'InferNode is a lightweight operating system that starts every AI agent with only what you grant it. Nothing else exists in the agent&rsquo;s world, so a hijacked agent has nothing to steal. The isolation model is formally verified, and the whole system is MIT licensed.',
     ctaPrimary: 'Download',
     ctaSecondary: 'Star on GitHub',
     ctaTertiary: 'Read the quick start &rarr;',
     stat1Value: 'Proven',
     stat1Label: 'TLA+ / SPIN / CBMC',
-    stat2Value: '15 MB',
+    stat2Value: '15&ndash;30 MB',
     stat2Label: 'RAM footprint',
     stat2Note: 'headless configuration',
-    stat3Value: '<1s',
+    stat3Value: '2 s',
     stat3Label: 'cold start',
     stat3Note: 'headless configuration',
     stat4Value: 'Open Source',
     stat4Label: 'MIT Licensed',
+  },
+
+  demoVideo: {
+    eyebrow: 'See it happen',
+    title: 'A real agent, sent after a real key.',
+    body: 'We told Claude Sonnet to get an SSH private key and to try every route it had. InferNode started it holding one thing: an inbox. Recorded in one take on InferNode v0.6.0; only the wait for the model is shortened.',
+    videoLabel: 'Recording of an AI agent failing to reach an SSH key from inside an InferNode namespace',
+    d1Title: 'Defence 1: the model&rsquo;s guardrails',
+    d1Body: 'Prompt injection can defeat them. If the agent&rsquo;s guardrails fail, it will attempt all available routes to find the key.',
+    d2Title: 'Defence 2: the namespace',
+    d2Body: 'The key was never hidden from the agent. In its world, it does not exist.',
+    d3Title: 'Defence 3: the audit trail',
+    d3Body: 'Every attempt is recorded in a hash-chained audit log outside the agent&rsquo;s namespace. The agent cannot access it.',
+  },
+
+  alternatives: {
+    eyebrow: 'Versus the alternatives',
+    title: 'Where the boundary sits.',
+    intro: 'Every way of containing an agent draws a line somewhere. What matters is what a compromised agent can still reach on its side of the line.',
+    colApproach: 'Approach',
+    colBoundary: 'Boundary',
+    colScope: 'Drawn around',
+    colReach: 'A compromised agent can reach',
+    rows: [
+      { name: 'Model guardrails', boundary: 'The model&rsquo;s own judgement', scope: 'Each request', reach: 'Everything the host process can' },
+      { name: 'Containers', boundary: 'Linux namespaces and cgroups', scope: 'The whole container', reach: 'Everything inside the container, including secrets passed in' },
+      { name: 'MicroVM sandboxes', boundary: 'Hardware virtualisation', scope: 'The whole VM', reach: 'Everything inside the VM' },
+      { name: 'InferNode', boundary: 'A per-agent OS namespace', scope: 'Each agent and sub-agent, path by path', reach: 'Only what was granted. Nothing else exists.' },
+    ],
+    stack: 'These layers stack. InferNode runs inside a container or a VM, so you can keep the outer boundary and add a per-agent one inside it.',
+    link: 'Full comparison &rarr;',
+  },
+
+  platformPage: {
+    eyebrow: 'The Platform',
+    title: 'More than a cage.',
+    intro: 'Containment is why most people arrive. Underneath it is a complete distributed operating system, where every resource is a file and every device can share its namespace.',
   },
 
   vision: {
@@ -245,7 +290,7 @@ export const ui = {
     xenithBullet1: '<strong class="text-text">9P filesystem interface</strong> &mdash; agents read and write, no API needed',
     xenithBullet2: '<strong class="text-text">Observable</strong> &mdash; all agent activity visible to humans in real time',
     xenithBullet3: '<strong class="text-text">GPU-accelerated</strong> &mdash; SDL3 with Metal, Vulkan, and D3D backends',
-    foundation: '<strong class="text-text">InferNode</strong> &mdash; the 64-bit Inferno&reg; OS that runs beneath it all. 15 MB RAM. 2-second startup. 630+ utilities. Formally verified isolation. Bell Labs lineage.',
+    foundation: '<strong class="text-text">InferNode</strong> &mdash; the 64-bit Inferno&reg; OS that runs beneath it all. 15&ndash;30 MB RAM. 2-second startup. 815 utilities. Formally verified isolation. Bell Labs lineage.',
   },
 
   veltroFeatures: {
@@ -364,6 +409,8 @@ export const ui = {
     p3b: 'When you cannot prove containment, you restrict. You add approval workflows, human-in-the-loop checkpoints, capability limits. The agent becomes a chatbot with extra steps. The productivity gains never arrive.',
     p3c: 'When you <em>can</em> prove containment, you liberate. Give the agent more tools, more data, more autonomy&mdash;without more risk. Let it compose capabilities, spawn sub-agents, operate across devices. The human-AI team can finally do what it was always supposed to: work together at the speed of thought.',
     pull2: 'Security is not a constraint on productivity. It is the foundation that makes productivity possible.',
+    andretti: '&ldquo;It&rsquo;s amazing how many drivers, even at the Formula One level, think that the brakes are for slowing the car down.&rdquo;',
+    andrettiCite: 'Mario Andretti',
     h4: 'The Architecture of Trust',
     p4a: 'InferNode is derived from Inferno&reg; OS, an operating system developed by Bell Labs&mdash;the same lineage that gave us Unix, C, and the foundations of modern computing. But where the industry chose the desktop, Inferno&reg; chose a different path: everything is a file, and every file is accessible across the network.',
     p4b: 'This was not designed for AI agents. It was designed for distributed systems that demand trust. Telecommunications networks. Industrial control systems. Environments where failure is not an option. The fact that it is precisely what AI agents need is not a coincidence&mdash;it is convergence.',

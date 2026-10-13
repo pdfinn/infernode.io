@@ -152,7 +152,7 @@ const competitorStrengths = [
               <p class="text-3xl font-bold text-accent">{t.cardStat}</p>
               <p class="text-sm text-text-muted">
                 {t.cardStatLabel}<br />
-                <span class="text-xs">{t.cardStatNote}</span>
+                <span class="text-xs" set:html={t.cardStatNote} />
               </p>
             </div>
           </div>
@@ -173,7 +173,7 @@ const competitorStrengths = [
           <div class="rounded-xl border border-border bg-bg-surface p-6">
             <p class="mb-1 text-sm font-medium text-accent">{c.name}</p>
             <h3 class="mb-3 text-lg font-semibold">{c.strength}</h3>
-            <p class="text-sm leading-relaxed text-text-muted">{c.description}</p>
+            <p class="text-sm leading-relaxed text-text-muted" set:html={c.description} />
           </div>
         ))}
       </div>
@@ -184,7 +184,7 @@ const competitorStrengths = [
       <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.bigEyebrow}</p>
       <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.bigTitle}</h2>
       <div class="space-y-6 text-lg leading-relaxed text-text-muted">
-        <p>{t.bigP1}</p>
+        <p set:html={t.bigP1} />
         <p>{t.bigP2}</p>
         <p set:html={t.bigP3} />
         <p set:html={t.bigP4} />

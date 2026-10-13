@@ -25,7 +25,7 @@ const pillars = [
               class={`${pillar.icon} mb-4 text-2xl text-accent transition group-hover:text-accent-glow`}
             />
             <h3 class="mb-2 text-lg font-semibold">{pillar.title}</h3>
-            <p class="text-sm leading-relaxed text-text-muted">{pillar.description}</p>
+            <p class="text-sm leading-relaxed text-text-muted" set:html={pillar.description} />
           </div>
         ))
       }

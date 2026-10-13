@@ -4,6 +4,7 @@ import Nav from '../Nav.astro';
 import Screenshot from '../Screenshot.astro';
 import MermaidScreenshot from '../MermaidScreenshot.astro';
 import Footer from '../Footer.astro';
+import HowItWorks from '../HowItWorks.astro';
 import { useTranslations, p, type Lang } from '../../i18n/utils';
 
 interface Props { lang?: Lang; }
@@ -14,7 +15,7 @@ const t = useTranslations(lang).veltroPage;
 
 <Base title={meta.title} description={meta.description} lang={lang}>
   <Nav lang={lang} />
-  <main class="px-6 pt-32 pb-24">
+  <main class="overflow-x-clip px-6 pt-32 pb-24">
 
     <!-- Hero -->
     <section class="relative mx-auto max-w-4xl text-center">
@@ -46,58 +47,13 @@ const t = useTranslations(lang).veltroPage;
       <h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">{t.whatTitle}</h2>
       <p class="mb-10 text-xl font-medium text-text">{t.whatPull}</p>
       <div class="space-y-6 text-lg leading-relaxed text-text-muted">
-        <p>{t.whatP1}</p>
+        <p set:html={t.whatP1} />
         <p set:html={t.whatP2} />
         <p set:html={t.whatP3} />
       </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="mx-auto mt-32 max-w-5xl">
-      <div class="mb-12 text-center">
-        <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.howEyebrow}</p>
-        <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.howTitle}</h2>
-      </div>
-
-      <div class="mx-auto max-w-3xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
-        <div class="flex items-center gap-2 border-b border-border px-4 py-3">
-          <div class="h-3 w-3 rounded-full bg-node-rpi/60"></div>
-          <div class="h-3 w-3 rounded-full bg-node-llm/60"></div>
-          <div class="h-3 w-3 rounded-full bg-node-jetson/60"></div>
-          <span class="ml-2 text-xs text-text-muted">{t.sessionLabel}</span>
-        </div>
-        <div class="p-5 space-y-3">
-          <div><span class="text-accent">;</span><span class="text-text-muted"> {t.howC1}</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> mount -A tcp!127.0.0.1!5640 /n/llm</span></div>
-          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC2}</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> tools9p read list find search</span></div>
-          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC3}</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> veltro -p /n/local/docs 'Summarise Q4 results and find gaps'</span></div>
-          <div class="mt-4"><span class="text-node-jetson">{t.howOut1}</span></div>
-          <div><span class="text-node-jetson">{t.howOut2}</span></div>
-          <div class="mt-4"><span class="text-accent">;</span><span class="text-text-muted"> {t.howC4}</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> repl</span></div>
-        </div>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        <div class="rounded-xl border border-border bg-bg-surface p-6">
-          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">1</div>
-          <h3 class="mb-2 text-lg font-semibold">{t.step1Title}</h3>
-          <p class="text-sm text-text-muted" set:html={t.step1Body} />
-        </div>
-        <div class="rounded-xl border border-border bg-bg-surface p-6">
-          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">2</div>
-          <h3 class="mb-2 text-lg font-semibold">{t.step2Title}</h3>
-          <p class="text-sm text-text-muted" set:html={t.step2Body} />
-        </div>
-        <div class="rounded-xl border border-border bg-bg-surface p-6">
-          <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">3</div>
-          <h3 class="mb-2 text-lg font-semibold">{t.step3Title}</h3>
-          <p class="text-sm text-text-muted" set:html={t.step3Body} />
-        </div>
-      </div>
-    </section>
+    <HowItWorks lang={lang} class="mx-auto mt-32 max-w-5xl" />
 
     <Screenshot lang={lang} />
 
@@ -208,7 +164,7 @@ const t = useTranslations(lang).veltroPage;
       <div class="mb-12 text-center">
         <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.deployEyebrow}</p>
         <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.deployTitle}</h2>
-        <p class="mx-auto max-w-2xl text-lg text-text-muted">{t.deployIntro}</p>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.deployIntro} />
       </div>
 
       <div class="grid gap-8 lg:grid-cols-3">

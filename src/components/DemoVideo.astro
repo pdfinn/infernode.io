@@ -1,0 +1,63 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).demoVideo;
+const defences = [
+  { title: t.d1Title, body: t.d1Body },
+  { title: t.d2Title, body: t.d2Body },
+  { title: t.d3Title, body: t.d3Body },
+];
+---
+
+<section id="demo" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-12 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.title}</h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.body} />
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-border bg-black">
+      <video
+        id="demo-video"
+        class="block h-auto w-full"
+        src="/demo/containment-demo.mp4"
+        poster="/demo/containment-demo-poster.jpg"
+        width="1600"
+        height="1000"
+        controls
+        muted
+        playsinline
+        preload="metadata"
+        aria-label={t.videoLabel}
+      ></video>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-3">
+      {defences.map((d) => (
+        <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
+          <h3 class="mb-2 text-lg font-semibold" set:html={d.title} />
+          <p class="text-sm text-text-muted" set:html={d.body} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Start the recording, muted, the first time it scrolls into view.
+  const video = document.getElementById('demo-video') as HTMLVideoElement | null;
+  if (video && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        video.play().catch(() => {});
+        io.disconnect();
+      }
+    }, { threshold: 0.5 });
+    io.observe(video);
+  }
+</script>
