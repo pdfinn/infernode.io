@@ -71,7 +71,7 @@ export const ui: Ui = {
   },
 
   hero: {
-    eyebrow: '为 AI 智能体重建的 Inferno OS',
+    eyebrow: '面向 AI 智能体的开源操作系统',
     title1: '不存在的东西,',
     title2: '智能体碰不到。',
     tagline: 'F1 赛车之所以快,是因为刹车好。',

@@ -61,7 +61,7 @@ export const ui = {
   },
 
   hero: {
-    eyebrow: 'Inferno OS, rebuilt for AI agents',
+    eyebrow: 'Open-source operating system for AI agents',
     title1: "Your agent can't touch",
     title2: "what isn't there.",
     tagline: 'F1 cars are fast because their brakes are good.',
