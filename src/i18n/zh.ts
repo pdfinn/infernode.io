@@ -120,6 +120,15 @@ export const ui: Ui = {
     ],
     stack: '这些层可以叠加。InferNode 可以运行在容器或虚拟机内,你可以保留外层边界,并在其中为每个智能体再加一层。',
     link: '完整对比 &rarr;',
+    more: {
+      title: '其他差异',
+      features: [
+        { label: '运行平台', values: ['在模型内部', 'Linux。在 macOS 和 Windows 上运行于隐藏的 Linux 虚拟机中', '带 KVM 的 Linux,或托管服务', 'macOS、Linux、Windows、Android、iOS'] },
+        { label: '无需底层操作系统', values: ['不适用', '否。需要 Linux 内核', '否。需要 Linux 宿主机', '是。在 <a href="/docs/bare-metal/" class="text-accent hover:text-accent-glow">ARM64 和 RISC-V</a> 上作为操作系统直接启动。新板卡按照有文档的板级接口接入。'] },
+        { label: '防篡改审计', values: ['无', '需自行添加', '需自行添加', '内置:位于智能体触及范围之外的哈希链日志(需开启)'] },
+        { label: '公开对抗测试', values: ['模型厂商的红队报告', '并非针对智能体', '并非针对智能体', '一套公开的<a href="https://github.com/infernode-os/infernode-escape-room" class="text-accent hover:text-accent-glow">测试框架</a>,由 AI 模型发起攻击'] },
+      ],
+    },
   },
 
   platformPage: {
@@ -380,7 +389,7 @@ export const ui: Ui = {
     badge6: 'Android',
     badge7: 'iOS',
     badge8: 'macOS(Intel)',
-    badge9: '裸机(Raspberry Pi)',
+    badge9: '裸机',
   },
 
   screenshot: {

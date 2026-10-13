@@ -14,7 +14,7 @@ This page is the short version. The full manual is
 [docs/BAREMETAL.md](https://github.com/infernode-os/infernode/blob/master/docs/BAREMETAL.md)
 in the InferNode repository.
 
-## Where it runs
+## Where it runs today
 
 | Board | State |
 |-------|-------|

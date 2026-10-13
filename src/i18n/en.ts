@@ -110,6 +110,15 @@ export const ui = {
     ],
     stack: 'These layers stack. InferNode runs inside a container or a VM, so you can keep the outer boundary and add a per-agent one inside it.',
     link: 'Full comparison &rarr;',
+    more: {
+      title: 'What else differs',
+      features: [
+        { label: 'Runs on', values: ['Inside the model', 'Linux. On macOS and Windows, inside a hidden Linux VM', 'Linux with KVM, or a hosted service', 'macOS, Linux, Windows, Android, iOS'] },
+        { label: 'No OS underneath', values: ['Not applicable', 'No. Needs a Linux kernel', 'No. Needs a Linux host', 'Yes. Boots as the operating system on <a href="/docs/bare-metal/" class="text-accent hover:text-accent-glow">ARM64 and RISC-V</a>. New boards are added against a documented board interface.'] },
+        { label: 'Tamper-evident audit', values: ['No', 'Add your own', 'Add your own', 'Built in: a hash-chained log outside the agent&rsquo;s reach (opt-in)'] },
+        { label: 'Public adversarial testing', values: ['Vendor red-team reports', 'Not agent-specific', 'Not agent-specific', 'A <a href="https://github.com/infernode-os/infernode-escape-room" class="text-accent hover:text-accent-glow">public harness</a> of attack campaigns by AI models'] },
+      ],
+    },
   },
 
   platformPage: {
@@ -370,7 +379,7 @@ export const ui = {
     badge6: 'Android',
     badge7: 'iOS',
     badge8: 'macOS (Intel)',
-    badge9: 'Bare metal (Raspberry Pi)',
+    badge9: 'Bare metal',
   },
 
   screenshot: {

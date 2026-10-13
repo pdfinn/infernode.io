@@ -55,6 +55,46 @@ const last = t.rows.length - 1;
       ))}
     </div>
 
+    <h3 class="mb-6 mt-16 text-center text-2xl font-bold tracking-tight">{t.more.title}</h3>
+
+    <!-- Feature table on wider screens -->
+    <div class="hidden overflow-hidden rounded-xl border border-border md:block">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-bg-surface text-text">
+          <tr>
+            <th class="px-5 py-4"></th>
+            {t.rows.map((r, i) => (
+              <th class={`px-5 py-4 font-semibold ${i === last ? 'bg-accent/5 text-accent' : ''}`}>{r.name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {t.more.features.map((f) => (
+            <tr class="border-t border-border text-text-muted">
+              <td class="px-5 py-4 font-medium text-text">{f.label}</td>
+              {f.values.map((v, i) => (
+                <td class={`px-5 py-4 ${i === last ? 'bg-accent/5 text-text' : ''}`} set:html={v} />
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cards on phones -->
+    <div class="space-y-4 md:hidden">
+      {t.rows.map((r, i) => (
+        <div class={`rounded-xl border p-5 text-sm ${i === last ? 'border-accent/50 bg-accent/5' : 'border-border bg-bg-surface'}`}>
+          <h4 class={`mb-3 text-base font-semibold ${i === last ? 'text-accent' : 'text-text'}`}>{r.name}</h4>
+          <dl class="space-y-2 text-text-muted">
+            {t.more.features.map((f) => (
+              <div><dt class="inline text-text">{f.label}: </dt><dd class="inline" set:html={f.values[i]} /></div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+
     <p class="mx-auto mt-8 max-w-3xl text-center text-text-muted">{t.stack}</p>
     <p class="mt-4 text-center">
       <a href={p('/compare', lang)} class="text-sm font-medium text-accent transition hover:text-accent-glow" set:html={t.link} />
