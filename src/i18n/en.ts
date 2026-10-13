@@ -4,9 +4,9 @@
 export const ui = {
   meta: {
     home: {
-      title: 'InferNode — Secure, Distributed AI Agent OS | Proven Isolation',
+      title: 'InferNode — Secure Runtime for AI Agents | Namespace Containment',
       description:
-        'Run powerful AI agents without trusting them with everything. InferNode is a lightweight, distributed operating system with formally verified namespace isolation (TLA+, SPIN, CBMC), so agents can act autonomously and safely. Open source, MIT licensed.',
+        'InferNode starts every AI agent with only what you grant it. Nothing else exists in its world, so a hijacked agent has nothing to steal. Open source, MIT licensed.',
     },
     compare: {
       title: 'InferNode vs LangChain, CrewAI, AutoGPT, AutoGen — 9P vs MCP Agent Comparison',

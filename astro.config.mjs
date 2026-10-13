@@ -105,6 +105,7 @@ export default defineConfig({
               label: 'Limbo for Go programmers',
               link: '/docs/build/limbo-for-go-programmers/',
             },
+            { label: 'Run on bare metal', link: '/docs/bare-metal/' },
           ],
         },
       ],

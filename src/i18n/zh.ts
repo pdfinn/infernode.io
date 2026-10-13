@@ -14,9 +14,9 @@ import type { Ui } from './en';
 export const ui: Ui = {
   meta: {
     home: {
-      title: 'InferNode — 安全、分布式的 AI 智能体操作系统 | 经证明的隔离',
+      title: 'InferNode — AI 智能体的安全运行环境 | 命名空间隔离',
       description:
-        '让强大的 AI 智能体放手工作,而无需把一切都托付给它。InferNode 是一款轻量、分布式的操作系统,提供经形式化验证的命名空间隔离(TLA+、SPIN、CBMC),让智能体可以自主、安全地行动。MIT 许可的开源项目。',
+        'InferNode 启动每个 AI 智能体时,只给它你授予的东西。除此之外,它的世界里什么都不存在,被劫持的智能体也就无物可偷。开源,MIT 许可。',
     },
     compare: {
       title: 'InferNode 与 LangChain、CrewAI、AutoGPT、AutoGen 对比 — 9P 与 MCP 智能体框架比较',
