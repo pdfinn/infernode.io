@@ -1,0 +1,39 @@
+# InferNode
+
+> InferNode is an open-source operating system for AI agents. It starts every AI agent with only what you grant it. Nothing else exists in the agent's world, so a hijacked agent has nothing to steal. The isolation model is formally verified, and the whole system is MIT licensed.
+
+InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Bell Labs. Each agent runs in its own namespace, and every resource (files, models, devices, network services) is a file served over the 9P protocol. Every agent action can be recorded in a hash-chained audit log that lives outside the agent's namespace.
+
+- Runs hosted on macOS, Linux, Windows, Android and iOS, in 15-30 MB of RAM with a 2-second start.
+- Runs as the operating system itself (bare metal) on ARM64 and RISC-V.
+- Veltro is the agent runtime; Lucia is the desktop; Xenith is the text environment.
+- Isolation model verified with TLA+, SPIN and CBMC. Post-quantum cryptography: ML-KEM (FIPS 203) and ML-DSA (FIPS 204).
+- Source: https://github.com/infernode-os/infernode. Releases: https://github.com/infernode-os/infernode/releases/latest
+- Docker: `docker run -it ghcr.io/infernode-os/infernode:latest`
+
+## Start here
+
+- [Quick start](https://infernode.io/docs/quick-start/): Seven steps from download to a contained agent doing work. About half an hour.
+- [Install and launch](https://infernode.io/docs/quick-start/install/): Download a signed release for your platform and get InferNode on screen.
+- [Connect a model](https://infernode.io/docs/quick-start/connect-a-model/): Veltro needs a language model. Point it at one before anything else will work.
+- [Namespaces contain](https://infernode.io/docs/quick-start/namespaces-contain/): Try to make an agent reach something it should not. Watch it fail for the right reason.
+
+## Concepts
+
+- [The worldview](https://infernode.io/docs/concepts/): Four statements, each meant literally. Everything else in InferNode follows from them.
+- [Namespaces](https://infernode.io/docs/concepts/namespaces/): Per-process, built rather than given — and the security model falls out of it.
+- [Contain and restore](https://infernode.io/docs/concepts/contain-and-restore/): Assume the model fails. Bound what the failure reaches, record what it did, put it back.
+
+## Product pages
+
+- [Veltro](https://infernode.io/veltro/): The agent runtime.
+- [Security](https://infernode.io/security/): Formal verification of the namespace isolation model.
+- [Compare](https://infernode.io/compare/): How InferNode differs from guardrails, containers and microVM sandboxes.
+- [Platform](https://infernode.io/platform/): 9P, resources as files, distributed namespaces.
+
+## Optional
+
+- [Build a 9P service](https://infernode.io/docs/build/): Write a real InferNode service end to end — design, code, test, man page.
+- [Limbo for Go programmers](https://infernode.io/docs/build/limbo-for-go-programmers/): The mapping, and the four gotchas that actually bite.
+- [Run on bare metal](https://infernode.io/docs/bare-metal/): InferNode as the operating system itself, on ARM64 and RISC-V, or under QEMU.
+- [Manifesto](https://infernode.io/manifesto/): Why safety is what lets agents do more.

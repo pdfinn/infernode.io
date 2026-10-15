@@ -1,6 +1,6 @@
 ---
 title: Run on bare metal
-description: InferNode as the operating system itself, with nothing underneath — on a Raspberry Pi or under QEMU.
+description: InferNode as the operating system itself, with nothing underneath — on ARM64 and RISC-V, or under QEMU.
 ---
 
 InferNode usually runs *hosted*: `emu` is a program on macOS, Linux or
