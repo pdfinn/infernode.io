@@ -1,6 +1,6 @@
 # InferNode
 
-> InferNode is an open-source operating system for AI agents. It starts every AI agent with only what you grant it. Nothing else exists in the agent's world, so a hijacked agent has nothing to steal. The isolation model is formally verified, and the whole system is MIT licensed.
+> InferNode is a secure, open-source operating system for AI agents. It starts every AI agent with only what you grant it. Nothing else exists in the agent's world, so a hijacked agent has nothing to steal. The isolation model is formally verified, and the whole system is MIT licensed.
 
 InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Bell Labs. Each agent runs in its own namespace, and every resource (files, models, devices, network services) is a file served over the 9P protocol. Every agent action can be recorded in a hash-chained audit log that lives outside the agent's namespace.
 
