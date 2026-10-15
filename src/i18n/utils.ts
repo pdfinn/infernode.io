@@ -28,11 +28,29 @@ function ensureTrailingSlash(path: string): string {
 // /            <-> /zh/
 // /veltro/     <-> /zh/veltro/
 // /compare/    <-> /zh/compare/
-export function localizedPath(pathname: string, target: Lang): string {
+// Pages that exist in both locales, as English paths ('/', '/veltro/', ...).
+const translated = new Set(
+  Object.keys(import.meta.glob('../pages/zh/**/*.astro')).map((f) =>
+    ensureTrailingSlash(f.replace('../pages/zh', '').replace(/(index)?\.astro$/, '')),
+  ),
+);
+
+function stripLocale(pathname: string): string {
   const isZh = pathname.startsWith('/zh/') || pathname === '/zh';
-  const stripped = ensureTrailingSlash(isZh ? pathname.replace(/^\/zh/, '') || '/' : pathname);
+  return ensureTrailingSlash(isZh ? pathname.replace(/^\/zh/, '') || '/' : pathname);
+}
+
+// True when the page at this pathname exists in the other locale too.
+export function hasTranslation(pathname: string): boolean {
+  return translated.has(stripLocale(pathname));
+}
+
+// A page with no Chinese version (privacy, support, 404) switches to the
+// Chinese home page rather than to a path that does not exist.
+export function localizedPath(pathname: string, target: Lang): string {
+  const stripped = stripLocale(pathname);
   if (target === 'en') return stripped;
-  if (stripped === '/') return '/zh/';
+  if (stripped === '/' || !translated.has(stripped)) return '/zh/';
   return `/zh${stripped}`;
 }
 

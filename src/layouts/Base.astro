@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import '@phosphor-icons/web/regular';
 import type { Lang } from '../i18n/utils';
-import { localizedPath } from '../i18n/utils';
+import { localizedPath, hasTranslation } from '../i18n/utils';
 import { GA_SRC, GA_INIT } from '../analytics.mjs';
 
 interface Props {
@@ -23,6 +23,7 @@ const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
 const altPath = localizedPath(Astro.url.pathname, altLang);
 const altHref = new URL(altPath, Astro.site).href;
 const altHrefLang = altLang === 'zh' ? 'zh-Hans' : 'en';
+const bilingual = hasTranslation(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -32,9 +33,13 @@ const altHrefLang = altLang === 'zh' ? 'zh-Hans' : 'en';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang={htmlLang} href={canonicalUrl} />
-    <link rel="alternate" hreflang={altHrefLang} href={altHref} />
-    <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonicalUrl : altHref} />
+    {bilingual && (
+      <>
+        <link rel="alternate" hreflang={htmlLang} href={canonicalUrl} />
+        <link rel="alternate" hreflang={altHrefLang} href={altHref} />
+        <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonicalUrl : altHref} />
+      </>
+    )}
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
