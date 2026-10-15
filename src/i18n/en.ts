@@ -353,7 +353,7 @@ export const ui = {
     title: 'Launch the app or build from source.',
     intro: 'On macOS or Windows, download and run. On Linux, download the GUI or headless tarball, or build from source. Either way&mdash;under a minute.',
     appName: 'InferNode.app',
-    appBody: 'macOS (Apple Silicon) &mdash; open the DMG, drag to Applications, launch.',
+    appBody: 'macOS (Apple Silicon or Intel) &mdash; open the DMG, drag to Applications, launch. Or use Homebrew:',
     appButton: 'Download latest',
     winName: 'InferNode for Windows',
     winBody: 'Windows (x86_64) &mdash; extract the zip, double-click <code>setup-windows.bat</code> (it clears Mark-of-the-Web tags and configures an LLM backend), then double-click <code>InferNode.exe</code>.',

@@ -363,7 +363,7 @@ export const ui: Ui = {
     title: '运行应用,或从源码构建。',
     intro: '在 macOS 或 Windows 上,下载即可运行。在 Linux 上,下载或从源码构建。无论哪种方式&mdash;一分钟以内即可完成。',
     appName: 'InferNode.app',
-    appBody: 'macOS(Apple Silicon)&mdash; 打开 DMG,拖到 Applications,启动。',
+    appBody: 'macOS(Apple Silicon 或 Intel)&mdash; 打开 DMG,拖到 Applications,启动。也可以用 Homebrew:',
     appButton: '下载最新版本',
     winName: 'InferNode for Windows',
     winBody: 'Windows(x86_64)&mdash; 解压压缩包,双击 <code>setup-windows.bat</code>(它会清除 Mark-of-the-Web 标记并配置 LLM 后端),然后双击 <code>InferNode.exe</code>。',

@@ -18,9 +18,16 @@ or a similar loader error — that message means wrong architecture, not a broke
 download.
 :::
 
-## macOS (Apple Silicon)
+## macOS (Apple Silicon or Intel)
 
-Download `infernode-*-macos-arm64.dmg`, open it, drag InferNode to
+With Homebrew:
+
+```sh
+brew install --cask infernode-os/tap/infernode
+```
+
+Or download `infernode-*-macos-arm64.dmg` (Apple Silicon) or
+`infernode-*-macos-amd64.dmg` (Intel), open it, drag InferNode to
 Applications, and launch it.
 
 ## Linux (x86_64 or ARM64)
