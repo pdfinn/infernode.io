@@ -1,89 +1,68 @@
 ---
-// Original schematic drawings of board layouts, not Raspberry Pi's artwork.
+// Our own schematic drawings, in millimetres, measured from Raspberry Pi's
+// published mechanical drawings. Not Raspberry Pi's artwork.
+type Part = { x: number; y: number; w: number; h: number; kind: 'chip' | 'port' | 'can' | 'ffc' | 'hdr'; label?: string; size?: number };
 interface Props {
   board: 'pi3' | 'pi4' | 'pi5' | 'pico';
   label: string;
   class?: string;
 }
 const { board, label, class: cls = '' } = Astro.props;
-const W = board === 'pico' ? 340 : 340;
-const H = board === 'pico' ? 140 : 224;
-const gpio = Array.from({ length: 20 }, (_, i) => i);
-const pads = Array.from({ length: 20 }, (_, i) => i);
-const holes = board === 'pico'
-  ? [[10, 54], [10, 86], [330, 54], [330, 86]]
-  : [[14, 14], [242, 14], [14, 210], [242, 210]];
-const metal = 'fill-current opacity-25';
-const part = 'fill-current opacity-40';
+
+const r = (x0: number, x1: number, y0: number, y1: number, kind: Part['kind'], label?: string, size?: number): Part =>
+  ({ x: x0, y: y0, w: x1 - x0, h: y1 - y0, kind, label, size });
+
+const parts: Record<Props['board'], Part[]> = {
+  pi3: [
+    r(69.3, 87.3, 2.1, 15.7, 'port', 'USB'), r(69.3, 87.3, 19.8, 33.4, 'port', 'USB'), r(65.6, 87.3, 38, 53.4, 'port', 'ETH'),
+    r(19.8, 34, 17.3, 31.5, 'chip', 'BCM2837'), r(6.5, 17.1, 6.5, 19.8, 'can'),
+    r(58.9, 64.1, 7.3, 11.9, 'hdr'), r(58.9, 63.9, 14.6, 17.1, 'chip'),
+    r(2.5, 5.4, 16.7, 39, 'ffc'), r(43.4, 46.8, 33.2, 55.7, 'ffc'),
+    r(6.5, 14.4, 48, 57.5, 'port'), r(24.6, 39.2, 45.3, 57.5, 'port', 'HDMI'), r(49.9, 57, 43.8, 59, 'port'),
+  ],
+  pi4: [
+    r(66.7, 88, 2.5, 18, 'port', 'ETH'), r(70.6, 88, 22.4, 35.7, 'port', 'USB'), r(70.6, 88, 40.4, 53.7, 'port', 'USB'),
+    r(21.8, 36.8, 16, 31.1, 'chip', 'BCM2711'), r(39, 50.7, 16, 31.1, 'chip', 'RAM'), r(6.8, 17.7, 7, 19.9, 'can'),
+    r(55.5, 63.6, 27.9, 36.1, 'chip'), r(55.5, 61.6, 15, 21, 'chip'), r(7.5, 12.4, 41.4, 46.4, 'chip'), r(59.1, 64.1, 7.2, 12.2, 'hdr'),
+    r(1.4, 5.5, 16.8, 39.1, 'ffc'), r(45, 49.3, 33.3, 55.7, 'ffc'),
+    r(6.9, 15.5, 49.8, 57.2, 'port'), r(22.9, 29.2, 49.2, 57, 'port'), r(36.3, 42.6, 49.2, 57, 'port'), r(50.6, 57.6, 43.6, 58.5, 'port'),
+  ],
+  pi5: [
+    r(70.6, 88.2, 1.6, 15.7, 'port', 'USB'), r(70.6, 88.2, 20, 34, 'port', 'USB'), r(66.7, 88.2, 37.3, 53.7, 'port', 'ETH'),
+    r(24.3, 41.7, 24.4, 41.7, 'chip', 'BCM2712'), r(25.7, 40.5, 11.5, 21.9, 'chip', 'RAM'), r(52.3, 64.6, 14.7, 27, 'chip', 'RP1'),
+    r(6.9, 17.6, 6.9, 20, 'can'), r(8, 13.9, 37.5, 43.5, 'chip'), r(59, 64.1, 43.8, 49, 'hdr'), r(65.3, 68.3, 0.9, 6.7, 'hdr'),
+    r(0.9, 4.4, 20.3, 30.9, 'ffc'), r(47, 50.2, 39.7, 55.4, 'ffc'), r(53.2, 56.5, 39.7, 55.4, 'ffc'),
+    r(6.7, 15.5, 49.8, 56.7, 'port'), r(22.5, 29.2, 49.3, 56, 'port'), r(35.9, 42.6, 49.3, 56, 'port'), r(0, 2.8, 35.3, 39.9, 'chip'),
+  ],
+  pico: [
+    r(-1.5, 4.8, 6.6, 14.4, 'port'), r(20.4, 27.6, 6.8, 14, 'chip', 'RP2350', 1.15), r(32.7, 42.9, 4.6, 16.4, 'can'),
+    r(9.4, 12.7, 10.4, 15, 'chip'), r(30, 32.7, 12, 17.4, 'hdr'),
+  ],
+};
+const pico = board === 'pico';
+const W = pico ? 51 : 85;
+const H = pico ? 21 : 56;
+const vb = pico ? '-2 -1 54 23' : '-1 -1 91 62';
+const holes = pico ? [[2, 4.8], [2, 16.2], [49, 4.8], [49, 16.2]] : [[3.5, 3.5], [61.5, 3.5], [3.5, 52.5], [61.5, 52.5]];
+const pins = pico
+  ? Array.from({ length: 20 }, (_, i) => 1.37 + i * 2.54).flatMap((x) => [[x, 1.61], [x, 19.39]])
+  : Array.from({ length: 20 }, (_, i) => 8.87 + i * 2.54).flatMap((x) => [[x, 2.23], [x, 4.77]]);
+const fill = { chip: 0.4, port: 0.22, can: 0.16, ffc: 0.3, hdr: 0.3 };
 ---
 
-<svg viewBox={`0 0 ${W} ${H}`} class={cls} role="img" aria-label={label} fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="1" y="1" width={W - 2} height={H - 2} rx="12" class="fill-current opacity-10" />
-  <rect x="1" y="1" width={W - 2} height={H - 2} rx="12" stroke="currentColor" stroke-width="2" />
-  {holes.map(([x, y]) => <circle cx={x} cy={y} r="6" stroke="currentColor" stroke-width="1.5" />)}
-
-  {board === 'pico' ? (
+<svg viewBox={vb} class={cls} role={label ? 'img' : undefined} aria-label={label || undefined} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width={W} height={H} rx={pico ? 1 : 3} fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="0.5" />
+  {holes.map(([x, y]) => <circle cx={x} cy={y} r={pico ? 1.05 : 1.5} stroke="currentColor" stroke-width="0.35" />)}
+  {!pico && <rect x="6.9" y="1" width="50.8" height="5" rx="0.4" stroke="currentColor" stroke-width="0.25" />}
+  {pins.map(([x, y]) => pico
+    ? <circle cx={x} cy={y} r="0.75" stroke="currentColor" stroke-width="0.3" />
+    : <rect x={x - 0.65} y={y - 0.65} width="1.3" height="1.3" fill="currentColor" fill-opacity="0.55" />)}
+  {parts[board].map((p) => (
     <>
-      {pads.map((i) => (
-        <>
-          <circle cx={46 + i * 13.2} cy="9" r="4" stroke="currentColor" stroke-width="1.5" />
-          <circle cx={46 + i * 13.2} cy="131" r="4" stroke="currentColor" stroke-width="1.5" />
-        </>
-      ))}
-      <rect x="-1" y="50" width="34" height="40" rx="3" class={metal} stroke="currentColor" />
-      <rect x="118" y="44" width="52" height="52" rx="3" class={part} stroke="currentColor" />
-      <text x="144" y="74" text-anchor="middle" class="fill-current" font-size="9" font-family="var(--font-family-mono)">RP2350</text>
-      <rect x="214" y="34" width="72" height="72" rx="3" class={metal} stroke="currentColor" />
-      <path d="M300 40 h24 v12 h-16 v12 h16 v12 h-16 v12 h16 v12" stroke="currentColor" stroke-width="2" />
+      <rect x={p.x} y={p.y} width={p.w} height={p.h} rx="0.5" fill="currentColor" fill-opacity={fill[p.kind]} stroke="currentColor" stroke-width="0.3" />
+      {p.label && <text x={p.x + p.w / 2} y={p.y + p.h / 2} text-anchor="middle" dominant-baseline="central" fill="currentColor" font-size={p.size ?? 2.5} font-family="var(--font-family-mono)">{p.label}</text>}
     </>
-  ) : (
-    <>
-      {gpio.map((i) => (
-        <>
-          <rect x={30 + i * 10.4} y="6" width="7" height="7" rx="1" class={part} />
-          <rect x={30 + i * 10.4} y="16" width="7" height="7" rx="1" class={part} />
-        </>
-      ))}
-      <rect x="58" y="70" width="76" height="76" rx="4" class={part} stroke="currentColor" />
-      <text x="96" y="111" text-anchor="middle" class="fill-current" font-size="10" font-family="var(--font-family-mono)">
-        {board === 'pi3' ? 'BCM2837' : board === 'pi4' ? 'BCM2711' : 'BCM2712'}
-      </text>
-      <rect x="150" y="150" width="44" height="28" rx="3" class={metal} stroke="currentColor" />
-
-      {board === 'pi3' && (
-        <>
-          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="30" y="190" width="30" height="33" rx="2" class={metal} stroke="currentColor" />
-          <rect x="96" y="176" width="56" height="47" rx="2" class={metal} stroke="currentColor" />
-          <circle cx="190" cy="206" r="10" stroke="currentColor" stroke-width="2" />
-        </>
-      )}
-      {board === 'pi4' && (
-        <>
-          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="18" y="190" width="34" height="33" rx="2" class={metal} stroke="currentColor" />
-          <rect x="74" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
-          <rect x="112" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
-          <circle cx="178" cy="206" r="10" stroke="currentColor" stroke-width="2" />
-        </>
-      )}
-      {board === 'pi5' && (
-        <>
-          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
-          <rect x="18" y="190" width="34" height="33" rx="2" class={metal} stroke="currentColor" />
-          <rect x="74" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
-          <rect x="112" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
-          <rect x="196" y="70" width="52" height="52" rx="4" class={part} stroke="currentColor" />
-          <text x="222" y="100" text-anchor="middle" class="fill-current" font-size="10" font-family="var(--font-family-mono)">RP1</text>
-          <rect x="2" y="60" width="9" height="104" rx="2" class={metal} stroke="currentColor" />
-        </>
-      )}
-    </>
-  )}
+  ))}
+  {pico && <circle cx="7.3" cy="12.7" r="1.6" stroke="currentColor" stroke-width="0.3" />}
+  {pico && <path d="M44.5 3.5h5v3.5h-3.5v3.5h3.5v3.5h-3.5v3.5h3.5" stroke="currentColor" stroke-width="0.35" />}
 </svg>

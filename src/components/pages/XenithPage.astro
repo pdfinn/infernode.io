@@ -203,9 +203,9 @@ const code = '[&_code]:rounded [&_code]:bg-bg [&_code]:px-1 [&_code]:py-0.5 [&_c
           <h3 class="mb-4 text-lg font-semibold">{t.commandsTitle}</h3>
           <dl class="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
             {t.commands.map(([word, does]) => (
-              <div class="min-w-0">
+              <div class={`min-w-0 ${word === 'Edit' ? 'sm:col-span-2' : ''}`}>
                 <dt class="inline font-mono text-text">{word}</dt>
-                <dd class="inline text-text-muted"> &mdash; {does}</dd>
+                <dd class={`inline text-text-muted ${code}`} set:html={` &mdash; ${does}`} />
               </div>
             ))}
           </dl>

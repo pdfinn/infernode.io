@@ -846,6 +846,10 @@ export const ui: Ui = {
       ['Live', '边输入边预览文档'],
       ['Agent', '在此打开智能体'],
       ['Theme', '切换配色'],
+      ['Font', '在比例字体与等宽字体间切换'],
+      ['Get', '从磁盘重新载入'],
+      ['Look', '查找其后的文本'],
+      ['Edit', 'Sam 的命令语言,可作用于一个或多个窗口:<code>Edit ,s/colour/color/g</code>'],
     ],
 
     installEyebrow: '获取',

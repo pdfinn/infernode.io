@@ -836,6 +836,10 @@ export const ui = {
       ['Live', 'Preview a document as you type'],
       ['Agent', 'Open an agent here'],
       ['Theme', 'Switch colours'],
+      ['Font', 'Swap between proportional and fixed-width'],
+      ['Get', 'Reload from disk'],
+      ['Look', 'Find the text that follows it'],
+      ['Edit', 'Sam&rsquo;s command language, across a window or many: <code>Edit ,s/colour/color/g</code>'],
     ],
 
     installEyebrow: 'Get it',
