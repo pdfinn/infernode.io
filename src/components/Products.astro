@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang } from '../i18n/utils';
+import { useTranslations, p, type Lang } from '../i18n/utils';
 
 interface Props {
   lang?: Lang;
@@ -104,6 +104,7 @@ const t = useTranslations(lang).products;
               <span class="text-text-muted" set:html={t.xenithBullet3} />
             </div>
           </div>
+          <a href={p('/xenith', lang)} class="mt-6 inline-block text-sm font-medium text-node-jetson hover:underline">{t.xenithLink} &rarr;</a>
         </div>
       </div>
     </div>

@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import BoardArt from '../components/BoardArt.astro';
+
+const title = 'InferNode for IoT and Edge AI — Bare Metal on Raspberry Pi 3B+, 4B and 5';
+const description = 'Run InferNode as the operating system on Raspberry Pi 3B+, 4B and 5, and mount microcontrollers as files. Edge AI agents get only the sensors and outputs you grant them.';
+const keywords = 'IoT, edge AI, edge computing, embedded AI, AI agents, Raspberry Pi, Raspberry Pi 5, Raspberry Pi 4, Raspberry Pi 3B+, Raspberry Pi Pico 2 W, RP2350, bare metal, embedded operating system, 9P, Styx, capability security, RISC-V';
+const eyebrow = 'mb-4 text-sm font-medium tracking-widest uppercase text-accent';
+const h2 = 'text-3xl font-bold tracking-tight sm:text-4xl';
+const chip = 'rounded-full border border-border bg-bg px-2.5 py-0.5 text-xs text-text-muted';
+
+const stats = [
+  { n: '3', l: 'Raspberry Pi generations, on real boards' },
+  { n: '0', l: 'layers of Linux underneath' },
+  { n: '927', l: 'Mbit/s Ethernet received, measured on a Pi 5' },
+  { n: '1', l: 'file tree for every device' },
+];
+const boards = [
+  { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Dual HDMI ports'] },
+  { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Runs on the board', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'USB', '7" panel', 'SD card'] },
+  { art: 'pi3', color: 'text-node-jetson', name: 'Raspberry Pi 3B+', tag: 'Runs on the board', body: 'Quad-core BCM2837, and the port everything else grew from. Field updates are built in.', has: ['Ethernet', 'Wi-Fi', 'Bluetooth', 'GPIO', 'Audio', 'Touch', 'A/B kernel update', 'Boot watchdog'] },
+];
+const granted = ['/n/brick/temp', '/n/brick/adc/0', '/n/brick/gpio/6', '/mnt/llm'];
+const hidden = ['/n/brick/pwm/15', '/n/brick/d2', '/net', '/usr/you/.ssh'];
+const edge = [
+  { icon: 'ph-brain', title: 'Keep the model where it fits', body: 'A model is a file server too. Mount <code>/mnt/llm</code> from a GPU box on your network, and the agent on the Pi uses it with no SDK and no cloud account.' },
+  { icon: 'ph-arrows-split', title: 'Same software at every size', body: 'The Pi runs the same bytecode as your laptop, so an agent and its tools move between them unchanged.' },
+  { icon: 'ph-eye', title: 'See what it did', body: 'Every action is a read or a write on a file, which is simple to log and audit.' },
+];
+const ideas = [
+  { icon: 'ph-plant', title: 'Greenhouse monitor', body: 'An agent reads soil and temperature sensors and writes a daily report. It holds no grant for the valves.' },
+  { icon: 'ph-factory', title: 'Machine watcher', body: 'Pi 5 by the line, a brick on each sensor. The agent explains anomalies in plain language and leaves the machine alone.' },
+  { icon: 'ph-broadcast', title: 'Remote gateway', body: 'A Pi at a site with poor connectivity. A/B kernel update and a boot watchdog make field updates recoverable.' },
+  { icon: 'ph-robot', title: 'Bench robot', body: 'Servos behind leased outputs: if the commander stops, the arm goes to the failsafe position you set.' },
+];
+const stack = [
+  ['Reaching a device', 'A broker, a client library, a topic scheme', 'A file path'],
+  ['Limiting an agent', 'API keys and policy it can try to get around', 'What it cannot name does not exist'],
+  ['What sits underneath', 'A Linux distribution to patch', 'InferNode, on the bare board'],
+  ['Debugging a sensor', 'Vendor tools', '<code>ls</code> and <code>cat</code>'],
+  ['Moving to another machine', 'A new build, new credentials', 'Mount it from there'],
+];
+const safety = [
+  { icon: 'ph-key', title: 'Keys stay on the board', body: 'Each board generates its own keys from the RP2350&rsquo;s hardware generator. Provisioning and pairing happen only over USB.' },
+  { icon: 'ph-lock', title: 'Encrypted by default', body: '9P over Noise-secured datagrams, with TLS 1.3 and pinned keys as the fallback.' },
+  { icon: 'ph-warning-octagon', title: 'Outputs that fail safe', body: 'An output that matters takes fresh, leased commands. If the lease runs out, the link drops or the commander dies, it goes to a failsafe you configure.' },
+  { icon: 'ph-bug', title: 'Built to be attacked', body: 'The 9P parser allocates nothing and bounds-checks every field. It is fuzzed, and the protocol is model-checked in Spin.' },
+];
+---
+
+<Base title={title} description={description} keywords={keywords} noindex>
+  <Nav />
+  <main class="overflow-x-clip px-6 pt-32 pb-24">
+    <section class="relative mx-auto max-w-6xl text-center">
+      <div class="absolute inset-0 -top-24 mx-auto h-96 w-[36rem] max-w-full rounded-full bg-accent/10 blur-3xl"></div>
+      <div class="relative">
+        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">IoT and edge AI</p>
+        <h1 class="mx-auto mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Every sensor is a file. Every agent gets only the ones you grant.</h1>
+        <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted">InferNode runs on a Raspberry Pi with nothing underneath it, and mounts a microcontroller&rsquo;s pins like a folder. Put agents next to the hardware without handing them the building.</p>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="/docs/bare-metal/" class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Run on bare metal</a>
+          <a href="/security/" class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text">How containment works</a>
+        </div>
+        <div class="mx-auto mt-16 grid max-w-5xl grid-cols-2 items-center gap-6 md:grid-cols-4" aria-hidden="true">
+          <BoardArt board="pi3" label="" class="w-full text-node-jetson" />
+          <BoardArt board="pi4" label="" class="w-full text-node-laptop" />
+          <BoardArt board="pi5" label="" class="w-full text-accent" />
+          <BoardArt board="pico" label="" class="w-full text-node-llm" />
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-20 grid max-w-5xl grid-cols-2 gap-6 md:grid-cols-4">
+      {stats.map((s) => (
+        <div class="text-center">
+          <p class="font-mono text-4xl font-bold text-accent">{s.n}</p>
+          <p class="mt-1 text-sm text-text-muted">{s.l}</p>
+        </div>
+      ))}
+    </section>
+
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class={eyebrow}>Bare metal</p>
+        <h2 class={`mb-4 ${h2}`}>The operating system, not an app on Linux</h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">The kernel boots, brings up the hardware and runs the same programs as hosted InferNode, with the desktop if you want one and headless if you don&rsquo;t.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {boards.map((b) => (
+          <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
+            <BoardArt board={b.art as 'pi3' | 'pi4' | 'pi5'} label={`Drawing of a ${b.name} layout`} class={`mb-5 w-full ${b.color}`} />
+            <h3 class="text-lg font-semibold">{b.name}</h3>
+            <p class={`mb-2 text-sm font-medium ${b.color}`}>{b.tag}</p>
+            <p class="mb-4 text-sm leading-relaxed text-text-muted">{b.body}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {b.has.map((h) => <span class={chip}>{h}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-center text-sm text-text-muted">64-bit RISC-V runs under QEMU, with the BeagleV-Fire as the next board. <a href="/docs/bare-metal/" class="text-accent hover:underline">Board-by-board status</a>.</p>
+    </section>
+
+    <section class="mx-auto mt-32 grid max-w-5xl items-center gap-10 md:grid-cols-2">
+      <div class="min-w-0">
+        <p class={eyebrow}>Styxbrick</p>
+        <h2 class={`mb-6 ${h2}`}>A microcontroller you can <code class="font-mono">ls</code></h2>
+        <p class="mb-4 text-lg text-text-muted">Styxbrick is firmware for the Raspberry Pi Pico 2 W that serves the board&rsquo;s hardware over 9P, in the spirit of Vita Nuova&rsquo;s Styx-on-a-Brick. No driver, no SDK, no broker.</p>
+        <BoardArt board="pico" label="Drawing of a Raspberry Pi Pico 2 W layout" class="w-full max-w-sm text-node-llm" />
+      </div>
+      <pre class="min-w-0 overflow-x-auto rounded-xl border border-border bg-bg-surface p-5 font-mono text-sm leading-relaxed text-text"><code>; brick mount 192.168.1.103 /n/brick
+; ls /n/brick
+adc  d2  events  gpio  info  led  net  pwm  temp
+; cat /n/brick/temp
+; echo pulse 1500 &gt; /n/brick/pwm/15   # servo
+; echo edge both &gt; /n/brick/gpio/6
+; cat /n/brick/events
+rise 6 7836364</code></pre>
+    </section>
+
+    <section class="mx-auto mt-16 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {safety.map((s) => (
+        <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-5">
+          <i class={`ph ${s.icon} mb-3 block text-2xl text-node-llm`} />
+          <h3 class="mb-1 font-semibold">{s.title}</h3>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={s.body} />
+        </div>
+      ))}
+      <p class="text-sm text-text-muted sm:col-span-2 lg:col-span-4">Styxbrick is pre-release and is not a certified safety system.</p>
+    </section>
+
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class={eyebrow}>Edge AI</p>
+        <h2 class={`mb-4 ${h2}`}>Agents next to the hardware, on a short leash</h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">An agent&rsquo;s world is the files you bind into it. Grant one pin, and the servo next to it does not exist.</p>
+      </div>
+      <div class="grid items-center gap-4 rounded-xl border border-border bg-bg-surface p-6 md:grid-cols-[1fr_auto_1fr]">
+        <div class="min-w-0 space-y-2">
+          <p class="mb-2 text-sm font-medium text-node-jetson">In the agent&rsquo;s namespace</p>
+          {granted.map((g) => (
+            <p class="truncate rounded-lg border border-node-jetson/40 bg-node-jetson/10 px-3 py-1.5 font-mono text-sm text-text">{g}</p>
+          ))}
+        </div>
+        <div class="flex flex-col items-center gap-2 px-4 py-2 text-center">
+          <i class="ph ph-robot text-4xl text-accent" />
+          <p class="text-sm font-semibold">Veltro</p>
+          <p class="text-xs text-text-muted">on a Pi 5</p>
+        </div>
+        <div class="min-w-0 space-y-2">
+          <p class="mb-2 text-sm font-medium text-text-muted">Does not exist for it</p>
+          {hidden.map((g) => (
+            <p class="truncate rounded-lg border border-dashed border-border px-3 py-1.5 font-mono text-sm text-text-muted line-through opacity-60">{g}</p>
+          ))}
+        </div>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        {edge.map((c) => (
+          <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
+            <i class={`ph ${c.icon} mb-4 block text-2xl text-node-jetson`} />
+            <h3 class="mb-2 text-lg font-semibold">{c.title}</h3>
+            <p class="text-sm leading-relaxed text-text-muted [&_code]:font-mono [&_code]:text-text" set:html={c.body} />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class={eyebrow}>What you could build</p>
+        <h2 class={h2}>Small machines, real jobs</h2>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {ideas.map((c) => (
+          <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6 transition hover:border-accent/50">
+            <i class={`ph ${c.icon} mb-4 block text-3xl text-accent`} />
+            <h3 class="mb-2 font-semibold">{c.title}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto mt-32 max-w-4xl">
+      <div class="mb-10 text-center">
+        <p class={eyebrow}>Fewer moving parts</p>
+        <h2 class={h2}>What it replaces</h2>
+      </div>
+      <div class="overflow-x-auto rounded-xl border border-border">
+        <table class="w-full min-w-[34rem] text-left text-sm">
+          <thead class="bg-bg-surface">
+            <tr><th class="p-4 font-medium text-text-muted"></th><th class="p-4 font-medium text-text-muted">The usual stack</th><th class="p-4 font-medium text-accent">InferNode</th></tr>
+          </thead>
+          <tbody>
+            {stack.map(([a, b, c]) => (
+              <tr class="border-t border-border">
+                <td class="p-4 font-medium">{a}</td>
+                <td class="p-4 text-text-muted">{b}</td>
+                <td class="p-4 text-text [&_code]:font-mono" set:html={c} />
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-32 max-w-2xl text-center">
+      <h2 class={`mb-6 ${h2}`}>Start with a Pi</h2>
+      <p class="mb-8 text-lg text-text-muted">Flash a card, boot it, and mount your first device.</p>
+      <a href="/docs/bare-metal/" class="inline-block rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Read the bare-metal guide</a>
+      <p class="mt-12 text-xs text-text-muted">Raspberry Pi is a trademark of Raspberry Pi Ltd. InferNode is not affiliated with or endorsed by Raspberry Pi Ltd. Board illustrations are our own schematic drawings.</p>
+    </section>
+  </main>
+  <Footer />
+</Base>

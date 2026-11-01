@@ -34,3 +34,32 @@ body {
   background-color: var(--color-accent);
   color: white;
 }
+
+/* The Xenith page wears Xenith's own theme (lib/lucifer/theme/xenith). */
+:root:has(.theme-xenith) {
+  --color-bg: #181825;
+  --color-bg-surface: #1e1e2e;
+  --color-bg-surface-hover: #313244;
+  --color-border: #45475a;
+  --color-text: #cdd6f4;
+  --color-text-muted: #a6adc8;
+  --color-accent: #b4befe;
+  --color-accent-glow: #cdd6f4;
+  --color-accent-dim: #89b4fa;
+  --color-node-jetson: #a6e3a1;
+}
+
+/* White on the pale accent cannot be read; the theme's dark grey can. */
+:root:has(.theme-xenith) .bg-accent.text-white {
+  color: #181825;
+}
+
+:root:has(.theme-xenith) ::selection {
+  background-color: #54566e;
+  color: #eff1f5;
+}
+
+/* InferNode's mark sits on black; let the theme's grey show through it. */
+:root:has(.theme-xenith) img[src='/infernode-icon.png'] {
+  mix-blend-mode: lighten;
+}

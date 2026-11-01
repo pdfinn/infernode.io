@@ -1,0 +1,89 @@
+---
+// Original schematic drawings of board layouts, not Raspberry Pi's artwork.
+interface Props {
+  board: 'pi3' | 'pi4' | 'pi5' | 'pico';
+  label: string;
+  class?: string;
+}
+const { board, label, class: cls = '' } = Astro.props;
+const W = board === 'pico' ? 340 : 340;
+const H = board === 'pico' ? 140 : 224;
+const gpio = Array.from({ length: 20 }, (_, i) => i);
+const pads = Array.from({ length: 20 }, (_, i) => i);
+const holes = board === 'pico'
+  ? [[10, 54], [10, 86], [330, 54], [330, 86]]
+  : [[14, 14], [242, 14], [14, 210], [242, 210]];
+const metal = 'fill-current opacity-25';
+const part = 'fill-current opacity-40';
+---
+
+<svg viewBox={`0 0 ${W} ${H}`} class={cls} role="img" aria-label={label} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width={W - 2} height={H - 2} rx="12" class="fill-current opacity-10" />
+  <rect x="1" y="1" width={W - 2} height={H - 2} rx="12" stroke="currentColor" stroke-width="2" />
+  {holes.map(([x, y]) => <circle cx={x} cy={y} r="6" stroke="currentColor" stroke-width="1.5" />)}
+
+  {board === 'pico' ? (
+    <>
+      {pads.map((i) => (
+        <>
+          <circle cx={46 + i * 13.2} cy="9" r="4" stroke="currentColor" stroke-width="1.5" />
+          <circle cx={46 + i * 13.2} cy="131" r="4" stroke="currentColor" stroke-width="1.5" />
+        </>
+      ))}
+      <rect x="-1" y="50" width="34" height="40" rx="3" class={metal} stroke="currentColor" />
+      <rect x="118" y="44" width="52" height="52" rx="3" class={part} stroke="currentColor" />
+      <text x="144" y="74" text-anchor="middle" class="fill-current" font-size="9" font-family="var(--font-family-mono)">RP2350</text>
+      <rect x="214" y="34" width="72" height="72" rx="3" class={metal} stroke="currentColor" />
+      <path d="M300 40 h24 v12 h-16 v12 h16 v12 h-16 v12 h16 v12" stroke="currentColor" stroke-width="2" />
+    </>
+  ) : (
+    <>
+      {gpio.map((i) => (
+        <>
+          <rect x={30 + i * 10.4} y="6" width="7" height="7" rx="1" class={part} />
+          <rect x={30 + i * 10.4} y="16" width="7" height="7" rx="1" class={part} />
+        </>
+      ))}
+      <rect x="58" y="70" width="76" height="76" rx="4" class={part} stroke="currentColor" />
+      <text x="96" y="111" text-anchor="middle" class="fill-current" font-size="10" font-family="var(--font-family-mono)">
+        {board === 'pi3' ? 'BCM2837' : board === 'pi4' ? 'BCM2711' : 'BCM2712'}
+      </text>
+      <rect x="150" y="150" width="44" height="28" rx="3" class={metal} stroke="currentColor" />
+
+      {board === 'pi3' && (
+        <>
+          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="30" y="190" width="30" height="33" rx="2" class={metal} stroke="currentColor" />
+          <rect x="96" y="176" width="56" height="47" rx="2" class={metal} stroke="currentColor" />
+          <circle cx="190" cy="206" r="10" stroke="currentColor" stroke-width="2" />
+        </>
+      )}
+      {board === 'pi4' && (
+        <>
+          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="18" y="190" width="34" height="33" rx="2" class={metal} stroke="currentColor" />
+          <rect x="74" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
+          <rect x="112" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
+          <circle cx="178" cy="206" r="10" stroke="currentColor" stroke-width="2" />
+        </>
+      )}
+      {board === 'pi5' && (
+        <>
+          <rect x="272" y="6" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="68" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="272" y="130" width="68" height="54" rx="3" class={metal} stroke="currentColor" />
+          <rect x="18" y="190" width="34" height="33" rx="2" class={metal} stroke="currentColor" />
+          <rect x="74" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
+          <rect x="112" y="196" width="26" height="27" rx="2" class={metal} stroke="currentColor" />
+          <rect x="196" y="70" width="52" height="52" rx="4" class={part} stroke="currentColor" />
+          <text x="222" y="100" text-anchor="middle" class="fill-current" font-size="10" font-family="var(--font-family-mono)">RP1</text>
+          <rect x="2" y="60" width="9" height="104" rx="2" class={metal} stroke="currentColor" />
+        </>
+      )}
+    </>
+  )}
+</svg>

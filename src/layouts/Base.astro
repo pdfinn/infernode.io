@@ -9,12 +9,20 @@ interface Props {
   title?: string;
   description?: string;
   lang?: Lang;
+  keywords?: string;
+  ogImage?: string;
+  jsonLd?: object[];
+  noindex?: boolean;
 }
 
 const {
   title = 'InferNode — Provably Secure, Distributed AI Agent OS',
   description = 'A lightweight operating system with mathematically proven namespace isolation for AI agents. Safe agents are free agents. Distributed by design. MIT licensed.',
   lang = 'en',
+  keywords,
+  ogImage = '/og-image.png',
+  jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
@@ -32,6 +40,8 @@ const bilingual = hasTranslation(Astro.url.pathname);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonicalUrl} />
     {bilingual && (
       <>
@@ -46,12 +56,12 @@ const bilingual = hasTranslation(Astro.url.pathname);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
-    <meta property="og:image" content={new URL('/og-image.png', Astro.site).href} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site).href} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
     <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -101,6 +111,7 @@ const bilingual = hasTranslation(Astro.url.pathname);
         }
       ]
     })} />
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
     <!-- Google Analytics -->
     <script is:inline async src={GA_SRC}></script>
     <script is:inline set:html={GA_INIT} />

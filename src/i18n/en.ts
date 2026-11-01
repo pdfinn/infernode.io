@@ -33,12 +33,18 @@ export const ui = {
       description:
         'Veltro is a formally verified AI agent that lives in your namespace, not inside an application. Provably contained via 9P filesystem isolation, autonomously capable, and composable across devices.',
     },
+    xenith: {
+      title: 'Xenith — Open Source Text Editor for Code, Writing and AI Agents',
+      description:
+        'Xenith is an open source text and code editor descended from Acme, with AI coding agents built in. For programmers, writers and philosophers. macOS, Linux and Windows.',
+    },
   },
 
   switcher: { en: 'EN', zh: '中文', label: 'Language' },
 
   nav: {
     veltro: 'Veltro',
+    xenith: 'Xenith',
     compare: 'Compare',
     security: 'Security',
     howItWorks: 'How It Works',
@@ -55,6 +61,7 @@ export const ui = {
   footer: {
     license: 'MIT License',
     veltro: 'Veltro',
+    xenith: 'Xenith',
     compare: 'Compare',
     manifesto: 'Manifesto',
     github: 'GitHub',
@@ -294,6 +301,7 @@ export const ui = {
     luciaBullet2: '<strong class="text-text">Three-zone interface</strong> &mdash; conversation, presentation, and context at a glance',
     luciaBullet3: '<strong class="text-text">No apps to learn</strong> &mdash; the agent composes capabilities from your namespace',
     xenithName: 'Xenith',
+    xenithLink: 'Learn more about Xenith',
     xenithTagline: 'Developer power tool',
     xenithBody: 'A text environment built for developers and AI agents working side by side. Forked from Acme with async I/O, dark mode, and a 9P interface that lets agents interact through file operations&mdash;no SDK required. Every agent action is observable in real time.',
     xenithBullet1: '<strong class="text-text">9P filesystem interface</strong> &mdash; agents read and write, no API needed',
@@ -735,6 +743,110 @@ export const ui = {
 
     finalCtaTitle: 'Give your agents real autonomy.',
     finalCtaIntro: 'Veltro is open source, MIT licensed, and runs on any system you control.',
+  },
+
+  xenithPage: {
+    keywords: 'text editor, code editor, programming editor, IDE, IDE alternative, AI code editor, AI coding agent, coding agents, agentic coding, AI pair programming, Acme editor, Plan 9, Inferno OS, 9P, open source editor, Markdown editor, writing software, novel writing software, manuscript editor, academic writing, philosophy software, argument mapping, OED, troff',
+    faqTitle: 'Questions',
+    faqEyebrow: 'FAQ',
+    faq: [
+      { q: 'Is Xenith an IDE?', a: 'Not in the usual sense. There is no project wizard or debugger panel. Your tools are ordinary commands you run from any window, and their output comes back as text you can click.' },
+      { q: 'Does it work with coding agents?', a: 'Yes. Veltro runs in a window of its own, and any agent or script can read and write Xenith&rsquo;s windows as files. Claude Code and other host agents can open files in it with <code>plumb</code>.' },
+      { q: 'Which models does the agent use?', a: 'The ones you connect: a local model or a hosted one. Xenith shares its model settings with InferNode.' },
+      { q: 'Do I need InferNode installed?', a: 'No. The Xenith app carries what it needs.' },
+      { q: 'Can I use it without a three-button mouse?', a: 'Yes. On a Mac trackpad, Option-click and Command-click stand in for middle and right. For chords, middle-click the words <code>Cut</code> and <code>Paste</code> instead.' },
+      { q: 'Is it free?', a: 'Yes. Xenith is open source under the MIT licence.' },
+    ],
+    eyebrow: 'Xenith',
+    title: 'A text editor where every word can run.',
+    intro: 'Xenith is the text environment for InferNode, descended from Acme. Everything on screen is text you can edit, run or follow, and your AI agent works in the same windows you do.',
+    ctaPrimary: 'Download Xenith',
+    ctaSecondary: 'Learn the mouse',
+
+    videoEyebrow: 'See it work',
+    videoTitle: 'One minute, no menus',
+    videoBody: 'A single take in Xenith 0.9.0, with a real model behind the agent. The labels at the bottom show which mouse buttons are down.',
+    videoLabel: 'Xenith running a grep from a tag, jumping to a line with the right button, moving a line with chords, previewing Markdown live and asking an agent for a diagram.',
+
+    whatEyebrow: 'What it is',
+    whatTitle: 'Plain text, all the way up',
+    what: [
+      { icon: 'ph-text-aa', title: 'A text interface', body: 'Descended from Rob Pike&rsquo;s Acme. No menus, no dialogs, no keybindings to memorise. Commands are words in a tag above each window, and you can type new ones anywhere.' },
+      { icon: 'ph-app-window', title: 'Runs on its own', body: 'Xenith ships as its own app for macOS, Linux and Windows, carrying InferNode inside it. No desktop, no login: the window is the editor. It runs inside the Lucia desktop too.' },
+      { icon: 'ph-robot', title: 'Built for agents', body: 'Every window is a set of files, so an agent reads and writes Xenith the way it does anything else. No plugin, no SDK.' },
+    ],
+
+    whyEyebrow: 'Why it is different',
+    whyTitle: 'What other editors bolt on, Xenith is made of',
+    why: [
+      { icon: 'ph-chats-circle', title: 'The agent is a window', body: 'Middle-click <code>Agent</code> and Veltro opens in a window, granted the directory you are in. Type at the end, click <code>Send</code>. <code>Stop</code> and <code>Deny</code> are right there in the tag.' },
+      { icon: 'ph-shield-check', title: 'It cannot wander', body: 'The agent runs in an InferNode namespace: what you did not grant does not exist for it. Its writes are staged in a copy-on-write overlay, not made to your files.' },
+      { icon: 'ph-folder-open', title: 'Every window is files', body: 'Body, tag, selection and event stream live under <code>/mnt/xenith</code>. Anything that can read and write can drive Xenith: a shell script, an agent, a program on another machine.' },
+      { icon: 'ph-eye', title: 'The work stays in the open', body: 'The conversation is text in a window. Search it, edit it, save it, run a word from it.' },
+      { icon: 'ph-file-text', title: 'Documents, not just text', body: 'PDFs, images, Markdown, Mermaid, HTML and web pages open in the window. <code>Live</code> sets a document beside its source as you type.' },
+      { icon: 'ph-plugs-connected', title: 'Reaches your other tools', body: '<code>plumb file:42</code> from a terminal, or from a machine you ssh to, opens it in your running Xenith. Coding agents can hand you files the same way.' },
+    ],
+
+    beyondEyebrow: 'Not only for code',
+    beyondTitle: 'For anyone who works in words',
+    beyondIntro: 'Code is the obvious use. The same windows suit a novel, a thesis or a line of argument, and the tools run the same way: click a word.',
+    beyond: [
+      { img: '/xenith/writing.webp', w: 1200, h: 1000, alt: 'A chapter of a novel in a Xenith window, above the Oxford English Dictionary entry for gloaming.', title: 'Manuscripts, with the OED at hand', body: 'Write in plain text, undistracted. Run <code>Dict gloaming</code> and the entry opens beside your chapter, with its forms, etymology and dated quotations. <strong class="text-text">The OED is not included: you need your own licensed copy.</strong> <a href="https://github.com/pdfinn/infernode-troff" class="text-accent hover:underline">infernode-troff</a> sets the finished book.' },
+      { img: '/xenith/argument.webp', w: 1200, h: 740, alt: 'The Philosopher&rsquo;s Workbench reporting that an argument is invalid, with a countermodel and the missing premise.', title: 'Arguments, checked by rule', body: 'The <a href="https://github.com/pdfinn/infernode-phiwb" class="text-accent hover:underline">Philosopher&rsquo;s Workbench</a> has a model write your argument down in logic, then a prover decides whether it holds. Here, from &ldquo;only rational beings are moral agents&rdquo;, it finds the misreading, the fallacy, a countermodel and the missing premise. Right-click a finding to go to the sentence.' },
+    ],
+
+    furtherTitle: 'Further reading',
+    further: [
+      { href: 'http://acme.cat-v.org/mouse', label: 'Mouse Shortcuts in Acme', note: 'the classic cat-v page' },
+      { href: 'http://acme.cat-v.org', label: 'Acme at cat-v', note: 'documents and community' },
+      { href: 'https://www.youtube.com/watch?v=dP1xVpMPn8M', label: 'A Tour of Acme', note: 'Russ Cox&rsquo;s video' },
+      { href: 'http://doc.cat-v.org/plan_9/4th_edition/papers/acme/', label: 'Acme: A User Interface for Programmers', note: 'Rob Pike&rsquo;s paper' },
+    ],
+
+    docsEyebrow: 'Documents',
+    docsTitle: 'Source on one side, the page on the other',
+    docsLive: 'Live: Markdown set as you type.',
+    docsAgent: 'An agent&rsquo;s Mermaid reply, set in its window.',
+    docsTroff: 'A chapter typeset by <a href="https://github.com/pdfinn/infernode-troff" class="text-accent hover:underline">infernode-troff</a>, in the Glenda theme.',
+
+    mouseEyebrow: 'How to use it',
+    mouseTitle: 'Three buttons do everything',
+    mouseIntro: 'The mouse takes a minute to learn. After that, you stop reaching for the keyboard to do anything but type.',
+    buttons: [
+      { name: 'Left', verb: 'Select', body: 'Click or sweep. Double-click selects a word, a line, or everything inside a bracket.' },
+      { name: 'Middle', verb: 'Run', body: 'Click a word, or sweep several, to run them: <code>Put</code>, <code>Del</code>, <code>grep -n TODO *.py</code>.' },
+      { name: 'Right', verb: 'Go', body: 'Click a file name, <code>app.py:26</code>, or a URL to open it. Click any other word to find the next one.' },
+    ],
+    chordsTitle: 'Chords',
+    chordsIntro: 'Hold the left button after selecting, then tap another.',
+    chords: [
+      { keys: 'Left + Middle', does: 'Cut' },
+      { keys: 'Left + Right', does: 'Paste' },
+      { keys: 'Left + Middle, then Right', does: 'Copy' },
+      { keys: 'Middle + Left', does: 'Run a command on the text you last selected' },
+    ],
+    trackpad: 'On a Mac trackpad, <strong class="text-text">Option-click</strong> is the middle button and <strong class="text-text">Command-click</strong> is the right. Chords need a real three-button mouse; without one, middle-click the words <code>Cut</code> and <code>Paste</code> in a column&rsquo;s tag. On Linux, use a three-button mouse or your touchpad&rsquo;s middle-click.',
+    commandsTitle: 'Words worth knowing',
+    commands: [
+      ['Put', 'Save'],
+      ['Undo', 'Undo'],
+      ['Del', 'Close the window'],
+      ['Newcol', 'Add a column'],
+      ['Zerox', 'A second view of the same file'],
+      ['Live', 'Preview a document as you type'],
+      ['Agent', 'Open an agent here'],
+      ['Theme', 'Switch colours'],
+    ],
+
+    installEyebrow: 'Get it',
+    installTitle: 'Install Xenith',
+    installMac: 'macOS',
+    installOther: 'Linux and Windows',
+    installOtherBody: 'Download the tarball or zip from the latest release. On Linux, <code>setup-desktop.sh</code> adds Xenith to your app menu.',
+    installAgent: 'To use the agent, <a href="/docs/quick-start/connect-a-model/" class="text-accent hover:underline">connect a model</a>. Xenith shares its settings with InferNode.',
+    installCta: 'All downloads',
+
+    credit: 'Xenith stands on Rob Pike&rsquo;s Acme, and on Caerwyn Jones&rsquo;s Acme SAC, which carried Acme out of Plan 9 as a self-contained system.',
   },
 } as const;
 

@@ -43,12 +43,18 @@ export const ui: Ui = {
       description:
         'Veltro 是一个形式化验证的 AI 智能体,它驻留在你的命名空间中,而不是某个应用程序里。通过 9P 文件系统隔离实现可证明的封闭,具备自主能力,并可跨设备组合。',
     },
+    xenith: {
+      title: 'Xenith — 面向代码、写作与 AI 智能体的开源文本编辑器',
+      description:
+        'Xenith 是源自 Acme 的开源文本与代码编辑器,内置 AI 编程智能体。面向程序员、作家和哲学研究者。支持 macOS、Linux 和 Windows。',
+    },
   },
 
   switcher: { en: 'EN', zh: '中文', label: '语言' },
 
   nav: {
     veltro: 'Veltro',
+    xenith: 'Xenith',
     compare: '对比',
     security: '安全性',
     howItWorks: '工作原理',
@@ -65,6 +71,7 @@ export const ui: Ui = {
   footer: {
     license: 'MIT 许可',
     veltro: 'Veltro',
+    xenith: 'Xenith',
     compare: '对比',
     manifesto: '宣言',
     github: 'GitHub',
@@ -304,6 +311,7 @@ export const ui: Ui = {
     luciaBullet2: '<strong class="text-text">三区界面</strong> &mdash; 对话、呈现与上下文一目了然',
     luciaBullet3: '<strong class="text-text">无需学习应用</strong> &mdash; 智能体从你的命名空间组合能力',
     xenithName: 'Xenith',
+    xenithLink: '了解 Xenith',
     xenithTagline: '开发者利器',
     xenithBody: '一个为开发者与 AI 智能体并肩工作而打造的文本环境。从 Acme 派生,具备异步 I/O、暗色模式以及让智能体通过文件操作交互的 9P 接口&mdash;无需 SDK。智能体的每一步行动都可被实时观察。',
     xenithBullet1: '<strong class="text-text">9P 文件系统接口</strong> &mdash; 智能体读写文件,无需任何 API',
@@ -745,5 +753,109 @@ export const ui: Ui = {
 
     finalCtaTitle: '让你的智能体拥有真正的自主权。',
     finalCtaIntro: 'Veltro 是开源的,采用 MIT 许可,可以运行在任何你掌控的系统上。',
+  },
+
+  xenithPage: {
+    keywords: '文本编辑器, 代码编辑器, IDE, AI 代码编辑器, AI 编程智能体, 编程智能体, Acme 编辑器, Plan 9, Inferno, 9P, 开源编辑器, Markdown 编辑器, 写作软件, 手稿, 学术写作, 哲学, 论证',
+    faqTitle: '常见问题',
+    faqEyebrow: 'FAQ',
+    faq: [
+      { q: 'Xenith 是 IDE 吗?', a: '不是通常意义上的 IDE。它没有项目向导,也没有调试面板。你的工具就是可以从任何窗口运行的普通命令,其输出以可点击的文本返回。' },
+      { q: '它支持编程智能体吗?', a: '支持。Veltro 在自己的窗口中运行,任何智能体或脚本都可以把 Xenith 的窗口当作文件读写。Claude Code 等宿主机上的智能体可以用 <code>plumb</code> 在其中打开文件。' },
+      { q: '智能体使用哪些模型?', a: '由你连接:本地模型或托管模型都可以。Xenith 与 InferNode 共享模型设置。' },
+      { q: '需要先安装 InferNode 吗?', a: '不需要。Xenith 应用自带所需的一切。' },
+      { q: '没有三键鼠标能用吗?', a: '可以。在 Mac 触控板上,Option-点击和 Command-点击分别代替中键和右键。组合键则可以改为中键点击 <code>Cut</code> 和 <code>Paste</code> 这两个词。' },
+      { q: '它是免费的吗?', a: '是的。Xenith 以 MIT 许可证开源。' },
+    ],
+    eyebrow: 'Xenith',
+    title: '每个词都能运行的文本编辑器。',
+    intro: 'Xenith 是 InferNode 的文本环境,源自 Acme。屏幕上的一切都是可以编辑、运行或跳转的文本,你的 AI 智能体也在同样的窗口里工作。',
+    ctaPrimary: '下载 Xenith',
+    ctaSecondary: '学习鼠标操作',
+
+    videoEyebrow: '实际演示',
+    videoTitle: '一分钟,没有菜单',
+    videoBody: '在 Xenith 0.9.0 中一镜到底录制,智能体背后是真实的模型。底部的标签显示当前按下的鼠标按键。视频字幕为英文。',
+    videoLabel: 'Xenith 从标签行运行 grep,用右键跳转到某一行,用组合键移动一行,实时预览 Markdown,并让智能体画一张图。',
+
+    whatEyebrow: '它是什么',
+    whatTitle: '从头到尾都是纯文本',
+    what: [
+      { icon: 'ph-text-aa', title: '文本界面', body: '源自 Rob Pike 的 Acme。没有菜单,没有对话框,没有要背的快捷键。命令就是每个窗口上方标签行里的词,你可以在任何地方输入新命令。' },
+      { icon: 'ph-app-window', title: '独立运行', body: 'Xenith 是独立的应用,支持 macOS、Linux 和 Windows,内部自带 InferNode。无需桌面,无需登录:窗口就是编辑器。它也能在 Lucia 桌面中运行。' },
+      { icon: 'ph-robot', title: '为智能体而建', body: '每个窗口都是一组文件,智能体读写 Xenith 就像读写其他任何东西一样。无需插件,无需 SDK。' },
+    ],
+
+    whyEyebrow: '有何不同',
+    whyTitle: '别的编辑器外挂的东西,正是 Xenith 的本体',
+    why: [
+      { icon: 'ph-chats-circle', title: '智能体就是一个窗口', body: '中键点击 <code>Agent</code>,Veltro 就在窗口中打开,并被授予当前目录。在末尾输入,点击 <code>Send</code>。<code>Stop</code> 和 <code>Deny</code> 就在标签行上。' },
+      { icon: 'ph-shield-check', title: '它无法越界', body: '智能体运行在 InferNode 命名空间中:你没有授予的东西,对它来说根本不存在。它的写入先暂存在写时复制层中,不会直接改动你的文件。' },
+      { icon: 'ph-folder-open', title: '每个窗口都是文件', body: '正文、标签、选区和事件流都在 <code>/mnt/xenith</code> 下。任何能读写文件的东西都能驱动 Xenith:shell 脚本、智能体,或另一台机器上的程序。' },
+      { icon: 'ph-eye', title: '工作过程公开透明', body: '对话就是窗口里的文本。可以搜索、编辑、保存,也可以运行其中的词。' },
+      { icon: 'ph-file-text', title: '不只是文本,还有文档', body: 'PDF、图片、Markdown、Mermaid、HTML 和网页都在窗口中打开。<code>Live</code> 在你输入时于源文件旁排版文档。' },
+      { icon: 'ph-plugs-connected', title: '连接你的其他工具', body: '在终端或 ssh 连接的机器上执行 <code>plumb file:42</code>,文件就会在你正在运行的 Xenith 中打开。编程智能体也能这样把文件交给你。' },
+    ],
+
+    beyondEyebrow: '不只是代码',
+    beyondTitle: '写给所有与文字打交道的人',
+    beyondIntro: '写代码是显而易见的用途。同样的窗口也适合小说、论文或一条论证思路,工具的用法也一样:点击一个词。',
+    beyond: [
+      { img: '/xenith/writing.webp', w: 1200, h: 1000, alt: 'Xenith 窗口中的小说章节,下方是《牛津英语词典》中 gloaming 词条。', title: '手稿,牛津词典触手可及', body: '用纯文本专心写作。运行 <code>Dict gloaming</code>,词条就在章节旁打开,包括词形、词源和带日期的引文。<strong class="text-text">《牛津英语词典》不随软件提供:你需要自备已获授权的副本。</strong><a href="https://github.com/pdfinn/infernode-troff" class="text-accent hover:underline">infernode-troff</a> 负责排版成书。' },
+      { img: '/xenith/argument.webp', w: 1200, h: 740, alt: '哲学家工作台报告论证无效,并给出反模型和缺失的前提。', title: '论证,由规则检验', body: '<a href="https://github.com/pdfinn/infernode-phiwb" class="text-accent hover:underline">哲学家工作台</a>让模型把你的论证写成逻辑,再由证明器判定它是否成立。这里,针对“只有理性存在者才是道德主体”,它找出了误读、谬误、反模型和缺失的前提。右键点击一条结果即可跳到对应的句子。' },
+    ],
+
+    furtherTitle: '延伸阅读',
+    further: [
+      { href: 'http://acme.cat-v.org/mouse', label: 'Mouse Shortcuts in Acme', note: 'cat-v 上的经典页面' },
+      { href: 'http://acme.cat-v.org', label: 'Acme at cat-v', note: '文档与社区' },
+      { href: 'https://www.youtube.com/watch?v=dP1xVpMPn8M', label: 'A Tour of Acme', note: 'Russ Cox 的视频' },
+      { href: 'http://doc.cat-v.org/plan_9/4th_edition/papers/acme/', label: 'Acme: A User Interface for Programmers', note: 'Rob Pike 的论文' },
+    ],
+
+    docsEyebrow: '文档',
+    docsTitle: '一边是源文件,一边是成品',
+    docsLive: 'Live:边输入边排版 Markdown。',
+    docsAgent: '智能体回复的 Mermaid 图,在窗口中排版。',
+    docsTroff: '由 <a href="https://github.com/pdfinn/infernode-troff" class="text-accent hover:underline">infernode-troff</a> 排版的一章,Glenda 主题。',
+
+    mouseEyebrow: '如何使用',
+    mouseTitle: '三个按键,搞定一切',
+    mouseIntro: '鼠标操作一分钟就能学会。之后,键盘只用来打字。',
+    buttons: [
+      { name: '左键', verb: '选择', body: '点击或拖选。双击选中一个词、一行,或括号内的全部内容。' },
+      { name: '中键', verb: '运行', body: '点击一个词,或拖选几个词来运行:<code>Put</code>、<code>Del</code>、<code>grep -n TODO *.py</code>。' },
+      { name: '右键', verb: '跳转', body: '点击文件名、<code>app.py:26</code> 或 URL 将其打开。点击其他词则查找下一处。' },
+    ],
+    chordsTitle: '组合键',
+    chordsIntro: '选中后按住左键,再点按另一个键。',
+    chords: [
+      { keys: '左键 + 中键', does: '剪切' },
+      { keys: '左键 + 右键', does: '粘贴' },
+      { keys: '左键 + 中键,再按右键', does: '复制' },
+      { keys: '中键 + 左键', does: '对上次选中的文本运行命令' },
+    ],
+    trackpad: '在 Mac 触控板上,<strong class="text-text">Option-点击</strong>是中键,<strong class="text-text">Command-点击</strong>是右键。组合键需要真正的三键鼠标;没有的话,可以中键点击列标签中的 <code>Cut</code> 和 <code>Paste</code>。在 Linux 上,请使用三键鼠标或触控板的中键点击。',
+    commandsTitle: '值得记住的词',
+    commands: [
+      ['Put', '保存'],
+      ['Undo', '撤销'],
+      ['Del', '关闭窗口'],
+      ['Newcol', '新增一列'],
+      ['Zerox', '同一文件的第二个视图'],
+      ['Live', '边输入边预览文档'],
+      ['Agent', '在此打开智能体'],
+      ['Theme', '切换配色'],
+    ],
+
+    installEyebrow: '获取',
+    installTitle: '安装 Xenith',
+    installMac: 'macOS',
+    installOther: 'Linux 和 Windows',
+    installOtherBody: '从最新发布版下载 tarball 或 zip。在 Linux 上,<code>setup-desktop.sh</code> 会把 Xenith 加入应用菜单。',
+    installAgent: '要使用智能体,请先<a href="/docs/quick-start/connect-a-model/" class="text-accent hover:underline">连接模型</a>。Xenith 与 InferNode 共享设置。',
+    installCta: '全部下载',
+
+    credit: 'Xenith 站在 Rob Pike 的 Acme 之上,也受益于 Caerwyn Jones 的 Acme SAC,它让 Acme 走出 Plan 9,成为一个自成一体的系统。',
   },
 };

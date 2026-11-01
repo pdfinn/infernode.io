@@ -117,7 +117,7 @@ export default defineConfig({
     }),
     // /zh/docs/* is Starlight's English fallback for an untranslated locale.
     // Keep it reachable but out of the index so it is not duplicate content.
-    sitemap({ filter: (page) => !page.includes('/zh/docs/') }),
+    sitemap({ filter: (page) => !page.includes('/zh/docs/') && !page.includes('/iot/') }),
   ],
   vite: {
     plugins: [tailwindcss()],

@@ -5,7 +5,7 @@
 InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Bell Labs. Each agent runs in its own namespace, and every resource (files, models, devices, network services) is a file served over the 9P protocol. Every agent action can be recorded in a hash-chained audit log that lives outside the agent's namespace.
 
 - Runs hosted on macOS, Linux, Windows, Android and iOS, in 15-30 MB of RAM with a 2-second start.
-- Runs as the operating system itself (bare metal) on ARM64 and RISC-V.
+- Runs as the operating system itself (bare metal) on ARM64 and RISC-V, including Raspberry Pi 3B+, 4B and 5.
 - Veltro is the agent runtime; Lucia is the desktop; Xenith is the text environment.
 - Isolation model verified with TLA+, SPIN and CBMC. Post-quantum cryptography: ML-KEM (FIPS 203) and ML-DSA (FIPS 204).
 - Source: https://github.com/infernode-os/infernode. Releases: https://github.com/infernode-os/infernode/releases/latest
@@ -27,6 +27,7 @@ InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Be
 ## Product pages
 
 - [Veltro](https://infernode.io/veltro/): The agent runtime.
+- [Xenith](https://infernode.io/xenith/): An open source text and code editor descended from Acme, with AI coding agents in its windows, for programmers and writers.
 - [Security](https://infernode.io/security/): Formal verification of the namespace isolation model.
 - [Compare](https://infernode.io/compare/): How InferNode differs from guardrails, containers and microVM sandboxes.
 - [Platform](https://infernode.io/platform/): 9P, resources as files, distributed namespaces.
