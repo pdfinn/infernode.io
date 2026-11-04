@@ -17,6 +17,18 @@ const stats = [
   { n: '927', l: 'Mbit/s Ethernet received, measured on a Pi 5' },
   { n: '1', l: 'file tree for every device' },
 ];
+const timing = [
+  { n: '1 ms', l: 'scheduler tick on every core' },
+  { n: '&lt; 100 µs', l: 'interrupt to waiting driver, USB bulk IN, Pi 3B+' },
+  { n: '0.63 ms', l: 'Ethernet ping round trip, Pi 4' },
+  { n: '48 h', l: 'soak on a Pi 3B+: no panics, no reboots' },
+];
+const timingWhy = [
+  { icon: 'ph-recycle', title: 'No collector pauses', body: 'Reference counting frees most memory at once. A small incremental collector handles cycles in bounded steps, between time slices.' },
+  { icon: 'ph-arrows-split', title: 'Preemptive threads', body: 'Lightweight threads get a fixed slice of work, so a busy loop cannot starve the rest. Blocking calls release the VM to others.' },
+  { icon: 'ph-pulse', title: 'Edges timed at the interrupt', body: 'GPIO events are stamped in microseconds when the interrupt fires, so a slow reader sees late data, not wrong times.' },
+  { icon: 'ph-waveform', title: 'Short audio buffers', body: 'The Pi audio driver can go down to 64-frame buffers, about 1.5 ms each, for sounds that answer a person.' },
+];
 const boards = [
   { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Dual HDMI ports'] },
   { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Runs on the board', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'USB', '7" panel', 'SD card'] },
@@ -129,6 +141,32 @@ rise 6 7836364</code></pre>
         </div>
       ))}
       <p class="text-sm text-text-muted sm:col-span-2 lg:col-span-4">Styxbrick is pre-release and is not a certified safety system.</p>
+    </section>
+
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-12 text-center">
+        <p class={eyebrow}>Soft real-time</p>
+        <h2 class={`mb-4 ${h2}`}>Quick to respond, with no garbage-collection stalls</h2>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">With no Linux underneath, there is less to get between an interrupt and your code. That suits sensors, audio and control loops that can tolerate an occasional late answer.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
+        {timing.map((t) => (
+          <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-5 text-center">
+            <p class="mb-1 text-3xl font-bold text-accent" set:html={t.n} />
+            <p class="text-sm text-text-muted">{t.l}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {timingWhy.map((s) => (
+          <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-5">
+            <i class={`ph ${s.icon} mb-3 block text-2xl text-accent`} />
+            <h3 class="mb-1 font-semibold">{s.title}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{s.body}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-sm text-text-muted"><strong class="text-text">Not hard real-time.</strong> InferNode makes no deadline guarantees, and we have not yet published worst-case latency under load. Put anything that must never miss a deadline on a microcontroller, and let InferNode supervise it.</p>
     </section>
 
     <section class="mx-auto mt-32 max-w-5xl">
