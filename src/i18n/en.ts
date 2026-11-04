@@ -833,7 +833,7 @@ export const ui = {
       { keys: 'Left + Middle, then Right', does: 'Copy' },
       { keys: 'Middle, then Left', does: 'Run a command on your selection' },
     ],
-    argTitle: 'The selection as argument',
+    argTitle: 'Point a command at your selection',
     argBody: 'Select a word anywhere, say <em>gloaming</em> in your chapter. Press the middle button on <code>Dict</code> and, still holding it, click left. The dictionary opens on <em>gloaming</em>, and you typed nothing. It works with any command, your own scripts included.',
     trackpad: 'On a Mac trackpad, <strong class="text-text">Option-click</strong> is the middle button and <strong class="text-text">Command-click</strong> is the right. Chords need a real three-button mouse; without one, middle-click the words <code>Cut</code> and <code>Paste</code> in a column&rsquo;s tag. On Linux, use a three-button mouse or your touchpad&rsquo;s middle-click.',
     commandsTitle: 'Words worth knowing',
