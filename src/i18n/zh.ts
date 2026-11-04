@@ -867,8 +867,11 @@ export const ui: Ui = {
     installMac: 'macOS',
     installMacButton: '下载 Mac 版',
     installMacNote: '适用于 Apple 芯片的 Mac。也可以用 Homebrew:',
-    installOther: 'Linux 和 Windows',
-    installOtherBody: '从最新发布版下载 tarball 或 zip。在 Linux 上,<code>setup-desktop.sh</code> 会把 Xenith 加入应用菜单。',
+    installLinuxIntel: 'Intel / AMD',
+    installLinuxArm: 'ARM',
+    installLinuxNote: '解压后运行 <code>./xenith</code>,无需安装其他依赖。<code>./setup-desktop.sh</code> 会把它加入应用菜单。树莓派或 Jetson 请选 ARM。',
+    installWinButton: '下载 Windows 版',
+    installWinNote: '适用于 64 位 Windows。解压后先双击一次 <code>setup-windows.bat</code>,再打开 <code>Xenith.exe</code>。',
     installAgent: '要使用智能体,请先<a href="/docs/quick-start/connect-a-model/" class="text-accent hover:underline">连接模型</a>。Xenith 与 InferNode 共享设置。',
     installCta: '全部下载',
 

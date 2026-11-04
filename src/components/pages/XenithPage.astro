@@ -17,7 +17,8 @@ const shots = [
 const hit = ['border-[#6c7086] bg-[#54566e]', 'border-[#ae6a71] bg-[#7c484d]', 'border-[#5a8a5d] bg-[#3b603d]'];
 const releases = 'https://github.com/infernode-os/infernode/releases/latest';
 const version = '0.9.0';
-const macDmg = `https://github.com/infernode-os/infernode/releases/download/v${version}/xenith-${version}-macos-arm64.dmg`;
+const dl = (f: string) => `https://github.com/infernode-os/infernode/releases/download/v${version}/xenith-${version}-${f}`;
+const macDmg = dl('macos-arm64.dmg');
 const plain = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&rsquo;/g, "'");
 const jsonLd = [
   {
@@ -271,22 +272,29 @@ const code = '[&_code]:rounded [&_code]:bg-bg [&_code]:px-1 [&_code]:py-0.5 [&_c
     </section>
 
     <!-- Install -->
-    <section id="install" class="mx-auto mt-32 max-w-3xl scroll-mt-24 text-center">
+    <section id="install" class="mx-auto mt-32 max-w-5xl scroll-mt-24 text-center">
+      <img src="/xenith/xenith-icon.webp" alt="" width="256" height="256" class="mx-auto mb-4 h-24 w-24" />
       <p class={eyebrow}>{t.installEyebrow}</p>
       <h2 class={`mb-10 ${h2}`}>{t.installTitle}</h2>
-      <div class="grid gap-6 text-left sm:grid-cols-2">
+      <div class="grid gap-6 text-left md:grid-cols-3">
         <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
-          <h3 class="mb-3 font-semibold">{t.installMac}</h3>
-          <a href={macDmg} class="mb-3 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow">
-            <i class="ph ph-download-simple" />
-            {t.installMacButton}
-          </a>
-          <p class="mb-2 text-sm text-text-muted">{t.installMacNote}</p>
-          <pre class="whitespace-pre-wrap break-words rounded-lg border border-border bg-bg px-4 py-2 font-mono text-sm text-text"><code>brew install --cask infernode-os/tap/xenith</code></pre>
+          <h3 class="mb-4 flex items-center gap-2 font-semibold"><i class="ph ph-linux-logo text-xl" />Linux</h3>
+          <div class="mb-3 flex flex-wrap gap-2">
+            <a href={dl('linux-amd64.tar.gz')} class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"><i class="ph ph-download-simple" />{t.installLinuxIntel}</a>
+            <a href={dl('linux-arm64.tar.gz')} class="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-text transition hover:border-accent"><i class="ph ph-download-simple" />{t.installLinuxArm}</a>
+          </div>
+          <p class={`text-sm leading-relaxed text-text-muted ${code}`} set:html={t.installLinuxNote} />
         </div>
         <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
-          <h3 class="mb-3 font-semibold">{t.installOther}</h3>
-          <p class={`text-sm leading-relaxed text-text-muted ${code}`} set:html={t.installOtherBody} />
+          <h3 class="mb-4 flex items-center gap-2 font-semibold"><i class="ph ph-apple-logo text-xl" />macOS</h3>
+          <a href={macDmg} class="mb-3 inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"><i class="ph ph-download-simple" />{t.installMacButton}</a>
+          <p class="mb-2 text-sm text-text-muted">{t.installMacNote}</p>
+          <pre class="whitespace-pre-wrap break-words rounded-lg border border-border bg-bg px-3 py-2 font-mono text-xs text-text"><code>brew install --cask infernode-os/tap/xenith</code></pre>
+        </div>
+        <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
+          <h3 class="mb-4 flex items-center gap-2 font-semibold"><i class="ph ph-windows-logo text-xl" />Windows</h3>
+          <a href={dl('windows-amd64.zip')} class="mb-3 inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"><i class="ph ph-download-simple" />{t.installWinButton}</a>
+          <p class={`text-sm leading-relaxed text-text-muted ${code}`} set:html={t.installWinNote} />
         </div>
       </div>
       <p class="mt-6 text-sm text-text-muted" set:html={t.installAgent} />

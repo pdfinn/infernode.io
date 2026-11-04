@@ -857,8 +857,11 @@ export const ui = {
     installMac: 'macOS',
     installMacButton: 'Download for Mac',
     installMacNote: 'For Apple silicon Macs. Or with Homebrew:',
-    installOther: 'Linux and Windows',
-    installOtherBody: 'Download the tarball or zip from the latest release. On Linux, <code>setup-desktop.sh</code> adds Xenith to your app menu.',
+    installLinuxIntel: 'Intel / AMD',
+    installLinuxArm: 'ARM',
+    installLinuxNote: 'Unpack it and run <code>./xenith</code>; nothing else to install. <code>./setup-desktop.sh</code> adds it to your app menu. Use ARM for a Raspberry Pi or Jetson.',
+    installWinButton: 'Download for Windows',
+    installWinNote: 'For 64-bit Windows. Unzip it, double-click <code>setup-windows.bat</code> once, then open <code>Xenith.exe</code>.',
     installAgent: 'To use the agent, <a href="/docs/quick-start/connect-a-model/" class="text-accent hover:underline">connect a model</a>. Xenith shares its settings with InferNode.',
     installCta: 'All downloads',
 
