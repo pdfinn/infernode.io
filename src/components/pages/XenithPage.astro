@@ -16,6 +16,8 @@ const shots = [
 // Xenith's own selection colours: buttons 1, 2 and 3.
 const hit = ['border-[#6c7086] bg-[#54566e]', 'border-[#ae6a71] bg-[#7c484d]', 'border-[#5a8a5d] bg-[#3b603d]'];
 const releases = 'https://github.com/infernode-os/infernode/releases/latest';
+const version = '0.9.0';
+const macDmg = `https://github.com/infernode-os/infernode/releases/download/v${version}/xenith-${version}-macos-arm64.dmg`;
 const plain = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&rsquo;/g, "'");
 const jsonLd = [
   {
@@ -29,7 +31,7 @@ const jsonLd = [
     url: new URL(Astro.url.pathname, Astro.site).href,
     image: new URL('/xenith/og-xenith.png', Astro.site).href,
     downloadUrl: releases,
-    softwareVersion: '0.9.0',
+    softwareVersion: version,
     license: 'https://opensource.org/licenses/MIT',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   },
@@ -125,6 +127,21 @@ const code = '[&_code]:rounded [&_code]:bg-bg [&_code]:px-1 [&_code]:py-0.5 [&_c
       </div>
     </section>
 
+    <!-- Veltro -->
+    <section class="mx-auto mt-32 max-w-5xl">
+      <div class="mb-10 text-center">
+        <p class={eyebrow}>{t.veltroEyebrow}</p>
+        <h2 class={`mb-4 ${h2}`}>{t.veltroTitle}</h2>
+        <p class={`mx-auto max-w-2xl text-lg text-text-muted ${code}`} set:html={t.veltroIntro} />
+      </div>
+      <figure>
+        <a href="/xenith/veltro.webp" class="block overflow-hidden rounded-xl border border-border transition hover:border-accent">
+          <img src="/xenith/veltro.webp" alt={t.veltroAlt} width="1400" height="875" loading="lazy" class="block h-auto w-full" />
+        </a>
+        <figcaption class={`mt-3 text-sm text-text-muted ${code}`} set:html={t.veltroCaption} />
+      </figure>
+    </section>
+
     <!-- Beyond code -->
     <section class="mx-auto mt-32 max-w-5xl">
       <div class="mb-12 text-center">
@@ -211,6 +228,17 @@ const code = '[&_code]:rounded [&_code]:bg-bg [&_code]:px-1 [&_code]:py-0.5 [&_c
           </dl>
         </div>
       </div>
+      <div class="mt-6 rounded-xl border border-accent/40 bg-bg-surface p-6">
+        <div class="mb-3 flex items-center gap-3">
+          <div class="flex gap-1.5" aria-hidden="true">
+            <span class="h-8 w-7 rounded-md border border-[#6c7086] bg-[#54566e]"></span>
+            <span class="h-8 w-7 rounded-md border border-[#ae6a71] bg-[#7c484d]"></span>
+            <span class="h-8 w-7 rounded-md border border-border bg-bg"></span>
+          </div>
+          <h3 class="text-lg font-semibold">{t.argTitle}</h3>
+        </div>
+        <p class={`text-sm leading-relaxed text-text-muted ${code}`} set:html={t.argBody} />
+      </div>
       <p class={`mt-6 text-center text-sm text-text-muted ${code}`} set:html={t.trackpad} />
 
       <div class="mt-10">
@@ -249,6 +277,11 @@ const code = '[&_code]:rounded [&_code]:bg-bg [&_code]:px-1 [&_code]:py-0.5 [&_c
       <div class="grid gap-6 text-left sm:grid-cols-2">
         <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
           <h3 class="mb-3 font-semibold">{t.installMac}</h3>
+          <a href={macDmg} class="mb-3 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow">
+            <i class="ph ph-download-simple" />
+            {t.installMacButton}
+          </a>
+          <p class="mb-2 text-sm text-text-muted">{t.installMacNote}</p>
           <pre class="whitespace-pre-wrap break-words rounded-lg border border-border bg-bg px-4 py-2 font-mono text-sm text-text"><code>brew install --cask infernode-os/tap/xenith</code></pre>
         </div>
         <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
