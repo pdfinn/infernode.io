@@ -336,7 +336,7 @@ export const ui: Ui = {
     c5: '# 或者在笔记本上',
     b1: '<strong class="text-text">只有授权，智能体才能使用</strong> &mdash; 只有带 <code class="font-mono text-xs text-accent">sms</code>、<code class="font-mono text-xs text-accent">dial</code> 或 <code class="font-mono text-xs text-accent">contacts</code> 工具时，<code class="font-mono text-xs text-accent">/phone</code> 才会进入命名空间',
     b2: '<strong class="text-text">护栏在驱动里</strong> &mdash; 无论智能体如何行事，每分钟最多拨号十次；在 iOS 上每次通话和短信都需你确认',
-    b3: '<strong class="text-text">为触控而生</strong> &mdash; InferNode 自绘屏幕键盘，手机上可用，其他需要的地方也可用',
+    b3: '<strong class="text-text">自带键盘</strong> &mdash; 你输入的内容从不经过手机自带的键盘，输入密码时不学习、不联想',
     status: '<strong class="text-text">尚未上架 App Store 或 Play Store。</strong>应用就在源码树中，任何人都可以构建并安装：<a href="https://github.com/infernode-os/infernode/blob/master/docs/IOS.md" class="text-accent hover:underline">iOS</a>、<a href="https://github.com/infernode-os/infernode/blob/master/docs/HELLAPHONE.md" class="text-accent hover:underline">Android</a>。',
   },
 
