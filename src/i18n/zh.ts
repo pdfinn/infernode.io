@@ -320,6 +320,26 @@ export const ui: Ui = {
     foundation: '<strong class="text-text">InferNode</strong> &mdash; 运行在这一切之下的 64 位 Inferno&reg; OS。15&ndash;30 MB 内存,2 秒启动,815 个实用程序,形式化验证的隔离,Bell Labs 血统。',
   },
 
+  mobile: {
+    eyebrow: '即将登陆手机',
+    title: '装进口袋的 InferNode。',
+    intro: 'iOS 和 Android 版本已在真机上运行。同样的系统、同样的 Veltro、同样的命名空间&mdash;&mdash;手机本身也成了文件。',
+    alt: 'iPhone 上的 InferNode：Veltro 询问如何连接 LLM，下方是 InferNode 自带的屏幕键盘',
+    caption: 'iOS 上的 Veltro，配 InferNode 自带键盘。',
+    fsTitle: '手机就是一个目录。',
+    fsBody: '通话、短信、信号和通讯录都位于 <code class="font-mono text-xs text-accent">/phone</code> 下。读文件即监听，写文件即执行。任何能打开文件的程序都能使用手机&mdash;&mdash;脚本、智能体，或通过 9P 连接的另一台机器。',
+    codeLabel: 'inferno shell',
+    c1: '# 信号强度，0 到 100',
+    c2: '# 发送短信',
+    c3: '# 读取会阻塞，直到收到短信（Android）',
+    c4: '# 拨打电话',
+    c5: '# 或者在笔记本上',
+    b1: '<strong class="text-text">只有授权，智能体才能使用</strong> &mdash; 只有带 <code class="font-mono text-xs text-accent">sms</code>、<code class="font-mono text-xs text-accent">dial</code> 或 <code class="font-mono text-xs text-accent">contacts</code> 工具时，<code class="font-mono text-xs text-accent">/phone</code> 才会进入命名空间',
+    b2: '<strong class="text-text">护栏在驱动里</strong> &mdash; 无论智能体如何行事，每分钟最多拨号十次；在 iOS 上每次通话和短信都需你确认',
+    b3: '<strong class="text-text">为触控而生</strong> &mdash; InferNode 自绘屏幕键盘，手机上可用，其他需要的地方也可用',
+    status: '<strong class="text-text">尚未上架 App Store 或 Play Store。</strong>应用就在源码树中，任何人都可以构建并安装：<a href="https://github.com/infernode-os/infernode/blob/master/docs/IOS.md" class="text-accent hover:underline">iOS</a>、<a href="https://github.com/infernode-os/infernode/blob/master/docs/HELLAPHONE.md" class="text-accent hover:underline">Android</a>。',
+  },
+
   veltroFeatures: {
     eyebrow: 'Veltro',
     title: '为自主工作而生。',

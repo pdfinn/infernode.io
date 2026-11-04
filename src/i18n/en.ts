@@ -310,6 +310,26 @@ export const ui = {
     foundation: '<strong class="text-text">InferNode</strong> &mdash; the 64-bit Inferno&reg; OS that runs beneath it all. 15&ndash;30 MB RAM. 2-second startup. 815 utilities. Formally verified isolation. Bell Labs lineage.',
   },
 
+  mobile: {
+    eyebrow: 'Coming to phones',
+    title: 'InferNode in your pocket.',
+    intro: 'iOS and Android builds are running on real handsets. Same OS, same Veltro, same namespaces&mdash;plus the phone itself, as files.',
+    alt: 'InferNode on an iPhone: Veltro asking how to connect to an LLM, with InferNode’s own on-screen keyboard below',
+    caption: 'Veltro on iOS, with InferNode’s own keyboard.',
+    fsTitle: 'The phone is a directory.',
+    fsBody: 'Calls, texts, signal and contacts appear under <code class="font-mono text-xs text-accent">/phone</code>. Read a file to listen, write one to act. Anything that can open a file can use the phone&mdash;a script, an agent, or another machine over 9P.',
+    codeLabel: 'inferno shell',
+    c1: '# signal strength, 0 to 100',
+    c2: '# send a text',
+    c3: '# read blocks until one arrives (Android)',
+    c4: '# place a call',
+    c5: '# or from your laptop',
+    b1: '<strong class="text-text">Agents get it only if you grant it</strong> &mdash; <code class="font-mono text-xs text-accent">/phone</code> enters a namespace only with the <code class="font-mono text-xs text-accent">sms</code>, <code class="font-mono text-xs text-accent">dial</code> or <code class="font-mono text-xs text-accent">contacts</code> tools',
+    b2: '<strong class="text-text">Guardrails in the driver</strong> &mdash; at most ten dials a minute, however the agent behaves; on iOS you confirm every call and text',
+    b3: '<strong class="text-text">Built for touch</strong> &mdash; InferNode draws its own on-screen keyboard, on phones and anywhere else you want one',
+    status: '<strong class="text-text">Not in the App Store or Play Store yet.</strong> The apps are in the source tree and anyone can build and install them: <a href="https://github.com/infernode-os/infernode/blob/master/docs/IOS.md" class="text-accent hover:underline">iOS</a>, <a href="https://github.com/infernode-os/infernode/blob/master/docs/HELLAPHONE.md" class="text-accent hover:underline">Android</a>.',
+  },
+
   veltroFeatures: {
     eyebrow: 'Veltro',
     title: 'Built for autonomous work.',

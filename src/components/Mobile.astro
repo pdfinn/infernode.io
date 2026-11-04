@@ -1,0 +1,85 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).mobile;
+---
+
+<section id="mobile" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-14 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">{t.eyebrow}</p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.title}</h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.intro} />
+    </div>
+
+    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
+      <!-- Phone -->
+      <div class="min-w-0 mx-auto w-full max-w-[18rem]">
+        <div class="rounded-[2.25rem] border border-border bg-bg-surface p-2.5 shadow-2xl shadow-black/40">
+          <img
+            src="/mobile/phone-veltro.webp"
+            alt={t.alt}
+            width="786"
+            height="1692"
+            loading="lazy"
+            class="block w-full rounded-[1.75rem]"
+          />
+        </div>
+        <p class="mt-4 text-center text-xs text-text-muted">{t.caption}</p>
+      </div>
+
+      <!-- The phone is a directory -->
+      <div class="min-w-0">
+        <h3 class="mb-3 text-xl font-semibold">{t.fsTitle}</h3>
+        <p class="mb-6 text-sm leading-relaxed text-text-muted" set:html={t.fsBody} />
+
+        <div class="mb-6 rounded-xl border border-border bg-bg-surface overflow-hidden">
+          <div class="border-b border-border px-4 py-2 flex items-center justify-between">
+            <span class="font-mono text-xs text-accent">/phone</span>
+            <span class="text-xs text-text-muted italic">{t.codeLabel}</span>
+          </div>
+          <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
+            <div class="text-text-muted">{t.c1}</div>
+            <div>; <span class="text-node-laptop">cat</span> /phone/signal</div>
+            <div class="text-text-muted">72</div>
+            <div class="mt-3 text-text-muted">{t.c2}</div>
+            <div>; <span class="text-node-laptop">echo</span> <span class="text-node-jetson">'send +15551234567 Running ten minutes late'</span> &gt;/phone/sms</div>
+            <div class="mt-3 text-text-muted">{t.c3}</div>
+            <div>; <span class="text-node-laptop">cat</span> /phone/sms</div>
+            <div class="text-text-muted">from +15559876543 1793806200000</div>
+            <div class="text-text-muted">No rush, table's held.</div>
+            <div class="mt-3 text-text-muted">{t.c4}</div>
+            <div>; <span class="text-node-laptop">echo</span> <span class="text-node-jetson">'dial +15551234567'</span> &gt;/phone/phone</div>
+            <div class="mt-3 text-text-muted">{t.c5}</div>
+            <div>; <span class="text-node-laptop">mount</span> tcp!phone!17564 /n/phone</div>
+            <div>; <span class="text-node-laptop">grep</span> -i ada /n/phone/phone/contacts</div>
+            <div class="text-text-muted">Ada Lovelace&nbsp;&nbsp;mobile&nbsp;&nbsp;+15550001815</div>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-2">
+            <span class="mt-0.5 text-accent">&#8227;</span>
+            <span class="text-text-muted" set:html={t.b1} />
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="mt-0.5 text-accent">&#8227;</span>
+            <span class="text-text-muted" set:html={t.b2} />
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="mt-0.5 text-accent">&#8227;</span>
+            <span class="text-text-muted" set:html={t.b3} />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 rounded-xl border border-border bg-bg-surface p-6 text-center">
+      <p class="text-sm text-text-muted" set:html={t.status} />
+    </div>
+  </div>
+</section>
