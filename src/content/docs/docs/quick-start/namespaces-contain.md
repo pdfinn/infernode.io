@@ -129,8 +129,10 @@ The test that matters is not that access failed. It is *how* it failed:
 
 ## Going further
 
-**The proofs.** Namespace isolation is formally verified — in TLA+ across 3.17
-billion states, plus SPIN and CBMC models. The specifications are in
+**The models.** The isolation design is specified in TLA+ and model-checked
+exhaustively, with SPIN models of the locking and of three fixed races, and
+CBMC harnesses on the kernel's copy code. The models, and a plain statement of
+what they do and do not cover, are in
 [`formal-verification/`](https://github.com/infernode-os/infernode/tree/master/formal-verification).
 
 **The security model.** The full threat model, including what containment does
@@ -158,7 +160,7 @@ Containment bounds what can go wrong. It does not, by itself, tell you what
 
 | Layer | Mechanism | What it gives you |
 |---|---|---|
-| **Contain** | Namespace — `restrictns()`, `FORKNS`, `NODEVS` | A structural bound on reachable damage, verified in TLA+, SPIN and CBMC |
+| **Contain** | Namespace — `restrictns()`, `FORKNS`, `NODEVS` | A structural bound on reachable damage; design model-checked in TLA+, kernel code checked with SPIN and CBMC |
 | **Constrain effects** | Drafting separated from effects | Sending, mutation, payment and delegation need a fresh capability issued outside the model's namespace. The model cannot mint one. |
 | **Detect** | Hash-chained audit log with agent provenance | Every trajectory — prompts, tool calls, capability grants — sealed into a record the audited subject cannot alter, signed by factotum, verifiable offline with a public key |
 | **Restore** | Copy-on-write staging, venti snapshots | Agent writes reviewed before they touch real files; any past state remounted read-only |

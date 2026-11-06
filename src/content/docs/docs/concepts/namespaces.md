@@ -86,23 +86,27 @@ there or a remote one arrives over the network:
 Locality is not placement. It is just how the name got populated. A consumer
 that probes for where a service "really" is has misunderstood the system.
 
-## This is verified, not asserted
+## This is model-checked, not asserted
 
 The isolation property — that a mount performed in one process group never
-appears in another's mount table except by its own action — has been
-model-checked exhaustively at small scale and to **3.17 billion distinct states**
-at medium scale, with supporting SPIN models for the concurrent code and CBMC
-proofs over the C implementation.
+appears in another's mount table except by its own action — is stated as a
+TLA+ invariant over a specification of the namespace design and checked in
+every reachable state of that specification, exhaustively, with zero violations.
+SPIN models cover the kernel's locking and found three real races, since fixed.
+CBMC bounded-model-checks the kernel's copy code, `pgrpcpy()`, at its production
+configuration, with a mutation-tested harness.
 
 The specifications are in
 [`formal-verification/`](https://github.com/infernode-os/infernode/tree/master/formal-verification).
 
 :::caution[What that does and does not mean]
-The results are exhaustive *within stated bounds*, with an abstraction gap
-documented in `formal-verification/README.md`. Three real races were found and
-mitigated in the host threading layer along the way. Claims in this project cite
-evidence — a `path:line`, a test, a model — and known gaps are written down with
-tracker keys rather than rounded up to "secure."
+These are checks of a specification and of one function's deep copy, not a
+proof that the whole implementation isolates. The TLA+ and SPIN models cannot
+express shared mount structure, so the CBMC harness is the artefact that looks
+at pointers, and it covers one mount shape. The exact statement of what is and
+is not established is in `formal-verification/README.md`. Claims in this project
+cite evidence — a `path:line`, a test, a model — and known gaps are written down
+rather than rounded up to "secure."
 :::
 
 ---
