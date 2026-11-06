@@ -1,0 +1,23 @@
+---
+// A laptop, open, drawn in currentColor. What its screen shows is the slot,
+// drawn in a 372 x 234 box.
+interface Props {
+  x: number;
+  y: number;
+  width: number;
+  class?: string;
+}
+const { x, y, width, class: cls = '' } = Astro.props;
+const height = (width * 290) / 440;
+---
+
+<svg x={x} y={y} width={width} height={height} viewBox="0 0 440 290" class={cls} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="1" width="400" height="263" rx="12" class="fill-bg-surface" stroke="currentColor" stroke-opacity="0.6" stroke-width="2" />
+  <circle cx="220" cy="8" r="1.8" fill="currentColor" fill-opacity="0.5" />
+  <rect x="33" y="14" width="374" height="236" rx="3" fill="#060609" stroke="currentColor" stroke-opacity="0.25" />
+  <svg x="34" y="15" width="372" height="234" viewBox="0 0 372 234" overflow="hidden">
+    <slot />
+  </svg>
+  <path d="M2 266 H438 L428 282 Q425 288 416 288 H24 Q15 288 12 282 Z" class="fill-bg-surface" stroke="currentColor" stroke-opacity="0.6" stroke-width="2" stroke-linejoin="round" />
+  <path d="M188 266 h64 v3 q0 3 -3 3 h-58 q-3 0 -3 -3 z" fill="currentColor" fill-opacity="0.25" />
+</svg>

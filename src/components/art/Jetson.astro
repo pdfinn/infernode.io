@@ -1,0 +1,54 @@
+---
+// Our own top-down drawing of a Jetson developer kit (a carrier board, the
+// module under its heatsink and fan, the ports along the front), in
+// currentColor. Not NVIDIA's artwork.
+interface Props {
+  x: number;
+  y: number;
+  width: number;
+  class?: string;
+}
+const { x, y, width, class: cls = '' } = Astro.props;
+const height = (width * 84) / 104;
+const fins = Array.from({ length: 23 }, (_, i) => 16 + i * 3);
+const blades = Array.from({ length: 7 }, (_, i) => (i * 360) / 7);
+const ports = [
+  [5, 9], [17, 11], [31, 13], [47, 13], [63, 16], [82, 7], [92, 6],
+];
+---
+
+<svg x={x} y={y} width={width} height={height} viewBox="-2 -2 104 84" class={cls} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="79" rx="2.5" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="0.6" />
+  {[[3.5, 3.5], [96.5, 3.5], [3.5, 75.5], [96.5, 75.5]].map(([cx, cy]) => <circle cx={cx} cy={cy} r="1.6" stroke="currentColor" stroke-width="0.4" />)}
+  {Array.from({ length: 20 }, (_, i) => 22 + i * 2.54).flatMap((px) => [[px, 2.2], [px, 4.7]]).map(([px, py]) => (
+    <rect x={px - 0.6} y={py - 0.6} width="1.2" height="1.2" fill="currentColor" fill-opacity="0.5" />
+  ))}
+  <rect x="13" y="9" width="74" height="50" rx="2" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="0.5" />
+  {fins.map((fx) => <line x1={fx} y1="10.5" x2={fx} y2="57.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="0.6" />)}
+  <circle cx="50" cy="34" r="19.5" class="fill-bg" stroke="currentColor" stroke-width="0.7" />
+  <g class="jetson-fan">
+    {blades.map((a) => (
+      <path d="M50 34 C52 27 57 21 63 19.5 C60 25 56 30 50 34 Z" transform={`rotate(${a} 50 34)`} fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="0.3" />
+    ))}
+  </g>
+  <circle cx="50" cy="34" r="5" fill="currentColor" fill-opacity="0.5" />
+  {ports.map(([px, pw]) => (
+    <rect x={px} y="66" width={pw} height="14" rx="0.6" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="0.35" />
+  ))}
+  <circle cx="94" cy="61" r="1.3" fill="currentColor">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite" />
+  </circle>
+</svg>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .jetson-fan {
+      transform-box: view-box;
+      transform-origin: 50px 34px;
+      animation: jetson-spin 1.6s linear infinite;
+    }
+  }
+  @keyframes jetson-spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

@@ -6,8 +6,12 @@ interface Props {
   board: 'pi3' | 'pi4' | 'pi5' | 'pico';
   label: string;
   class?: string;
+  // Placed inside another drawing: where, and how wide (its height follows).
+  x?: number;
+  y?: number;
+  width?: number;
 }
-const { board, label, class: cls = '' } = Astro.props;
+const { board, label, class: cls = '', x, y, width } = Astro.props;
 
 const r = (x0: number, x1: number, y0: number, y1: number, kind: Part['kind'], label?: string, size?: number): Part =>
   ({ x: x0, y: y0, w: x1 - x0, h: y1 - y0, kind, label, size });
@@ -43,6 +47,7 @@ const pico = board === 'pico';
 const W = pico ? 51 : 85;
 const H = pico ? 21 : 56;
 const vb = pico ? '-2 -1 54 23' : '-1 -1 91 62';
+const height = width === undefined ? undefined : width * (pico ? 23 / 54 : 62 / 91);
 const holes = pico ? [[2, 4.8], [2, 16.2], [49, 4.8], [49, 16.2]] : [[3.5, 3.5], [61.5, 3.5], [3.5, 52.5], [61.5, 52.5]];
 const pins = pico
   ? Array.from({ length: 20 }, (_, i) => 1.37 + i * 2.54).flatMap((x) => [[x, 1.61], [x, 19.39]])
@@ -50,7 +55,7 @@ const pins = pico
 const fill = { chip: 0.4, port: 0.22, can: 0.16, ffc: 0.3, hdr: 0.3 };
 ---
 
-<svg viewBox={vb} class={cls} role={label ? 'img' : undefined} aria-label={label || undefined} fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox={vb} x={x} y={y} width={width} height={height} class={cls} role={label ? 'img' : undefined} aria-label={label || undefined} fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width={W} height={H} rx={pico ? 1 : 3} fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="0.5" />
   {holes.map(([x, y]) => <circle cx={x} cy={y} r={pico ? 1.05 : 1.5} stroke="currentColor" stroke-width="0.35" />)}
   {!pico && <rect x="6.9" y="1" width="50.8" height="5" rx="0.4" stroke="currentColor" stroke-width="0.25" />}
