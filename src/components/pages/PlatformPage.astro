@@ -4,19 +4,18 @@ import Nav from '../Nav.astro';
 import Vision from '../Vision.astro';
 import Pillars from '../Pillars.astro';
 import Screenshot from '../Screenshot.astro';
-import NetworkDiagram from '../NetworkDiagram.astro';
 import DistributedArch from '../DistributedArch.astro';
 import Contributing from '../Contributing.astro';
 import WhyNow from '../WhyNow.astro';
-import UseCases from '../UseCases.astro';
 import Footer from '../Footer.astro';
-import { useTranslations, type Lang } from '../../i18n/utils';
+import { useTranslations, p, type Lang } from '../../i18n/utils';
 
 // The sections that used to make the homepage 14 screens long.
 interface Props { lang?: Lang; }
 const { lang = 'en' } = Astro.props;
 const meta = useTranslations(lang).meta.platform;
 const t = useTranslations(lang).platformPage;
+const ex = useTranslations(lang).platformExamples;
 ---
 
 <Base title={meta.title} description={meta.description} lang={lang}>
@@ -32,11 +31,19 @@ const t = useTranslations(lang).platformPage;
     <Vision lang={lang} />
     <Pillars lang={lang} />
     <Screenshot lang={lang} />
-    <NetworkDiagram lang={lang} />
+    <section class="px-6 py-16">
+      <a href={p('/examples', lang)} class="group mx-auto flex max-w-3xl flex-col items-start gap-4 rounded-2xl border border-border bg-bg-surface p-8 transition hover:border-accent sm:flex-row sm:items-center">
+        <i class="ph ph-video-camera text-4xl text-accent" aria-hidden="true"></i>
+        <div class="flex-1">
+          <h2 class="mb-1 text-xl font-semibold">{ex.title}</h2>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={ex.body} />
+        </div>
+        <span class="text-sm font-medium text-accent group-hover:underline" set:html={ex.cta} />
+      </a>
+    </section>
     <DistributedArch lang={lang} />
     <Contributing lang={lang} />
     <WhyNow lang={lang} />
-    <UseCases lang={lang} />
   </main>
   <Footer lang={lang} />
 </Base>

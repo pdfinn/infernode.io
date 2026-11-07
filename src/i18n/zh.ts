@@ -33,6 +33,11 @@ export const ui: Ui = {
       description:
         'InferNode 的智能体隔离内建于操作系统,并以形式化方法检查:设计在 TLA+ 中经模型检查、零违规,内核代码经 SPIN 与 CBMC 检查。一款为信任而生的分布式操作系统。',
     },
+    examples: {
+      title: '示例 — 真实设备上的计算机视觉、物联网与导航 | InferNode',
+      description:
+        '真实设备上的 InferNode:Raspberry Pi 上的物流园区闸口摄像头,Jetson 上的识别,办公室里的画面;一条船的 AIS 和本地模型以文件呈现;以及它的应用场景。',
+    },
     platform: {
       title: 'InferNode 平台 — 一切资源皆文件 | InferNode',
       description:
@@ -63,6 +68,7 @@ export const ui: Ui = {
     quickStart: '快速开始',
     docs: '文档',
     platform: '平台',
+    examples: '示例',
     download: '下载',
     github: 'GitHub',
     menuLabel: '切换导航菜单',
@@ -136,6 +142,21 @@ export const ui: Ui = {
         { label: '公开对抗测试', values: ['模型厂商的红队报告', '并非针对智能体', '并非针对智能体', '一套公开的<a href="https://github.com/infernode-os/infernode-escape-room" class="text-accent hover:text-accent-glow">测试框架</a>,由 AI 模型发起攻击'] },
       ],
     },
+  },
+
+  examplesPage: {
+    eyebrow: '示例与应用场景',
+    title: '真实的设备,做真实的事。',
+    intro: '每个示例都是几台机器:每台把自己拥有的东西以文件形式提供出来,再由一台把它们挂载起来。其中没有任何东西是为网络专门编写的。',
+    tabVision: '计算机视觉',
+    tabNav: '物联网与导航',
+    tabUses: '应用场景',
+  },
+
+  platformExamples: {
+    title: '在真实设备上看看',
+    body: 'Raspberry Pi 上的物流园区闸口摄像头,Jetson 上的识别,办公室里的画面。一条船的 AIS 接收机和本地模型,在海图桌上使用。',
+    cta: '查看示例 &rarr;',
   },
 
   platformPage: {
@@ -213,7 +234,7 @@ export const ui: Ui = {
   },
 
   networkDiagram: {
-    eyebrow: '计算机即网络',
+    eyebrow: '物联网与导航',
     title: '你的设备。一个命名空间。无需云端。',
     intro: '一条船,三台计算机。Raspberry Pi 连着 AIS 接收机,Jetson 有 GPU,笔记本有屏幕。每台设备把自己拥有的东西以文件形式提供出来;笔记本挂载它们,它的航行地图和它的智能体用起来就像用自己的一样。',
     figLabel: '一台连着 AIS 接收机的 Raspberry Pi 和一台 Jetson,各自连到一台笔记本;笔记本显示附近船只的航行地图和 Veltro 对话;上方是可选的云端连接。',
@@ -240,6 +261,33 @@ export const ui: Ui = {
   },
 
 
+  visionGate: {
+    eyebrow: '计算机视觉',
+    title: '摄像头在闸口,识别在岗亭,画面在办公室。',
+    intro: '一个物流园区的车辆闸口。栏杆立柱上的 Raspberry Pi 把它的摄像头提供为实时视频流。岗亭里的 Jetson 跟随这路视频流,说出每一帧里有什么。园区办公室看到的是车道画面,以及画在上面的识别结果:停在栏杆前的卡车,还有出现在只该有车辆的车道上的行人。',
+    figLabel: '一台带 Camera Module 3 的 Raspberry Pi 4 把视频帧发给一台 Jetson 和办公室的显示器;Jetson 把文本记录发给显示器,显示器上的闸口车道中,一辆卡车和一个行人被框出并标注。',
+    caption: '视频帧只去需要识别或显示它的地方。识别结果以文本传输。',
+    chipFrames: '视频帧',
+    chipRecords: '记录',
+    n1Title: 'Raspberry Pi 4,在栏杆立柱上',
+    n1Body: '一个 Camera Module 3,运行在没有任何底层系统的 InferNode 上。<code class="font-mono text-xs">camsrv</code> 把它提供为实时视频流,576&times;324 下每秒 30 帧,开机时根据存储卡上的设置自动启动。只有在有人读取时传感器才会工作。',
+    n2Title: 'Jetson,在岗亭里',
+    n2Body: '<code class="font-mono text-xs">visionfs</code> 通过 9P 跟随 Pi 的视频流,在自己的处理器核心上运行 YOLOX 检测器。每次准备好时它都取最新的一帧,从不拖慢摄像头。模型权重的 SHA-256 与记录不符时会被拒绝加载。',
+    n3Title: '园区办公室',
+    n3Path: '合成画面',
+    n3Body: '挂载 Pi 的视频流和 Jetson 的检测结果,并把检测结果作为一个图层绑定到视频流上。方框是在这里、由查看端画出的,所以同一摄像头的另一个查看者只会看到它自己绑定的图层。',
+    agentTitle: '智能体得到的是:记录,而不是画面',
+    agentBody: '智能体永远拿不到摄像头或它的视频流:它们作为授权会被拒绝,而且只要授权把视频和网络或模型放在一起,<code class="font-mono text-xs">nsaudit</code> 就会标记出来。Veltro 的 <code class="font-mono text-xs">vision</code> 工具只被授予 <code class="font-mono text-xs">/mnt/vision</code>,不会把图片发往别处。这整个场景里根本没有云。',
+    termPi: '在 Pi 上',
+    termPiNote: '# camsrv 已在开机时启动于 /mnt/video',
+    termJetson: '在 Jetson 上',
+    termOffice: '在办公室',
+    after: '会话的 <code class="font-mono text-xs">src</code> 是 Jetson 命名空间里的路径,Pi 的视频流就挂载在那里。由哪台机器来识别,只取决于挂载的是哪一个 <code class="font-mono text-xs">/mnt/vision</code>。每条记录占一行:<code class="font-mono text-xs">frame=4127 class=person score=0.91 x0=94 y0=186 x1=136 y1=263</code>。',
+    stillsTitle: '同样的记录,用于事后',
+    stillsBody: '<code class="font-mono text-xs">vision/detect</code>、<code class="font-mono text-xs">vision/draw</code> 和 <code class="font-mono text-xs">vision/crop</code> 都是处理记录的过滤器,中间可以插入任何东西:<code class="font-mono text-xs">grep</code>、<code class="font-mono text-xs">awk</code>、一个文件、一个人。',
+    stillsNote: '# 每张有人的照片,都框出来。识别由 Jetson 完成。',
+  },
+
   distributedArch: {
     eyebrow: '分布式是与生俱来的',
     title: '代码可移动。应用可延伸。无需重启。',
@@ -258,14 +306,14 @@ export const ui: Ui = {
     hotloadPracticeBody: '在阵风不断的锚地,锚位报警总是无故叫醒船员。在笔记本上调大报警半径并重新构建;船队里每条船上的 Pi 在下次启动报警时就运行新版本。无需重刷任何板子,也无需重启。',
     remoteTitle: '在那边运行,在这边查看。',
     remoteFigLabel: '一台没有屏幕的 Jetson 放在架子上;它的桌面出现在笔记本的一个窗口里。绘图从 Jetson 传到笔记本,鼠标和键盘从笔记本传回去。',
-    remoteNoScreen: '在船舱下,没有屏幕',
+    remoteNoScreen: '在机柜里,没有屏幕',
     remoteTermLabel: 'Jetson 的桌面,在笔记本的窗口里',
     remoteTermNote1: '# 你屏幕上的一个窗口现在就是 Jetson 的桌面。',
     remoteTermNote2: '# 程序在 Jetson 上运行;它们用的屏幕、鼠标和键盘是你的。',
     remoteDevsLabel: '开发者视角',
     remoteDevsBody: '程序通过写 <code class="font-mono text-xs">/dev/draw</code> 来绘图,读 <code class="font-mono text-xs">/dev/pointer</code> 和 <code class="font-mono text-xs">/dev/keyboard</code> 来获取输入。<code class="font-mono text-xs">cpu</code> 在另一台机器上运行它,并把你的这些设备放进它的命名空间。这就是远程桌面的全部:没有专门的协议,走经过认证和加密的连接,监听在你打开之前一直是关闭的。<a href="https://github.com/infernode-os/infernode/blob/master/docs/REMOTE-DESKTOP.md" class="text-accent hover:underline">使用指南</a>。',
     remotePracticeLabel: '实际场景',
-    remotePracticeBody: '船舱下的 Jetson 有 GPU,但没有屏幕。在海图桌的笔记本上打开它的桌面,就像坐在它面前一样使用。任何有屏幕的 InferNode 都可以当查看端,一台无屏幕的 Pi 也可以当节点。',
+    remotePracticeBody: '机柜里的 Jetson 有 GPU,但没有屏幕。在你的笔记本上打开它的桌面,就像坐在它面前一样使用。任何有屏幕的 InferNode 都可以当查看端,一台无屏幕的 Pi 也可以当节点。',
   },
 
 

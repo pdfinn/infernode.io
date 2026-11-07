@@ -1,0 +1,23 @@
+---
+// Our own drawing of a Raspberry Pi Camera Module 3 (25 x 24 mm): the
+// board, its four holes, the lens and the ribbon's connector along the
+// bottom edge. Drawn in currentColor; not Raspberry Pi's artwork.
+interface Props {
+  x: number;
+  y: number;
+  width: number;
+  class?: string;
+}
+const { x, y, width, class: cls = '' } = Astro.props;
+const height = (width * 26) / 27;
+---
+
+<svg x={x} y={y} width={width} height={height} viewBox="-1 -1 27 26" class={cls} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="25" height="24" rx="1.5" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="0.35" />
+  {[[2, 2], [23, 2], [2, 14.5], [23, 14.5]].map(([cx, cy]) => <circle cx={cx} cy={cy} r="1.1" stroke="currentColor" stroke-width="0.25" />)}
+  <rect x="8.25" y="3.5" width="8.5" height="8.5" rx="0.8" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.3" />
+  <circle cx="12.5" cy="7.75" r="3.4" class="fill-bg" stroke="currentColor" stroke-width="0.35" />
+  <circle cx="12.5" cy="7.75" r="1.9" fill="currentColor" fill-opacity="0.35" />
+  <circle cx="11.6" cy="6.9" r="0.55" fill="currentColor" fill-opacity="0.9" />
+  <rect x="5" y="17.5" width="15" height="5.5" rx="0.4" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="0.3" />
+</svg>

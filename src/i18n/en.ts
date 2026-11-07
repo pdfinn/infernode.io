@@ -23,6 +23,11 @@ export const ui = {
       description:
         "InferNode's agent isolation is built into the operating system and checked with formal methods: the design is model-checked in TLA+ with zero violations, and the kernel code is checked with SPIN and CBMC. A distributed operating system built for trust.",
     },
+    examples: {
+      title: 'Examples — Computer Vision, IoT and Navigation on Real Devices | InferNode',
+      description:
+        'InferNode on real devices: a depot gate camera on a Raspberry Pi with recognition on a Jetson and the picture in the office, a boat\'s AIS and local model as files, and where people use it.',
+    },
     platform: {
       title: 'The InferNode Platform — Every Resource Is a File | InferNode',
       description:
@@ -53,6 +58,7 @@ export const ui = {
     quickStart: 'Quick Start',
     docs: 'Docs',
     platform: 'Platform',
+    examples: 'Examples',
     download: 'Download',
     github: 'GitHub',
     menuLabel: 'Toggle navigation menu',
@@ -126,6 +132,21 @@ export const ui = {
         { label: 'Public adversarial testing', values: ['Vendor red-team reports', 'Not agent-specific', 'Not agent-specific', 'A <a href="https://github.com/infernode-os/infernode-escape-room" class="text-accent hover:text-accent-glow">public harness</a> of attack campaigns by AI models'] },
       ],
     },
+  },
+
+  examplesPage: {
+    eyebrow: 'Examples and use cases',
+    title: 'Real devices, doing real work.',
+    intro: 'Each example is a handful of machines, each serving what it has as files, and one that mounts them. Nothing in them was written for the network.',
+    tabVision: 'Computer vision',
+    tabNav: 'IoT and navigation',
+    tabUses: 'Use cases',
+  },
+
+  platformExamples: {
+    title: 'See it on real devices',
+    body: 'A depot gate&rsquo;s camera on a Raspberry Pi, recognition on a Jetson, the picture in the office. A boat&rsquo;s AIS receiver and local model, used from the chart table.',
+    cta: 'The examples &rarr;',
   },
 
   platformPage: {
@@ -203,7 +224,7 @@ export const ui = {
   },
 
   networkDiagram: {
-    eyebrow: 'The Computer Is the Network',
+    eyebrow: 'IoT and navigation',
     title: 'Your devices. One namespace. No cloud required.',
     intro: 'A boat with three computers. The Raspberry Pi has the AIS receiver, the Jetson has the GPU, the laptop has the screen. Each serves what it has as files; the laptop mounts them, and its moving map and its agent use them as if they were its own.',
     figLabel: 'A Raspberry Pi with an AIS receiver and a Jetson, each cabled to a laptop that shows a moving map of nearby ships and a Veltro chat; an optional cloud link above.',
@@ -229,6 +250,33 @@ export const ui = {
     after: 'Nothing here was written for the network. gpsfs and llmsrv serve files; <code class="font-mono text-xs">export</code> and <code class="font-mono text-xs">mount</code> carry them over 9P, authenticated, and every program that reads files can use them.',
   },
 
+  visionGate: {
+    eyebrow: 'Computer vision',
+    title: 'Camera at the gate. Recognition in the gatehouse. The picture in the office.',
+    intro: 'A distribution depot&rsquo;s vehicle gate. A Raspberry Pi on the barrier post serves its camera as a live feed. A Jetson in the gatehouse follows that feed and says what is in each frame. The yard office sees the lane with what was found drawn on it: the truck at the barrier, and anyone on foot where only vehicles should be.',
+    figLabel: 'A Raspberry Pi 4 with a Camera Module 3 sends frames to a Jetson and to an office monitor; the Jetson sends text records to the monitor, which shows the gate lane with a truck and a person boxed and labelled.',
+    caption: 'Frames go where they are looked at or shown. What was found travels as text.',
+    chipFrames: 'frames',
+    chipRecords: 'records',
+    n1Title: 'Raspberry Pi 4, on the barrier post',
+    n1Body: 'A Camera Module 3, on InferNode with nothing underneath it. <code class="font-mono text-xs">camsrv</code> serves it as a live feed, 30 frames a second at 576&times;324, and starts at boot from the card. The sensor runs only while something reads it.',
+    n2Title: 'Jetson, in the gatehouse',
+    n2Body: '<code class="font-mono text-xs">visionfs</code> follows the Pi&rsquo;s feed over 9P and runs a YOLOX detector on its own cores. It takes the newest frame each time it is ready and never holds the camera back. Its weights are refused unless their SHA-256 is the one recorded.',
+    n3Title: 'The yard office',
+    n3Path: 'the composite',
+    n3Body: 'Mounts the Pi&rsquo;s feed and the Jetson&rsquo;s detections, and binds the detections onto the feed as a layer. The boxes are drawn here, by the viewer, so another viewer of the same camera sees only the layers it bound.',
+    agentTitle: 'What an agent gets: records, not pictures',
+    agentBody: 'An agent is never given the camera or its feed: they are refused as grants, and <code class="font-mono text-xs">nsaudit</code> flags any grant that pairs video with the network or a model. Veltro&rsquo;s <code class="font-mono text-xs">vision</code> tool is granted <code class="font-mono text-xs">/mnt/vision</code> alone and sends a picture nowhere else. There is no cloud in this picture at all.',
+    termPi: 'on the Pi',
+    termPiNote: '# camsrv was started at boot on /mnt/video',
+    termJetson: 'on the Jetson',
+    termOffice: 'in the office',
+    after: 'A session&rsquo;s <code class="font-mono text-xs">src</code> is a path in the Jetson&rsquo;s namespace, where the Pi&rsquo;s feed is mounted. Which machine does the looking is simply which <code class="font-mono text-xs">/mnt/vision</code> is mounted. Each record is one line: <code class="font-mono text-xs">frame=4127 class=person score=0.91 x0=94 y0=186 x1=136 y1=263</code>.',
+    stillsTitle: 'The same records, after the fact',
+    stillsBody: '<code class="font-mono text-xs">vision/detect</code>, <code class="font-mono text-xs">vision/draw</code> and <code class="font-mono text-xs">vision/crop</code> are filters over records, so anything can stand between them: <code class="font-mono text-xs">grep</code>, <code class="font-mono text-xs">awk</code>, a file, a person.',
+    stillsNote: '# Every picture with someone in it, boxed. The Jetson does the looking.',
+  },
+
   distributedArch: {
     eyebrow: 'Distributed by Design',
     title: 'Code moves. Apps stretch. Nothing restarts.',
@@ -247,14 +295,14 @@ export const ui = {
     hotloadPracticeBody: 'The anchor alarm wakes the crew for nothing in a gusty anchorage. Widen its radius on the laptop and rebuild; the Pi on every boat in the fleet runs the change the next time it starts the alarm. No board is reflashed or restarted.',
     remoteTitle: 'Run there. See here.',
     remoteFigLabel: 'A Jetson with no screen sits on a shelf; its desktop appears in a window on a laptop. Drawing goes from the Jetson to the laptop; mouse and keyboard go back.',
-    remoteNoScreen: 'below deck, no screen',
+    remoteNoScreen: 'in the cupboard, no screen',
     remoteTermLabel: 'the Jetson\'s desktop, in a window on the laptop',
     remoteTermNote1: "# A window on your screen is now the Jetson's desktop.",
     remoteTermNote2: '# Its programs run on the Jetson; their screen, mouse and keyboard are yours.',
     remoteDevsLabel: 'For developers',
     remoteDevsBody: 'A program draws by writing to <code class="font-mono text-xs">/dev/draw</code> and reads <code class="font-mono text-xs">/dev/pointer</code> and <code class="font-mono text-xs">/dev/keyboard</code>. <code class="font-mono text-xs">cpu</code> runs it on another machine with yours in its namespace. That is the whole of remote desktop: no protocol of its own, over an authenticated, encrypted connection, with the listener off until you turn it on. <a href="https://github.com/infernode-os/infernode/blob/master/docs/REMOTE-DESKTOP.md" class="text-accent hover:underline">The guide</a>.',
     remotePracticeLabel: 'In practice',
-    remotePracticeBody: 'The Jetson below deck has the GPU and no screen. Open its desktop from the laptop at the chart table and work on it as though you were sitting at it. Any InferNode with a screen can be the viewer, and a headless Pi can be the node.',
+    remotePracticeBody: 'The Jetson in the cupboard has the GPU and no screen. Open its desktop from your laptop and work on it as though you were sitting at it. Any InferNode with a screen can be the viewer, and a headless Pi can be the node.',
   },
 
 

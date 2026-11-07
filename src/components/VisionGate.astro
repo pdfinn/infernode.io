@@ -1,0 +1,218 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+import BoardArt from './BoardArt.astro';
+import CameraModule from './art/CameraModule.astro';
+import Jetson from './art/Jetson.astro';
+import Monitor from './art/Monitor.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang).visionGate;
+
+// The cables: frames from the Pi to the Jetson and to the office, records
+// from the Jetson to the office. Their dots run along the same paths.
+const toJetson = 'M272 152 C420 152 560 142 698 142';
+const toOffice = 'M155 280 C155 350 210 382 298 382';
+const records = 'M806 240 C806 330 740 382 662 382';
+
+// The picture on the office screen is the camera's 576x324, shown 416x234
+// from y=6; the records give what is drawn in the frame's own pixels.
+const fx = (sx: number) => Math.round((sx * 576) / 416);
+const fy = (sy: number) => Math.round(((sy - 6) * 324) / 234);
+const found = [
+  { cls: 'truck', score: '0.88', x0: 136, y0: 64, x1: 274, y1: 192, stroke: 'stroke-node-llm', fill: 'fill-node-llm' },
+  { cls: 'person', score: '0.91', x0: 68, y0: 140, x1: 98, y1: 196, stroke: 'stroke-node-rpi', fill: 'fill-node-rpi' },
+];
+const rec = (f: (typeof found)[number]) =>
+  `frame=4127 class=${f.cls} score=${f.score} x0=${fx(f.x0)} y0=${fy(f.y0)} x1=${fx(f.x1)} y1=${fy(f.y1)}`;
+
+const legend = [
+  { n: 1, color: 'text-node-rpi', border: 'border-node-rpi/40', title: t.n1Title, path: '/mnt/video/0', body: t.n1Body },
+  { n: 2, color: 'text-node-jetson', border: 'border-node-jetson/40', title: t.n2Title, path: '/mnt/vision', body: t.n2Body },
+  { n: 3, color: 'text-node-laptop', border: 'border-node-laptop/40', title: t.n3Title, path: t.n3Path, body: t.n3Body },
+];
+
+const terminals = [
+  { label: t.termPi, color: 'bg-node-rpi', lines: [
+    ['', t.termPiNote],
+    ['; ', "listen 'tcp!*!styx' {export /mnt/video} &"],
+  ] },
+  { label: t.termJetson, color: 'bg-node-jetson', lines: [
+    ['; ', "mount 'tcp!gatepi!styx' /n/gatepi"],
+    ['; ', 'visionfs load nano /lib/vision/yolox-nano'],
+    ['; ', "listen 'tcp!*!5650' {export /mnt/vision} &"],
+  ] },
+  { label: t.termOffice, color: 'bg-node-laptop', lines: [
+    ['; ', "mount 'tcp!gatepi!styx' /mnt/video"],
+    ['; ', "mount 'tcp!jetson!5650' /mnt/vision"],
+    ['; ', '{'],
+    ['', '    id=`{read}'],
+    ['', '    echo src /n/gatepi/0 > /mnt/vision/$id/ctl'],
+    ['', '    echo classes person truck car > /mnt/vision/$id/ctl'],
+    ['', '    bind -a /mnt/vision/$id/layer /mnt/video/0/layer'],
+    ['', '    wm/camera'],
+    ['', '} < /mnt/vision/clone'],
+  ] },
+];
+---
+
+<section id="vision" class="scroll-mt-28 px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-14 text-center">
+      <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
+        {t.eyebrow}
+      </p>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+        {t.title}
+      </h2>
+      <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.intro} />
+    </div>
+
+    <figure class="mx-auto max-w-4xl">
+      <svg viewBox="0 0 960 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full" role="img" aria-label={t.figLabel}>
+        <!-- Cables -->
+        <path d={toJetson} class="stroke-node-rpi/50" stroke-width="4" stroke-linecap="round" />
+        <path d={toOffice} class="stroke-node-rpi/50" stroke-width="4" stroke-linecap="round" />
+        <path d={records} class="stroke-node-jetson/60" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round" />
+        {[toJetson, toOffice].map((d, i) => [0, -0.6, -1.2].map((b) => (
+          <rect x="-6" y="-4.5" width="12" height="9" rx="1.5" class="fill-node-rpi">
+            <animateMotion dur={`${1.8 + i * 0.2}s`} begin={`${b}s`} repeatCount="indefinite" path={d} />
+          </rect>
+        )))}
+        <g>
+          <path d="M-6 -3 h12 M-6 0 h9 M-6 3 h11" class="stroke-node-jetson" stroke-width="1.6" stroke-linecap="round" />
+          <animateMotion dur="2.6s" repeatCount="indefinite" path={records} />
+        </g>
+
+        <g font-family="var(--font-family-mono)" font-size="14" text-anchor="middle">
+          <rect x="440" y="134" width="84" height="24" rx="12" class="fill-bg stroke-node-rpi/50" />
+          <text x="482" y="151" class="fill-node-rpi">{t.chipFrames}</text>
+          <rect x="151" y="344" width="84" height="24" rx="12" class="fill-bg stroke-node-rpi/50" />
+          <text x="193" y="361" class="fill-node-rpi">{t.chipFrames}</text>
+          <rect x="716" y="332" width="96" height="24" rx="12" class="fill-bg stroke-node-jetson/50" />
+          <text x="764" y="349" class="fill-node-jetson">{t.chipRecords}</text>
+        </g>
+
+        <!-- 1: the Pi at the gate, and its camera on the ribbon -->
+        <BoardArt board="pi4" label="" x={40} y={120} width={230} class="text-node-rpi" />
+        <path d="M162 206 C162 150 145 140 145 82" class="stroke-node-rpi/30" stroke-width="11" />
+        <path d="M162 206 C162 150 145 140 145 82" class="stroke-node-rpi/70" stroke-width="1" stroke-dasharray="1 3" />
+        <CameraModule x={110} y={20} width={70} class="text-node-rpi" />
+
+        <!-- 2: the Jetson in the gatehouse -->
+        <Jetson x={696} y={58} width={220} class="text-node-jetson" />
+
+        <!-- 3: the office's screen, with what was found drawn on the picture -->
+        <Monitor x={290} y={262} width={380} class="text-node-laptop">
+          <rect width="416" height="240" fill="#0e1220" />
+          <rect y="92" width="416" height="148" fill="#15171c" />
+          <path d="M156 92 H262 L392 240 H24 Z" fill="#1d2027" />
+          <line x1="209" y1="92" x2="209" y2="240" stroke="#ffffff" stroke-opacity="0.25" stroke-dasharray="7 9" />
+          <rect x="318" y="62" width="82" height="80" fill="#232733" stroke="#2f3442" />
+          <rect x="334" y="80" width="26" height="18" class="fill-node-llm/40" />
+          <rect x="368" y="80" width="22" height="18" class="fill-node-llm/25" />
+          <!-- a truck, front on, waiting -->
+          <rect x="140" y="68" width="130" height="28" rx="2" fill="#252a36" stroke="#343a4a" />
+          <rect x="148" y="94" width="114" height="82" rx="4" fill="#2b3140" stroke="#3a4254" />
+          <rect x="157" y="102" width="96" height="27" rx="3" fill="#4a6080" fill-opacity="0.55" />
+          <rect x="176" y="139" width="58" height="26" rx="2" fill="#20242e" />
+          {[143, 148, 153, 158].map((gy) => <line x1="180" y1={gy + 1} x2="230" y2={gy + 1} stroke="#3a4254" />)}
+          <circle cx="162" cy="160" r="6" class="fill-node-llm" fill-opacity="0.85" />
+          <circle cx="248" cy="160" r="6" class="fill-node-llm" fill-opacity="0.85" />
+          <rect x="150" y="176" width="20" height="14" rx="2" fill="#101218" />
+          <rect x="240" y="176" width="20" height="14" rx="2" fill="#101218" />
+          <!-- someone on foot in the vehicle lane -->
+          <circle cx="83" cy="148" r="5.5" fill="#8a8fa0" />
+          <path d="M77 156 h12 l2 20 h-3 l-1 18 h-3 l-1 -14 l-1 14 h-3 l-1 -18 h-3 z" fill="#8a8fa0" />
+          <!-- the barrier, nearer than both -->
+          <rect x="328" y="150" width="8" height="64" fill="#3a3f4c" />
+          <rect x="90" y="197" width="240" height="7" rx="2" fill="#e4e4ef" />
+          {[96, 132, 168, 204, 240, 276, 312].map((bx) => <rect x={bx} y="197" width="18" height="7" class="fill-node-rpi" />)}
+
+          {found.map((f) => (
+            <>
+              <rect x={f.x0} y={f.y0} width={f.x1 - f.x0} height={f.y1 - f.y0} class={f.stroke} stroke-width="1.8" />
+              <rect x={f.x0 - 0.9} y={f.y0 - 12} width={f.cls.length * 4.6 + 26} height="12" class={f.fill} />
+              <text x={f.x0 + 3} y={f.y0 - 3} class="fill-bg" font-size="8" font-weight="600" font-family="var(--font-family-mono)">{f.cls} {f.score}</text>
+            </>
+          ))}
+
+          <rect width="416" height="14" class="fill-bg-surface" />
+          <text x="7" y="10" class="fill-text-muted" font-size="7.5" font-family="var(--font-family-mono)">wm/camera</text>
+          <text x="409" y="10" text-anchor="end" class="fill-text-muted" font-size="7" font-family="var(--font-family-mono)">576x324  30 fps</text>
+          <rect y="212" width="416" height="28" fill="#000000" fill-opacity="0.7" />
+          <g font-size="6.6" font-family="var(--font-family-mono)" class="fill-text-muted">
+            <text x="7" y="223">{rec(found[1])}</text>
+            <text x="7" y="234">{rec(found[0])}</text>
+          </g>
+        </Monitor>
+
+        <g font-family="var(--font-family-sans)" font-size="15" font-weight="700" text-anchor="middle">
+          {[
+            [28, 112, 'fill-node-rpi'],
+            [690, 50, 'fill-node-jetson'],
+            [282, 256, 'fill-node-laptop'],
+          ].map(([cx, cy, fill], i) => (
+            <>
+              <circle cx={cx} cy={cy} r="15" class={fill as string} />
+              <text x={cx} y={(cy as number) + 5} class="fill-bg">{i + 1}</text>
+            </>
+          ))}
+        </g>
+      </svg>
+      <figcaption class="mt-2 text-center text-sm text-text-muted">{t.caption}</figcaption>
+    </figure>
+
+    <ol class="mt-12 grid gap-4 md:grid-cols-3">
+      {legend.map((d) => (
+        <li class={`rounded-xl border ${d.border} bg-bg-surface p-5`}>
+          <div class="mb-3 flex items-center gap-3">
+            <span class={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-current text-sm font-bold ${d.color}`}><span class="text-bg">{d.n}</span></span>
+            <h3 class="font-semibold leading-snug">{d.title}</h3>
+          </div>
+          <p class={`mb-2 font-mono text-xs ${d.color}`}>{d.path}</p>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={d.body} />
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-4 flex gap-4 rounded-xl border border-accent/30 bg-accent/5 p-5">
+      <i class="ph ph-shield-check mt-0.5 shrink-0 text-2xl text-accent" aria-hidden="true"></i>
+      <div>
+        <h3 class="mb-1 font-semibold">{t.agentTitle}</h3>
+        <p class="text-sm leading-relaxed text-text-muted" set:html={t.agentBody} />
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {terminals.map((term, i) => (
+        <div class:list={['min-w-0 overflow-hidden rounded-xl border border-border bg-bg-surface font-mono text-[13px]', i === 2 && 'md:col-span-2']}>
+          <div class="flex items-center gap-2 border-b border-border px-4 py-2">
+            <div class={`h-2.5 w-2.5 rounded-full ${term.color}`}></div>
+            <span class="text-xs text-text-muted">{term.label}</span>
+          </div>
+          <div class="overflow-x-auto p-4 leading-relaxed">
+            {term.lines.map(([p, l]) => (
+              <div class="whitespace-pre">{p && <span class="text-accent">{p}</span>}<span class={p || !l.startsWith('#') ? 'text-text' : 'text-text-muted'}>{l}</span></div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-sm text-text-muted" set:html={t.after} />
+
+    <div class="mx-auto mt-14 max-w-3xl">
+      <h3 class="mb-2 text-center text-xl font-semibold">{t.stillsTitle}</h3>
+      <p class="mx-auto mb-6 max-w-2xl text-center text-text-muted" set:html={t.stillsBody} />
+      <div class="overflow-hidden rounded-xl border border-border bg-bg-surface font-mono text-[13px]">
+        <div class="overflow-x-auto p-4 leading-relaxed">
+          <div class="whitespace-pre"><span class="text-accent">; </span><span class="text-text">vision/detect /usr/yard/snaps/*.jpg &gt; today</span></div>
+          <div class="whitespace-pre"><span class="text-accent">; </span><span class="text-text">grep 'class=person' today | vision/draw -d /usr/yard/people -o png</span></div>
+          <div class="whitespace-pre text-text-muted">{t.stillsNote}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
