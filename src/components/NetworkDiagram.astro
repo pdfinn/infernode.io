@@ -1,16 +1,57 @@
 ---
 import { useTranslations, type Lang } from '../i18n/utils';
+import BoardArt from './BoardArt.astro';
+import Laptop from './art/Laptop.astro';
+import Jetson from './art/Jetson.astro';
+import AisReceiver from './art/AisReceiver.astro';
 
 interface Props {
   lang?: Lang;
 }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang).networkDiagram;
+
+// The cables, device to laptop; the dots that run along them use the same paths.
+const piCable = 'M150 236 C150 330 200 405 284 405';
+const jetsonCable = 'M806 238 C806 330 760 405 676 405';
+const cloudCable = 'M480 118 V262';
+
+const ship = 'M0 -7 L5 5 L0 2 L-5 5 Z';
+const ships = [
+  { x: 152, y: 99, hdg: 248, name: 'SEA BREEZE', lx: 158, ly: 92 },
+  { x: 58, y: 178, hdg: 62, name: 'NORDLYS', lx: 64, ly: 192 },
+  { x: 206, y: 46, hdg: 205, name: 'KESTREL', lx: 168, ly: 40 },
+];
+
+const legend = [
+  { n: 1, color: 'text-node-rpi', border: 'border-node-rpi/40', title: t.n1Title, path: '/mnt/gps', body: t.n1Body },
+  { n: 2, color: 'text-node-jetson', border: 'border-node-jetson/40', title: t.n2Title, path: '/mnt/llm', body: t.n2Body },
+  { n: 3, color: 'text-node-laptop', border: 'border-node-laptop/40', title: t.n3Title, path: t.n3Path, body: t.n3Body },
+  { n: 4, color: 'text-node-cloud', border: 'border-node-cloud/40', title: t.n4Title, path: t.n4Path, body: t.n4Body },
+];
+
+const terminals = [
+  { label: t.termPi, color: 'bg-node-rpi', lines: [
+    ['; ', "gpsfs source '#t/eia4' 38400"],
+    ['; ', "listen 'tcp!*!styx' {export /mnt/gps} &"],
+  ] },
+  { label: t.termJetson, color: 'bg-node-jetson', lines: [
+    ['; ', 'llmsrv -b openai -u http://localhost:11434/v1 &'],
+    ['; ', "listen 'tcp!*!5640' {export /mnt/llm} &"],
+  ] },
+  { label: t.termLaptop, color: 'bg-node-laptop', lines: [
+    ['; ', "mount 'tcp!navpi!styx' /mnt/gps"],
+    ['; ', "mount 'tcp!jetson!5640' /mnt/llm"],
+    ['; ', 'cat /mnt/gps/position'],
+    ['', '50.364210 -4.142510'],
+    ['; ', 'wm/road &'],
+  ] },
+];
 ---
 
 <section id="network" class="px-6 py-24 lg:py-32">
   <div class="mx-auto max-w-5xl">
-    <div class="mb-16 text-center">
+    <div class="mb-14 text-center">
       <p class="mb-4 text-sm font-medium tracking-widest uppercase text-accent">
         {t.eyebrow}
       </p>
@@ -20,96 +61,125 @@ const t = useTranslations(lang).networkDiagram;
       <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.intro} />
     </div>
 
-    <!-- Diagram -->
-    <div class="mx-auto max-w-3xl">
-      <svg viewBox="0 0 800 520" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-        <line x1="200" y1="140" x2="400" y2="280" class="stroke-node-laptop/30" stroke-width="1.5">
-          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" />
-        </line>
-        <line x1="600" y1="140" x2="400" y2="280" class="stroke-node-jetson/30" stroke-width="1.5">
-          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3.5s" repeatCount="indefinite" />
-        </line>
-        <line x1="660" y1="420" x2="400" y2="280" class="stroke-node-rpi/30" stroke-width="1.5">
-          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="2.8s" repeatCount="indefinite" />
-        </line>
-        <line x1="400" y1="60" x2="400" y2="280" class="stroke-node-cloud/30" stroke-width="1.5" stroke-dasharray="6 4">
-          <animate attributeName="stroke-opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite" />
-        </line>
-        <line x1="140" y1="420" x2="400" y2="280" class="stroke-node-llm/30" stroke-width="1.5">
-          <animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3.2s" repeatCount="indefinite" />
-        </line>
+    <figure class="mx-auto max-w-4xl">
+      <svg viewBox="0 0 960 570" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full" role="img" aria-label={t.figLabel}>
+        <!-- Cables -->
+        <path d={piCable} class="stroke-node-rpi/50" stroke-width="2.5" stroke-linecap="round" />
+        <path d={jetsonCable} class="stroke-node-jetson/50" stroke-width="2.5" stroke-linecap="round" />
+        <path d={cloudCable} class="stroke-node-cloud/40" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" />
+        <circle r="5" class="fill-node-rpi"><animateMotion dur="2.6s" repeatCount="indefinite" path={piCable} /></circle>
+        <circle r="5" class="fill-node-jetson"><animateMotion dur="3.1s" repeatCount="indefinite" path={jetsonCable} /></circle>
 
-        <g>
-          <rect x="310" y="20" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-cloud/40" stroke-width="1.5" stroke-dasharray="5 3" />
-          <text x="400" y="44" text-anchor="middle" class="fill-node-cloud text-xs font-medium" font-family="var(--font-family-mono)">Cloud GPU</text>
-          <text x="400" y="62" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/compute</text>
-          <text x="498" y="44" text-anchor="start" class="fill-text-muted text-[10px] italic" font-family="var(--font-family-sans)">{t.optional}</text>
+        <g font-family="var(--font-family-mono)" font-size="14">
+          <rect x="166" y="344" width="40" height="24" rx="12" class="fill-bg stroke-node-rpi/50" />
+          <text x="186" y="361" text-anchor="middle" class="fill-node-rpi">9P</text>
+          <rect x="752" y="345" width="40" height="24" rx="12" class="fill-bg stroke-node-jetson/50" />
+          <text x="772" y="362" text-anchor="middle" class="fill-node-jetson">9P</text>
         </g>
 
-        <g>
-          <rect x="110" y="110" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
-          <text x="200" y="134" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">Laptop</text>
-          <text x="200" y="152" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/docs  /n/code</text>
-          <circle cx="118" cy="118" r="4" class="fill-node-laptop">
-            <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
-          </circle>
-        </g>
+        <!-- 1: the Pi at the chart table, and its AIS receiver -->
+        <path d="M264 153 H292" class="stroke-node-rpi/60" stroke-width="2.5" />
+        <BoardArt board="pi4" label="" x={40} y={78} width={230} class="text-node-rpi" />
+        <AisReceiver x={290} y={90} width={110} class="text-node-rpi" />
 
-        <g>
-          <rect x="510" y="110" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
-          <text x="600" y="134" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">Jetson</text>
-          <text x="600" y="152" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/gpu  /n/inference</text>
-          <circle cx="518" cy="118" r="4" class="fill-node-jetson">
-            <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
-          </circle>
-        </g>
+        <!-- 2: the Jetson below deck -->
+        <Jetson x={696} y={58} width={220} class="text-node-jetson" />
 
-        <g>
-          <rect x="300" y="248" rx="16" width="200" height="64" class="fill-bg-surface stroke-accent/60" stroke-width="2" />
-          <text x="400" y="274" text-anchor="middle" class="fill-accent text-sm font-semibold" font-family="var(--font-family-sans)">Veltro</text>
-          <text x="400" y="296" text-anchor="middle" class="fill-text-muted text-xs" font-family="var(--font-family-sans)">{lang === 'zh' ? 'AI 智能体' : 'AI Agent'}</text>
-          <rect x="300" y="248" rx="16" width="200" height="64" fill="none" class="stroke-accent/20" stroke-width="6">
-            <animate attributeName="stroke-opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite" />
-          </rect>
-        </g>
+        <!-- 4: the cloud, when there is signal -->
+        <path d="M440 112 h82 a22 22 0 0 0 -4 -43.6 a32 32 0 0 0 -60 -6 a24 24 0 0 0 -18 49.6 z" class="fill-bg-surface stroke-node-cloud/60" stroke-width="2" stroke-dasharray="7 5" stroke-linejoin="round" />
 
-        <g>
-          <rect x="50" y="390" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-llm/50" stroke-width="1.5" />
-          <text x="140" y="414" text-anchor="middle" class="fill-node-llm text-xs font-medium" font-family="var(--font-family-mono)">{lang === 'zh' ? '本地 LLM' : 'Local LLM'}</text>
-          <text x="140" y="432" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/llm</text>
-          <circle cx="58" cy="398" r="4" class="fill-node-llm">
-            <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite" />
-          </circle>
-        </g>
+        <!-- 3: the laptop, drawing the moving map and talking to Veltro -->
+        <Laptop x={260} y={262} width={440} class="text-node-laptop">
+          <rect width="372" height="234" fill="#0b1422" />
+          <g stroke="#ffffff" stroke-opacity="0.05">
+            {[40, 80, 120, 160, 200].map((gx) => <line x1={gx} y1="16" x2={gx} y2="234" />)}
+            {[56, 96, 136, 176, 216].map((gy) => <line x1="0" y1={gy} x2="232" y2={gy} />)}
+          </g>
+          <path d="M0 16 H112 C104 38 84 46 66 70 C50 92 26 100 0 118 Z" fill="#1c2219" stroke="#34402e" />
+          <path d="M232 168 C204 174 186 198 172 234 H232 Z" fill="#1c2219" stroke="#34402e" />
+          <circle cx="130" cy="132" r="56" class="stroke-accent/50" stroke-dasharray="3 4" />
+          <text x="122" y="200" class="fill-accent/70" font-size="7" font-family="var(--font-family-mono)">1 nm</text>
+          {ships.map((s) => (
+            <>
+              <line x1={s.x} y1={s.y} x2={s.x + 22 * Math.sin((s.hdg * Math.PI) / 180)} y2={s.y - 22 * Math.cos((s.hdg * Math.PI) / 180)} class="stroke-node-jetson/60" />
+              <path d={ship} transform={`translate(${s.x} ${s.y}) rotate(${s.hdg})`} class="fill-node-jetson" />
+              <text x={s.lx} y={s.ly} class="fill-node-jetson/80" font-size="6.5" font-family="var(--font-family-mono)">{s.name}</text>
+            </>
+          ))}
+          <line x1="130" y1="132" x2="140" y2="104" class="stroke-accent" />
+          <path d={ship} transform="translate(130 132) rotate(20) scale(1.3)" class="fill-accent" />
 
-        <g>
-          <rect x="570" y="390" rx="12" width="180" height="56" class="fill-bg-surface stroke-node-rpi/50" stroke-width="1.5" />
-          <text x="660" y="414" text-anchor="middle" class="fill-node-rpi text-xs font-medium" font-family="var(--font-family-mono)">Raspberry Pi</text>
-          <text x="660" y="432" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-mono)">/n/sensors</text>
-          <circle cx="578" cy="398" r="4" class="fill-node-rpi">
-            <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
-          </circle>
-        </g>
+          <rect width="372" height="16" class="fill-bg-surface" />
+          <text x="7" y="11" class="fill-text-muted" font-size="7.5" font-family="var(--font-family-mono)">wm/road</text>
+          <text x="226" y="11" text-anchor="end" class="fill-text-muted" font-size="7" font-family="var(--font-family-mono)">50.3642N 4.1425W  6.1kn</text>
 
-        <text x="400" y="500" text-anchor="middle" class="fill-text-muted text-xs" font-family="var(--font-family-sans)">
-          {t.caption}
-        </text>
+          <rect x="232" y="16" width="140" height="218" class="fill-bg-surface" />
+          <line x1="232" y1="16" x2="232" y2="234" class="stroke-border" />
+          <text x="242" y="11" class="fill-accent" font-size="7.5" font-weight="600" font-family="var(--font-family-sans)">Veltro</text>
+          <rect x="250" y="26" width="114" height="32" rx="5" class="fill-bg-surface-hover" />
+          <text font-size="7.5" font-family="var(--font-family-sans)" class="fill-text">
+            <tspan x="257" y="39">{t.screenAsk1}</tspan>
+            <tspan x="257" y="50">{t.screenAsk2}</tspan>
+          </text>
+          <text font-size="7.5" font-family="var(--font-family-sans)" class="fill-text">
+            <tspan x="240" y="76" class="fill-node-jetson" font-weight="600">SEA BREEZE</tspan>
+            <tspan x="240" y="88">{t.screenReply1}</tspan>
+            <tspan x="240" y="100">{t.screenReply2}</tspan>
+            <tspan x="240" y="112">{t.screenReply3}</tspan>
+          </text>
+          <rect x="240" y="122" width="52" height="13" rx="6.5" class="stroke-border" />
+          <text x="266" y="131" text-anchor="middle" class="fill-text-muted" font-size="6" font-family="var(--font-family-mono)">gps traffic</text>
+          <rect x="296" y="122" width="44" height="13" rx="6.5" class="stroke-border" />
+          <text x="318" y="131" text-anchor="middle" class="fill-text-muted" font-size="6" font-family="var(--font-family-mono)">/mnt/llm</text>
+          <rect x="240" y="210" width="124" height="16" rx="4" class="stroke-border" />
+        </Laptop>
+
+        <!-- Numbers, matched by the list below -->
+        <g font-family="var(--font-family-sans)" font-size="15" font-weight="700" text-anchor="middle">
+          {[
+            [28, 70, 'fill-node-rpi'],
+            [690, 50, 'fill-node-jetson'],
+            [262, 256, 'fill-node-laptop'],
+            [420, 46, 'fill-node-cloud'],
+          ].map(([cx, cy, fill], i) => (
+            <>
+              <circle cx={cx} cy={cy} r="15" class={fill as string} />
+              <text x={cx} y={(cy as number) + 5} class="fill-bg">{i + 1}</text>
+            </>
+          ))}
+        </g>
       </svg>
-    </div>
+      <figcaption class="mt-2 text-center text-sm text-text-muted">{t.caption}</figcaption>
+    </figure>
 
-    <div class="mt-12 grid gap-8 sm:grid-cols-3">
-      <div class="rounded-xl border border-border bg-bg-surface p-6">
-        <h3 class="mb-2 font-semibold">{t.c1Title}</h3>
-        <p class="text-sm leading-relaxed text-text-muted" set:html={t.c1Body} />
-      </div>
-      <div class="rounded-xl border border-border bg-bg-surface p-6">
-        <h3 class="mb-2 font-semibold">{t.c2Title}</h3>
-        <p class="text-sm leading-relaxed text-text-muted" set:html={t.c2Body} />
-      </div>
-      <div class="rounded-xl border border-border bg-bg-surface p-6">
-        <h3 class="mb-2 font-semibold">{t.c3Title}</h3>
-        <p class="text-sm leading-relaxed text-text-muted" set:html={t.c3Body} />
-      </div>
+    <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {legend.map((d) => (
+        <li class={`rounded-xl border ${d.border} bg-bg-surface p-5`}>
+          <div class="mb-3 flex items-center gap-3">
+            <span class={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-current text-sm font-bold ${d.color}`}><span class="text-bg">{d.n}</span></span>
+            <h3 class="font-semibold leading-snug">{d.title}</h3>
+          </div>
+          <p class={`mb-2 font-mono text-xs ${d.color}`}>{d.path}</p>
+          <p class="text-sm leading-relaxed text-text-muted" set:html={d.body} />
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {terminals.map((term, i) => (
+        <div class:list={['min-w-0 overflow-hidden rounded-xl border border-border bg-bg-surface font-mono text-[13px]', i === 2 && 'md:col-span-2']}>
+          <div class="flex items-center gap-2 border-b border-border px-4 py-2">
+            <div class={`h-2.5 w-2.5 rounded-full ${term.color}`}></div>
+            <span class="text-xs text-text-muted">{term.label}</span>
+          </div>
+          <div class="overflow-x-auto p-4 leading-relaxed">
+            {term.lines.map(([p, l]) => (
+              <div class="whitespace-pre">{p && <span class="text-accent">{p}</span>}<span class={p ? 'text-text' : 'text-text-muted'}>{l}</span></div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-sm text-text-muted" set:html={t.after} />
   </div>
 </section>

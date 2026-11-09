@@ -1,11 +1,41 @@
 ---
 import { useTranslations, type Lang } from '../i18n/utils';
+import BoardArt from './BoardArt.astro';
+import Laptop from './art/Laptop.astro';
+import Jetson from './art/Jetson.astro';
 
 interface Props {
   lang?: Lang;
 }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang).distributedArch;
+
+const pis = [
+  { board: 'pi3' as const, name: 'Raspberry Pi 3B+', y: 12 },
+  { board: 'pi4' as const, name: 'Raspberry Pi 4', y: 140 },
+  { board: 'pi5' as const, name: 'Raspberry Pi 5', y: 268 },
+];
+const fan = pis.map((p) => `M412 180 C530 180 530 ${p.y + 51} 640 ${p.y + 51}`);
+
+// The module being edited, as the laptop's Xenith shows it.
+const code: [string, boolean][] = [
+  ['implement Anchorwatch;', false],
+  ['', false],
+  ['RADIUS: con 40.0;    # metres; was 30', true],
+  ['', false],
+  ['watch(drop: Pos)', false],
+  ['{', false],
+  ['    for(;;){', false],
+  ['        p := readpos("/mnt/gps/position");', false],
+  ['        if(dist(drop, p) > RADIUS)', false],
+  ['            alarm("anchor dragging");', false],
+  ['        sys->sleep(5000);', false],
+  ['    }', false],
+  ['}', false],
+];
+
+const drawCable = 'M288 128 C400 128 430 118 540 118';
+const inputCable = 'M540 206 C430 206 400 196 288 196';
 ---
 
 <section id="distributed" class="px-6 py-24 lg:py-32">
@@ -20,205 +50,152 @@ const t = useTranslations(lang).distributedArch;
       <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.intro} />
     </div>
 
-    <!-- Diagram 1: Hot-loading modules -->
+    <!-- Scene 1: one build, every board -->
     <div class="mb-20">
       <h3 class="mb-8 text-center text-xl font-semibold">
         {t.hotloadTitle}
       </h3>
 
-      <div class="mx-auto max-w-3xl">
-        <svg viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-          <g>
-            <rect x="20" y="80" rx="12" width="200" height="140" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
-            <text x="120" y="112" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">{t.hotloadDevLaptop}</text>
-            <rect x="48" y="130" rx="6" width="144" height="36" class="fill-bg stroke-node-laptop/30" stroke-width="1" />
-            <text x="120" y="152" text-anchor="middle" class="fill-node-laptop text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
-            <text x="120" y="194" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.hotloadWriteOnce}</text>
-            <circle cx="28" cy="88" r="4" class="fill-node-laptop">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
-            </circle>
-          </g>
+      <figure class="mx-auto max-w-4xl">
+        <svg viewBox="0 0 960 380" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full" role="img" aria-label={t.hotloadFigLabel}>
+          {fan.map((d, i) => (
+            <>
+              <path d={d} class="stroke-accent/40" stroke-width="2.5" stroke-linecap="round" />
+              <g>
+                <rect x="-6" y="-7" width="12" height="14" rx="1.5" class="fill-accent" />
+                <path d="M-3 -2 h6 M-3 1 h6 M-3 4 h4" class="stroke-bg" stroke-width="1" />
+                <animateMotion dur={`${2.2 + i * 0.35}s`} repeatCount="indefinite" path={d} />
+              </g>
+            </>
+          ))}
+          <rect x="462" y="168" width="136" height="26" rx="13" class="fill-bg stroke-accent/60" />
+          <text x="530" y="186" text-anchor="middle" class="fill-accent" font-size="13" font-family="var(--font-family-mono)">anchorwatch.dis</text>
 
-          <g>
-            <line x1="220" y1="148" x2="310" y2="108" class="stroke-accent/50" stroke-width="1.5">
-              <animate attributeName="stroke-dashoffset" values="20;0" dur="1.5s" repeatCount="indefinite" />
-            </line>
-            <line x1="220" y1="148" x2="310" y2="108" class="stroke-accent/30" stroke-width="1.5" stroke-dasharray="4 4">
-              <animate attributeName="stroke-dashoffset" values="8;0" dur="1.5s" repeatCount="indefinite" />
-            </line>
-            <circle r="5" class="fill-accent">
-              <animateMotion dur="2s" repeatCount="indefinite" path="M220,148 L310,108" />
-            </circle>
-          </g>
+          <Laptop x={30} y={50} width={400} class="text-node-laptop">
+            <rect width="372" height="234" class="fill-bg" />
+            <rect width="372" height="15" class="fill-bg-surface-hover" />
+            <text x="6" y="10.5" class="fill-text-muted" font-size="7.5" font-family="var(--font-family-mono)">/usr/you/anchorwatch.b  Del Snarf Undo Put</text>
+            <rect x="4" y="47" width="364" height="13.5" rx="2" class="fill-accent/15" />
+            <g font-size="9.5" font-family="var(--font-family-mono)" class="fill-text">
+              {code.map(([line, hot], i) => (
+                <text x="8" y={30 + i * 13.5} class={hot ? 'fill-accent' : undefined} xml:space="preserve">{line}</text>
+              ))}
+            </g>
+            <rect y="208" width="372" height="26" class="fill-bg-surface" />
+            <text x="8" y="225" font-size="9.5" font-family="var(--font-family-mono)" xml:space="preserve"><tspan class="fill-accent">; </tspan><tspan class="fill-text">mk install</tspan></text>
+          </Laptop>
 
-          <g>
-            <line x1="220" y1="152" x2="310" y2="208" class="stroke-accent/50" stroke-width="1.5">
-              <animate attributeName="stroke-dashoffset" values="20;0" dur="1.8s" repeatCount="indefinite" />
-            </line>
-            <line x1="220" y1="152" x2="310" y2="208" class="stroke-accent/30" stroke-width="1.5" stroke-dasharray="4 4">
-              <animate attributeName="stroke-dashoffset" values="8;0" dur="1.8s" repeatCount="indefinite" />
-            </line>
-            <circle r="5" class="fill-accent">
-              <animateMotion dur="2.3s" repeatCount="indefinite" path="M220,152 L310,208" />
-            </circle>
-          </g>
-
-          <g>
-            <rect x="310" y="50" rx="12" width="200" height="110" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
-            <text x="410" y="80" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">{t.hotloadJetson}</text>
-            <rect x="338" y="96" rx="6" width="144" height="36" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
-            <text x="410" y="112" text-anchor="middle" class="fill-node-jetson text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
-            <text x="410" y="126" text-anchor="middle" class="fill-accent text-[9px]" font-family="var(--font-family-mono)">{t.hotloadLoaded}</text>
-            <circle cx="318" cy="58" r="4" class="fill-node-jetson">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
-            </circle>
-          </g>
-
-          <g>
-            <rect x="310" y="175" rx="12" width="200" height="110" class="fill-bg-surface stroke-node-rpi/50" stroke-width="1.5" />
-            <text x="410" y="205" text-anchor="middle" class="fill-node-rpi text-xs font-medium" font-family="var(--font-family-mono)">{t.hotloadRpi}</text>
-            <rect x="338" y="218" rx="6" width="144" height="36" class="fill-bg stroke-node-rpi/30" stroke-width="1" />
-            <text x="410" y="234" text-anchor="middle" class="fill-node-rpi text-[10px]" font-family="var(--font-family-mono)">sensor-filter.dis</text>
-            <text x="410" y="248" text-anchor="middle" class="fill-accent text-[9px]" font-family="var(--font-family-mono)">{t.hotloadLoaded}</text>
-            <circle cx="318" cy="183" r="4" class="fill-node-rpi">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
-            </circle>
-          </g>
-
-          <g>
-            <rect x="560" y="80" rx="12" width="220" height="140" class="fill-bg-surface stroke-border" stroke-width="1" />
-            <text x="670" y="112" text-anchor="middle" class="fill-text text-[11px] font-medium" font-family="var(--font-family-sans)">{t.hotloadResultTitle}</text>
-            <text x="670" y="138" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.hotloadResult1}</text>
-            <text x="670" y="154" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.hotloadResult2}</text>
-            <text x="670" y="178" text-anchor="middle" class="fill-accent text-[10px] font-medium" font-family="var(--font-family-sans)">{t.hotloadResult3}</text>
-            <text x="670" y="198" text-anchor="middle" class="fill-accent text-[10px] font-medium" font-family="var(--font-family-sans)">{t.hotloadResult4}</text>
-          </g>
+          {pis.map((p) => (
+            <>
+              <BoardArt board={p.board} label="" x={640} y={p.y} width={150} class="text-node-rpi" />
+              <text x="806" y={p.y + 44} class="fill-text" font-size="15" font-weight="600" font-family="var(--font-family-sans)">{p.name}</text>
+              <circle cx="812" cy={p.y + 63} r="4" class="fill-node-jetson">
+                <animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <text x="822" y={p.y + 67} class="fill-text-muted" font-size="12" font-family="var(--font-family-mono)">{t.hotloadRunning}</text>
+            </>
+          ))}
         </svg>
-      </div>
+      </figure>
 
-      <!-- Terminal example -->
-      <div class="mx-auto mt-6 max-w-2xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+      <div class="mx-auto mt-6 max-w-2xl overflow-hidden rounded-xl border border-border bg-bg-surface font-mono text-sm">
         <div class="flex items-center gap-2 border-b border-border px-4 py-2">
           <div class="h-2.5 w-2.5 rounded-full bg-node-rpi/60"></div>
           <div class="h-2.5 w-2.5 rounded-full bg-node-llm/60"></div>
           <div class="h-2.5 w-2.5 rounded-full bg-node-jetson/60"></div>
           <span class="ml-2 text-xs text-text-muted">{t.hotloadTermLabel}</span>
         </div>
-        <div class="p-4 space-y-1">
-          <div><span class="text-accent">;</span><span class="text-text"> bind /n/devbox/dis/sensor-filter.dis /dis/sensor-filter.dis</span></div>
-          <div><span class="text-text-muted">{t.hotloadTermNote1}</span></div>
-          <div><span class="text-text-muted">{t.hotloadTermNote2}</span></div>
-          <div><span class="text-text-muted">{t.hotloadTermNote3}</span></div>
+        <div class="space-y-1 overflow-x-auto p-4">
+          <div class="whitespace-pre text-text-muted">{t.hotloadTermLaptop}</div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> listen 'tcp!*!styx' {'{'}export /dis{'}'} &amp;</span></div>
+          <div class="whitespace-pre pt-2 text-text-muted">{t.hotloadTermPi}</div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> mount 'tcp!laptop!styx' /n/laptop</span></div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> bind /n/laptop/anchorwatch.dis /dis/anchorwatch.dis</span></div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> anchorwatch &amp;</span></div>
+          <div class="whitespace-pre pt-2 text-text-muted">{t.hotloadTermNote1}</div>
+          <div class="whitespace-pre text-text-muted">{t.hotloadTermNote2}</div>
         </div>
       </div>
 
       <div class="mx-auto mt-6 grid max-w-2xl gap-4 sm:grid-cols-2">
         <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
           <p class="mb-1 text-xs font-medium text-accent">{t.hotloadDevsLabel}</p>
-          <p class="text-xs leading-relaxed text-text-muted" set:html={t.hotloadDevsBody} />
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.hotloadDevsBody} />
         </div>
         <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
           <p class="mb-1 text-xs font-medium text-accent">{t.hotloadPracticeLabel}</p>
-          <p class="text-xs leading-relaxed text-text-muted" set:html={t.hotloadPracticeBody} />
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.hotloadPracticeBody} />
         </div>
       </div>
     </div>
 
     <div class="mx-auto mb-20 h-px w-32 bg-border"></div>
 
-    <!-- Diagram 2: Remote execution, local display -->
+    <!-- Scene 2: the Jetson has the GPU, the laptop has the screen -->
     <div>
       <h3 class="mb-8 text-center text-xl font-semibold">
         {t.remoteTitle}
       </h3>
 
-      <div class="mx-auto max-w-3xl">
-        <svg viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-          <g>
-            <rect x="20" y="60" rx="12" width="240" height="160" class="fill-bg-surface stroke-node-jetson/50" stroke-width="1.5" />
-            <text x="140" y="90" text-anchor="middle" class="fill-node-jetson text-xs font-medium" font-family="var(--font-family-mono)">{t.remoteGpu}</text>
-
-            <rect x="44" y="108" rx="4" width="90" height="24" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
-            <text x="89" y="124" text-anchor="middle" class="fill-node-jetson text-[9px]" font-family="var(--font-family-mono)">{t.remoteLlm}</text>
-
-            <rect x="144" y="108" rx="4" width="90" height="24" class="fill-bg stroke-node-jetson/30" stroke-width="1" />
-            <text x="189" y="124" text-anchor="middle" class="fill-node-jetson text-[9px]" font-family="var(--font-family-mono)">{t.remoteAnalysis}</text>
-
-            <rect x="44" y="142" rx="4" width="90" height="24" class="fill-bg stroke-node-llm/30" stroke-width="1" />
-            <text x="89" y="158" text-anchor="middle" class="fill-node-llm text-[9px]" font-family="var(--font-family-mono)">{t.remoteTraining}</text>
-
-            <text x="140" y="194" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.remoteHeavy}</text>
-
-            <circle cx="28" cy="68" r="4" class="fill-node-jetson">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
-            </circle>
+      <figure class="mx-auto max-w-4xl">
+        <svg viewBox="0 0 960 330" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full" role="img" aria-label={t.remoteFigLabel}>
+          <path d={drawCable} class="stroke-accent/50" stroke-width="2.5" stroke-linecap="round" />
+          <path d={inputCable} class="stroke-node-laptop/50" stroke-width="2.5" stroke-linecap="round" />
+          <circle r="5" class="fill-accent"><animateMotion dur="1.6s" repeatCount="indefinite" path={drawCable} /></circle>
+          <circle r="5" class="fill-accent"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite" path={drawCable} /></circle>
+          <circle r="5" class="fill-node-laptop"><animateMotion dur="2.2s" repeatCount="indefinite" path={inputCable} /></circle>
+          <g font-size="13" font-family="var(--font-family-mono)" text-anchor="middle">
+            <text x="414" y="104" class="fill-accent">/dev/draw</text>
+            <text x="414" y="232" class="fill-node-laptop">/dev/pointer  /dev/keyboard</text>
           </g>
 
-          <g>
-            <line x1="260" y1="125" x2="380" y2="105" class="stroke-node-laptop/40" stroke-width="1.5" stroke-dasharray="4 4">
-              <animate attributeName="stroke-dashoffset" values="0;-8" dur="1s" repeatCount="indefinite" />
-            </line>
-            <text x="320" y="98" text-anchor="middle" class="fill-text-muted text-[8px]" font-family="var(--font-family-mono)">{t.remoteInputs}</text>
+          <Jetson x={60} y={70} width={230} class="text-node-jetson" />
+          <line x1="36" y1="264" x2="314" y2="264" class="stroke-border" stroke-width="3" stroke-linecap="round" />
+          <text x="175" y="294" text-anchor="middle" class="fill-text-muted" font-size="14" font-family="var(--font-family-sans)">{t.remoteNoScreen}</text>
 
-            <line x1="380" y1="145" x2="260" y2="165" class="stroke-accent/40" stroke-width="1.5" stroke-dasharray="4 4">
-              <animate attributeName="stroke-dashoffset" values="0;8" dur="1s" repeatCount="indefinite" />
-            </line>
-            <text x="320" y="180" text-anchor="middle" class="fill-text-muted text-[8px]" font-family="var(--font-family-mono)">{t.remoteResults}</text>
-
-            <circle r="4" class="fill-node-laptop/70">
-              <animateMotion dur="1.5s" repeatCount="indefinite" path="M380,105 L260,125" />
-            </circle>
-            <circle r="4" class="fill-accent/70">
-              <animateMotion dur="1.5s" repeatCount="indefinite" path="M260,165 L380,145" />
-            </circle>
-          </g>
-
-          <g>
-            <rect x="380" y="60" rx="12" width="240" height="160" class="fill-bg-surface stroke-node-laptop/50" stroke-width="1.5" />
-            <text x="500" y="90" text-anchor="middle" class="fill-node-laptop text-xs font-medium" font-family="var(--font-family-mono)">{t.remoteLaptop}</text>
-
-            <rect x="410" y="108" rx="6" width="180" height="72" class="fill-bg stroke-node-laptop/30" stroke-width="1" />
-            <text x="500" y="134" text-anchor="middle" class="fill-text text-[10px]" font-family="var(--font-family-sans)">{t.remoteDisplay1}</text>
-            <text x="500" y="150" text-anchor="middle" class="fill-text text-[10px]" font-family="var(--font-family-sans)">{t.remoteDisplay2}</text>
-            <text x="500" y="170" text-anchor="middle" class="fill-accent text-[9px] font-medium" font-family="var(--font-family-mono)">{t.remoteDisplay3}</text>
-
-            <text x="500" y="204" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.remoteInteract}</text>
-
-            <circle cx="388" cy="68" r="4" class="fill-node-laptop">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite" />
-            </circle>
-          </g>
-
-          <rect x="660" y="110" rx="8" width="120" height="60" class="fill-bg-surface stroke-border" stroke-width="1" />
-          <text x="720" y="135" text-anchor="middle" class="fill-text-muted text-[10px]" font-family="var(--font-family-sans)">{t.remoteConnected}</text>
-          <text x="720" y="155" text-anchor="middle" class="fill-accent text-xs font-medium" font-family="var(--font-family-mono)">{t.remote9p}</text>
+          <Laptop x={520} y={24} width={420} class="text-node-laptop">
+            <rect width="372" height="234" fill="#0d0d14" />
+            <rect x="20" y="16" width="332" height="200" rx="3" class="fill-bg stroke-node-jetson/70" />
+            <rect x="20" y="16" width="332" height="15" rx="3" class="fill-node-jetson/20" />
+            <text x="28" y="26.5" class="fill-node-jetson" font-size="8" font-family="var(--font-family-mono)">jetson · wm/wm</text>
+            <rect x="30" y="40" width="312" height="166" rx="2" class="fill-bg-surface stroke-border" />
+            <g font-size="10.5" font-family="var(--font-family-mono)" xml:space="preserve">
+              <text x="42" y="60"><tspan class="fill-accent">; </tspan><tspan class="fill-text">cat /dev/sysname</tspan></text>
+              <text x="42" y="76" class="fill-text-muted">jetson</text>
+              <text x="42" y="92"><tspan class="fill-accent">; </tspan><tspan class="fill-text">date</tspan></text>
+              <text x="42" y="108" class="fill-text-muted">Fri Nov 06 14:32:05 GMT 2026</text>
+              <text x="42" y="124"><tspan class="fill-accent">; </tspan></text>
+              <rect x="56" y="115" width="6.5" height="12" class="fill-text">
+                <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite" />
+              </rect>
+            </g>
+            <path d="M262 150 l0 16 l4 -4 l3 7 l3 -1.5 l-3 -7 l5.5 0 z" class="fill-text stroke-bg" stroke-width="1" />
+          </Laptop>
         </svg>
-      </div>
+      </figure>
 
-      <div class="mx-auto mt-6 max-w-2xl rounded-xl border border-border bg-bg-surface font-mono text-sm overflow-hidden">
+      <div class="mx-auto mt-6 max-w-2xl overflow-hidden rounded-xl border border-border bg-bg-surface font-mono text-sm">
         <div class="flex items-center gap-2 border-b border-border px-4 py-2">
           <div class="h-2.5 w-2.5 rounded-full bg-node-rpi/60"></div>
           <div class="h-2.5 w-2.5 rounded-full bg-node-llm/60"></div>
           <div class="h-2.5 w-2.5 rounded-full bg-node-jetson/60"></div>
           <span class="ml-2 text-xs text-text-muted">{t.remoteTermLabel}</span>
         </div>
-        <div class="p-4 space-y-1">
-          <div><span class="text-accent">;</span><span class="text-text"> import tcp!gpuserver!9999 /n/remote</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> mount /n/remote /mnt/compute</span></div>
-          <div><span class="text-accent">;</span><span class="text-text"> /mnt/compute/bin/analyse -data /n/local/dataset.csv</span></div>
-          <div><span class="text-text-muted">{t.remoteTermNote1}</span></div>
-          <div><span class="text-text-muted">{t.remoteTermNote2}</span></div>
+        <div class="space-y-1 overflow-x-auto p-4">
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> cpu tcp!jetson wm/wm wm/sh &amp;</span></div>
+          <div class="whitespace-pre text-text-muted">{t.remoteTermNote1}</div>
+          <div class="whitespace-pre text-text-muted">{t.remoteTermNote2}</div>
         </div>
       </div>
 
       <div class="mx-auto mt-6 grid max-w-2xl gap-4 sm:grid-cols-2">
         <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
           <p class="mb-1 text-xs font-medium text-accent">{t.remoteDevsLabel}</p>
-          <p class="text-xs leading-relaxed text-text-muted" set:html={t.remoteDevsBody} />
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.remoteDevsBody} />
         </div>
         <div class="rounded-lg border border-border/50 bg-bg-surface/50 px-5 py-4">
           <p class="mb-1 text-xs font-medium text-accent">{t.remotePracticeLabel}</p>
-          <p class="text-xs leading-relaxed text-text-muted" set:html={t.remotePracticeBody} />
+          <p class="text-sm leading-relaxed text-text-muted" set:html={t.remotePracticeBody} />
         </div>
       </div>
     </div>

@@ -31,6 +31,8 @@ InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Be
 - [Security](https://infernode.io/security/): Formal verification of the namespace isolation model.
 - [Compare](https://infernode.io/compare/): How InferNode differs from guardrails, containers and microVM sandboxes.
 - [Platform](https://infernode.io/platform/): 9P, resources as files, distributed namespaces.
+- [IoT and edge AI](https://infernode.io/iot/): InferNode as the operating system on Raspberry Pi 3B+, 4B and 5, and microcontrollers mounted as files.
+- [Examples](https://infernode.io/examples/): Real setups: a depot gate camera on a Raspberry Pi with recognition on a Jetson; a boat's AIS and local model as files; use cases.
 
 ## Optional
 
