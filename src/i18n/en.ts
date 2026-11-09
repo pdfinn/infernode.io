@@ -59,6 +59,7 @@ export const ui = {
     docs: 'Docs',
     platform: 'Platform',
     examples: 'Examples',
+    iot: 'IoT',
     download: 'Download',
     github: 'GitHub',
     menuLabel: 'Toggle navigation menu',

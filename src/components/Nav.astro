@@ -21,7 +21,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
     </a>
 
     <!-- Desktop nav -->
-    <div class="hidden items-center gap-8 text-sm text-text-muted md:flex">
+    <div class="hidden items-center gap-4 text-sm text-text-muted lg:flex xl:gap-8">
       <a href="/docs/" class="transition hover:text-text">{t.docs}</a>
       <a href={p('/veltro', lang)} class="transition hover:text-text">{t.veltro}</a>
       <a href={p('/xenith', lang)} class="transition hover:text-text">{t.xenith}</a>
@@ -29,6 +29,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
       <a href={p('/security', lang)} class="transition hover:text-text">{t.security}</a>
       <a href={p('/platform', lang)} class="transition hover:text-text">{t.platform}</a>
       <a href={p('/examples', lang)} class="transition hover:text-text">{t.examples}</a>
+      <a href="/iot/" class="transition hover:text-text" hreflang="en">{t.iot}</a>
       <a
         href={altPath}
         class="rounded-md border border-border px-3 py-1.5 transition hover:border-accent hover:text-text"
@@ -56,7 +57,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
     <!-- Mobile hamburger button -->
     <button
       id="nav-toggle"
-      class="flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition hover:text-text md:hidden"
+      class="flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition hover:text-text lg:hidden"
       aria-label={t.menuLabel}
       aria-expanded="false"
     >
@@ -70,7 +71,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
   </div>
 
   <!-- Mobile menu -->
-  <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl md:hidden">
+  <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl lg:hidden">
     <div class="flex flex-col gap-1 px-6 py-4 text-sm">
       <a href="/docs/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.docs}</a>
       <a href={p('/veltro', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.veltro}</a>
@@ -79,6 +80,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
       <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
       <a href={p('/platform', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.platform}</a>
       <a href={p('/examples', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.examples}</a>
+      <a href="/iot/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text" hreflang="en">{t.iot}</a>
       <a
         href={altPath}
         class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text"

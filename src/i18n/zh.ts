@@ -69,6 +69,7 @@ export const ui: Ui = {
     docs: '文档',
     platform: '平台',
     examples: '示例',
+    iot: 'IoT',
     download: '下载',
     github: 'GitHub',
     menuLabel: '切换导航菜单',
