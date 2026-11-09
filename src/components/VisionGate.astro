@@ -37,23 +37,29 @@ const legend = [
 const terminals = [
   { label: t.termPi, color: 'bg-node-rpi', lines: [
     ['', t.termPiNote],
-    ['; ', "listen 'tcp!*!styx' {export /mnt/video} &"],
+    ['; ', "listen 'tcp!*!video' {export /mnt/video} &"],
   ] },
   { label: t.termJetson, color: 'bg-node-jetson', lines: [
-    ['; ', "mount 'tcp!gatepi!styx' /n/gatepi"],
-    ['; ', 'visionfs load nano /lib/vision/yolox-nano'],
-    ['; ', "listen 'tcp!*!5650' {export /mnt/vision} &"],
+    ['; ', "mount 'tcp!gatepi!video' /n/gatepi"],
+    ['; ', 'mount -A {os trtsrv >[1=0]} /mnt/trt'],
+    ['; ', 'visionfs load yolox /lib/vision/yolox-nano'],
+    ['; ', 'echo engine /mnt/trt > /mnt/vision/ctl'],
+    ['; ', "listen 'tcp!*!vision' {export /mnt/vision} &"],
   ] },
   { label: t.termOffice, color: 'bg-node-laptop', lines: [
-    ['; ', "mount 'tcp!gatepi!styx' /mnt/video"],
-    ['; ', "mount 'tcp!jetson!5650' /mnt/vision"],
+    ['; ', "mount 'tcp!gatepi!video' /mnt/video"],
+    ['; ', "mount 'tcp!jetson!vision' /mnt/vision"],
+    ['; ', 'wm/camera &'],
     ['; ', '{'],
     ['', '    id=`{read}'],
     ['', '    echo src /n/gatepi/0 > /mnt/vision/$id/ctl'],
+    ['', '    echo place gpu > /mnt/vision/$id/ctl'],
     ['', '    echo classes person truck car > /mnt/vision/$id/ctl'],
-    ['', '    bind -a /mnt/vision/$id/layer /mnt/video/0/layer'],
-    ['', '    wm/camera'],
-    ['', '} < /mnt/vision/clone'],
+    ['', '    sleep 86400'],
+    ['', '} < /mnt/vision/clone &'],
+    ['', t.termOfficeNote],
+    ['; ', 'bind -a /mnt/vision/1/layer /mnt/video/0/layer'],
+    ['; ', 'echo place dla0 > /mnt/vision/1/ctl'],
   ] },
 ];
 ---
@@ -68,6 +74,38 @@ const terminals = [
         {t.title}
       </h2>
       <p class="mx-auto max-w-2xl text-lg text-text-muted" set:html={t.intro} />
+    </div>
+
+    <figure class="mx-auto max-w-5xl">
+      <div class="overflow-hidden rounded-xl border border-border bg-black">
+        <video
+          id="vision-video"
+          class="block h-auto w-full"
+          src="/vision/vision-demo.mp4"
+          poster="/vision/vision-demo-poster.jpg"
+          width="1600"
+          height="1080"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+          aria-label={t.videoLabel}
+        ></video>
+      </div>
+      <figcaption class="mx-auto mt-3 max-w-3xl text-center text-sm text-text-muted" set:html={t.videoCaption} />
+    </figure>
+
+    <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      {t.steps.map((step: string, i: number) => (
+        <li class="flex gap-3 rounded-lg border border-border/60 bg-bg-surface/60 p-4 text-sm leading-relaxed text-text-muted">
+          <span class="font-mono text-accent">{i + 1}</span><span set:html={step} />
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-20 mb-10 text-center">
+      <h3 class="mb-3 text-2xl font-semibold">{t.gateTitle}</h3>
+      <p class="mx-auto max-w-2xl text-text-muted" set:html={t.gateIntro} />
     </div>
 
     <figure class="mx-auto max-w-4xl">
@@ -216,3 +254,17 @@ const terminals = [
     </div>
   </div>
 </section>
+
+<script>
+  // Start the recording, muted, the first time it scrolls into view.
+  const video = document.getElementById('vision-video') as HTMLVideoElement | null;
+  if (video && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        video.play().catch(() => {});
+        io.disconnect();
+      }
+    }, { threshold: 0.5 });
+    io.observe(video);
+  }
+</script>
