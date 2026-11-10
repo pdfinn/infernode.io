@@ -14,25 +14,25 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href={p('/', lang)} class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
+    <a href={p('/', lang)} class="flex shrink-0 items-center gap-2 text-lg font-semibold tracking-tight">
       <img src="/infernode-icon.png" alt="InferNode logo" class="h-7 w-7 object-contain" />
       <span>InferNode</span>
     </a>
 
     <!-- Desktop nav -->
-    <div class="hidden items-center gap-4 text-sm text-text-muted lg:flex xl:gap-8">
-      <a href="/docs/" class="transition hover:text-text">{t.docs}</a>
-      <a href={p('/veltro', lang)} class="transition hover:text-text">{t.veltro}</a>
-      <a href={p('/xenith', lang)} class="transition hover:text-text">{t.xenith}</a>
-      <a href={p('/compare', lang)} class="transition hover:text-text">{t.compare}</a>
-      <a href={p('/security', lang)} class="transition hover:text-text">{t.security}</a>
-      <a href={p('/platform', lang)} class="transition hover:text-text">{t.platform}</a>
-      <a href={p('/examples', lang)} class="transition hover:text-text">{t.examples}</a>
-      <a href="/iot/" class="transition hover:text-text" hreflang="en">{t.iot}</a>
+    <div class="hidden items-center gap-5 text-sm text-text-muted xl:flex 2xl:gap-7">
+      <a href={p('/platform', lang)} class="whitespace-nowrap transition hover:text-text">{t.platform}</a>
+      <a href={p('/security', lang)} class="whitespace-nowrap transition hover:text-text">{t.security}</a>
+      <a href={p('/examples', lang)} class="whitespace-nowrap transition hover:text-text">{t.examples}</a>
+      <a href="/iot/" class="whitespace-nowrap transition hover:text-text" hreflang="en">{t.iot}</a>
+      <a href={p('/veltro', lang)} class="whitespace-nowrap transition hover:text-text">{t.veltro}</a>
+      <a href={p('/xenith', lang)} class="whitespace-nowrap transition hover:text-text">{t.xenith}</a>
+      <a href={p('/compare', lang)} class="whitespace-nowrap transition hover:text-text">{t.compare}</a>
+      <a href="/docs/" class="whitespace-nowrap transition hover:text-text">{t.docs}</a>
       <a
         href={altPath}
-        class="rounded-md border border-border px-3 py-1.5 transition hover:border-accent hover:text-text"
+        class="whitespace-nowrap rounded-md border border-border px-3 py-1.5 transition hover:border-accent hover:text-text"
         aria-label={sw.label}
         hreflang={altLang === 'zh' ? 'zh-Hans' : 'en'}
       >
@@ -40,13 +40,13 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
       </a>
       <a
         href="https://github.com/infernode-os/infernode/releases/latest"
-        class="rounded-md bg-accent px-4 py-1.5 font-medium text-white transition hover:bg-accent-glow"
+        class="whitespace-nowrap rounded-md bg-accent px-4 py-1.5 font-medium text-white transition hover:bg-accent-glow"
       >
         {t.download}
       </a>
       <a
         href="https://github.com/infernode-os/infernode"
-        class="rounded-md border border-border px-4 py-1.5 transition hover:border-accent hover:text-text"
+        class="whitespace-nowrap rounded-md border border-border px-4 py-1.5 transition hover:border-accent hover:text-text"
         target="_blank"
         rel="noopener"
       >
@@ -57,7 +57,7 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
     <!-- Mobile hamburger button -->
     <button
       id="nav-toggle"
-      class="flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition hover:text-text lg:hidden"
+      class="flex h-10 w-10 items-center justify-center rounded-lg text-text-muted transition hover:text-text xl:hidden"
       aria-label={t.menuLabel}
       aria-expanded="false"
     >
@@ -71,16 +71,16 @@ const altLabel = altLang === 'zh' ? '中文' : 'EN';
   </div>
 
   <!-- Mobile menu -->
-  <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl lg:hidden">
+  <div id="nav-menu" class="hidden border-t border-border/50 bg-bg/95 backdrop-blur-xl xl:hidden">
     <div class="flex flex-col gap-1 px-6 py-4 text-sm">
-      <a href="/docs/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.docs}</a>
+      <a href={p('/platform', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.platform}</a>
+      <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
+      <a href={p('/examples', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.examples}</a>
+      <a href="/iot/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text" hreflang="en">{t.iot}</a>
       <a href={p('/veltro', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.veltro}</a>
       <a href={p('/xenith', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.xenith}</a>
       <a href={p('/compare', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.compare}</a>
-      <a href={p('/security', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.security}</a>
-      <a href={p('/platform', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.platform}</a>
-      <a href={p('/examples', lang)} class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.examples}</a>
-      <a href="/iot/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text" hreflang="en">{t.iot}</a>
+      <a href="/docs/" class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text">{t.docs}</a>
       <a
         href={altPath}
         class="rounded-lg px-3 py-2 text-text-muted transition hover:bg-bg-surface hover:text-text"
