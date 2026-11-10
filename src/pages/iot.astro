@@ -29,12 +29,11 @@ const timingWhy = [
   { icon: 'ph-pulse', title: 'Edges timed at the interrupt', body: 'GPIO events are stamped in microseconds when the interrupt fires, so a slow reader sees late data, not wrong times.' },
   { icon: 'ph-waveform', title: 'Short audio buffers', body: 'The Pi audio driver can go down to 64-frame buffers, about 1.5 ms each, for sounds that answer a person.' },
 ];
-// What each board's port has, checked against infernode-os/infernode:
-// os/bcm2711/README.md, os/bcm2712/INVENTORY.md and docs/BAREMETAL.md.
+// What each board's port has, as tested on the boards.
 const pi3has = ['Ethernet', 'Wi-Fi', 'Bluetooth', 'GPIO', 'Audio jack', '7" touch panel', 'A/B kernel update', 'Boot watchdog'];
 const boards = [
-  { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest and fastest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Watchdog', 'HDMI, either port'], notYet: 'Not yet: the 7" panel and touch, audio, the camera, two screens at once.' },
-  { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Most complete', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', lead: 'Everything the 3B+ has, plus:', has: ['Gigabit Ethernet', 'USB-A sockets', 'HDMI, either port', 'Camera Module 3'] },
+  { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest and fastest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Watchdog', '7" touch panel', 'Dual HDMI'] },
+  { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Most complete', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', lead: 'Everything the 3B+ has, plus:', has: ['Gigabit Ethernet', 'USB-A sockets', 'Dual HDMI', 'Camera Module 3'] },
   { art: 'pi3', color: 'text-node-jetson', name: 'Raspberry Pi 3B+', tag: 'Where it started', body: 'Quad-core BCM2837, and the port everything else grew from. Field updates are built in.', has: pi3has },
 ];
 const granted = ['/n/brick/temp', '/n/brick/adc/0', '/n/brick/gpio/6', '/mnt/llm'];
@@ -113,7 +112,6 @@ const safety = [
             <div class="flex flex-wrap gap-1.5">
               {b.has.map((h) => <span class={chip}>{h}</span>)}
             </div>
-            {b.notYet && <p class="mt-3 text-xs text-text-muted">{b.notYet}</p>}
           </div>
         ))}
       </div>
