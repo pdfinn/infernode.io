@@ -44,14 +44,20 @@ const t = useTranslations(lang).quickStart;
           <h3 class="mb-1 text-lg font-semibold">{t.appName}</h3>
           <p class="mb-3 text-sm text-text-muted" set:html={t.appBody} />
           <pre class="mb-4 overflow-x-auto rounded-lg border border-border bg-bg px-4 py-2 font-mono text-sm text-text"><code>brew install --cask infernode-os/tap/infernode</code></pre>
-          <a
-            href="https://github.com/infernode-os/infernode/releases/latest"
-            class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"
-            target="_blank"
-            rel="noopener"
-          >
-            {t.appButton}
-          </a>
+          <div class="flex flex-wrap gap-2">
+            <a
+              href="/download/infernode/macos-arm64.dmg"
+              class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"
+            >
+              {t.appButton}
+            </a>
+            <a
+              href="/download/infernode/macos-amd64.dmg"
+              class="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2 text-sm font-medium text-text transition hover:border-accent"
+            >
+              {t.appButtonIntel}
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -64,10 +70,8 @@ const t = useTranslations(lang).quickStart;
           <h3 class="mb-1 text-lg font-semibold">{t.winName}</h3>
           <p class="mb-3 text-sm text-text-muted" set:html={t.winBody} />
           <a
-            href="https://github.com/infernode-os/infernode/releases/latest"
+            href="/download/infernode/windows-amd64-gui.zip"
             class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-white transition hover:bg-accent-glow"
-            target="_blank"
-            rel="noopener"
           >
             {t.winButton}
           </a>
@@ -103,10 +107,8 @@ const t = useTranslations(lang).quickStart;
           <span class="ml-2 text-xs text-text-muted" set:html={t.termLabel} />
         </div>
         <a
-          href="https://github.com/infernode-os/infernode/releases/latest"
+          href="/download/infernode/linux-amd64-gui.tar.gz"
           class="text-xs text-accent hover:text-accent-glow transition font-sans"
-          target="_blank"
-          rel="noopener"
         >
           {t.termDownload}
         </a>

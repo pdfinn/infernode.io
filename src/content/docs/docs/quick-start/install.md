@@ -26,13 +26,14 @@ With Homebrew:
 brew install --cask infernode-os/tap/infernode
 ```
 
-Or download `infernode-*-macos-arm64.dmg` (Apple Silicon) or
-`infernode-*-macos-amd64.dmg` (Intel), open it, drag InferNode to
+Or download [`infernode-*-macos-arm64.dmg`](/download/infernode/macos-arm64.dmg) (Apple Silicon) or
+[`infernode-*-macos-amd64.dmg`](/download/infernode/macos-amd64.dmg) (Intel), open it, drag InferNode to
 Applications, and launch it.
 
 ## Linux (x86_64 or ARM64)
 
-Download `infernode-*-linux-amd64-gui.tar.gz` — or `-arm64-` for Jetson,
+Download [`infernode-*-linux-amd64-gui.tar.gz`](/download/infernode/linux-amd64-gui.tar.gz) — or
+[`-arm64-`](/download/infernode/linux-arm64-gui.tar.gz) for Jetson,
 Raspberry Pi, and Apple-Silicon Linux. SDL3 is bundled, so there is nothing
 else to install.
 
@@ -53,7 +54,7 @@ wrapper only, and `--uninstall` removes both.
 
 ## Windows (x86_64)
 
-Download `infernode-*-windows-amd64-gui.zip` and extract it. Then, in order:
+Download [`infernode-*-windows-amd64-gui.zip`](/download/infernode/windows-amd64-gui.zip) and extract it. Then, in order:
 
 1. Double-click **`setup-windows.bat`**
 2. Double-click **`InferNode.exe`**
