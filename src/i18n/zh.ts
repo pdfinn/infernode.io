@@ -267,7 +267,7 @@ export const ui: Ui = {
     title: '摄像头在一台机器上,识别在另一台,画面在第三台。',
     intro: '识别就是文件,所以它可以放在硬件所在的任何地方,再由 <code class="font-mono text-xs">mount</code> 和 <code class="font-mono text-xs">bind</code> 把各部分拼起来。下面先看它实际运行,再看同样的三个角色放在物流园区闸口。',
     videoLabel: '录屏:一台 Raspberry Pi 5 把街景提供为实时视频流,一台 Jetson Orin AGX 识别其中的内容,一台 Mac 显示画面并在上面画出检测结果,三者由 mount 和 bind 连接起来。',
-    videoCaption: '一个命名空间,三台机器:裸机运行的 Raspberry Pi 5 把一段录好的街景提供为实时视频流,隔着 VPN 的 Jetson Orin AGX 负责识别,画面显示在 Mac 上。在 Orin 的 GPU 上,它跟上了每秒 6 帧的视频流:85 帧中识别了 81 帧,每帧中位数 83 毫秒。',
+    videoCaption: '一个命名空间,三台机器:裸机运行的 Raspberry Pi 5 把一段录好的街景提供为实时视频流,隔着 VPN 的 Jetson Orin AGX 负责识别,画面显示在 Mac 上。在 Orin 的 GPU 上,它跟上了每秒 6 帧的视频流:85 帧中识别了 82 帧,每帧中位数 89 毫秒。',
     steps: [
       '用证书挂载 Pi 的视频流:CNSA 2.0 密钥交换,AES-256。',
       '挂载 Orin 的识别服务。那里的一个会话跟随这路视频流,Orin 也挂载了它。',

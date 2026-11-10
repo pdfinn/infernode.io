@@ -256,7 +256,7 @@ export const ui = {
     title: 'Camera on one machine. Recognition on another. The picture on a third.',
     intro: 'Recognition is files, so it can sit wherever the hardware is, and <code class="font-mono text-xs">mount</code> and <code class="font-mono text-xs">bind</code> put the pieces together. Here it is running, and then the same three roles at a depot gate.',
     videoLabel: 'Recording: a Raspberry Pi 5 serves a street scene as a live feed, a Jetson Orin AGX recognises what is in it, and a Mac shows the picture with the detections drawn on it, joined by mount and bind.',
-    videoCaption: 'One namespace, three machines: a Raspberry Pi 5 on bare metal serving a recorded street scene as a live feed, recognition on a Jetson Orin AGX across a VPN, the picture on a Mac. On the Orin&rsquo;s GPU it kept up with the 6-frame-a-second feed: 81 of 85 frames looked at, 83 ms each at the median.',
+    videoCaption: 'One namespace, three machines: a Raspberry Pi 5 on bare metal serving a recorded street scene as a live feed, recognition on a Jetson Orin AGX across a VPN, the picture on a Mac. On the Orin&rsquo;s GPU it kept up with the 6-frame-a-second feed: 82 of 85 frames looked at, 89 ms each at the median.',
     steps: [
       'Mount the Pi&rsquo;s feed, with certificates: CNSA 2.0 key exchange, AES-256.',
       'Mount the Orin&rsquo;s recognition. A session there follows the feed, which the Orin has mounted too.',
