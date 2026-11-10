@@ -16,8 +16,16 @@ const shots = [
 // Xenith's own selection colours: buttons 1, 2 and 3.
 const hit = ['border-[#6c7086] bg-[#54566e]', 'border-[#ae6a71] bg-[#7c484d]', 'border-[#5a8a5d] bg-[#3b603d]'];
 const releases = 'https://github.com/infernode-os/infernode/releases/latest';
-const version = '0.9.0';
-const dl = (f: string) => `https://github.com/infernode-os/infernode/releases/download/v${version}/xenith-${version}-${f}`;
+// Download buttons go through functions/download/xenith/[asset].js, which
+// redirects to that file in whatever release is latest at click time.
+// Never put a version number here.
+const dl = (f: string) => `/download/xenith/${f}`;
+// Structured data only: the latest tag as of this build, or nothing.
+let version: string | undefined;
+try {
+  const res = await fetch(releases, { method: 'HEAD', redirect: 'manual', signal: AbortSignal.timeout(5000) });
+  version = res.headers.get('location')?.match(/\/releases\/tag\/v(\d+\.\d+\.\d+[^/?#]*)$/)?.[1];
+} catch {}
 const macDmg = dl('macos-arm64.dmg');
 const plain = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&rsquo;/g, "'");
 const jsonLd = [
@@ -32,7 +40,7 @@ const jsonLd = [
     url: new URL(Astro.url.pathname, Astro.site).href,
     image: new URL('/xenith/og-xenith.png', Astro.site).href,
     downloadUrl: releases,
-    softwareVersion: version,
+    ...(version && { softwareVersion: version }),
     license: 'https://opensource.org/licenses/MIT',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   },
