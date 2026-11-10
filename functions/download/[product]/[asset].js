@@ -23,6 +23,7 @@ const ASSETS = {
     'linux-arm64.tar.gz',
     'windows-amd64-gui.zip',
     'windows-amd64.zip',
+    'rpi5.img.xz',
     'rpi4b.img.xz',
     'rpi3bplus.img.xz',
   ]),
