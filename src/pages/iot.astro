@@ -21,7 +21,7 @@ const timing = [
   { n: '1 ms', l: 'scheduler tick on every core' },
   { n: '&lt; 100 µs', l: 'interrupt to waiting driver, USB bulk IN, Pi 3B+' },
   { n: '0.63 ms', l: 'Ethernet ping round trip, Pi 4' },
-  { n: '48 h', l: 'soak on a Pi 3B+: no panics, no reboots' },
+  { n: '4', l: 'Dis VMs on a Pi, one a core, each with its own heap and collector' },
 ];
 const timingWhy = [
   { icon: 'ph-recycle', title: 'No collector pauses', body: 'Reference counting frees most memory at once. A small incremental collector handles cycles in bounded steps, between time slices.' },
@@ -29,10 +29,13 @@ const timingWhy = [
   { icon: 'ph-pulse', title: 'Edges timed at the interrupt', body: 'GPIO events are stamped in microseconds when the interrupt fires, so a slow reader sees late data, not wrong times.' },
   { icon: 'ph-waveform', title: 'Short audio buffers', body: 'The Pi audio driver can go down to 64-frame buffers, about 1.5 ms each, for sounds that answer a person.' },
 ];
+// What each board's port has, checked against infernode-os/infernode:
+// os/bcm2711/README.md, os/bcm2712/INVENTORY.md and docs/BAREMETAL.md.
+const pi3has = ['Ethernet', 'Wi-Fi', 'Bluetooth', 'GPIO', 'Audio jack', '7" touch panel', 'A/B kernel update', 'Boot watchdog'];
 const boards = [
-  { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Dual HDMI ports'] },
-  { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Runs on the board', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'USB', '7" panel', 'SD card'] },
-  { art: 'pi3', color: 'text-node-jetson', name: 'Raspberry Pi 3B+', tag: 'Runs on the board', body: 'Quad-core BCM2837, and the port everything else grew from. Field updates are built in.', has: ['Ethernet', 'Wi-Fi', 'Bluetooth', 'GPIO', 'Audio', 'Touch', 'A/B kernel update', 'Boot watchdog'] },
+  { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest and fastest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Watchdog', 'HDMI, either port'], notYet: 'Not yet: the 7" panel and touch, audio, the camera, two screens at once.' },
+  { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Most complete', body: 'Quad-core BCM2711. A steady, well-proven node for gateways and panels.', lead: 'Everything the 3B+ has, plus:', has: ['Gigabit Ethernet', 'USB-A sockets', 'HDMI, either port', 'Camera Module 3'] },
+  { art: 'pi3', color: 'text-node-jetson', name: 'Raspberry Pi 3B+', tag: 'Where it started', body: 'Quad-core BCM2837, and the port everything else grew from. Field updates are built in.', has: pi3has },
 ];
 const granted = ['/n/brick/temp', '/n/brick/adc/0', '/n/brick/gpio/6', '/mnt/llm'];
 const hidden = ['/n/brick/pwm/15', '/n/brick/d2', '/net', '/usr/you/.ssh'];
@@ -70,7 +73,7 @@ const safety = [
       <div class="relative">
         <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">IoT and edge AI</p>
         <h1 class="mx-auto mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Every sensor is a file. Every agent gets only the ones you grant.</h1>
-        <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted">InferNode runs on a Raspberry Pi with nothing underneath it, and mounts a microcontroller&rsquo;s pins like a folder. Put agents next to the hardware without handing them the building.</p>
+        <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted">InferNode runs on a Raspberry Pi with nothing underneath it, and mounts a microcontroller&rsquo;s pins like files in a folder. Put agents next to the hardware without handing them the building.</p>
         <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a href="/docs/bare-metal/" class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Run on bare metal</a>
           <a href="/security/" class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text">How containment works</a>
@@ -96,7 +99,7 @@ const safety = [
     <section class="mx-auto mt-32 max-w-5xl">
       <div class="mb-12 text-center">
         <p class={eyebrow}>Bare metal</p>
-        <h2 class={`mb-4 ${h2}`}>The operating system, not an app on Linux</h2>
+        <h2 class={`mb-4 ${h2}`}>InferNode is the operating system, not an app on Linux</h2>
         <p class="mx-auto max-w-2xl text-lg text-text-muted">The kernel boots, brings up the hardware and runs the same programs as hosted InferNode, with the desktop if you want one and headless if you don&rsquo;t.</p>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
@@ -106,9 +109,11 @@ const safety = [
             <h3 class="text-lg font-semibold">{b.name}</h3>
             <p class={`mb-2 text-sm font-medium ${b.color}`}>{b.tag}</p>
             <p class="mb-4 text-sm leading-relaxed text-text-muted">{b.body}</p>
+            {b.lead && <p class="mb-2 text-xs font-medium text-text">{b.lead}</p>}
             <div class="flex flex-wrap gap-1.5">
               {b.has.map((h) => <span class={chip}>{h}</span>)}
             </div>
+            {b.notYet && <p class="mt-3 text-xs text-text-muted">{b.notYet}</p>}
           </div>
         ))}
       </div>
@@ -118,7 +123,7 @@ const safety = [
     <section class="mx-auto mt-32 grid max-w-5xl items-center gap-10 md:grid-cols-2">
       <div class="min-w-0">
         <p class={eyebrow}>Styxbrick</p>
-        <h2 class={`mb-6 ${h2}`}>A microcontroller you can <code class="font-mono">ls</code></h2>
+        <h2 class={`mb-6 ${h2}`}>A microcontroller that looks like a filesystem</h2>
         <p class="mb-4 text-lg text-text-muted">Styxbrick is firmware for the Raspberry Pi Pico 2 W that serves the board&rsquo;s hardware over 9P, in the spirit of Vita Nuova&rsquo;s Styx-on-a-Brick. No driver, no SDK, no broker.</p>
         <BoardArt board="pico" label="Drawing of a Raspberry Pi Pico 2 W layout" class="w-full max-w-sm text-node-llm" />
       </div>
@@ -126,6 +131,7 @@ const safety = [
 ; ls /n/brick
 adc  d2  events  gpio  info  led  net  pwm  temp
 ; cat /n/brick/temp
+32.656
 ; echo pulse 1500 &gt; /n/brick/pwm/15   # servo
 ; echo edge both &gt; /n/brick/gpio/6
 ; cat /n/brick/events
