@@ -24,9 +24,9 @@ export const ui = {
         "InferNode's agent isolation is built into the operating system and checked with formal methods: the design is model-checked in TLA+ with zero violations, and the kernel code is checked with SPIN and CBMC. A distributed operating system built for trust.",
     },
     examples: {
-      title: 'Examples — Computer Vision, IoT and Navigation on Real Devices | InferNode',
+      title: 'Examples — Computer Vision, Robotics, IoT and Navigation on Real Devices | InferNode',
       description:
-        'InferNode on real devices: a depot gate camera on a Raspberry Pi with recognition on a Jetson and the picture in the office, a boat\'s AIS and local model as files, and where people use it.',
+        'InferNode on real devices, for IoT, robotics and physical AI: a depot gate camera on a Raspberry Pi with recognition on a Jetson and the picture in the office, a boat\'s AIS and local model as files, and where people use it.',
     },
     platform: {
       title: 'The InferNode Platform — Every Resource Is a File | InferNode',
@@ -138,7 +138,8 @@ export const ui = {
   examplesPage: {
     eyebrow: 'Examples and use cases',
     title: 'Real devices, doing real work.',
-    intro: 'Each example is a handful of machines, each serving what it has as files, and one that mounts them. Nothing in them was written for the network.',
+    intro: 'Each example is a handful of machines, each serving what it has as files, and one that mounts them. Nothing in them was written for the network. The same pattern carries over to robotics and physical AI: sensors, cameras and actuators on small boards, and the model wherever the compute is.',
+    keywords: 'physical AI, robotics, AI robotics, embodied AI, computer vision, machine vision, object detection, edge AI, IoT, Raspberry Pi, Jetson Orin, NVIDIA Jetson, distributed AI, sensor networks, AIS, marine navigation, 9P',
     tabVision: 'Computer vision',
     tabNav: 'IoT and navigation',
     tabUses: 'Use cases',

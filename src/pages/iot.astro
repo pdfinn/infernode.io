@@ -4,9 +4,9 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import BoardArt from '../components/BoardArt.astro';
 
-const title = 'InferNode for IoT and Edge AI — Bare Metal on Raspberry Pi 3B+, 4B and 5';
-const description = 'Run InferNode as the operating system on Raspberry Pi 3B+, 4B and 5, and mount microcontrollers as files. Edge AI agents get only the sensors and outputs you grant them.';
-const keywords = 'IoT, edge AI, edge computing, embedded AI, AI agents, Raspberry Pi, Raspberry Pi 5, Raspberry Pi 4, Raspberry Pi 3B+, Raspberry Pi Pico 2 W, RP2350, bare metal, embedded operating system, 9P, Styx, capability security, RISC-V';
+const title = 'InferNode for IoT, Robotics and Physical AI — Bare Metal on Raspberry Pi 3B+, 4B and 5';
+const description = 'Run InferNode as the operating system on Raspberry Pi 3B+, 4B and 5, and mount microcontrollers as files. For IoT, robotics and physical AI: agents get only the sensors, cameras and actuators you grant them.';
+const keywords = 'IoT, robotics, physical AI, embodied AI, AI robotics, robot control, operating system for robots, edge robotics, servo control, machine vision, edge AI, edge computing, embedded AI, AI agents, Raspberry Pi, Raspberry Pi 5, Raspberry Pi 4, Raspberry Pi 3B+, Raspberry Pi Pico 2 W, RP2350, bare metal, embedded operating system, 9P, Styx, capability security, RISC-V';
 const eyebrow = 'mb-4 text-sm font-medium tracking-widest uppercase text-accent';
 const h2 = 'text-3xl font-bold tracking-tight sm:text-4xl';
 const chip = 'rounded-full border border-border bg-bg px-2.5 py-0.5 text-xs text-text-muted';
@@ -70,7 +70,7 @@ const safety = [
     <section class="relative mx-auto max-w-6xl text-center">
       <div class="absolute inset-0 -top-24 mx-auto h-96 w-[36rem] max-w-full rounded-full bg-accent/10 blur-3xl"></div>
       <div class="relative">
-        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">IoT and edge AI</p>
+        <p class="mb-6 text-sm font-medium tracking-widest uppercase text-accent">IoT, robotics and physical AI</p>
         <h1 class="mx-auto mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Every sensor is a file. Every agent gets only the ones you grant.</h1>
         <p class="mx-auto mb-10 max-w-2xl text-lg text-text-muted">InferNode runs on a Raspberry Pi with nothing underneath it, and mounts a microcontroller&rsquo;s pins like files in a folder. Put agents next to the hardware without handing them the building.</p>
         <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -116,6 +116,16 @@ const safety = [
         ))}
       </div>
       <p class="mt-6 text-center text-sm text-text-muted">64-bit RISC-V runs under QEMU, with the BeagleV-Fire as the next board. <a href="/docs/bare-metal/" class="text-accent hover:underline">Board-by-board status</a>.</p>
+    </section>
+
+    <section class="mx-auto mt-10 max-w-5xl">
+      <div class="flex flex-col items-start gap-6 rounded-xl border border-accent/40 bg-accent/5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="min-w-0">
+          <h2 class="mb-2 text-xl font-semibold">Your board isn&rsquo;t listed?</h2>
+          <p class="text-sm leading-relaxed text-text-muted">We bring InferNode up on new hardware. Tell us the board, its SoC and what it has to drive &mdash; a robot arm, a sensor rig, a camera, a display &mdash; and we&rsquo;ll tell you how close it is.</p>
+        </div>
+        <a href="mailto:contact@nervsystems.com?subject=InferNode%20hardware%20support" class="shrink-0 rounded-lg bg-accent px-6 py-3 font-medium text-white transition hover:bg-accent-glow">Get in touch</a>
+      </div>
     </section>
 
     <section class="mx-auto mt-32 grid max-w-5xl items-center gap-10 md:grid-cols-2">
@@ -175,9 +185,9 @@ rise 6 7836364</code></pre>
 
     <section class="mx-auto mt-32 max-w-5xl">
       <div class="mb-12 text-center">
-        <p class={eyebrow}>Edge AI</p>
+        <p class={eyebrow}>Edge AI and physical AI</p>
         <h2 class={`mb-4 ${h2}`}>Agents next to the hardware, on a short leash</h2>
-        <p class="mx-auto max-w-2xl text-lg text-text-muted">An agent&rsquo;s world is the files you bind into it. Grant one pin, and the servo next to it does not exist.</p>
+        <p class="mx-auto max-w-2xl text-lg text-text-muted">An agent&rsquo;s world is the files you bind into it. Grant one pin, and the servo next to it does not exist. That is the line a robot or any other physical AI system needs between what the model decides and what the hardware does.</p>
       </div>
       <div class="grid items-center gap-4 rounded-xl border border-border bg-bg-surface p-6 md:grid-cols-[1fr_auto_1fr]">
         <div class="min-w-0 space-y-2">

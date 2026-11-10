@@ -34,9 +34,9 @@ export const ui: Ui = {
         'InferNode 的智能体隔离内建于操作系统,并以形式化方法检查:设计在 TLA+ 中经模型检查、零违规,内核代码经 SPIN 与 CBMC 检查。一款为信任而生的分布式操作系统。',
     },
     examples: {
-      title: '示例 — 真实设备上的计算机视觉、物联网与导航 | InferNode',
+      title: '示例 — 真实设备上的计算机视觉、机器人、物联网与导航 | InferNode',
       description:
-        '真实设备上的 InferNode:Raspberry Pi 上的物流园区闸口摄像头,Jetson 上的识别,办公室里的画面;一条船的 AIS 和本地模型以文件呈现;以及它的应用场景。',
+        '真实设备上的 InferNode,面向物联网、机器人与物理 AI:Raspberry Pi 上的物流园区闸口摄像头,Jetson 上的识别,办公室里的画面;一条船的 AIS 和本地模型以文件呈现;以及它的应用场景。',
     },
     platform: {
       title: 'InferNode 平台 — 一切资源皆文件 | InferNode',
@@ -148,7 +148,8 @@ export const ui: Ui = {
   examplesPage: {
     eyebrow: '示例与应用场景',
     title: '真实的设备,做真实的事。',
-    intro: '每个示例都是几台机器:每台把自己拥有的东西以文件形式提供出来,再由一台把它们挂载起来。其中没有任何东西是为网络专门编写的。',
+    intro: '每个示例都是几台机器:每台把自己拥有的东西以文件形式提供出来,再由一台把它们挂载起来。其中没有任何东西是为网络专门编写的。同样的模式也适用于机器人与物理 AI:传感器、摄像头和执行器在小板子上,模型放在算力所在之处。',
+    keywords: '物理 AI, 具身智能, 机器人, AI 机器人, 计算机视觉, 机器视觉, 目标检测, 边缘 AI, 物联网, Raspberry Pi, Jetson Orin, NVIDIA Jetson, 分布式 AI, 传感器网络, AIS, 航海导航, 9P, physical AI, robotics',
     tabVision: '计算机视觉',
     tabNav: '物联网与导航',
     tabUses: '应用场景',
