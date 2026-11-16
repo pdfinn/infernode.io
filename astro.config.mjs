@@ -91,9 +91,21 @@ export default defineConfig({
               link: '/docs/concepts/contain-and-restore/',
             },
             {
+              label: 'Connecting machines',
+              link: '/docs/concepts/connections/',
+            },
+            {
               label: 'Design the interface first',
               link: '/docs/concepts/design-first/',
             },
+          ],
+        },
+        {
+          label: 'Sensors and devices',
+          items: [
+            { label: 'Overview', link: '/docs/devices/' },
+            { label: 'Video and vision', link: '/docs/devices/video-and-vision/' },
+            { label: 'GPS, AIS, ADS-B and radio', link: '/docs/devices/gps-and-radio/' },
           ],
         },
         {
@@ -105,6 +117,7 @@ export default defineConfig({
               label: 'Limbo for Go programmers',
               link: '/docs/build/limbo-for-go-programmers/',
             },
+            { label: 'Serve a website', link: '/docs/build/serve-a-website/' },
             { label: 'Run on bare metal', link: '/docs/bare-metal/' },
           ],
         },

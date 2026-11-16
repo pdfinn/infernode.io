@@ -28,7 +28,8 @@ and a dialogue titled **LLM Setup** in the conversation zone:
 
 > Choose how to connect to an AI model:
 
-Three buttons. Pick what matches what you have.
+Five buttons — **Remote API**, **Local model**, **Claude CLI**, **Codex CLI**
+and **Remote 9P**. Pick what matches what you have.
 
 ### Remote API
 
@@ -50,6 +51,30 @@ You run Ollama or another OpenAI-compatible server. **Settings** opens on the
 Ollama must be running *before* you start InferNode — `ollama serve`, or
 `sudo systemctl start ollama`.
 
+### Claude CLI or Codex CLI
+
+You already have a Claude or ChatGPT subscription and its command-line tool
+logged in on this machine. No API key is involved: a small gateway on the host
+— `claude-gate` or `codex-gate` — passes InferNode's requests through your
+existing `claude` or `codex` login. **Settings** opens on **LLM Service**:
+
+1. Leave **Mode** on `Local`
+2. Choose the **Claude CLI** or **Codex CLI** backend and press **Apply**
+
+On the host, run `claude login` (or `codex login`) once, and start the gateway:
+
+```sh
+tools/claude-gate/serve-claude-gate.sh     # or tools/codex-gate/serve-codex-gate.sh
+```
+
+InferNode never starts host programs on its own, so the gateway has to be
+running before you relaunch. The scripts live in the
+[source repository](https://github.com/infernode-os/infernode/tree/master/tools),
+with systemd and launchd units beside them —
+[CLAUDE-GATE.md](https://github.com/infernode-os/infernode/blob/master/docs/CLAUDE-GATE.md)
+and [CODEX-GATE.md](https://github.com/infernode-os/infernode/blob/master/docs/CODEX-GATE.md)
+have the details.
+
 ### Remote 9P
 
 Another machine on your network is running InferNode and exporting `/mnt/llm`.
@@ -59,7 +84,10 @@ Settings opens on **LLM Service**:
 2. Enter that machine's dial address: `tcp!host!port`
 
 The client needs no model, no API key, and no GPU — it mounts someone else's
-model as a directory. This is the arrangement in
+model as a directory. It is also how a phone uses a model: iOS and Android
+offer only Remote API, Local model and Remote 9P, since a phone has no host to
+run a CLI gateway, and a computer's Claude or Codex login reaches the phone
+this way instead. This is the arrangement in
 [Headless InferNode: mounting an LLM as a filesystem](https://github.com/infernode-os/infernode/blob/master/docs/HEADLESS-LLM-DAEMON.md).
 
 :::note[Where the key goes]
@@ -104,7 +132,7 @@ The fields:
 | Field | Values |
 |---|---|
 | `mode` | `local` — a backend on this machine or at a URL · `remote` — mount a remote `llmsrv` over 9P |
-| `backend` | `api` — Anthropic · `openai` — any OpenAI-compatible server (Ollama, SGLang) · `cli` — a local Claude CLI gateway |
+| `backend` | `api` — Anthropic · `openai` — any OpenAI-compatible server (Ollama, SGLang) · `cli` — the Claude CLI gateway (`url=http://127.0.0.1:11435/v1`) · `codex` — the Codex CLI gateway (`url=http://127.0.0.1:11436/v1`) |
 | `url` | Backend endpoint, e.g. `https://api.anthropic.com` or `http://localhost:11434/v1` |
 | `model` | Model name to request |
 | `dial` | Remote mode only: `tcp!host!5640` |
@@ -123,14 +151,6 @@ exist and skip the wizard that would have fixed it.
 
 For an API key without the GUI, set `ANTHROPIC_API_KEY` in the environment
 before launching; the boot profile provisions it into factotum.
-
-## A fourth option, if you have Claude Code
-
-The Settings **LLM Service** panel also offers a **Claude CLI** backend
-(`backend=cli`), which uses your host's existing `claude` login rather than an
-API key. If Settings shows *"API key: not needed (uses host claude login)"*,
-that is what it has picked up. The first-run wizard does not offer this one —
-open Settings yourself.
 
 ## Verify
 

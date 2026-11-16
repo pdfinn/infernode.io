@@ -95,6 +95,13 @@ edits that appear to do nothing.
 Alternatively `cd appl/cmd; mk install` after adding `countfs.dis` to the
 mkfile's `TARG` list, which is also what makes CI build it.
 
+Two more lists have to know about a new module, and CI checks both. Add its
+`.dis` to `tools/dis-manifest.txt`, the set of modules the build must produce —
+`tools/verify-dis-build.sh` builds the tree and fails if anything on it is
+missing. And name every `.m` the source includes as a prerequisite in its
+mkfile (`MODULES`/`SYSMODULES`), or a change to that header will not rebuild
+it; `tools/check-mkfile-deps.py -fix` adds what is missing.
+
 ## Step 4 — Try it interactively
 
 ```sh

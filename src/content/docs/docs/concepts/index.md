@@ -77,6 +77,8 @@ adapter will one day be removed, because it will.
   security model falls out of
 - **[Contain and restore](/docs/concepts/contain-and-restore/)** — the four
   layers that bound and reverse a failing agent
+- **[Connecting machines](/docs/concepts/connections/)** — certificates,
+  hybrid post-quantum authentication, AES-256-GCM on the wire, CNSA 2.0 mode
 - **[Design the interface first](/docs/concepts/design-first/)** — how to build
   something that fits, including the paradigms to catch in review
 

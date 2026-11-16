@@ -59,6 +59,14 @@ never bound into an agent namespace at all.
 model does not inhabit.** The same pattern covers message sends, file edits, and
 payments alike.
 
+The question you are asked is the harness's, not the model's. When a gated
+call — an `sms`, a `dial`, a `task Promote` — reaches the gate, the gate judges
+the call that will actually run, however it is spaced or cased, and asks about
+all of it in the tool's own words. A call too long to show whole is neither
+asked about nor run, and a model's text cannot forge the end of a tool result
+or a line of yours. An approved mail reply goes to the sender you were shown,
+or is not sent.
+
 The wallet takes this further. There is no raw `sign` file to hide, because
 signing an attacker-chosen 32-byte hash can authorize an arbitrary transfer —
 dangerous to *any* holder. When an interface cannot be attenuated into safety,
@@ -116,7 +124,9 @@ Detection tells you what happened. Two mechanisms put it back.
 to an overlay rather than to real files: reads fall through to the base, writes
 redirect, deletes become whiteouts. You then review a changeset — `diff` shows
 `M`/`A`/`D` per path — and promote or revert it, whole or file by file. That is
-`git add -p` semantics for agent side effects, not an undo button.
+`git add -p` semantics for agent side effects, not an undo button. A promote
+lands only in the folder the task was granted, and a change the overlay cannot
+record is refused rather than half made.
 
 **Snapshots.** With snapshots enabled, `snapd(8)` archives all of `/usr` plus
 the config overlays daily into a local write-once venti store as one vac
@@ -151,5 +161,5 @@ nothing else. That ceiling is the one this project advertises.
 
 ---
 
-Next: [Design the interface first](/docs/concepts/design-first/) — how to build
-something that composes with all of this.
+Next: [Connecting machines](/docs/concepts/connections/) — how two machines
+share a namespace, and the cryptography that makes the mount safe.

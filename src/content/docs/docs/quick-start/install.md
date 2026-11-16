@@ -5,8 +5,9 @@ sidebar:
   order: 1
 ---
 
-Releases ship as signed binaries for macOS, Linux, and Windows. There is no
-toolchain to install and no build step — download, extract, run.
+Releases ship as signed binaries for macOS, Linux, and Windows, plus SD-card
+images for the Raspberry Pi. There is no toolchain to install and no build
+step — download, extract, run.
 
 All downloads on this page come from the
 [latest release page](https://github.com/infernode-os/infernode/releases/latest).
@@ -79,15 +80,49 @@ docker run -it ghcr.io/infernode-os/infernode:latest
 ```
 
 The image is multi-arch (amd64 and arm64) and carries SLSA build provenance.
-For a bare tarball instead, take `infernode-*-linux-amd64.tar.gz` (no `-gui`)
-and run `./infernode-headless`.
+For a bare tarball instead, take
+[`infernode-*-linux-amd64.tar.gz`](/download/infernode/linux-amd64.tar.gz) or
+[`-arm64`](/download/infernode/linux-arm64.tar.gz) (no `-gui`) and run
+`./infernode-headless`. Windows has a headless zip too,
+[`infernode-*-windows-amd64.zip`](/download/infernode/windows-amd64.zip).
 
 You will land at the Inferno shell prompt, `;`, rather than in a window. Every
 later step marks the terminal path where it differs.
 
+## Raspberry Pi, with nothing underneath
+
+InferNode can also *be* the operating system. Each release carries a card
+image per board —
+[`infernode-*-rpi5.img.xz`](/download/infernode/rpi5.img.xz),
+[`-rpi4b`](/download/infernode/rpi4b.img.xz) and
+[`-rpi3bplus`](/download/infernode/rpi3bplus.img.xz) — with the kernel,
+the userspace and the radio firmware already on it. Write it to a card whole
+with Raspberry Pi Imager's **Use custom** (leave OS customisation off; nothing
+on the card reads it), `dd`, or Etcher, and boot the board.
+
+That is a different machine from the hosted one this quick start follows. It
+boots to the same login screen and desktop on a screen, or to a shell on the
+serial console without one — see [Run on bare metal](/docs/bare-metal/).
+
 ## Verify
 
-**With the GUI**, you should see a window in three zones, with a welcome
+**With the GUI**, the first thing you see is the login screen. On the first
+launch it asks you to choose a password and confirm it: that creates your
+**secstore** account, where the keys you add later are kept between launches.
+After that it asks for the password each time.
+
+Under the password field are two choices:
+
+- **Lucia** — the three-zone agent interface this quick start uses
+- **Desktop** — a classic window manager (`wm/wm`) with a shell, and plumbing
+  that opens files, folders, web pages and PDFs
+
+Pick **Lucia** (click it, or use the up and down arrows) and press Enter. The
+choice is remembered for the next launch. Pressing Escape twice goes on
+without logging in — the desktop still starts, but nothing you store in
+factotum survives a restart.
+
+Once logged in you should see a window in three zones, with a welcome
 document already loaded:
 
 <div class="expected">
@@ -124,10 +159,12 @@ front of you without any GUI toolkit being involved.
 
 ## Checking the download (optional)
 
-Every release asset is published with a cosign bundle (`.pem` and `.sig`) and a
-signed `SHA256SUMS.txt`. If you verify signatures as a matter of habit, they are
-on the [release page](https://github.com/infernode-os/infernode/releases/latest)
-next to the binaries.
+Every release asset is published with a Sigstore bundle (`<file>.sigstore`), as
+is the `SHA256SUMS.txt` that lists them all, and each release carries an SPDX
+software bill of materials (`infernode-*-sbom.spdx.json`). If you verify
+signatures as a matter of habit, they are on the
+[release page](https://github.com/infernode-os/infernode/releases/latest) next
+to the binaries.
 
 ## Troubleshooting
 

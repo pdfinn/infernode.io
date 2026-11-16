@@ -114,6 +114,30 @@ and fails at load time with `link typecheck` errors. Rebuild the dependents —
 the post-merge git hook does this after pulls.
 :::
 
+## Modules are linked by their types' digests
+
+:::note[On master, in the next release]
+Type digests were merged after release 0.10.1.
+:::
+
+The check the loader makes when one module imports another is not a name
+match. Both compilers write a SHA-256 of each exported and imported function's
+type into the `.dis` file, the builtin modules carry the same in their tables,
+and the loader compares them at every link — `$self` included. Two function
+types that differ are refused with `link typecheck` (`type digests differ`)
+even when their old 32-bit signatures happen to collide, so a module cannot
+be linked against an implementation whose frames it would misread.
+
+A module built before the digests existed still links on its 32-bit signature,
+so older bytecode keeps loading. A system can refuse that fallback: `emu -L`
+starts strict, and the host owner writing `1` to `/dev/strictlink` makes a
+running system strict for good. A strict system names the module that has to
+be rebuilt.
+
+`dis/` is a build product and not tracked in git, so a fresh clone has no
+bytecode at all until you build it — the loop is in
+[CLAUDE.md](https://github.com/infernode-os/infernode/blob/master/CLAUDE.md#dis-files-a-build-product).
+
 ## The shell is rc, not POSIX
 
 Inferno's `sh` is rc-style. `&&`, `||`, and POSIX loops are not available and

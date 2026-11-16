@@ -7,7 +7,9 @@ InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Be
 - Runs hosted on macOS, Linux, Windows, Android and iOS, in 15-30 MB of RAM with a 2-second start.
 - Runs as the operating system itself (bare metal) on ARM64 and RISC-V, including Raspberry Pi 3B+, 4B and 5.
 - Veltro is the agent runtime; Lucia is the desktop; Xenith is the text environment.
-- Isolation model verified with TLA+, SPIN and CBMC. Post-quantum cryptography: ML-KEM (FIPS 203) and ML-DSA (FIPS 204).
+- Isolation model verified with TLA+, SPIN and CBMC. Post-quantum cryptography: ML-KEM (FIPS 203), ML-DSA (FIPS 204) and SLH-DSA (FIPS 205); node-to-node authentication is hybrid Diffie-Hellman + ML-KEM, and every encrypted 9P connection is AES-256-GCM. A CNSA 2.0 mode holds login and node authentication to ML-KEM-1024, ML-DSA-87 and AES-256-GCM.
+- Sensors as files: cameras, object detection at /mnt/vision, GPS/AIS/ADS-B at /mnt/gps, and an RTL-SDR at /mnt/sdr, each a 9P service an agent can be granted or denied.
+- Raspberry Pi card images (3B+, 4B, 5) are attached to every release.
 - Source: https://github.com/infernode-os/infernode. Releases: https://github.com/infernode-os/infernode/releases/latest
 - Docker: `docker run -it ghcr.io/infernode-os/infernode:latest`
 
@@ -23,6 +25,13 @@ InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Be
 - [The worldview](https://infernode.io/docs/concepts/): Four statements, each meant literally. Everything else in InferNode follows from them.
 - [Namespaces](https://infernode.io/docs/concepts/namespaces/): Per-process, built rather than given — and the security model falls out of it.
 - [Contain and restore](https://infernode.io/docs/concepts/contain-and-restore/): Assume the model fails. Bound what the failure reaches, record what it did, put it back.
+- [Connecting machines](https://infernode.io/docs/concepts/connections/): Certificates from a signer, hybrid post-quantum authentication, AES-256-GCM on the wire, and CNSA 2.0 mode.
+
+## Sensors and devices
+
+- [Sensors and devices](https://infernode.io/docs/devices/): Cameras, detectors, GPS, ships, aircraft and radio as 9P services.
+- [Video and vision](https://infernode.io/docs/devices/video-and-vision/): Video feeds, the camera, JPEG between machines, object detection at /mnt/vision, and layers composed by bind.
+- [GPS, AIS, ADS-B and radio](https://infernode.io/docs/devices/gps-and-radio/): gpsfs at /mnt/gps, a moving map, the GPS as a clock, and an RTL-SDR at /mnt/sdr.
 
 ## Product pages
 
@@ -38,5 +47,6 @@ InferNode is a 64-bit distribution of Inferno OS, built by the Plan 9 team at Be
 
 - [Build a 9P service](https://infernode.io/docs/build/): Write a real InferNode service end to end — design, code, test, man page.
 - [Limbo for Go programmers](https://infernode.io/docs/build/limbo-for-go-programmers/): The mapping, and the four gotchas that actually bite.
-- [Run on bare metal](https://infernode.io/docs/bare-metal/): InferNode as the operating system itself, on ARM64 and RISC-V, or under QEMU.
+- [Serve a website](https://infernode.io/docs/build/serve-a-website/): httpd serves a directory of its own namespace over HTTP/1.1 and TLS 1.3.
+- [Run on bare metal](https://infernode.io/docs/bare-metal/): InferNode as the operating system itself, on ARM64 and RISC-V, or under QEMU; card images for the Raspberry Pi 3B+, 4B and 5.
 - [Manifesto](https://infernode.io/manifesto/): Why safety is what lets agents do more.

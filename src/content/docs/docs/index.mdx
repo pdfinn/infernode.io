@@ -26,6 +26,18 @@ hour and ends with an agent doing work it cannot escape from.
 />
 
 <LinkCard
+  title="Sensors and devices"
+  description="Cameras, object detection, GPS, AIS, ADS-B and software-defined radio — each a file server an agent can be granted or not."
+  href="/docs/devices/"
+/>
+
+<LinkCard
+  title="Run on bare metal"
+  description="InferNode as the operating system itself: card images for the Raspberry Pi 3B+, 4B and 5, and QEMU for ARM64 and RISC-V."
+  href="/docs/bare-metal/"
+/>
+
+<LinkCard
   title="Build a 9P service"
   description="Write a real service end to end — design, code, test, man page — using one that ships in the tree."
   href="/docs/build/"
@@ -41,11 +53,13 @@ hour and ends with an agent doing work it cannot escape from.
   </Card>
   <Card title="Security">
     Namespace isolation is model-checked with TLA+, SPIN, and CBMC. Agent trajectories
-    are sealed into a hash-chained audit log; writes stage copy-on-write.
+    are sealed into a hash-chained audit log; writes stage copy-on-write. Every
+    encrypted connection is AES-256-GCM, with hybrid post-quantum node
+    authentication.
   </Card>
   <Card title="Reference">
-    464 man pages across ten sections, plus the original Inferno papers on
-    Dis, Styx, Limbo, and the shell.
+    Over 500 man pages, plus the original Inferno papers on Dis, Styx, Limbo,
+    and the shell.
   </Card>
   <Card title="Compliance">
     Mappings for NIST SP 800-53, SP 800-171, SP 800-207, CNSA 2.0, FIPS 140-3

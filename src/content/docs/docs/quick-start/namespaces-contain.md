@@ -86,6 +86,15 @@ not reachable, and that holds under conditions where rule evaluation does not:
   monotonically down the process tree. You do not need a policy engine to reason
   about what a delegation chain can do — you read its namespace.
 
+A child's namespace is built from its parent's grant, not from its parent's
+machinery: its `/tool` is a directory of its own, with no way back into the
+parent's tool server, and the control mounts — the model service at
+`/mnt/llm`, the agent harness at `/mnt/veltro` and the like — are refused as
+grants outright, so a child cannot read another session's conversation. The
+tools whose calls wait on your approval (`sms`, `dial`, `task`) are refused to
+children altogether, since a child's calls are not put in front of you. A
+grant the child's restriction would refuse is refused before anything starts.
+
 The subagent case still needs care, but the risk is inheriting *too much*, not
 gaining anything new. `spawn` takes an explicit `tools=` and `paths=` set, and a
 child that is handed its parent's full grant is no narrower than the parent was.
@@ -141,7 +150,10 @@ what they do and do not cover, are in
 
 **Staged writes.** Where an agent is granted write access, those writes can be
 staged through a copy-on-write overlay so they are reviewed before they touch
-real files — `diff` what changed, then promote or revert it file by file. See
+real files — `diff` what changed, then promote or revert it file by file. A
+promote is applied only to the folder the task was granted, and you are asked
+first, with the list of what changes; the overlay's own records cannot be
+reached or forged through the mount. See
 [`appl/veltro/cowfs.b`](https://github.com/infernode-os/infernode/blob/master/appl/veltro/cowfs.b).
 
 **Agent provenance.** Veltro seals every trajectory — prompts, tool calls,
@@ -152,6 +164,13 @@ part of the evidence: the namespace is the record. The interface is
 
 **The whole strategy.** [Contain and restore](/docs/concepts/contain-and-restore/)
 covers all four layers in one place.
+
+**Tools that reach past the grant are not in the default budget.** Each tool
+ships with a manifest of the authority it carries. `git`'s says its effects
+are bounded by no grant — its worker keeps the namespace the tool server
+started in, so what it checks out or pushes is staged by no overlay — so it is
+no longer given to task agents by default. Add it to an activity by hand
+(`budget-add git`) where you want that.
 
 ## Contain, then restore
 

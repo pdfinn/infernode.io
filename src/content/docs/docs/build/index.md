@@ -34,12 +34,15 @@ You should also have read
 **[Design the interface first](/docs/concepts/design-first/)**. This section is
 the practice; that page is the theory, and the tutorial assumes it.
 
-## The two pages here
+## The pages here
 
 - **[Writing a 9P service](/docs/build/9p-service/)** — the seven steps, from
   sketch to man page
 - **[Limbo for Go programmers](/docs/build/limbo-for-go-programmers/)** — the
-  mapping, and the four gotchas that actually bite
+  mapping, the four gotchas that actually bite, and how modules are linked
+- **[Serve a website](/docs/build/serve-a-website/)** — the other direction:
+  `httpd` serving a directory of its namespace, so any file server becomes a
+  web page
 
 :::tip[If you write Go, you are most of the way there]
 Limbo has `spawn` where Go has `go`, channels with `alt` instead of `select`,
