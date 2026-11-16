@@ -20,7 +20,7 @@ in the InferNode repository.
 |-------|-------|
 | **Raspberry Pi 3B+** (`os/bcm2837`) | Runs on the real board, and on QEMU's `raspi3b`. Ethernet, Wi-Fi, Bluetooth, SD card, HDMI/DSI, USB keyboard and mouse, touch, GPIO, audio, A/B kernel update, boot watchdog. |
 | **Raspberry Pi 4B** (`os/bcm2711`) | Runs on the real board and on QEMU's `raspi4b`: SD card, gigabit Ethernet, Wi-Fi and Bluetooth, USB, the 7" panel and touch, the camera (a Camera Module 3, served by `camsrv`), the headphone jack, all four cores. |
-| **Raspberry Pi 5** (`os/bcm2712`) | Runs on the real board (8GB, rev 1.0); no emulator models a Pi 5. All four cores, gigabit Ethernet, USB, Wi-Fi, Bluetooth, GPIO, I2C, SPI, PWM, the real-time clock, the fan, an NVMe drive, and the desktop on either HDMI port. Not yet: two screens at once, DSI and CSI. The D0 stepping (2GB boards and later) has not been run. |
+| **Raspberry Pi 5** (`os/bcm2712`) | Runs on the real board (8GB, rev 1.0), booted from the release's card image; no emulator models a Pi 5. All four cores, gigabit Ethernet, USB, Wi-Fi, Bluetooth, GPIO, I2C, SPI, PWM, the real-time clock, the fan, an NVMe drive, and the desktop on either HDMI port. Not yet: two screens at once, DSI and CSI. The D0 stepping (2GB boards and later) has not been run. |
 | **QEMU `virt`** (`os/virt`) | GICv2 or GICv3, and virtio (net, blk, keyboard, tablet, ramfb) — the kernel anywhere QEMU runs, which is what CI boots. |
 | **QEMU RISC-V `virt`** (`os/riscvvirt`) | RV64GC under OpenSBI with the RISC-V Dis JIT. |
 | **PolarFire SoC: BeagleV-Fire, Icicle Kit** (`os/mpfs`) | Boots under QEMU's `microchip-icicle-kit`. It has never run on a board. |
@@ -159,11 +159,11 @@ whole:
 
 Use Raspberry Pi Imager's **Use custom** (with its OS customisation left off:
 nothing on the card reads it), `dd`, or Etcher. The image is everything below,
-with the radio's Wi-Fi firmware and Bluetooth patch included. The 3B+ and 4B
-images are in Imager's own format — each release attaches the
-`os_list_infernode.json` Imager reads — and every release image is checked as
-the boot ROM and firmware read a card before it ships; the 3B+ and 4B images are
-also booted under QEMU to the login screen.
+with the radio's Wi-Fi firmware and Bluetooth patch included. All three boot
+from the card as released. Every release image is checked as the boot ROM and
+firmware read a card before it ships, and the 3B+ and 4B images are also booted
+under QEMU to the login screen (no emulator models a Pi 5). Each release also
+attaches `os_list_infernode.json`, the entry Raspberry Pi Imager reads.
 
 To make one from your own tree, build the kernel and run
 
