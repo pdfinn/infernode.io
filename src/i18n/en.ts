@@ -32,6 +32,8 @@ export const ui = {
       title: 'The InferNode Platform — Every Resource Is a File | InferNode',
       description:
         'How InferNode works beyond containment: 9P, resources as files, distributed namespaces, hot-loaded code, and where people use it.',
+      keywords:
+        'write once run anywhere, write once run everywhere, cross-platform, portable bytecode, Dis virtual machine, Limbo, hot loading, hot reload, hot code loading, load code over the network, distributed operating system, distributed namespaces, 9P, Styx, Inferno OS, Plan 9, bare metal, Raspberry Pi, NVIDIA Jetson, Windows, macOS, Linux, Android, iOS, ARM, x86, edge computing, remote display',
     },
     veltro: {
       title: 'Veltro — The Namespace-Resident AI Agent | InferNode',

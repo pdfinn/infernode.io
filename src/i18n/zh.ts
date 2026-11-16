@@ -42,6 +42,8 @@ export const ui: Ui = {
       title: 'InferNode 平台 — 一切资源皆文件 | InferNode',
       description:
         '封闭之外的 InferNode:9P、资源即文件、分布式命名空间、热加载代码,以及它的应用场景。',
+      keywords:
+        '一次编写到处运行, 跨平台, 可移植字节码, Dis 虚拟机, Limbo, 热加载, 热更新, 通过网络加载代码, 分布式操作系统, 分布式命名空间, 9P, Inferno, Plan 9, 裸机, Raspberry Pi, Jetson, Windows, macOS, Linux, Android, iOS, ARM, x86, 边缘计算, write once run anywhere, hot loading',
     },
     veltro: {
       title: 'Veltro — 驻留在命名空间中的 AI 智能体 | InferNode',
