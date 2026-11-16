@@ -3,6 +3,7 @@ import { useTranslations, type Lang } from '../i18n/utils';
 import BoardArt from './BoardArt.astro';
 import Laptop from './art/Laptop.astro';
 import Jetson from './art/Jetson.astro';
+import Monitor from './art/Monitor.astro';
 
 interface Props {
   lang?: Lang;
@@ -10,29 +11,33 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang).distributedArch;
 
-const pis = [
-  { board: 'pi3' as const, name: 'Raspberry Pi 3B+', y: 12 },
-  { board: 'pi4' as const, name: 'Raspberry Pi 4', y: 140 },
-  { board: 'pi5' as const, name: 'Raspberry Pi 5', y: 268 },
+// One build on the laptop, three very different machines running it.
+const targets = [
+  { kind: 'pi5' as const, name: t.hotloadPi, tag: t.hotloadTagBare, sys: 'pi5', y: 12 },
+  { kind: 'desktop' as const, name: t.hotloadDesktop, tag: t.hotloadTagWindows, sys: 'desktop', y: 140 },
+  { kind: 'jetson' as const, name: t.hotloadJetson, tag: t.hotloadTagLinux, sys: 'jetson', y: 268 },
 ];
-const fan = pis.map((p) => `M412 180 C530 180 530 ${p.y + 51} 640 ${p.y + 51}`);
+const fan = targets.map((p) => `M412 180 C530 180 530 ${p.y + 51} 640 ${p.y + 51}`);
 
 // The module being edited, as the laptop's Xenith shows it.
 const code: [string, boolean][] = [
-  ['implement Anchorwatch;', false],
+  ['implement Hello;', false],
+  ['include "sys.m";  sys: Sys;', false],
+  ['include "draw.m";', false],
+  ['Hello: module {', false],
+  ['    init: fn(nil: ref Draw->Context, nil: list of string);', false],
+  ['};', false],
   ['', false],
-  ['RADIUS: con 40.0;    # metres; was 30', true],
-  ['', false],
-  ['watch(drop: Pos)', false],
+  ['init(nil: ref Draw->Context, nil: list of string)', false],
   ['{', false],
-  ['    for(;;){', false],
-  ['        p := readpos("/mnt/gps/position");', false],
-  ['        if(dist(drop, p) > RADIUS)', false],
-  ['            alarm("anchor dragging");', false],
-  ['        sys->sleep(5000);', false],
-  ['    }', false],
+  ['    sys = load Sys Sys->PATH;', false],
+  ['    fd := sys->open("/dev/sysname", Sys->OREAD);', false],
+  ['    buf := array[64] of byte;', false],
+  ['    n := sys->read(fd, buf, len buf);', false],
+  ['    sys->print("hello from %s\\n", string buf[:n]);', true],
   ['}', false],
 ];
+const hot = code.findIndex(([, h]) => h);
 
 const drawCable = 'M288 128 C400 128 430 118 540 118';
 const inputCable = 'M540 206 C430 206 400 196 288 196';
@@ -69,30 +74,45 @@ const inputCable = 'M540 206 C430 206 400 196 288 196';
             </>
           ))}
           <rect x="462" y="168" width="136" height="26" rx="13" class="fill-bg stroke-accent/60" />
-          <text x="530" y="186" text-anchor="middle" class="fill-accent" font-size="13" font-family="var(--font-family-mono)">anchorwatch.dis</text>
+          <text x="530" y="186" text-anchor="middle" class="fill-accent" font-size="13" font-family="var(--font-family-mono)">hello.dis</text>
 
           <Laptop x={30} y={50} width={400} class="text-node-laptop">
             <rect width="372" height="234" class="fill-bg" />
             <rect width="372" height="15" class="fill-bg-surface-hover" />
-            <text x="6" y="10.5" class="fill-text-muted" font-size="7.5" font-family="var(--font-family-mono)">/usr/you/anchorwatch.b  Del Snarf Undo Put</text>
-            <rect x="4" y="47" width="364" height="13.5" rx="2" class="fill-accent/15" />
-            <g font-size="9.5" font-family="var(--font-family-mono)" class="fill-text">
-              {code.map(([line, hot], i) => (
-                <text x="8" y={30 + i * 13.5} class={hot ? 'fill-accent' : undefined} xml:space="preserve">{line}</text>
+            <text x="6" y="10.5" class="fill-text-muted" font-size="7.5" font-family="var(--font-family-mono)">/usr/you/hello.b  Del Snarf Undo Put</text>
+            <rect x="4" y={28 + hot * 12 - 9} width="364" height="12" rx="2" class="fill-accent/15" />
+            <g font-size="8.5" font-family="var(--font-family-mono)" class="fill-text">
+              {code.map(([line, h], i) => (
+                <text x="8" y={28 + i * 12} class={h ? 'fill-accent' : undefined} xml:space="preserve">{line}</text>
               ))}
             </g>
             <rect y="208" width="372" height="26" class="fill-bg-surface" />
             <text x="8" y="225" font-size="9.5" font-family="var(--font-family-mono)" xml:space="preserve"><tspan class="fill-accent">; </tspan><tspan class="fill-text">mk install</tspan></text>
           </Laptop>
+          <text x="230" y="344" text-anchor="middle" class="fill-text" font-size="15" font-weight="600" font-family="var(--font-family-sans)">{t.hotloadLaptop}</text>
+          <text x="230" y="364" text-anchor="middle" class="fill-text-muted" font-size="12" font-family="var(--font-family-mono)">{t.hotloadTagMac}</text>
 
-          {pis.map((p) => (
+          {targets.map((p) => (
             <>
-              <BoardArt board={p.board} label="" x={640} y={p.y} width={150} class="text-node-rpi" />
-              <text x="806" y={p.y + 44} class="fill-text" font-size="15" font-weight="600" font-family="var(--font-family-sans)">{p.name}</text>
-              <circle cx="812" cy={p.y + 63} r="4" class="fill-node-jetson">
+              {p.kind === 'pi5' && <BoardArt board="pi5" label="" x={640} y={p.y} width={150} class="text-node-rpi" />}
+              {p.kind === 'desktop' && (
+                <Monitor x={644} y={p.y - 4} width={142} class="text-node-laptop">
+                  <rect width="416" height="240" fill="#0d0d14" />
+                  <rect x="40" y="40" width="336" height="150" rx="4" class="fill-bg-surface stroke-border" stroke-width="2" />
+                  <g font-size="22" font-family="var(--font-family-mono)" xml:space="preserve">
+                    <text x="60" y="88"><tspan class="fill-accent">; </tspan><tspan class="fill-text">hello</tspan></text>
+                    <text x="60" y="124" class="fill-text-muted">hello from desktop</text>
+                  </g>
+                  <rect y="214" width="416" height="26" class="fill-bg-surface-hover" />
+                </Monitor>
+              )}
+              {p.kind === 'jetson' && <Jetson x={652} y={p.y} width={126} class="text-node-jetson" />}
+              <text x="806" y={p.y + 30} class="fill-text" font-size="15" font-weight="600" font-family="var(--font-family-sans)">{p.name}</text>
+              <text x="806" y={p.y + 50} class="fill-accent" font-size="12" font-family="var(--font-family-mono)">{p.tag}</text>
+              <circle cx="812" cy={p.y + 68} r="4" class="fill-node-jetson">
                 <animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite" />
               </circle>
-              <text x="822" y={p.y + 67} class="fill-text-muted" font-size="12" font-family="var(--font-family-mono)">{t.hotloadRunning}</text>
+              <text x="822" y={p.y + 72} class="fill-text-muted" font-size="12" font-family="var(--font-family-mono)">hello from {p.sys}</text>
             </>
           ))}
         </svg>
@@ -110,8 +130,8 @@ const inputCable = 'M540 206 C430 206 400 196 288 196';
           <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> listen 'tcp!*!styx' {'{'}export /dis{'}'} &amp;</span></div>
           <div class="whitespace-pre pt-2 text-text-muted">{t.hotloadTermPi}</div>
           <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> mount 'tcp!laptop!styx' /n/laptop</span></div>
-          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> bind /n/laptop/anchorwatch.dis /dis/anchorwatch.dis</span></div>
-          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> anchorwatch &amp;</span></div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> bind /n/laptop/hello.dis /dis/hello.dis</span></div>
+          <div class="whitespace-pre"><span class="text-accent">;</span><span class="text-text"> hello</span></div>
           <div class="whitespace-pre pt-2 text-text-muted">{t.hotloadTermNote1}</div>
           <div class="whitespace-pre text-text-muted">{t.hotloadTermNote2}</div>
         </div>
