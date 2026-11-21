@@ -4,15 +4,15 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import BoardArt from '../components/BoardArt.astro';
 
-const title = 'InferNode for IoT and Embedded Systems — Robotics and Physical AI on Raspberry Pi 3B+, 4B and 5';
-const description = 'Run InferNode as the operating system on Raspberry Pi 3B+, 4B and 5, and mount microcontrollers as files. For IoT, embedded systems, robotics and physical AI: agents get only the sensors, cameras and actuators you grant them.';
-const keywords = 'IoT, embedded systems, embedded operating system, robotics, physical AI, embodied AI, AI robotics, robot control, operating system for robots, edge robotics, servo control, machine vision, edge AI, edge computing, embedded AI, AI agents, Raspberry Pi, Raspberry Pi 5, Raspberry Pi 4, Raspberry Pi 3B+, Raspberry Pi Pico 2 W, RP2350, bare metal, 9P, Styx, capability security, RISC-V';
+const title = 'InferNode for IoT and Embedded Systems — Robotics and Physical AI on Raspberry Pi Zero 2 W, 3B+, 4B and 5';
+const description = 'Run InferNode as the operating system on Raspberry Pi Zero 2 W, 3B+, 4B and 5, and mount microcontrollers as files. For IoT, embedded systems, robotics and physical AI: agents get only the sensors, cameras and actuators you grant them.';
+const keywords = 'IoT, embedded systems, embedded operating system, robotics, physical AI, embodied AI, AI robotics, robot control, operating system for robots, edge robotics, servo control, machine vision, edge AI, edge computing, embedded AI, AI agents, Raspberry Pi, Raspberry Pi 5, Raspberry Pi 4, Raspberry Pi 3B+, Raspberry Pi Zero 2 W, Raspberry Pi Pico 2 W, RP2350, bare metal, 9P, Styx, capability security, RISC-V';
 const eyebrow = 'mb-4 text-sm font-medium tracking-widest uppercase text-accent';
 const h2 = 'text-3xl font-bold tracking-tight sm:text-4xl';
 const chip = 'rounded-full border border-border bg-bg px-2.5 py-0.5 text-xs text-text-muted';
 
 const stats = [
-  { n: '3', l: 'Raspberry Pi generations, on real boards' },
+  { n: '4', l: 'Raspberry Pi models, run on real boards' },
   { n: '0', l: 'layers of Linux underneath' },
   { n: '927', l: 'Mbit/s Ethernet received, measured on a Pi 5' },
   { n: '1', l: 'file tree for every device' },
@@ -35,6 +35,7 @@ const boards = [
   { art: 'pi5', color: 'text-accent', name: 'Raspberry Pi 5', tag: 'Newest and fastest', body: 'Quad-core BCM2712 with RP1. Our fastest edge node, with NVMe for local storage and all of the header.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'NVMe', 'GPIO, I2C, SPI, PWM', 'Real-time clock', 'Dual HDMI ports', '7" touch panel'], soon: 'Coming soon: audio.' },
   { art: 'pi4', color: 'text-node-laptop', name: 'Raspberry Pi 4B', tag: 'Gateways and control panels', body: 'Quad-core BCM2711 with USB, audio and dual displays. A steady node for gateways, kiosks and touch-panel controls.', has: ['Gigabit Ethernet', 'Wi-Fi', 'Bluetooth', 'USB', 'SD card', 'Dual HDMI ports', 'GPIO', 'Audio jack', '7" touch panel', 'A/B kernel update', 'Boot watchdog'] },
   { art: 'pi3', color: 'text-node-jetson', name: 'Raspberry Pi 3B+', tag: 'Sensors in the field', body: 'Quad-core BCM2837 on a small power budget, with Wi-Fi and Bluetooth on board and recoverable field updates built in.', has: pi3has },
+  { art: 'zero2w', color: 'text-node-cloud', name: 'Raspberry Pi Zero 2 W', tag: 'Small and low-power', body: 'Quad-core RP3A0 (BCM2837) with 512 MB on a 65 × 30 mm board. It boots the 3B+’s kernel unchanged: a camera or a sensor where a bigger board won’t fit.', has: ['Wi-Fi', 'Bluetooth', 'Camera', 'SD card', 'A/B kernel update'], soon: 'Not yet run: HDMI out and USB OTG devices. No release image yet; build its card from source.' },
 ];
 const granted = ['/n/brick/temp', '/n/brick/adc/0', '/n/brick/gpio/6', '/mnt/llm'];
 const hidden = ['/n/brick/pwm/15', '/n/brick/d2', '/net', '/usr/you/.ssh'];
@@ -77,7 +78,8 @@ const safety = [
           <a href="/docs/bare-metal/" class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Run on bare metal</a>
           <a href="/security/" class="rounded-lg border border-border px-8 py-3 font-medium text-text-muted transition hover:border-accent hover:text-text">How containment works</a>
         </div>
-        <div class="mx-auto mt-16 grid max-w-5xl grid-cols-2 items-center gap-6 md:grid-cols-4" aria-hidden="true">
+        <div class="mx-auto mt-16 grid max-w-5xl grid-cols-2 items-center gap-6 md:grid-cols-5" aria-hidden="true">
+          <BoardArt board="zero2w" label="" class="w-full text-node-cloud" />
           <BoardArt board="pi3" label="" class="w-full text-node-jetson" />
           <BoardArt board="pi4" label="" class="w-full text-node-laptop" />
           <BoardArt board="pi5" label="" class="w-full text-accent" />
@@ -101,10 +103,10 @@ const safety = [
         <h2 class={`mb-4 ${h2}`}>InferNode is the operating system, not an app on Linux</h2>
         <p class="mx-auto max-w-2xl text-lg text-text-muted">The kernel boots, brings up the hardware and runs the same programs as hosted InferNode, with the desktop if you want one and headless if you don&rsquo;t.</p>
       </div>
-      <div class="grid gap-6 md:grid-cols-3">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {boards.map((b) => (
           <div class="min-w-0 rounded-xl border border-border bg-bg-surface p-6">
-            <BoardArt board={b.art as 'pi3' | 'pi4' | 'pi5'} label={`Drawing of a ${b.name} layout`} class={`mb-5 w-full ${b.color}`} />
+            <BoardArt board={b.art as 'zero2w' | 'pi3' | 'pi4' | 'pi5'} label={`Drawing of a ${b.name} layout`} class={`mb-5 w-full ${b.color}`} />
             <h3 class="text-lg font-semibold">{b.name}</h3>
             <p class={`mb-2 text-sm font-medium ${b.color}`}>{b.tag}</p>
             <p class="mb-4 text-sm leading-relaxed text-text-muted">{b.body}</p>
@@ -260,7 +262,7 @@ rise 6 7836364</code></pre>
 
     <section class="mx-auto mt-32 max-w-2xl text-center">
       <h2 class={`mb-6 ${h2}`}>Start with a Pi</h2>
-      <p class="mb-8 text-lg text-text-muted">The latest release includes card images for the Pi 3B+, Pi 4B and Pi 5. Flash one, boot it, and mount your first device.</p>
+      <p class="mb-8 text-lg text-text-muted">The latest release includes card images for the Pi 3B+, Pi 4B and Pi 5. Flash one, boot it, and mount your first device. The Zero 2 W has no image in a release yet: <a href="/docs/bare-metal/" class="text-accent hover:underline">build its card</a> with <code class="font-mono text-sm">tools/mkpiimage.sh rpizero2w</code>.</p>
       <div class="flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
         <a href="/download/infernode/rpi5.img.xz" class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Pi 5 card image</a>
         <a href="/download/infernode/rpi4b.img.xz" class="rounded-lg bg-accent px-8 py-3 font-medium text-white transition hover:bg-accent-glow">Pi 4B card image</a>

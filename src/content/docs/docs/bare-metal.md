@@ -19,6 +19,7 @@ in the InferNode repository.
 | Board | State |
 |-------|-------|
 | **Raspberry Pi 3B+** (`os/bcm2837`) | Runs on the real board, and on QEMU's `raspi3b`. Ethernet, Wi-Fi, Bluetooth, SD card, HDMI/DSI, USB keyboard and mouse, touch, GPIO, audio, A/B kernel update, boot watchdog. |
+| **Raspberry Pi Zero 2 W** (`os/bcm2837`) | Runs on the real board (Rev 1.0) with the 3B+'s kernel, boot firmware and `config.txt` unchanged: Wi-Fi, Bluetooth, the camera, the SD card, A/B kernel update by tryboot. Not yet run: the HDMI output and a device on the OTG port. No Ethernet; there is no release image yet, so `tools/mkpiimage.sh rpizero2w` makes its card. |
 | **Raspberry Pi 4B** (`os/bcm2711`) | Runs on the real board: SD card, gigabit Ethernet, both radios, USB-A, the 7" panel and all four cores. Boots to the desktop under QEMU's `raspi4b`. |
 | **Raspberry Pi 5** (`os/bcm2712`) | Runs on the real board (8GB, rev 1.0); no emulator models a Pi 5. All four cores, gigabit Ethernet, USB, Wi-Fi, Bluetooth, GPIO, I2C, SPI, PWM, the real-time clock, the fan, an NVMe drive, and the desktop on either HDMI port. Not yet: two screens at once, DSI and CSI. The D0 stepping (2GB boards and later) has not been run. |
 | **QEMU `virt`** (`os/virt`) | GICv2 and virtio (net, blk, keyboard, tablet, ramfb) — the kernel anywhere QEMU runs, which is what CI boots. |
@@ -149,7 +150,10 @@ is mirrored to HDMI once the framebuffer is up, but everything before that,
 and every panic, is on the serial line only.
 
 Each board has its own files and differences. The Pi 4B uses `start4.elf`,
-`fixup4.dat` and its own kernel image. The Pi 5 keeps its firmware in EEPROM,
+`fixup4.dat` and its own kernel image. The Zero 2 W takes the 3B+'s files
+as they are, adds Synaptics radio firmware for its CYW43436 (the card's `bt`
+file names the Bluetooth patch), and has no Ethernet: its network is Wi-Fi,
+or a USB adapter on the OTG port. The Pi 5 keeps its firmware in EEPROM,
 so the card holds `kernel_2712.img`, `config.txt` and the
 `bcm2712-rpi-5-b.dtb` and `bcm2712d0-rpi-5-b.dtb` device trees instead, and
 its serial console is on RP1's UART. The

@@ -3,7 +3,7 @@
 // published mechanical drawings. Not Raspberry Pi's artwork.
 type Part = { x: number; y: number; w: number; h: number; kind: 'chip' | 'port' | 'can' | 'ffc' | 'hdr'; label?: string; size?: number };
 interface Props {
-  board: 'pi3' | 'pi4' | 'pi5' | 'pico';
+  board: 'zero2w' | 'pi3' | 'pi4' | 'pi5' | 'pico';
   label: string;
   class?: string;
   // Placed inside another drawing: where, and how wide (its height follows).
@@ -17,6 +17,11 @@ const r = (x0: number, x1: number, y0: number, y1: number, kind: Part['kind'], l
   ({ x: x0, y: y0, w: x1 - x0, h: y1 - y0, kind, label, size });
 
 const parts: Record<Props['board'], Part[]> = {
+  zero2w: [
+    r(-1.5, 11.5, 9.5, 20.5, 'port'), r(24, 38.5, 8.5, 23, 'chip', 'RP3A0'), r(42, 53.5, 9, 20.5, 'can'),
+    r(61.5, 65.5, 8, 22, 'ffc'),
+    r(6.8, 18, 24, 31, 'port', 'HDMI', 2), r(37.7, 45.2, 25, 31, 'port'), r(50.3, 57.8, 25, 31, 'port'),
+  ],
   pi3: [
     r(69.3, 87.3, 2.1, 15.7, 'port', 'USB'), r(69.3, 87.3, 19.8, 33.4, 'port', 'USB'), r(65.6, 87.3, 38, 53.4, 'port', 'ETH'),
     r(19.8, 34, 17.3, 31.5, 'chip', 'BCM2837'), r(6.5, 17.1, 6.5, 19.8, 'can'),
@@ -44,21 +49,26 @@ const parts: Record<Props['board'], Part[]> = {
   ],
 };
 const pico = board === 'pico';
-const W = pico ? 51 : 85;
-const H = pico ? 21 : 56;
-const vb = pico ? '-2 -1 54 23' : '-1 -1 91 62';
-const height = width === undefined ? undefined : width * (pico ? 23 / 54 : 62 / 91);
-const holes = pico ? [[2, 4.8], [2, 16.2], [49, 4.8], [49, 16.2]] : [[3.5, 3.5], [61.5, 3.5], [3.5, 52.5], [61.5, 52.5]];
+const zero = board === 'zero2w';
+const W = pico ? 51 : zero ? 65 : 85;
+const H = pico ? 21 : zero ? 30 : 56;
+const vb = pico ? '-2 -1 54 23' : zero ? '-2 -1 68 33' : '-1 -1 91 62';
+const height = width === undefined ? undefined : width * (pico ? 23 / 54 : zero ? 33 / 68 : 62 / 91);
+const holes = pico ? [[2, 4.8], [2, 16.2], [49, 4.8], [49, 16.2]]
+  : zero ? [[3.5, 3.5], [61.5, 3.5], [3.5, 26.5], [61.5, 26.5]]
+  : [[3.5, 3.5], [61.5, 3.5], [3.5, 52.5], [61.5, 52.5]];
+// The Zero's header is centred between its mounting holes.
+const pin1 = zero ? 8.37 : 8.87;
 const pins = pico
   ? Array.from({ length: 20 }, (_, i) => 1.37 + i * 2.54).flatMap((x) => [[x, 1.61], [x, 19.39]])
-  : Array.from({ length: 20 }, (_, i) => 8.87 + i * 2.54).flatMap((x) => [[x, 2.23], [x, 4.77]]);
+  : Array.from({ length: 20 }, (_, i) => pin1 + i * 2.54).flatMap((x) => [[x, 2.23], [x, 4.77]]);
 const fill = { chip: 0.4, port: 0.22, can: 0.16, ffc: 0.3, hdr: 0.3 };
 ---
 
 <svg viewBox={vb} x={x} y={y} width={width} height={height} class={cls} role={label ? 'img' : undefined} aria-label={label || undefined} fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width={W} height={H} rx={pico ? 1 : 3} fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="0.5" />
   {holes.map(([x, y]) => <circle cx={x} cy={y} r={pico ? 1.05 : 1.5} stroke="currentColor" stroke-width="0.35" />)}
-  {!pico && <rect x="6.9" y="1" width="50.8" height="5" rx="0.4" stroke="currentColor" stroke-width="0.25" />}
+  {!pico && <rect x={pin1 - 1.97} y="1" width="50.8" height="5" rx="0.4" stroke="currentColor" stroke-width="0.25" />}
   {pins.map(([x, y]) => pico
     ? <circle cx={x} cy={y} r="0.75" stroke="currentColor" stroke-width="0.3" />
     : <rect x={x - 0.65} y={y - 0.65} width="1.3" height="1.3" fill="currentColor" fill-opacity="0.55" />)}
