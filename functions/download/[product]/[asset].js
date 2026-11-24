@@ -26,6 +26,7 @@ const ASSETS = {
     'rpi5.img.xz',
     'rpi4b.img.xz',
     'rpi3bplus.img.xz',
+    'rpizero2w.img.xz',
   ]),
   xenith: new Set([
     'linux-amd64.tar.gz',
