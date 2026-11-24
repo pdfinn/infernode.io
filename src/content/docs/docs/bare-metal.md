@@ -19,7 +19,7 @@ in the InferNode repository.
 | Board | State |
 |-------|-------|
 | **Raspberry Pi 3B+** (`os/bcm2837`) | Runs on the real board, and on QEMU's `raspi3b`. Ethernet, Wi-Fi, Bluetooth, SD card, HDMI/DSI, USB keyboard and mouse, touch, GPIO, audio, A/B kernel update, boot watchdog. |
-| **Raspberry Pi Zero 2 W** (`os/bcm2837`) | Runs on the real board, with the 3B+'s kernel, boot firmware and `config.txt` as they are. Wi-Fi, Bluetooth, the camera at 30 frames a second, I2C, SD card, A/B kernel update. |
+| **Raspberry Pi Zero 2 W** (`os/bcm2837`) | Runs on the real board, with the 3B+'s kernel, boot firmware and `config.txt` as they are. Wi-Fi, Bluetooth, the desktop on mini HDMI, the camera at 30 frames a second, I2C, SD card, A/B kernel update. |
 | **Raspberry Pi 4B** (`os/bcm2711`) | Runs on the real board: SD card, gigabit Ethernet, both radios, USB-A, the 7" panel and all four cores. Boots to the desktop under QEMU's `raspi4b`. |
 | **Raspberry Pi 5** (`os/bcm2712`) | Runs on the real board (8GB, rev 1.0); no emulator models a Pi 5. All four cores, gigabit Ethernet, USB, Wi-Fi, Bluetooth, GPIO, I2C, SPI, PWM, the real-time clock, the fan, an NVMe drive, and the desktop on either HDMI port. Not yet: two screens at once, DSI and CSI. The D0 stepping (2GB boards and later) has not been run. |
 | **QEMU `virt`** (`os/virt`) | GICv2 and virtio (net, blk, keyboard, tablet, ramfb) — the kernel anywhere QEMU runs, which is what CI boots. |
