@@ -95,6 +95,10 @@ export const ui = {
     stat3Note: 'headless configuration',
     stat4Value: 'Open Source',
     stat4Label: 'MIT Licensed',
+    pressLabel: 'As featured in',
+    pressOutlet: 'The Register',
+    pressHeadline: '&ldquo;InferNode gives Bell Labs&rsquo; Inferno OS a 64-bit second wind&rdquo;',
+    pressUrl: 'https://www.theregister.com/os-platforms/2026/11/24/infernode-gives-bell-labs-inferno-os-a-64-bit-second-wind/5311704',
   },
 
   demoVideo: {

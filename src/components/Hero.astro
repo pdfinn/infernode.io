@@ -72,5 +72,20 @@ const t = useTranslations(lang).hero;
         <span>{t.stat4Label}</span>
       </div>
     </div>
+
+    <!-- Press -->
+    <a
+      href={t.pressUrl}
+      target="_blank"
+      rel="noopener"
+      class="group mx-auto mt-14 flex max-w-xl flex-col items-center gap-2 rounded-xl border border-border px-6 py-4 transition hover:border-accent/60"
+    >
+      <span class="text-xs font-medium tracking-widest uppercase text-text-muted">{t.pressLabel}</span>
+      <span class="flex items-center gap-2 text-lg font-semibold text-text">
+        <i class="ph ph-newspaper text-xl text-accent" />
+        {t.pressOutlet}
+      </span>
+      <span class="text-sm italic text-text-muted transition group-hover:text-text" set:html={t.pressHeadline} />
+    </a>
   </div>
 </section>

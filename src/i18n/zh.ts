@@ -98,13 +98,17 @@ export const ui: Ui = {
     stat1Value: '模型检查',
     stat1Label: 'TLA+ / SPIN / CBMC',
     stat2Value: '15&ndash;30 MB',
-    stat2Label: '可达状态都经过检查',
+    stat2Label: '内存占用',
     stat2Note: '无界面配置',
     stat3Value: '2 秒',
     stat3Label: '冷启动',
     stat3Note: '无界面配置',
     stat4Value: '开源',
     stat4Label: 'MIT 许可',
+    pressLabel: '媒体报道',
+    pressOutlet: 'The Register',
+    pressHeadline: '&ldquo;InferNode gives Bell Labs&rsquo; Inferno OS a 64-bit second wind&rdquo;',
+    pressUrl: 'https://www.theregister.com/os-platforms/2026/11/24/infernode-gives-bell-labs-inferno-os-a-64-bit-second-wind/5311704',
   },
 
   demoVideo: {
